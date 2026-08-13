@@ -1,0 +1,7 @@
+-- the public.bulat_temp contains complete case user_ids n=6745
+select v.user_id, v.date, v.type, v.value, v.source 
+--select count(distinct v.user_id)
+from datenspende.vitaldata v 
+join public.bulat_temp t
+	on v.user_id = t.user_id
+order by v.user_id asc
