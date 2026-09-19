@@ -1,0 +1,53 @@
+{
+  "fs_seed": 20260919,
+  "n_trees": 100,
+  "repeats": 30,
+  "sources": [
+    3,
+    6,
+    7
+  ],
+  "jobs": 9,
+  "fractions": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15
+  },
+  "g1_config": {
+    "max_features": 0.4,
+    "min_samples_leaf": 10,
+    "max_depth": null,
+    "class_weight": "balanced_subsample"
+  },
+  "pi_repeats": 3,
+  "a3_ks": [
+    50,
+    100
+  ],
+  "nzv": {
+    "dominant": 0.95,
+    "unique": 0.1
+  },
+  "corr_threshold": 0.95,
+  "arms": [
+    "A0",
+    "A1",
+    "A2",
+    "A3_k50",
+    "A3_k100"
+  ],
+  "versions": {
+    "python": "3.14.5",
+    "sklearn": "1.9.0",
+    "pandas": "3.0.3",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "joblib": "1.5.3"
+  },
+  "script_sha256": {
+    "feat_sel.py": "6283e0a3a7ea42a3e8b8ae17be46a837f3f7dd03f57d14321393ce0eee41e611",
+    "preprocess.py": "c095433e5bef4b6023a37a1411febe74564eb1f3055da6d69bbbcfb19ec35b8e",
+    "model.py": "b8805ca5d2ff2ba92cfe40ea2159ae615823d18e8e1abc4d7d39183695155771",
+    "sq_config.py": "777137225f5de7c914321b82c213a5dd929fcf41e1274031405a8989b31ce1ce"
+  }
+}

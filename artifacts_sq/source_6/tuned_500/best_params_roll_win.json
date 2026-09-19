@@ -1,0 +1,13 @@
+{
+  "config_id": 14,
+  "params": {
+    "max_features": "sqrt",
+    "min_samples_leaf": 10,
+    "max_depth": 12,
+    "class_weight": null
+  },
+  "cv_auroc": 0.6557778280881812,
+  "cv_balanced_accuracy": 0.5121955928086543,
+  "n_folds": 5,
+  "n_estimators_tuning": 500
+}

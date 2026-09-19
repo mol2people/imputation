@@ -1,0 +1,436 @@
+{
+  "seed": 20260919,
+  "n_trees": 100,
+  "repeats": 30,
+  "sources": [
+    3,
+    6,
+    7
+  ],
+  "jobs": 9,
+  "g1_config": {
+    "max_features": 0.4,
+    "min_samples_leaf": 10,
+    "max_depth": null,
+    "class_weight": "balanced_subsample"
+  },
+  "fractions": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15
+  },
+  "families": {
+    "E1": [
+      {
+        "name": "fe1__rec_ch3000_weekday_x_tod_night",
+        "parents": [
+          "rec__ch3000_weekday_mean",
+          "rec__ch3000_tod_night"
+        ]
+      },
+      {
+        "name": "fe1__rec_ch3000_weekday_x_tod_morning",
+        "parents": [
+          "rec__ch3000_weekday_mean",
+          "rec__ch3000_tod_morning"
+        ]
+      },
+      {
+        "name": "fe1__rec_ch3000_weekday_x_tod_afternoon",
+        "parents": [
+          "rec__ch3000_weekday_mean",
+          "rec__ch3000_tod_afternoon"
+        ]
+      },
+      {
+        "name": "fe1__rec_ch3000_weekday_x_tod_evening",
+        "parents": [
+          "rec__ch3000_weekday_mean",
+          "rec__ch3000_tod_evening"
+        ]
+      },
+      {
+        "name": "fe1__rec_ch3001_weekday_x_tod_night",
+        "parents": [
+          "rec__ch3001_weekday_mean",
+          "rec__ch3001_tod_night"
+        ]
+      },
+      {
+        "name": "fe1__rec_ch3001_weekday_x_tod_morning",
+        "parents": [
+          "rec__ch3001_weekday_mean",
+          "rec__ch3001_tod_morning"
+        ]
+      },
+      {
+        "name": "fe1__rec_ch3001_weekday_x_tod_afternoon",
+        "parents": [
+          "rec__ch3001_weekday_mean",
+          "rec__ch3001_tod_afternoon"
+        ]
+      },
+      {
+        "name": "fe1__rec_ch3001_weekday_x_tod_evening",
+        "parents": [
+          "rec__ch3001_weekday_mean",
+          "rec__ch3001_tod_evening"
+        ]
+      },
+      {
+        "name": "fe1__rec_ch3002_weekday_x_tod_night",
+        "parents": [
+          "rec__ch3002_weekday_mean",
+          "rec__ch3002_tod_night"
+        ]
+      },
+      {
+        "name": "fe1__rec_ch3002_weekday_x_tod_morning",
+        "parents": [
+          "rec__ch3002_weekday_mean",
+          "rec__ch3002_tod_morning"
+        ]
+      },
+      {
+        "name": "fe1__rec_ch3002_weekday_x_tod_afternoon",
+        "parents": [
+          "rec__ch3002_weekday_mean",
+          "rec__ch3002_tod_afternoon"
+        ]
+      },
+      {
+        "name": "fe1__rec_ch3002_weekday_x_tod_evening",
+        "parents": [
+          "rec__ch3002_weekday_mean",
+          "rec__ch3002_tod_evening"
+        ]
+      },
+      {
+        "name": "fe1__win_ch3000_weekday_x_tod_night",
+        "parents": [
+          "win__ch3000_weekday_mean",
+          "win__ch3000_tod_night"
+        ]
+      },
+      {
+        "name": "fe1__win_ch3000_weekday_x_tod_morning",
+        "parents": [
+          "win__ch3000_weekday_mean",
+          "win__ch3000_tod_morning"
+        ]
+      },
+      {
+        "name": "fe1__win_ch3000_weekday_x_tod_afternoon",
+        "parents": [
+          "win__ch3000_weekday_mean",
+          "win__ch3000_tod_afternoon"
+        ]
+      },
+      {
+        "name": "fe1__win_ch3000_weekday_x_tod_evening",
+        "parents": [
+          "win__ch3000_weekday_mean",
+          "win__ch3000_tod_evening"
+        ]
+      },
+      {
+        "name": "fe1__win_ch3001_weekday_x_tod_night",
+        "parents": [
+          "win__ch3001_weekday_mean",
+          "win__ch3001_tod_night"
+        ]
+      },
+      {
+        "name": "fe1__win_ch3001_weekday_x_tod_morning",
+        "parents": [
+          "win__ch3001_weekday_mean",
+          "win__ch3001_tod_morning"
+        ]
+      },
+      {
+        "name": "fe1__win_ch3001_weekday_x_tod_afternoon",
+        "parents": [
+          "win__ch3001_weekday_mean",
+          "win__ch3001_tod_afternoon"
+        ]
+      },
+      {
+        "name": "fe1__win_ch3001_weekday_x_tod_evening",
+        "parents": [
+          "win__ch3001_weekday_mean",
+          "win__ch3001_tod_evening"
+        ]
+      },
+      {
+        "name": "fe1__win_ch3002_weekday_x_tod_night",
+        "parents": [
+          "win__ch3002_weekday_mean",
+          "win__ch3002_tod_night"
+        ]
+      },
+      {
+        "name": "fe1__win_ch3002_weekday_x_tod_morning",
+        "parents": [
+          "win__ch3002_weekday_mean",
+          "win__ch3002_tod_morning"
+        ]
+      },
+      {
+        "name": "fe1__win_ch3002_weekday_x_tod_afternoon",
+        "parents": [
+          "win__ch3002_weekday_mean",
+          "win__ch3002_tod_afternoon"
+        ]
+      },
+      {
+        "name": "fe1__win_ch3002_weekday_x_tod_evening",
+        "parents": [
+          "win__ch3002_weekday_mean",
+          "win__ch3002_tod_evening"
+        ]
+      }
+    ],
+    "E2": [
+      {
+        "name": "fe2__rec_ch3000_div_ch3002_daily_mean",
+        "parents": [
+          "rec__ch3000_mean_of_daily_mean",
+          "rec__ch3002_mean_of_daily_mean"
+        ]
+      },
+      {
+        "name": "fe2__rec_ch3000_div_ch3002_weekday",
+        "parents": [
+          "rec__ch3000_weekday_mean",
+          "rec__ch3002_weekday_mean"
+        ]
+      },
+      {
+        "name": "fe2__rec_ch3000_div_ch3001_daily_mean",
+        "parents": [
+          "rec__ch3000_mean_of_daily_mean",
+          "rec__ch3001_mean_of_daily_mean"
+        ]
+      },
+      {
+        "name": "fe2__rec_ch3000_div_ch3001_weekday",
+        "parents": [
+          "rec__ch3000_weekday_mean",
+          "rec__ch3001_weekday_mean"
+        ]
+      },
+      {
+        "name": "fe2__rec_ch3001_div_ch3002_daily_mean",
+        "parents": [
+          "rec__ch3001_mean_of_daily_mean",
+          "rec__ch3002_mean_of_daily_mean"
+        ]
+      },
+      {
+        "name": "fe2__rec_ch3001_div_ch3002_weekday",
+        "parents": [
+          "rec__ch3001_weekday_mean",
+          "rec__ch3002_weekday_mean"
+        ]
+      },
+      {
+        "name": "fe2__win_ch3000_div_ch3002_daily_mean",
+        "parents": [
+          "win__ch3000_mean_of_daily_mean",
+          "win__ch3002_mean_of_daily_mean"
+        ]
+      },
+      {
+        "name": "fe2__win_ch3000_div_ch3002_weekday",
+        "parents": [
+          "win__ch3000_weekday_mean",
+          "win__ch3002_weekday_mean"
+        ]
+      },
+      {
+        "name": "fe2__win_ch3000_div_ch3001_daily_mean",
+        "parents": [
+          "win__ch3000_mean_of_daily_mean",
+          "win__ch3001_mean_of_daily_mean"
+        ]
+      },
+      {
+        "name": "fe2__win_ch3000_div_ch3001_weekday",
+        "parents": [
+          "win__ch3000_weekday_mean",
+          "win__ch3001_weekday_mean"
+        ]
+      },
+      {
+        "name": "fe2__win_ch3001_div_ch3002_daily_mean",
+        "parents": [
+          "win__ch3001_mean_of_daily_mean",
+          "win__ch3002_mean_of_daily_mean"
+        ]
+      },
+      {
+        "name": "fe2__win_ch3001_div_ch3002_weekday",
+        "parents": [
+          "win__ch3001_weekday_mean",
+          "win__ch3002_weekday_mean"
+        ]
+      }
+    ],
+    "E3": [
+      {
+        "name": "fe3__roll_rec_ch3000_daily_mean_w30_minus_w7",
+        "parents": [
+          "roll_rec__ch3000_daily_mean_w30_mean",
+          "roll_rec__ch3000_daily_mean_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_rec_ch3000_daily_hours_w30_minus_w7",
+        "parents": [
+          "roll_rec__ch3000_daily_hours_w30_mean",
+          "roll_rec__ch3000_daily_hours_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_rec_ch3000_daily_sd_w30_minus_w7",
+        "parents": [
+          "roll_rec__ch3000_daily_sd_w30_mean",
+          "roll_rec__ch3000_daily_sd_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_rec_ch3001_daily_mean_w30_minus_w7",
+        "parents": [
+          "roll_rec__ch3001_daily_mean_w30_mean",
+          "roll_rec__ch3001_daily_mean_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_rec_ch3001_daily_hours_w30_minus_w7",
+        "parents": [
+          "roll_rec__ch3001_daily_hours_w30_mean",
+          "roll_rec__ch3001_daily_hours_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_rec_ch3001_daily_sd_w30_minus_w7",
+        "parents": [
+          "roll_rec__ch3001_daily_sd_w30_mean",
+          "roll_rec__ch3001_daily_sd_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_rec_ch3002_daily_mean_w30_minus_w7",
+        "parents": [
+          "roll_rec__ch3002_daily_mean_w30_mean",
+          "roll_rec__ch3002_daily_mean_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_rec_ch3002_daily_hours_w30_minus_w7",
+        "parents": [
+          "roll_rec__ch3002_daily_hours_w30_mean",
+          "roll_rec__ch3002_daily_hours_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_rec_ch3002_daily_sd_w30_minus_w7",
+        "parents": [
+          "roll_rec__ch3002_daily_sd_w30_mean",
+          "roll_rec__ch3002_daily_sd_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_win_ch3000_daily_mean_w30_minus_w7",
+        "parents": [
+          "roll_win__ch3000_daily_mean_w30_mean",
+          "roll_win__ch3000_daily_mean_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_win_ch3000_daily_hours_w30_minus_w7",
+        "parents": [
+          "roll_win__ch3000_daily_hours_w30_mean",
+          "roll_win__ch3000_daily_hours_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_win_ch3000_daily_sd_w30_minus_w7",
+        "parents": [
+          "roll_win__ch3000_daily_sd_w30_mean",
+          "roll_win__ch3000_daily_sd_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_win_ch3001_daily_mean_w30_minus_w7",
+        "parents": [
+          "roll_win__ch3001_daily_mean_w30_mean",
+          "roll_win__ch3001_daily_mean_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_win_ch3001_daily_hours_w30_minus_w7",
+        "parents": [
+          "roll_win__ch3001_daily_hours_w30_mean",
+          "roll_win__ch3001_daily_hours_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_win_ch3001_daily_sd_w30_minus_w7",
+        "parents": [
+          "roll_win__ch3001_daily_sd_w30_mean",
+          "roll_win__ch3001_daily_sd_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_win_ch3002_daily_mean_w30_minus_w7",
+        "parents": [
+          "roll_win__ch3002_daily_mean_w30_mean",
+          "roll_win__ch3002_daily_mean_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_win_ch3002_daily_hours_w30_minus_w7",
+        "parents": [
+          "roll_win__ch3002_daily_hours_w30_mean",
+          "roll_win__ch3002_daily_hours_w7_mean"
+        ]
+      },
+      {
+        "name": "fe3__roll_win_ch3002_daily_sd_w30_minus_w7",
+        "parents": [
+          "roll_win__ch3002_daily_sd_w30_mean",
+          "roll_win__ch3002_daily_sd_w7_mean"
+        ]
+      }
+    ]
+  },
+  "arms": [
+    "B0",
+    "F1",
+    "F2",
+    "F1_E1",
+    "F1_E2",
+    "F1_E3"
+  ],
+  "dedup": {
+    "threshold": 0.95,
+    "keep_order": "originals_first"
+  },
+  "b0_contract": "identical to FS A1 (< 1e-9)",
+  "versions": {
+    "python": "3.14.5",
+    "sklearn": "1.9.0",
+    "pandas": "3.0.3",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "joblib": "1.5.3"
+  },
+  "script_sha256": {
+    "feat_eng.py": "56980bd28a389d2898b12d039d66dc85f27131dbb354d4002f0e6cae83c891a1",
+    "feat_sel.py": "6283e0a3a7ea42a3e8b8ae17be46a837f3f7dd03f57d14321393ce0eee41e611",
+    "preprocess.py": "c095433e5bef4b6023a37a1411febe74564eb1f3055da6d69bbbcfb19ec35b8e",
+    "model.py": "b8805ca5d2ff2ba92cfe40ea2159ae615823d18e8e1abc4d7d39183695155771",
+    "sq_config.py": "777137225f5de7c914321b82c213a5dd929fcf41e1274031405a8989b31ce1ce"
+  }
+}

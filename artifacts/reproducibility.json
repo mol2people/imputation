@@ -1,0 +1,125 @@
+{
+  "inputs": {
+    "/Users/bulat/Documents/datenspende_IMPUTE_sex/15Sep_2230_PG_type65-66.csv": {
+      "resolved": "/Users/bulat/Documents/datenspende_epoch2daily/15Sep_2230_PG_type65-66.csv",
+      "kind": "file",
+      "size_bytes": 373930639
+    },
+    "/Users/bulat/Documents/datenspende_IMPUTE_sex/13Aug_1222.csv": {
+      "resolved": "/Users/bulat/Documents/datenspende_IMPUTE_sex/13Aug_1222.csv",
+      "kind": "file",
+      "size_bytes": 6660347
+    },
+    "/Users/bulat/Documents/datenspende_IMPUTE_sex/df_whoOneAverage.csv": {
+      "resolved": "/Users/bulat/Documents/datenspende_epoch2daily/df_whoOneAverage.csv",
+      "kind": "file",
+      "size_bytes": 1376522
+    },
+    "/Users/bulat/Documents/datenspende_IMPUTE_sex/out": {
+      "resolved": "/Users/bulat/Documents/datenspende_epoch2daily/out",
+      "kind": "dir",
+      "n_files": 31020
+    }
+  },
+  "seed": 20260918,
+  "rf_seed": 20260918,
+  "bootstrap_seed": 20260918,
+  "package_versions": {
+    "python": "3.14.5",
+    "pandas": "3.0.3",
+    "numpy": "2.4.6",
+    "scikit_learn": "1.9.0",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "skill": "salutation-epoch-rf-v1",
+  "eligibility": {
+    "min_adequate_days": 14,
+    "adequate_hours": 8,
+    "adequate_cov_h": 8,
+    "adequate_n": 60,
+    "excluded_sources": [
+      38,
+      46,
+      48
+    ]
+  },
+  "git_commit": "eac574fab23467772128fb0dd23d634cec86a37e",
+  "checks": [
+    {
+      "check": "labels_exclusively_10_20",
+      "passed": true,
+      "detail": "[10.0, 20.0]"
+    },
+    {
+      "check": "code_30_absent_from_eligible",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "no_excluded_daily_source_columns",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "check": "no_excluded_epoch_sources",
+      "passed": true,
+      "detail": "[np.int64(2), np.int64(3), np.int64(4), np.int64(6), np.int64(7), np.int64(9), np.int64(13), np.int64(19)]"
+    },
+    {
+      "check": "all_eligible_pass_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "all_eligible_adequate_ge_min",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "eligible_once_in_split",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "split_users_equal_eligible",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "splits_disjoint",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "splits_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "feature_rows_match_eligible",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "no_prohibited_metadata_in_features",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "check": "no_salutation_in_features",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "numerical_features_transformed",
+      "passed": true,
+      "detail": "167 transformed features"
+    },
+    {
+      "check": "adequate_day_recomputation_matches",
+      "passed": true,
+      "detail": "max abs diff 0"
+    }
+  ],
+  "all_passed": true
+}

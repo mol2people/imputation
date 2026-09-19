@@ -1,0 +1,51 @@
+{
+  "per_source_sample": {
+    "3": {
+      "files": 15,
+      "parse_failures": 0,
+      "bytes": 676947900,
+      "seconds": 2.381539292051457,
+      "mb_per_s_per_file_stream": 284.2480500990926
+    },
+    "6": {
+      "files": 15,
+      "parse_failures": 0,
+      "bytes": 138424221,
+      "seconds": 0.6427468750625849,
+      "mb_per_s_per_file_stream": 215.36350680276973
+    },
+    "7": {
+      "files": 15,
+      "parse_failures": 0,
+      "bytes": 27119138,
+      "seconds": 0.12310991703998297,
+      "mb_per_s_per_file_stream": 220.28394342262771
+    }
+  },
+  "extrapolation": {
+    "3": {
+      "files_total": 3848,
+      "bytes_total": 156590529763,
+      "gib_total": 145.84,
+      "rate_mbps": 284.2,
+      "est_seconds_single_worker": 550.9
+    },
+    "6": {
+      "files_total": 4446,
+      "bytes_total": 42628200744,
+      "gib_total": 39.7,
+      "rate_mbps": 215.4,
+      "est_seconds_single_worker": 197.9
+    },
+    "7": {
+      "files_total": 541,
+      "bytes_total": 733070228,
+      "gib_total": 0.68,
+      "rate_mbps": 220.3,
+      "est_seconds_single_worker": 3.3
+    }
+  },
+  "sample_size_per_source": 15,
+  "total_gib_all_model_files": 186.22,
+  "workers_planned": 8
+}

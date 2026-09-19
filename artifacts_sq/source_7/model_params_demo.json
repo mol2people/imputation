@@ -1,0 +1,46 @@
+{
+  "random_forest": {
+    "bootstrap": true,
+    "ccp_alpha": 0.0,
+    "class_weight": null,
+    "criterion": "gini",
+    "max_depth": null,
+    "max_features": "sqrt",
+    "max_leaf_nodes": null,
+    "max_samples": null,
+    "min_impurity_decrease": 0.0,
+    "min_samples_leaf": 1,
+    "min_samples_split": 2,
+    "min_weight_fraction_leaf": 0.0,
+    "monotonic_cst": null,
+    "n_estimators": 100,
+    "n_jobs": null,
+    "oob_score": false,
+    "random_state": 20260918,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "preprocessing": {
+    "all_missing_dropped": [],
+    "missing_indicators": [],
+    "zero_variance_dropped": [],
+    "medians": {},
+    "categorical_modes": {
+      "demo__age_group": "Middle Ager",
+      "demo__bmi_grp": "normal"
+    },
+    "onehot_levels": {
+      "demo__age_group": [
+        "Elderly",
+        "Middle Ager",
+        "Young Adults"
+      ],
+      "demo__bmi_grp": [
+        "normal",
+        "obese",
+        "overweight",
+        "underweight"
+      ]
+    }
+  }
+}

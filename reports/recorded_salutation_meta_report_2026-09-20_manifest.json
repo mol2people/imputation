@@ -1,0 +1,12 @@
+{
+  "html": "reports/recorded_salutation_meta_report_2026-09-20.html",
+  "pdf": "reports/recorded_salutation_meta_report_2026-09-20.pdf",
+  "figures": {
+    "reports/figures/01_pooled_cohort_flow.png": "57ad63e410bb3ef5c2ed29bf385da7f131fdd0ef3aabe403243f9c3d6e62e283",
+    "reports/figures/02_strict_source_cohorts.png": "0de047d7eef2e39262e04b06f19f59a274e4597936590c564bbaafe6acd80d8d",
+    "reports/figures/03_source_variant_auroc.png": "28d1c58f03aecaa227b3a99c5e8cd3009e24eb172cbbf8d45458f4a606720f1a",
+    "reports/figures/04_repeated_split_primary_effects.png": "dc67be3cd7610ab76e4c2b4a3ae08d456221bccdb0eec819a697020cf4feece6",
+    "reports/figures/05_missingness_signal.png": "bed769674ef045fa8f475f2c2b55402d2271ef2703edd1e44f4a40efe3ff5396"
+  },
+  "note": "Reporting only; no model fitting."
+}

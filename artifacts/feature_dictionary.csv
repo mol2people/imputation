@@ -1,0 +1,87 @@
+feature,group,channel,units,description
+ch3000_observed_days,acquisition,3000,,observed_days
+ch3000_adequate_days,acquisition,3000,,adequate_days
+ch3000_events,acquisition,3000,,events
+ch3000_first_date,acquisition,3000,,first_date
+ch3000_last_date,acquisition,3000,,last_date
+ch3000_span_days,acquisition,3000,,span_days
+ch3000_mean_cov_h,acquisition,3000,,mean_cov_h
+ch3000_mean_hours,acquisition,3000,,mean_hours
+ch3000_events_per_day,acquisition,3000,,events_per_day
+ch3000_mean_of_daily_mean,value,3000,bpm,mean_of_daily_mean
+ch3000_sd_of_daily_mean,variability,3000,bpm,sd_of_daily_mean
+ch3000_mean_of_daily_sd,variability,3000,bpm,mean_of_daily_sd
+ch3000_median_of_daily_median,value,3000,bpm,median_of_daily_median
+ch3000_p25_of_daily_median,value,3000,bpm,p25_of_daily_median
+ch3000_p75_of_daily_median,value,3000,bpm,p75_of_daily_median
+ch3000_iqr_of_daily_median,value,3000,bpm,iqr_of_daily_median
+ch3000_min_of_daily_min,value,3000,bpm,min_of_daily_min
+ch3000_max_of_daily_max,value,3000,bpm,max_of_daily_max
+ch3000_range_of_daily_extremes,value,3000,bpm,range_of_daily_extremes
+ch3000_weekday_mean,value,3000,bpm,weekday_mean
+ch3000_weekend_mean,value,3000,bpm,weekend_mean
+ch3000_weekend_minus_weekday,derived,3000,,weekend_minus_weekday
+ch3001_observed_days,acquisition,3001,,observed_days
+ch3001_adequate_days,acquisition,3001,,adequate_days
+ch3001_events,acquisition,3001,,events
+ch3001_first_date,acquisition,3001,,first_date
+ch3001_last_date,acquisition,3001,,last_date
+ch3001_span_days,acquisition,3001,,span_days
+ch3001_mean_cov_h,acquisition,3001,,mean_cov_h
+ch3001_mean_hours,acquisition,3001,,mean_hours
+ch3001_events_per_day,acquisition,3001,,events_per_day
+ch3001_mean_of_daily_mean,value,3001,bpm,mean_of_daily_mean
+ch3001_sd_of_daily_mean,variability,3001,bpm,sd_of_daily_mean
+ch3001_mean_of_daily_sd,variability,3001,bpm,mean_of_daily_sd
+ch3001_median_of_daily_median,value,3001,bpm,median_of_daily_median
+ch3001_p25_of_daily_median,value,3001,bpm,p25_of_daily_median
+ch3001_p75_of_daily_median,value,3001,bpm,p75_of_daily_median
+ch3001_iqr_of_daily_median,value,3001,bpm,iqr_of_daily_median
+ch3001_min_of_daily_min,value,3001,bpm,min_of_daily_min
+ch3001_max_of_daily_max,value,3001,bpm,max_of_daily_max
+ch3001_range_of_daily_extremes,value,3001,bpm,range_of_daily_extremes
+ch3001_weekday_mean,value,3001,bpm,weekday_mean
+ch3001_weekend_mean,value,3001,bpm,weekend_mean
+ch3001_weekend_minus_weekday,derived,3001,,weekend_minus_weekday
+ch3002_observed_days,acquisition,3002,,observed_days
+ch3002_adequate_days,acquisition,3002,,adequate_days
+ch3002_events,acquisition,3002,,events
+ch3002_first_date,acquisition,3002,,first_date
+ch3002_last_date,acquisition,3002,,last_date
+ch3002_span_days,acquisition,3002,,span_days
+ch3002_mean_cov_h,acquisition,3002,,mean_cov_h
+ch3002_mean_hours,acquisition,3002,,mean_hours
+ch3002_events_per_day,acquisition,3002,,events_per_day
+ch3002_mean_of_daily_mean,value,3002,bpm,mean_of_daily_mean
+ch3002_sd_of_daily_mean,variability,3002,bpm,sd_of_daily_mean
+ch3002_mean_of_daily_sd,variability,3002,bpm,mean_of_daily_sd
+ch3002_median_of_daily_median,value,3002,bpm,median_of_daily_median
+ch3002_p25_of_daily_median,value,3002,bpm,p25_of_daily_median
+ch3002_p75_of_daily_median,value,3002,bpm,p75_of_daily_median
+ch3002_iqr_of_daily_median,value,3002,bpm,iqr_of_daily_median
+ch3002_min_of_daily_min,value,3002,bpm,min_of_daily_min
+ch3002_max_of_daily_max,value,3002,bpm,max_of_daily_max
+ch3002_range_of_daily_extremes,value,3002,bpm,range_of_daily_extremes
+ch3002_weekday_mean,value,3002,bpm,weekday_mean
+ch3002_weekend_mean,value,3002,bpm,weekend_mean
+ch3002_weekend_minus_weekday,derived,3002,,weekend_minus_weekday
+overall_events,acquisition,all,,events
+overall_days,acquisition,all,,days
+overall_adequate_days,acquisition,all,,adequate_days
+overall_first_date,acquisition,all,,first_date
+overall_last_date,acquisition,all,,last_date
+overall_span_days,acquisition,all,,span_days
+ch3000_tod_night,diurnal,3000,bpm,local time-of-day mean over all valid local-time events (missing when tz unusable)
+ch3000_tod_morning,diurnal,3000,bpm,local time-of-day mean over all valid local-time events (missing when tz unusable)
+ch3000_tod_afternoon,diurnal,3000,bpm,local time-of-day mean over all valid local-time events (missing when tz unusable)
+ch3000_tod_evening,diurnal,3000,bpm,local time-of-day mean over all valid local-time events (missing when tz unusable)
+ch3001_tod_night,diurnal,3001,bpm,local time-of-day mean over all valid local-time events (missing when tz unusable)
+ch3001_tod_morning,diurnal,3001,bpm,local time-of-day mean over all valid local-time events (missing when tz unusable)
+ch3001_tod_afternoon,diurnal,3001,bpm,local time-of-day mean over all valid local-time events (missing when tz unusable)
+ch3001_tod_evening,diurnal,3001,bpm,local time-of-day mean over all valid local-time events (missing when tz unusable)
+ch3002_tod_night,diurnal,3002,bpm,local time-of-day mean over all valid local-time events (missing when tz unusable)
+ch3002_tod_morning,diurnal,3002,bpm,local time-of-day mean over all valid local-time events (missing when tz unusable)
+ch3002_tod_afternoon,diurnal,3002,bpm,local time-of-day mean over all valid local-time events (missing when tz unusable)
+ch3002_tod_evening,diurnal,3002,bpm,local time-of-day mean over all valid local-time events (missing when tz unusable)
+ch3000_minus_ch3001_mean,derived,3000,,minus_ch3001_mean
+ch3000_minus_ch3002_mean,derived,3000,,minus_ch3002_mean

@@ -1,0 +1,40 @@
+category,variable,value,participants
+eligible,salutation,20.0,13667
+eligible,salutation,10.0,6756
+eligible,daily_primary_source,6.0,12087
+eligible,daily_primary_source,3.0,5426
+eligible,daily_primary_source,7.0,1666
+eligible,daily_primary_source,9.0,663
+eligible,daily_primary_source,13.0,581
+eligible,age_group,Middle Ager,13793
+eligible,age_group,Young Adults,4212
+eligible,age_group,Elderly,2418
+eligible,bmi_grp,normal,9229
+eligible,bmi_grp,overweight,6955
+eligible,bmi_grp,obese,3970
+eligible,bmi_grp,underweight,269
+below_coverage_gate,salutation,20.0,1022
+below_coverage_gate,salutation,10.0,500
+below_coverage_gate,daily_primary_source,6.0,786
+below_coverage_gate,daily_primary_source,7.0,310
+below_coverage_gate,daily_primary_source,13.0,255
+below_coverage_gate,daily_primary_source,3.0,130
+below_coverage_gate,daily_primary_source,9.0,41
+below_coverage_gate,age_group,Middle Ager,970
+below_coverage_gate,age_group,Young Adults,335
+below_coverage_gate,age_group,Elderly,217
+below_coverage_gate,bmi_grp,normal,645
+below_coverage_gate,bmi_grp,overweight,502
+below_coverage_gate,bmi_grp,obese,350
+below_coverage_gate,bmi_grp,underweight,25
+no_valid_allowed_measurements,salutation,10.0,16
+no_valid_allowed_measurements,salutation,20.0,15
+no_valid_allowed_measurements,daily_primary_source,3.0,17
+no_valid_allowed_measurements,daily_primary_source,6.0,10
+no_valid_allowed_measurements,daily_primary_source,9.0,4
+no_valid_allowed_measurements,age_group,Middle Ager,25
+no_valid_allowed_measurements,age_group,Elderly,3
+no_valid_allowed_measurements,age_group,Young Adults,3
+no_valid_allowed_measurements,bmi_grp,normal,15
+no_valid_allowed_measurements,bmi_grp,overweight,11
+no_valid_allowed_measurements,bmi_grp,obese,5

@@ -1,0 +1,24 @@
+{
+  "N": 4446,
+  "n_sal20": 3073,
+  "n_profiles": 79,
+  "stage1_min_total_violation": 0.0,
+  "targets": {
+    "train": {
+      "total": 3557,
+      "sal10": 1098,
+      "sal20": 2459
+    },
+    "val": {
+      "total": 445,
+      "sal10": 138,
+      "sal20": 307
+    },
+    "test": {
+      "total": 444,
+      "sal10": 137,
+      "sal20": 307
+    }
+  },
+  "violations": []
+}

@@ -1,0 +1,18 @@
+{
+  "input_columns": [
+    "demo__age_group",
+    "demo__bmi_grp"
+  ],
+  "all_missing_dropped": [],
+  "missing_indicators": [],
+  "zero_variance_dropped": [],
+  "transformed_features": [
+    "demo__age_group=Elderly",
+    "demo__age_group=Middle Ager",
+    "demo__age_group=Young Adults",
+    "demo__bmi_grp=normal",
+    "demo__bmi_grp=obese",
+    "demo__bmi_grp=overweight",
+    "demo__bmi_grp=underweight"
+  ]
+}

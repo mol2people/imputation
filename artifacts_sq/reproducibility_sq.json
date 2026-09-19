@@ -1,0 +1,138 @@
+{
+  "generated": "2026-09-19",
+  "seeds": {
+    "allocation_and_model_seed": 20260918,
+    "rf_random_state": 20260918,
+    "bootstrap_seed": 20260918,
+    "bootstrap_draws": 100
+  },
+  "anchors_corrected": {
+    "note": "section-1 gate semantics authoritative (2026-09-19); supersedes plan section 2 counts and section 4 Apple/Samsung rows",
+    "any_core": {
+      "3": 3848,
+      "6": 4446,
+      "7": 541,
+      "9": 9,
+      "13": 41
+    },
+    "any_core_class": {
+      "3": [
+        1384,
+        2464
+      ],
+      "6": [
+        1373,
+        3073
+      ],
+      "7": [
+        209,
+        332
+      ],
+      "9": [
+        4,
+        5
+      ],
+      "13": [
+        5,
+        36
+      ]
+    },
+    "all_source_pass": 8885,
+    "model_union": 8835,
+    "frozen_splits": {
+      "3": {
+        "train": [
+          3078,
+          1107,
+          1971
+        ],
+        "val": [
+          385,
+          138,
+          247
+        ],
+        "test": [
+          385,
+          139,
+          246
+        ]
+      },
+      "6": {
+        "train": [
+          3557,
+          1098,
+          2459
+        ],
+        "val": [
+          445,
+          138,
+          307
+        ],
+        "test": [
+          444,
+          137,
+          307
+        ]
+      },
+      "7": {
+        "train": [
+          433,
+          167,
+          266
+        ],
+        "val": [
+          54,
+          21,
+          33
+        ],
+        "test": [
+          54,
+          21,
+          33
+        ]
+      }
+    }
+  },
+  "gate": {
+    "strict_cov_s": 43200.0,
+    "min_adequate_weeks": 11,
+    "min_strict_days": 65,
+    "window_weeks": 13,
+    "window_inclusive_days": 91
+  },
+  "package_versions": {
+    "python": "3.14.5",
+    "sklearn": "1.9.0",
+    "pandas": "3.0.3",
+    "numpy": "2.4.6",
+    "joblib": "1.5.3"
+  },
+  "verification": {
+    "checks": 135,
+    "failures": 0
+  },
+  "sha256": {
+    "artifacts_v2/epoch_days.parquet": "ec0b7eea97d3ef462ed34b817cc246d835a112106c11fb065b1a5bd86290589a",
+    "artifacts_v2/epoch_sources.parquet": "b776daa9da958e97ebb78dae43996b9bb9b9d247d25131147951eb36bf08f0d6",
+    "artifacts_v2/epoch_features.parquet": "fdbf0415b50d3e9f56630f32253905d1395ee851485e0f7dbdb379ecb7ca5094",
+    "artifacts_v2/epoch_hours.parquet": "267ee5b5fc7e40a6dbba55bea9d35736d78a6aede36641446795b9acce783451",
+    "artifacts_v2/epoch_meta.parquet": "8aac54391ffc72c6776d1620370ca716ddccb2dc7869ef5f3074f16583dd4e4a",
+    "artifacts_v2/cohort_manifest.parquet": "ec14cc1eefad4218f9c2e52ec6efdc79e3f9bf0881b0b0ba27ff1441dd0c6294",
+    "artifacts_sq/raw_file_manifest.parquet": "537486ded5610294f381ce566a3f87d4923517e6cec50ec49b2d0852c388a5d7",
+    "artifacts_sq/scan_benchmark.json": "8cae64e9598bdadf44558165a79f69bdffd52b5da8dfa4c9e8d4cb0b0681e485",
+    "artifacts_sq/window_diurnal.parquet": "508cc8e0cd77cbfdb1028cc86ad628eafb620beca2033bc20c21ed9ccfc6d088",
+    "src/sidequest/allocate.py": "af7c494e662210ce90d1e80bde701f86836f1e7d84bc3e4bbe87a97880b3ac52",
+    "src/sidequest/cohorts.py": "2d05e6560c6cca7c59a98b2ccde7ee1d40f3b390a3e1d5b99ac92b412e9c823e",
+    "src/sidequest/diurnal.py": "fadf6fe4cab0b7246ae7597e93a5ec48f905241532e58d68b43d3af0d64a2bcd",
+    "src/sidequest/features.py": "b9e8fb9b500d022e89486e30eae3e1c70aaa8a5e047f18b976e5f5724bea317e",
+    "src/sidequest/model.py": "b8805ca5d2ff2ba92cfe40ea2159ae615823d18e8e1abc4d7d39183695155771",
+    "src/sidequest/preprocess.py": "c095433e5bef4b6023a37a1411febe74564eb1f3055da6d69bbbcfb19ec35b8e",
+    "src/sidequest/raw_manifest.py": "210a34ee0649503e922014900ba8b652f4a2c375a5c33d54f4316721eafea4d2",
+    "src/sidequest/report.py": "84b3ef7228eb78e2e3e5602f6a2a5e8beff7fb8f2a18ab1903f63f26354e4328",
+    "src/sidequest/sq_config.py": "777137225f5de7c914321b82c213a5dd929fcf41e1274031405a8989b31ce1ce",
+    "src/sidequest/test_rolling_fixture.py": "c5342a3f0dc4cfacb329981b59ec1a1a42e132a99c1af42502d01e4d81359e02",
+    "src/sidequest/verify.py": "9585f371f90bca598ed13117f0b9cb81b4ed02a2167c90bdf63235ba8ca9c5be",
+    "SIDEQUEST_PLAN.md": "0ded726cb46ba2fd06b762e65867b68fd618ca0ccfd1e13d527f1eb57d8b0f5a",
+    "src/config.py": "a7f7eb58fce8a164fa0ff79c3c36467ad5c175c36483ee72f766c89995dfc8c8"
+  }
+}

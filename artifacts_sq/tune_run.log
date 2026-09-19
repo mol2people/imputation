@@ -1,0 +1,30 @@
+blocks loaded; grid=48 configs x 5 folds x 500 trees; sklearn 1.9.0
+source 3 variant demo: cached; skipping
+source 3 variant rec: cached; skipping
+source 3 variant win: cached; skipping
+source 3 variant roll_rec: cached; skipping
+source 3 variant roll_win: cached; skipping
+source 3 variant all: cached; skipping
+source 3: tuned-500 test AUROC demo=0.5743 rec=0.6981 win=0.7279 roll_rec=0.6412 roll_win=0.6719 all=0.7068
+source 6 variant demo: cached; skipping
+source 6 variant rec: cached; skipping
+source 6 variant win: cached; skipping
+source 6 variant roll_rec: cached; skipping
+source 6 variant roll_win: cached; skipping
+source 6 variant all: CV tuning (48x5 fits)
+  best config 45: {'max_features': 0.4, 'min_samples_leaf': 10, 'max_depth': None, 'class_weight': 'balanced_subsample'} cv_auroc=0.7239
+source 6: tuned-500 test AUROC demo=0.5619 rec=0.7551 win=0.7472 roll_rec=0.7203 roll_win=0.6809 all=0.7714
+source 7 variant demo: CV tuning (48x5 fits)
+  best config 29: {'max_features': 0.2, 'min_samples_leaf': 10, 'max_depth': None, 'class_weight': 'balanced_subsample'} cv_auroc=0.4737
+source 7 variant rec: CV tuning (48x5 fits)
+  best config 27: {'max_features': 0.2, 'min_samples_leaf': 5, 'max_depth': 12, 'class_weight': 'balanced_subsample'} cv_auroc=0.6226
+source 7 variant win: CV tuning (48x5 fits)
+  best config 0: {'max_features': 'sqrt', 'min_samples_leaf': 1, 'max_depth': None, 'class_weight': None} cv_auroc=0.6382
+source 7 variant roll_rec: CV tuning (48x5 fits)
+  best config 1: {'max_features': 'sqrt', 'min_samples_leaf': 1, 'max_depth': None, 'class_weight': 'balanced_subsample'} cv_auroc=0.5878
+source 7 variant roll_win: CV tuning (48x5 fits)
+  best config 4: {'max_features': 'sqrt', 'min_samples_leaf': 2, 'max_depth': None, 'class_weight': None} cv_auroc=0.5762
+source 7 variant all: CV tuning (48x5 fits)
+  best config 42: {'max_features': 0.4, 'min_samples_leaf': 5, 'max_depth': 12, 'class_weight': None} cv_auroc=0.6254
+source 7: tuned-500 test AUROC demo=0.5996 rec=0.6696 win=0.6342 roll_rec=0.6328 roll_win=0.6551 all=0.6797
+18 tuned RF fits complete

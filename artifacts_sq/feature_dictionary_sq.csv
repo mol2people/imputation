@@ -1,0 +1,399 @@
+feature,block,group,channel,width,summary,units,description
+demo__age_group,D,demographic,,,,,linked covariate (categorical)
+demo__bmi_grp,D,demographic,,,,,linked covariate (categorical)
+ch3000_observed_days,A,acquisition,3000,,,,observed days
+ch3000_adequate_days,A,acquisition,3000,,,,adequate days
+ch3000_events,A,acquisition,3000,,,,events
+ch3000_span_days,A,acquisition,3000,,,,span days
+ch3000_mean_cov_h,A,acquisition,3000,,,,mean cov h
+ch3000_mean_hours,A,acquisition,3000,,,,mean hours
+ch3000_events_per_day,A,acquisition,3000,,,,events per day
+ch3000_mean_of_daily_mean,A,value,3000,,,bpm,mean of daily mean
+ch3000_sd_of_daily_mean,A,variability,3000,,,bpm,sd of daily mean
+ch3000_mean_of_daily_sd,A,variability,3000,,,bpm,mean of daily sd
+ch3000_median_of_daily_median,A,value,3000,,,bpm,median of daily median
+ch3000_p25_of_daily_median,A,value,3000,,,bpm,p25 of daily median
+ch3000_p75_of_daily_median,A,value,3000,,,bpm,p75 of daily median
+ch3000_iqr_of_daily_median,A,value,3000,,,bpm,iqr of daily median
+ch3000_min_of_daily_min,A,value,3000,,,bpm,min of daily min
+ch3000_max_of_daily_max,A,value,3000,,,bpm,max of daily max
+ch3000_range_of_daily_extremes,A,value,3000,,,bpm,range of daily extremes
+ch3000_weekday_mean,A,value,3000,,,bpm,weekday mean
+ch3000_weekend_mean,A,value,3000,,,bpm,weekend mean
+ch3000_weekend_minus_weekday,A,derived,3000-vs,,,bpm,resting/active channel contrast
+ch3001_observed_days,A,acquisition,3001,,,,observed days
+ch3001_adequate_days,A,acquisition,3001,,,,adequate days
+ch3001_events,A,acquisition,3001,,,,events
+ch3001_span_days,A,acquisition,3001,,,,span days
+ch3001_mean_cov_h,A,acquisition,3001,,,,mean cov h
+ch3001_mean_hours,A,acquisition,3001,,,,mean hours
+ch3001_events_per_day,A,acquisition,3001,,,,events per day
+ch3001_mean_of_daily_mean,A,value,3001,,,bpm,mean of daily mean
+ch3001_sd_of_daily_mean,A,variability,3001,,,bpm,sd of daily mean
+ch3001_mean_of_daily_sd,A,variability,3001,,,bpm,mean of daily sd
+ch3001_median_of_daily_median,A,value,3001,,,bpm,median of daily median
+ch3001_p25_of_daily_median,A,value,3001,,,bpm,p25 of daily median
+ch3001_p75_of_daily_median,A,value,3001,,,bpm,p75 of daily median
+ch3001_iqr_of_daily_median,A,value,3001,,,bpm,iqr of daily median
+ch3001_min_of_daily_min,A,value,3001,,,bpm,min of daily min
+ch3001_max_of_daily_max,A,value,3001,,,bpm,max of daily max
+ch3001_range_of_daily_extremes,A,value,3001,,,bpm,range of daily extremes
+ch3001_weekday_mean,A,value,3001,,,bpm,weekday mean
+ch3001_weekend_mean,A,value,3001,,,bpm,weekend mean
+ch3001_weekend_minus_weekday,A,derived,3000-vs,,,bpm,resting/active channel contrast
+ch3002_observed_days,A,acquisition,3002,,,,observed days
+ch3002_adequate_days,A,acquisition,3002,,,,adequate days
+ch3002_events,A,acquisition,3002,,,,events
+ch3002_span_days,A,acquisition,3002,,,,span days
+ch3002_mean_cov_h,A,acquisition,3002,,,,mean cov h
+ch3002_mean_hours,A,acquisition,3002,,,,mean hours
+ch3002_events_per_day,A,acquisition,3002,,,,events per day
+ch3002_mean_of_daily_mean,A,value,3002,,,bpm,mean of daily mean
+ch3002_sd_of_daily_mean,A,variability,3002,,,bpm,sd of daily mean
+ch3002_mean_of_daily_sd,A,variability,3002,,,bpm,mean of daily sd
+ch3002_median_of_daily_median,A,value,3002,,,bpm,median of daily median
+ch3002_p25_of_daily_median,A,value,3002,,,bpm,p25 of daily median
+ch3002_p75_of_daily_median,A,value,3002,,,bpm,p75 of daily median
+ch3002_iqr_of_daily_median,A,value,3002,,,bpm,iqr of daily median
+ch3002_min_of_daily_min,A,value,3002,,,bpm,min of daily min
+ch3002_max_of_daily_max,A,value,3002,,,bpm,max of daily max
+ch3002_range_of_daily_extremes,A,value,3002,,,bpm,range of daily extremes
+ch3002_weekday_mean,A,value,3002,,,bpm,weekday mean
+ch3002_weekend_mean,A,value,3002,,,bpm,weekend mean
+ch3002_weekend_minus_weekday,A,derived,3000-vs,,,bpm,resting/active channel contrast
+overall_events,A,acquisition,all,,,,events
+overall_days,A,acquisition,all,,,,days
+overall_span_days,A,acquisition,all,,,,span_days
+overall_adequate_channel_days,A,acquisition,all,,,,adequate_channel_days
+ch3000_minus_ch3001_mean,A,derived,3000-vs,,,bpm,resting/active channel contrast
+ch3000_minus_ch3002_mean,A,derived,3000-vs,,,bpm,resting/active channel contrast
+ch3000_tod_night,A,diurnal,3000,,tod_night,bpm,event-weighted local time-of-day mean HR over the recording (v2 table)
+ch3000_tod_morning,A,diurnal,3000,,tod_morning,bpm,event-weighted local time-of-day mean HR over the recording (v2 table)
+ch3000_tod_afternoon,A,diurnal,3000,,tod_afternoon,bpm,event-weighted local time-of-day mean HR over the recording (v2 table)
+ch3000_tod_evening,A,diurnal,3000,,tod_evening,bpm,event-weighted local time-of-day mean HR over the recording (v2 table)
+ch3001_tod_night,A,diurnal,3001,,tod_night,bpm,event-weighted local time-of-day mean HR over the recording (v2 table)
+ch3001_tod_morning,A,diurnal,3001,,tod_morning,bpm,event-weighted local time-of-day mean HR over the recording (v2 table)
+ch3001_tod_afternoon,A,diurnal,3001,,tod_afternoon,bpm,event-weighted local time-of-day mean HR over the recording (v2 table)
+ch3001_tod_evening,A,diurnal,3001,,tod_evening,bpm,event-weighted local time-of-day mean HR over the recording (v2 table)
+ch3002_tod_night,A,diurnal,3002,,tod_night,bpm,event-weighted local time-of-day mean HR over the recording (v2 table)
+ch3002_tod_morning,A,diurnal,3002,,tod_morning,bpm,event-weighted local time-of-day mean HR over the recording (v2 table)
+ch3002_tod_afternoon,A,diurnal,3002,,tod_afternoon,bpm,event-weighted local time-of-day mean HR over the recording (v2 table)
+ch3002_tod_evening,A,diurnal,3002,,tod_evening,bpm,event-weighted local time-of-day mean HR over the recording (v2 table)
+ch3000_observed_days,B,acquisition,3000,,,,observed days within the selected window
+ch3000_adequate_days,B,acquisition,3000,,,,adequate days within the selected window
+ch3000_events,B,acquisition,3000,,,,events within the selected window
+ch3000_span_days,B,acquisition,3000,,,,span days within the selected window
+ch3000_mean_cov_h,B,acquisition,3000,,,,mean cov h within the selected window
+ch3000_mean_hours,B,acquisition,3000,,,,mean hours within the selected window
+ch3000_events_per_day,B,acquisition,3000,,,,events per day within the selected window
+ch3000_mean_of_daily_mean,B,value,3000,,,bpm,mean of daily mean within the selected window
+ch3000_sd_of_daily_mean,B,variability,3000,,,bpm,sd of daily mean within the selected window
+ch3000_mean_of_daily_sd,B,variability,3000,,,bpm,mean of daily sd within the selected window
+ch3000_median_of_daily_median,B,value,3000,,,bpm,median of daily median within the selected window
+ch3000_p25_of_daily_median,B,value,3000,,,bpm,p25 of daily median within the selected window
+ch3000_p75_of_daily_median,B,value,3000,,,bpm,p75 of daily median within the selected window
+ch3000_iqr_of_daily_median,B,value,3000,,,bpm,iqr of daily median within the selected window
+ch3000_min_of_daily_min,B,value,3000,,,bpm,min of daily min within the selected window
+ch3000_max_of_daily_max,B,value,3000,,,bpm,max of daily max within the selected window
+ch3000_range_of_daily_extremes,B,value,3000,,,bpm,range of daily extremes within the selected window
+ch3000_weekday_mean,B,value,3000,,,bpm,weekday mean within the selected window
+ch3000_weekend_mean,B,value,3000,,,bpm,weekend mean within the selected window
+ch3000_weekend_minus_weekday,B,derived,3000-vs,,,bpm,resting/active channel contrast
+ch3001_observed_days,B,acquisition,3001,,,,observed days within the selected window
+ch3001_adequate_days,B,acquisition,3001,,,,adequate days within the selected window
+ch3001_events,B,acquisition,3001,,,,events within the selected window
+ch3001_span_days,B,acquisition,3001,,,,span days within the selected window
+ch3001_mean_cov_h,B,acquisition,3001,,,,mean cov h within the selected window
+ch3001_mean_hours,B,acquisition,3001,,,,mean hours within the selected window
+ch3001_events_per_day,B,acquisition,3001,,,,events per day within the selected window
+ch3001_mean_of_daily_mean,B,value,3001,,,bpm,mean of daily mean within the selected window
+ch3001_sd_of_daily_mean,B,variability,3001,,,bpm,sd of daily mean within the selected window
+ch3001_mean_of_daily_sd,B,variability,3001,,,bpm,mean of daily sd within the selected window
+ch3001_median_of_daily_median,B,value,3001,,,bpm,median of daily median within the selected window
+ch3001_p25_of_daily_median,B,value,3001,,,bpm,p25 of daily median within the selected window
+ch3001_p75_of_daily_median,B,value,3001,,,bpm,p75 of daily median within the selected window
+ch3001_iqr_of_daily_median,B,value,3001,,,bpm,iqr of daily median within the selected window
+ch3001_min_of_daily_min,B,value,3001,,,bpm,min of daily min within the selected window
+ch3001_max_of_daily_max,B,value,3001,,,bpm,max of daily max within the selected window
+ch3001_range_of_daily_extremes,B,value,3001,,,bpm,range of daily extremes within the selected window
+ch3001_weekday_mean,B,value,3001,,,bpm,weekday mean within the selected window
+ch3001_weekend_mean,B,value,3001,,,bpm,weekend mean within the selected window
+ch3001_weekend_minus_weekday,B,derived,3000-vs,,,bpm,resting/active channel contrast
+ch3002_observed_days,B,acquisition,3002,,,,observed days within the selected window
+ch3002_adequate_days,B,acquisition,3002,,,,adequate days within the selected window
+ch3002_events,B,acquisition,3002,,,,events within the selected window
+ch3002_span_days,B,acquisition,3002,,,,span days within the selected window
+ch3002_mean_cov_h,B,acquisition,3002,,,,mean cov h within the selected window
+ch3002_mean_hours,B,acquisition,3002,,,,mean hours within the selected window
+ch3002_events_per_day,B,acquisition,3002,,,,events per day within the selected window
+ch3002_mean_of_daily_mean,B,value,3002,,,bpm,mean of daily mean within the selected window
+ch3002_sd_of_daily_mean,B,variability,3002,,,bpm,sd of daily mean within the selected window
+ch3002_mean_of_daily_sd,B,variability,3002,,,bpm,mean of daily sd within the selected window
+ch3002_median_of_daily_median,B,value,3002,,,bpm,median of daily median within the selected window
+ch3002_p25_of_daily_median,B,value,3002,,,bpm,p25 of daily median within the selected window
+ch3002_p75_of_daily_median,B,value,3002,,,bpm,p75 of daily median within the selected window
+ch3002_iqr_of_daily_median,B,value,3002,,,bpm,iqr of daily median within the selected window
+ch3002_min_of_daily_min,B,value,3002,,,bpm,min of daily min within the selected window
+ch3002_max_of_daily_max,B,value,3002,,,bpm,max of daily max within the selected window
+ch3002_range_of_daily_extremes,B,value,3002,,,bpm,range of daily extremes within the selected window
+ch3002_weekday_mean,B,value,3002,,,bpm,weekday mean within the selected window
+ch3002_weekend_mean,B,value,3002,,,bpm,weekend mean within the selected window
+ch3002_weekend_minus_weekday,B,derived,3000-vs,,,bpm,resting/active channel contrast
+overall_events,B,acquisition,all,,,,events within the selected window
+overall_days,B,acquisition,all,,,,days within the selected window
+overall_span_days,B,acquisition,all,,,,span_days within the selected window
+overall_adequate_channel_days,B,acquisition,all,,,,adequate_channel_days within the selected window
+ch3000_minus_ch3001_mean,B,derived,3000-vs,,,bpm,resting/active channel contrast
+ch3000_minus_ch3002_mean,B,derived,3000-vs,,,bpm,resting/active channel contrast
+ch3000_tod_night,B,diurnal,3000,,tod_night,bpm,event-weighted local time-of-day mean HR within the selected window
+ch3000_tod_morning,B,diurnal,3000,,tod_morning,bpm,event-weighted local time-of-day mean HR within the selected window
+ch3000_tod_afternoon,B,diurnal,3000,,tod_afternoon,bpm,event-weighted local time-of-day mean HR within the selected window
+ch3000_tod_evening,B,diurnal,3000,,tod_evening,bpm,event-weighted local time-of-day mean HR within the selected window
+ch3001_tod_night,B,diurnal,3001,,tod_night,bpm,event-weighted local time-of-day mean HR within the selected window
+ch3001_tod_morning,B,diurnal,3001,,tod_morning,bpm,event-weighted local time-of-day mean HR within the selected window
+ch3001_tod_afternoon,B,diurnal,3001,,tod_afternoon,bpm,event-weighted local time-of-day mean HR within the selected window
+ch3001_tod_evening,B,diurnal,3001,,tod_evening,bpm,event-weighted local time-of-day mean HR within the selected window
+ch3002_tod_night,B,diurnal,3002,,tod_night,bpm,event-weighted local time-of-day mean HR within the selected window
+ch3002_tod_morning,B,diurnal,3002,,tod_morning,bpm,event-weighted local time-of-day mean HR within the selected window
+ch3002_tod_afternoon,B,diurnal,3002,,tod_afternoon,bpm,event-weighted local time-of-day mean HR within the selected window
+ch3002_tod_evening,B,diurnal,3002,,tod_evening,bpm,event-weighted local time-of-day mean HR within the selected window
+roll_rec__ch3000_daily_hours_w30_max,C_rec,rolling,3000,30d,max,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_hours_w30_mean,C_rec,rolling,3000,30d,mean,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_hours_w30_min,C_rec,rolling,3000,30d,min,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_hours_w30_sd,C_rec,rolling,3000,30d,sd,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_hours_w30_slope,C_rec,rolling,3000,30d,slope,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_hours_w7_max,C_rec,rolling,3000,7d,max,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_hours_w7_mean,C_rec,rolling,3000,7d,mean,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_hours_w7_min,C_rec,rolling,3000,7d,min,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_hours_w7_sd,C_rec,rolling,3000,7d,sd,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_hours_w7_slope,C_rec,rolling,3000,7d,slope,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_mean_w30_max,C_rec,rolling,3000,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_mean_w30_mean,C_rec,rolling,3000,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_mean_w30_min,C_rec,rolling,3000,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_mean_w30_sd,C_rec,rolling,3000,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_mean_w30_slope,C_rec,rolling,3000,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_mean_w7_max,C_rec,rolling,3000,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_mean_w7_mean,C_rec,rolling,3000,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_mean_w7_min,C_rec,rolling,3000,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_mean_w7_sd,C_rec,rolling,3000,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_mean_w7_slope,C_rec,rolling,3000,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_median_w30_max,C_rec,rolling,3000,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_median_w30_mean,C_rec,rolling,3000,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_median_w30_min,C_rec,rolling,3000,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_median_w30_sd,C_rec,rolling,3000,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_median_w30_slope,C_rec,rolling,3000,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_median_w7_max,C_rec,rolling,3000,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_median_w7_mean,C_rec,rolling,3000,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_median_w7_min,C_rec,rolling,3000,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_median_w7_sd,C_rec,rolling,3000,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_median_w7_slope,C_rec,rolling,3000,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_sd_w30_max,C_rec,rolling,3000,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_sd_w30_mean,C_rec,rolling,3000,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_sd_w30_min,C_rec,rolling,3000,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_sd_w30_sd,C_rec,rolling,3000,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_sd_w30_slope,C_rec,rolling,3000,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_sd_w7_max,C_rec,rolling,3000,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_sd_w7_mean,C_rec,rolling,3000,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_sd_w7_min,C_rec,rolling,3000,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_sd_w7_sd,C_rec,rolling,3000,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3000_daily_sd_w7_slope,C_rec,rolling,3000,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_hours_w30_max,C_rec,rolling,3001,30d,max,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_hours_w30_mean,C_rec,rolling,3001,30d,mean,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_hours_w30_min,C_rec,rolling,3001,30d,min,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_hours_w30_sd,C_rec,rolling,3001,30d,sd,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_hours_w30_slope,C_rec,rolling,3001,30d,slope,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_hours_w7_max,C_rec,rolling,3001,7d,max,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_hours_w7_mean,C_rec,rolling,3001,7d,mean,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_hours_w7_min,C_rec,rolling,3001,7d,min,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_hours_w7_sd,C_rec,rolling,3001,7d,sd,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_hours_w7_slope,C_rec,rolling,3001,7d,slope,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_mean_w30_max,C_rec,rolling,3001,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_mean_w30_mean,C_rec,rolling,3001,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_mean_w30_min,C_rec,rolling,3001,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_mean_w30_sd,C_rec,rolling,3001,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_mean_w30_slope,C_rec,rolling,3001,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_mean_w7_max,C_rec,rolling,3001,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_mean_w7_mean,C_rec,rolling,3001,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_mean_w7_min,C_rec,rolling,3001,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_mean_w7_sd,C_rec,rolling,3001,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_mean_w7_slope,C_rec,rolling,3001,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_median_w30_max,C_rec,rolling,3001,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_median_w30_mean,C_rec,rolling,3001,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_median_w30_min,C_rec,rolling,3001,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_median_w30_sd,C_rec,rolling,3001,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_median_w30_slope,C_rec,rolling,3001,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_median_w7_max,C_rec,rolling,3001,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_median_w7_mean,C_rec,rolling,3001,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_median_w7_min,C_rec,rolling,3001,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_median_w7_sd,C_rec,rolling,3001,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_median_w7_slope,C_rec,rolling,3001,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_sd_w30_max,C_rec,rolling,3001,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_sd_w30_mean,C_rec,rolling,3001,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_sd_w30_min,C_rec,rolling,3001,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_sd_w30_sd,C_rec,rolling,3001,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_sd_w30_slope,C_rec,rolling,3001,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_sd_w7_max,C_rec,rolling,3001,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_sd_w7_mean,C_rec,rolling,3001,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_sd_w7_min,C_rec,rolling,3001,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_sd_w7_sd,C_rec,rolling,3001,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3001_daily_sd_w7_slope,C_rec,rolling,3001,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_hours_w30_max,C_rec,rolling,3002,30d,max,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_hours_w30_mean,C_rec,rolling,3002,30d,mean,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_hours_w30_min,C_rec,rolling,3002,30d,min,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_hours_w30_sd,C_rec,rolling,3002,30d,sd,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_hours_w30_slope,C_rec,rolling,3002,30d,slope,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_hours_w7_max,C_rec,rolling,3002,7d,max,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_hours_w7_mean,C_rec,rolling,3002,7d,mean,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_hours_w7_min,C_rec,rolling,3002,7d,min,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_hours_w7_sd,C_rec,rolling,3002,7d,sd,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_hours_w7_slope,C_rec,rolling,3002,7d,slope,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_mean_w30_max,C_rec,rolling,3002,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_mean_w30_mean,C_rec,rolling,3002,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_mean_w30_min,C_rec,rolling,3002,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_mean_w30_sd,C_rec,rolling,3002,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_mean_w30_slope,C_rec,rolling,3002,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_mean_w7_max,C_rec,rolling,3002,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_mean_w7_mean,C_rec,rolling,3002,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_mean_w7_min,C_rec,rolling,3002,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_mean_w7_sd,C_rec,rolling,3002,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_mean_w7_slope,C_rec,rolling,3002,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_median_w30_max,C_rec,rolling,3002,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_median_w30_mean,C_rec,rolling,3002,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_median_w30_min,C_rec,rolling,3002,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_median_w30_sd,C_rec,rolling,3002,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_median_w30_slope,C_rec,rolling,3002,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_median_w7_max,C_rec,rolling,3002,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_median_w7_mean,C_rec,rolling,3002,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_median_w7_min,C_rec,rolling,3002,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_median_w7_sd,C_rec,rolling,3002,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_median_w7_slope,C_rec,rolling,3002,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_sd_w30_max,C_rec,rolling,3002,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_sd_w30_mean,C_rec,rolling,3002,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_sd_w30_min,C_rec,rolling,3002,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_sd_w30_sd,C_rec,rolling,3002,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_sd_w30_slope,C_rec,rolling,3002,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_sd_w7_max,C_rec,rolling,3002,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_sd_w7_mean,C_rec,rolling,3002,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_sd_w7_min,C_rec,rolling,3002,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_sd_w7_sd,C_rec,rolling,3002,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_rec__ch3002_daily_sd_w7_slope,C_rec,rolling,3002,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope recording span)"
+roll_win__ch3000_daily_hours_w30_max,C_win,rolling,3000,30d,max,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_hours_w30_mean,C_win,rolling,3000,30d,mean,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_hours_w30_min,C_win,rolling,3000,30d,min,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_hours_w30_sd,C_win,rolling,3000,30d,sd,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_hours_w30_slope,C_win,rolling,3000,30d,slope,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_hours_w7_max,C_win,rolling,3000,7d,max,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_hours_w7_mean,C_win,rolling,3000,7d,mean,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_hours_w7_min,C_win,rolling,3000,7d,min,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_hours_w7_sd,C_win,rolling,3000,7d,sd,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_hours_w7_slope,C_win,rolling,3000,7d,slope,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_mean_w30_max,C_win,rolling,3000,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_mean_w30_mean,C_win,rolling,3000,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_mean_w30_min,C_win,rolling,3000,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_mean_w30_sd,C_win,rolling,3000,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_mean_w30_slope,C_win,rolling,3000,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_mean_w7_max,C_win,rolling,3000,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_mean_w7_mean,C_win,rolling,3000,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_mean_w7_min,C_win,rolling,3000,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_mean_w7_sd,C_win,rolling,3000,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_mean_w7_slope,C_win,rolling,3000,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_median_w30_max,C_win,rolling,3000,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_median_w30_mean,C_win,rolling,3000,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_median_w30_min,C_win,rolling,3000,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_median_w30_sd,C_win,rolling,3000,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_median_w30_slope,C_win,rolling,3000,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_median_w7_max,C_win,rolling,3000,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_median_w7_mean,C_win,rolling,3000,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_median_w7_min,C_win,rolling,3000,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_median_w7_sd,C_win,rolling,3000,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_median_w7_slope,C_win,rolling,3000,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_sd_w30_max,C_win,rolling,3000,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_sd_w30_mean,C_win,rolling,3000,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_sd_w30_min,C_win,rolling,3000,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_sd_w30_sd,C_win,rolling,3000,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_sd_w30_slope,C_win,rolling,3000,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_sd_w7_max,C_win,rolling,3000,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_sd_w7_mean,C_win,rolling,3000,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_sd_w7_min,C_win,rolling,3000,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_sd_w7_sd,C_win,rolling,3000,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3000_daily_sd_w7_slope,C_win,rolling,3000,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_hours_w30_max,C_win,rolling,3001,30d,max,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_hours_w30_mean,C_win,rolling,3001,30d,mean,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_hours_w30_min,C_win,rolling,3001,30d,min,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_hours_w30_sd,C_win,rolling,3001,30d,sd,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_hours_w30_slope,C_win,rolling,3001,30d,slope,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_hours_w7_max,C_win,rolling,3001,7d,max,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_hours_w7_mean,C_win,rolling,3001,7d,mean,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_hours_w7_min,C_win,rolling,3001,7d,min,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_hours_w7_sd,C_win,rolling,3001,7d,sd,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_hours_w7_slope,C_win,rolling,3001,7d,slope,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_mean_w30_max,C_win,rolling,3001,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_mean_w30_mean,C_win,rolling,3001,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_mean_w30_min,C_win,rolling,3001,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_mean_w30_sd,C_win,rolling,3001,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_mean_w30_slope,C_win,rolling,3001,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_mean_w7_max,C_win,rolling,3001,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_mean_w7_mean,C_win,rolling,3001,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_mean_w7_min,C_win,rolling,3001,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_mean_w7_sd,C_win,rolling,3001,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_mean_w7_slope,C_win,rolling,3001,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_median_w30_max,C_win,rolling,3001,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_median_w30_mean,C_win,rolling,3001,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_median_w30_min,C_win,rolling,3001,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_median_w30_sd,C_win,rolling,3001,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_median_w30_slope,C_win,rolling,3001,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_median_w7_max,C_win,rolling,3001,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_median_w7_mean,C_win,rolling,3001,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_median_w7_min,C_win,rolling,3001,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_median_w7_sd,C_win,rolling,3001,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_median_w7_slope,C_win,rolling,3001,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_sd_w30_max,C_win,rolling,3001,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_sd_w30_mean,C_win,rolling,3001,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_sd_w30_min,C_win,rolling,3001,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_sd_w30_sd,C_win,rolling,3001,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_sd_w30_slope,C_win,rolling,3001,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_sd_w7_max,C_win,rolling,3001,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_sd_w7_mean,C_win,rolling,3001,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_sd_w7_min,C_win,rolling,3001,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_sd_w7_sd,C_win,rolling,3001,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3001_daily_sd_w7_slope,C_win,rolling,3001,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_hours_w30_max,C_win,rolling,3002,30d,max,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_hours_w30_mean,C_win,rolling,3002,30d,mean,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_hours_w30_min,C_win,rolling,3002,30d,min,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_hours_w30_sd,C_win,rolling,3002,30d,sd,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_hours_w30_slope,C_win,rolling,3002,30d,slope,hours,"endpoint summaries of the trailing-30-day mean of daily_hours (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_hours_w7_max,C_win,rolling,3002,7d,max,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_hours_w7_mean,C_win,rolling,3002,7d,mean,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_hours_w7_min,C_win,rolling,3002,7d,min,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_hours_w7_sd,C_win,rolling,3002,7d,sd,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_hours_w7_slope,C_win,rolling,3002,7d,slope,hours,"endpoint summaries of the trailing-7-day mean of daily_hours (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_mean_w30_max,C_win,rolling,3002,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_mean_w30_mean,C_win,rolling,3002,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_mean_w30_min,C_win,rolling,3002,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_mean_w30_sd,C_win,rolling,3002,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_mean_w30_slope,C_win,rolling,3002,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_mean (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_mean_w7_max,C_win,rolling,3002,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_mean_w7_mean,C_win,rolling,3002,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_mean_w7_min,C_win,rolling,3002,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_mean_w7_sd,C_win,rolling,3002,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_mean_w7_slope,C_win,rolling,3002,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_mean (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_median_w30_max,C_win,rolling,3002,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_median_w30_mean,C_win,rolling,3002,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_median_w30_min,C_win,rolling,3002,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_median_w30_sd,C_win,rolling,3002,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_median_w30_slope,C_win,rolling,3002,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_median (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_median_w7_max,C_win,rolling,3002,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_median_w7_mean,C_win,rolling,3002,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_median_w7_min,C_win,rolling,3002,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_median_w7_sd,C_win,rolling,3002,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_median_w7_slope,C_win,rolling,3002,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_median (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_sd_w30_max,C_win,rolling,3002,30d,max,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_sd_w30_mean,C_win,rolling,3002,30d,mean,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_sd_w30_min,C_win,rolling,3002,30d,min,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_sd_w30_sd,C_win,rolling,3002,30d,sd,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_sd_w30_slope,C_win,rolling,3002,30d,slope,bpm,"endpoint summaries of the trailing-30-day mean of daily_sd (>= 15/30 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_sd_w7_max,C_win,rolling,3002,7d,max,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_sd_w7_mean,C_win,rolling,3002,7d,mean,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_sd_w7_min,C_win,rolling,3002,7d,min,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_sd_w7_sd,C_win,rolling,3002,7d,sd,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"
+roll_win__ch3002_daily_sd_w7_slope,C_win,rolling,3002,7d,slope,bpm,"endpoint summaries of the trailing-7-day mean of daily_sd (>= 4/7 non-missing support, endpoint day adequate; scope selected window)"

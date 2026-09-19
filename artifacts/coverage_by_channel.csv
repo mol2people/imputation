@@ -1,0 +1,4 @@
+channel,name,participants_any_day,participants_ge14_adequate,median_adequate_days
+3000,HeartRate,25745,19315,273.0
+3001,HeartRateResting,24752,18436,194.0
+3002,HeartRateRestingHourly,24610,19965,213.0

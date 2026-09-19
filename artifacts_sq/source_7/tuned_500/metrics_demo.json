@@ -1,0 +1,66 @@
+{
+  "tuning": {
+    "grid_size": 48,
+    "n_folds": 5,
+    "n_estimators_tuning": 500,
+    "tuning_pool": "train+val",
+    "best": {
+      "max_features": 0.2,
+      "min_samples_leaf": 10,
+      "max_depth": null,
+      "class_weight": "balanced_subsample"
+    },
+    "cv_auroc": 0.47367110225574605,
+    "cv_balanced_accuracy": 0.4982388102184587
+  },
+  "test": {
+    "n": 54,
+    "auroc": 0.5995670995670995,
+    "accuracy": 0.5370370370370371,
+    "balanced_accuracy": 0.5865800865800865,
+    "precision": [
+      0.4473684210526316,
+      0.75
+    ],
+    "recall": [
+      0.8095238095238095,
+      0.36363636363636365
+    ],
+    "f1": [
+      0.576271186440678,
+      0.4897959183673469
+    ],
+    "support": [
+      21,
+      33
+    ],
+    "confusion_matrix": [
+      [
+        17,
+        4
+      ],
+      [
+        21,
+        12
+      ]
+    ]
+  },
+  "schema": {
+    "input_columns": [
+      "demo__age_group",
+      "demo__bmi_grp"
+    ],
+    "all_missing_dropped": [],
+    "missing_indicators": [],
+    "zero_variance_dropped": [],
+    "transformed_features": [
+      "demo__age_group=Elderly",
+      "demo__age_group=Middle Ager",
+      "demo__age_group=Young Adults",
+      "demo__bmi_grp=normal",
+      "demo__bmi_grp=obese",
+      "demo__bmi_grp=overweight",
+      "demo__bmi_grp=underweight"
+    ]
+  }
+}

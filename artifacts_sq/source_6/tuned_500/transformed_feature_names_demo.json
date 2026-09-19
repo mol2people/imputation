@@ -1,0 +1,9 @@
+[
+  "demo__age_group=Elderly",
+  "demo__age_group=Middle Ager",
+  "demo__age_group=Young Adults",
+  "demo__bmi_grp=normal",
+  "demo__bmi_grp=obese",
+  "demo__bmi_grp=overweight",
+  "demo__bmi_grp=underweight"
+]

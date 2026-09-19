@@ -1,0 +1,17 @@
+{
+  "N": 20485,
+  "targets": {
+    "train": 16388,
+    "val": 2049,
+    "test": 2048
+  },
+  "class1_targets": {
+    "train": 10957,
+    "val": 1370,
+    "test": 1370
+  },
+  "solver_status": 0,
+  "solver_mode": "hard_margins",
+  "solver_fun": 450224.27968589315,
+  "n_profiles": 1016
+}

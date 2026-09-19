@@ -1,0 +1,6 @@
+source_id,base_single_source,ch3000_pass,ch3001_pass,ch3002_pass,any_core_pass,sal10,sal20,model_eligible,disposition
+3,4410,3847,2148,3181,3848,1384,2464,True,model
+6,11143,28,105,4367,4446,1373,3073,True,model
+7,1498,1,0,540,541,209,332,True,model
+9,396,0,0,9,9,4,5,False,audit only
+13,543,19,1,26,41,5,36,False,audit only

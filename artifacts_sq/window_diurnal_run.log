@@ -1,0 +1,20 @@
+mini-scan over 8,835 files with 8 workers
+  500/8,835 files, 35,844 hour-rows, errors=0, 23 s elapsed
+  1,000/8,835 files, 71,833 hour-rows, errors=0, 43 s elapsed
+  1,500/8,835 files, 107,824 hour-rows, errors=0, 64 s elapsed
+  2,000/8,835 files, 143,799 hour-rows, errors=0, 82 s elapsed
+  2,500/8,835 files, 179,698 hour-rows, errors=0, 98 s elapsed
+  3,000/8,835 files, 215,169 hour-rows, errors=0, 112 s elapsed
+  3,500/8,835 files, 250,712 hour-rows, errors=0, 123 s elapsed
+  4,000/8,835 files, 286,214 hour-rows, errors=0, 132 s elapsed
+  4,500/8,835 files, 321,623 hour-rows, errors=0, 140 s elapsed
+  5,000/8,835 files, 357,143 hour-rows, errors=0, 147 s elapsed
+  5,500/8,835 files, 392,994 hour-rows, errors=0, 153 s elapsed
+  6,000/8,835 files, 428,334 hour-rows, errors=0, 158 s elapsed
+  6,500/8,835 files, 463,865 hour-rows, errors=0, 163 s elapsed
+  7,000/8,835 files, 498,904 hour-rows, errors=0, 167 s elapsed
+  7,500/8,835 files, 534,012 hour-rows, errors=0, 171 s elapsed
+  8,000/8,835 files, 568,709 hour-rows, errors=0, 174 s elapsed
+  8,500/8,835 files, 602,979 hour-rows, errors=0, 176 s elapsed
+hour rows: 625,743; failures: 0
+window_diurnal.parquet written (730,966 rows) in 177 s
