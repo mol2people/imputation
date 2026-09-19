@@ -1,0 +1,59 @@
+# Check updated plan
+
+> do you updated plan in /Users/bulat/.opencode/
+
+<details><summary>1 previous message</summary>
+
+> I’ll check the OpenCode directory and the project’s recorded plan location to verify what was actually updated.
+</details>
+
+No—not by me in this turn. The prior minimal plan is [`EXPERIMENT_PLAN.md`](./EXPERIMENT_PLAN.md:1), not the OpenCode directory.
+
+`/Users/bulat/.opencode/plan/plan.md` exists and was modified at 16:36 CEST; it contains a separate Garmin side-quest protocol (six variants and 100 bootstraps), so it is not aligned with the minimal 10-bootstrap plan.
+
+> good copy the side-quest plan to a separate one. read it. which epoch data it will look at? 3000 or beyond to find eligible cohorts
+
+<details><summary>4 previous messages</summary>
+
+> I’ll preserve the current side-quest protocol verbatim as `SIDEQUEST_PLAN.md` in the project, then verify the copy. Its eligibility gate uses only channels 3000–3002; I’ll confirm the exact distinction between eligibility and feature extraction from the plan as I do so.
+>
+> <details><summary>Created a file</summary>
+>
+> - Wrote `./SIDEQUEST_PLAN.md` (+242 -0)
+>
+> </details>
+>
+> The first transfer is not byte-identical, so I’m checking the discrepancy and will correct it before calling the copy complete.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./SIDEQUEST_PLAN.md` (+0 -1)
+>
+> </details>
+</details>
+
+Done — [`SIDEQUEST_PLAN.md`](./SIDEQUEST_PLAN.md:1) is a byte-identical copy of the current OpenCode side-quest plan.
+
+Eligibility uses exactly epoch channels **3000, 3001, and 3002**—not “3000 and everything beyond.” Each channel is evaluated separately; a participant qualifies if any one channel passes the 13-week coverage rule (≥11 adequate weeks and ≥65 strict days). Channels ≥3003 do not contribute.
+
+Cohort eligibility comes from the materialized v2 epoch artifacts, not a full raw `out/` rescan. A later targeted raw scan is only for Garmin selected-window diurnal features, and again filters to those same three channels. It exports all qualifying sole-source cohorts, then restricts modeling to source 3 (Garmin).
+
+> but wont inclusion of 3000-3002 make users beyond garmin eligible for testing? according to the plan at least
+
+<details><summary>1 previous message</summary>
+
+> I’m checking the plan’s cohort and split clauses together—the distinction is between eligibility for the exported all-source cohort and eligibility for the Garmin model’s test split.
+</details>
+
+Yes—for the all-source eligibility manifest. No—for the actual model test set.
+
+The plan lets sole-source users from sources 3, 6, 7, 9, and 13 qualify via any of channels 3000–3002. Thus non-Garmin users can pass the coverage gate (e.g., Apple, Samsung, Nokia, GoogleFit).
+
+But it then explicitly restricts modeling and the 80/10/10 train/validation/test allocation to the 3,848 source-3 Garmin participants. Non-Garmin passers are exported for audit only, not tested by the RF.
+
+So the key distinction should be:
+
+- all-source eligible cohort: any allowed source, any core channel;
+- Garmin modeling/test cohort: source 3 subset only.
+
+An implementation that split the entire all-source manifest would violate the plan.

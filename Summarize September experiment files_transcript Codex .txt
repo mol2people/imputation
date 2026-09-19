@@ -1,0 +1,479 @@
+# Summarize September experiment files
+
+> lets look in to /Users/bulat/Documents/datenspende\_IMPUTE\_sex, only september files are relavant. You should find experiment plans and results, together with log files. Go through them and give me a summary
+
+<details><summary>4 previous messages</summary>
+
+> I’ll inventory September-dated artifacts first, then connect each experiment plan to its results and logs. I’ll avoid scanning the large raw `out/` data tree and distinguish completed runs from plans or partial runs.
+>
+> The September work resolves into two experiment tracks: the original minimal salutation classifier (`EXPERIMENT_PLAN.md`, with an initial and corrected artifact set) and a broader source-specific “sidequest” (`SIDEQUEST_PLAN.md`, baseline results plus a later tuning pass). I’m checking whether the narrative reports stayed synchronized with the later artifacts, since timestamps already suggest some reports predate reruns.
+>
+> A key provenance issue is confirmed: `REPORT.md` documents the first run in `artifacts/`, while `artifacts_v2/` is a later requested variant, not merely a copy. V2 additionally excludes sources 2/4/19 and adds age/BMI-group predictors; the sidequest is built from v2. I’m treating v1, v2, sidequest baseline, and the later tuned sidequest as four distinct result layers.
+>
+> The result hierarchy is now clear. The baseline sidequest has strong internal verification (135 saved checks), while the later tuned-500 extension has completion logs and saved metrics but no corresponding updated narrative report or verifier output. I’m doing a final consistency pass across cohort counts, metrics, and provenance so the summary labels those evidence levels correctly.
+</details>
+
+## Bottom line
+
+The September 18–19 work contains four distinct layers: the prespecified pooled experiment (v1), a later pooled v2 variant, a completed source-specific sidequest, and an additional tuned-500 extension. The main finding is modest discrimination of recorded salutation, with substantial class asymmetry. Source-specific models perform better in some cohorts, but they target narrower populations and cannot support vendor ranking.
+
+### 1. Pooled experiment
+
+The [original plan](./EXPERIMENT_PLAN.md:1) specifies salutation 10 vs 20, participant-level 80/10/10 splits, exclusions 38/46/48, one default random forest, and 10 fixed-prediction bootstrap resamples.
+
+| Run | Eligible / split | Main difference | Validation AUROC | Test AUROC | Test balanced accuracy |
+|---|---:|---|---:|---:|---:|
+| v1 `artifacts/` | 20,485; 16,388/2,049/2,048 | Matches the written plan | 0.668 | **0.713** | 0.590 |
+| v2 `artifacts_v2/` | 20,423; 16,339/2,042/2,042 | Also excludes 2/4/19; adds age/BMI groups and source indicators | 0.706 | **0.683** | 0.581 |
+
+V1 is the canonical implementation of the plan. The full [v1 report](./REPORT.md:102) records:
+
+- Coverage gate: at least 14 adequate days in one HR channel, with an adequate day requiring ≥8 observed clock hours and either ≥8 hours interval coverage or ≥60 measurements.
+- Default 100-tree RF, trained once on training participants.
+- Test class-10 recall only 0.255 versus class-20 recall 0.924. Thus 0.703 accuracy is partly driven by the 66.9% class-20 prevalence.
+- Ten bootstrap draws gave mean AUROC 0.713, SD 0.016; this is a rough conditional variability check, not a confidence interval.
+- All 15 saved integrity checks passed.
+
+The [v2 model report](./artifacts_v2/model_report.md:1) shows similarly asymmetric classification: class-10 recall 0.246 and class-20 recall 0.915. V1 and v2 are not clean model comparisons because cohort exclusions, predictors, and allocations all changed.
+
+### 2. Source-specific sidequest
+
+The [sidequest plan](./SIDEQUEST_PLAN.md:1) starts from v2, keeps participants with exactly one retained epoch source, and imposes a much stricter 91-day longitudinal criterion: at least 11 adequate weeks and 65 strict days, where a strict day has ≥12 hours frozen `cov_s` coverage in one channel.
+
+Final corrected cohorts in the [sidequest report](./artifacts_sq/sidequest_report.md:7):
+
+- Garmin/source 3: 3,848 participants; test n=385.
+- Apple/source 6: 4,446; test n=444.
+- Samsung/source 7: 541; test n=54.
+- Nokia/source 9 and GoogleFit/source 13 were audit-only because class counts were too small.
+- Modelled union: 8,835 participants.
+
+Six feature variants were fitted separately per source: demographics only, recording-span, selected 91-day window, two rolling variants, and all 398 features. Baseline → tuned-500 test AUROC:
+
+| Source | Demo | Recording | Window | Rolling-rec | Rolling-win | All |
+|---|---:|---:|---:|---:|---:|---:|
+| Garmin | .574→.574 | .657→.698 | **.692→.728** | .593→.641 | .645→.672 | .632→.707 |
+| Apple | .562→.562 | .722→.755 | .681→.747 | .701→.720 | .650→.681 | **.718→.771** |
+| Samsung | .575→.600 | .664→.670 | .661→.634 | .639→.633 | .606→.655 | .588→.680 |
+
+These are descriptive holdout values, not stable rankings. Samsung has only 54 test participants, and its baseline bootstrap AUROC SDs are roughly 0.06–0.09. Cross-source comparisons also mix different cohort composition, channels, missingness, and vendor processing.
+
+The baseline sidequest is particularly well checked: 135/135 verification checks passed, covering eligibility, splits, features, predictions, bootstrap reconstruction, and deterministic rolling fixtures.
+
+### 3. Tuning extension and logs
+
+The later tuning extension used 48 hyperparameter combinations, five-fold stratified CV on frozen train+validation participants, 500 trees during tuning and final fitting, and a still-untouched test split. Its design is documented in [model_tune.py](./src/sidequest/model_tune.py:1).
+
+The available logs show:
+
+- [Window scan log](./artifacts_sq/window_diurnal_run.log:1): 8,835 files, eight workers, 177 seconds, zero failures.
+- [Tuning log](./artifacts_sq/tune_run.log:1): aggregate completion of 18 tuned models. The final invocation was resumed from cached outputs rather than a clean single run.
+- No conventional v1/v2 execution log exists; their evidence is in reports and reproducibility JSON.
+
+The tuned extension is less fully documented than the baseline:
+
+- It postdates `sidequest_report.md` and `verification_sq.json`, so neither covers tuned outputs.
+- “Validation” predictions from the final tuned models are in-sample because validation was absorbed into the tuning/refit pool; CV metrics, not those files, are the relevant development estimates.
+- Full 48-row tuning surfaces were not retained separately for every cached Garmin/Apple variant, although best parameters and summary metrics were saved.
+
+### Material documentation issues
+
+- `REPORT.md` describes v1 only; there is no standalone v2 plan or narrative report.
+- The v2 coverage report incorrectly says only 38/46/48 were excluded, whereas its [reproducibility record](./artifacts_v2/reproducibility.json:34) correctly lists 2/4/19 as additional exclusions.
+- The sidequest plan contains superseded Apple/Samsung counts; the corrected values are explicitly recorded in the generated report and [reproducibility file](./artifacts_sq/reproducibility_sq.json:9).
+- All relevant plans, reports, and code are currently untracked by Git; `artifacts_sq/` is ignored. The recorded commit hash therefore does not capture this work.
+
+Scientifically, the safest conclusion is: epoch-derived HR/recording features contain modest information about recorded salutation, but performance is strongly class-asymmetric, conditional on substantial coverage selection, and potentially influenced by source/device behavior or vendor-derived processing rather than isolated physiology.
+
+> i wrote some new reporst there, check them out
+
+<details><summary>5 previous messages</summary>
+
+> I’ll identify files added or modified since the previous review, then read the new reports and cross-check their claims against the saved metrics and logs.
+>
+> I found three new documents: a tuned-model comparison and two follow-on analysis plans—one for strict-coverage evaluation on the frozen split, and one for feature selection with repeated splits. I’ll review both scientific design and consistency with the existing artifacts.
+>
+> The tuned comparison itself matches the saved metrics. The archival “as executed” report has a few concrete factual mismatches, and the repeated-split plan has two material inferential/design problems—test-fold reuse across phases and overclaiming uncertainty from repeated splits. I’m checking the exact implementation details before giving you a ranked review.
+>
+> now the reporst should be properly up tp date
+>
+> I’ll re-read the updated versions and specifically verify the earlier problem areas: source-6 allocation, tuned artifact names/resume logic, comparison status, CV interpretation, repeated-split uncertainty, multiplicity, and phase-2 test reuse.
+</details>
+
+I checked the current files on disk. The tuned comparison is numerically current, but the two plan/archive documents still need corrections before I would call them final.
+
+### Confirmed correct
+
+- [tuned_500_comparison.md](./artifacts_sq/tuned_500_comparison.md:1) matches the saved default and tuned metrics, chosen configurations, and bootstrap summaries.
+- For all three sources, the default and tuned runs have identical test-participant order and identical bootstrap-resample files, so paired draw comparisons are valid.
+- Cohort totals 3,848/4,446/541 and model union 8,835 are correct.
+- The baseline sidequest really has 135/135 successful checks.
+
+### Factual corrections still needed
+
+In the [frozen-split archive](./artifacts_sq/plans/sidequest_strict_coverage_frozen_split_2026-09-19.md:1):
+
+1. Source 6 allocation is wrong at line 38. It should be:
+
+   `train=3,557; validation=445; test=444`
+
+   not `3,558/444/444`. The pool total remains 4,002.
+
+2. The tuned artifact names at lines 77–78 are wrong. Actual/current code uses:
+
+   - `predictions_test_<variant>.csv`
+   - `predictions_val_<variant>.csv`
+
+   not `predictions_<variant>.parquet`. Resume logic checks the test CSV, best-parameters JSON, and joblib model.
+
+3. The artifact inventory implies every source has `metrics_<variant>.json` and `tuning_results_<variant>.csv`. Cached Garmin and Apple cells do not. The document correctly acknowledges later that only eight full grid tables survived, so §7 should say “where present.”
+
+4. Lines 139 and 143 say `compare_models.py` was not executed, but it produced `tuned_500_comparison.md`. That item is complete.
+
+5. The 135-check verifier and `reproducibility_sq.json` predate the tuned run. They verify the baseline pipeline, not the 18 tuned cells. The status and stage order currently imply broader verification than actually occurred.
+
+6. “Salinity class” at line 11—and in the repeated-split plan—is a typo for “salutation class.”
+
+### Methodological statements to revise
+
+- Calling the selected CV gain the “honest primary claim” is too strong. The same five folds were used to choose the maximum among 48 configurations and estimate its gain, so that gain has selection optimism. A clean primary estimate would require nested CV. Otherwise call it the apparent within-CV gain; the reused test results remain descriptive second-look evidence.
+
+- “100→500 trees: variance reduction only, no bias change” is stronger than the evidence. The two diagnostics support “no systematic AUROC benefit observed; 100 trees chosen as a compute tradeoff.”
+
+- Gini importance does not establish that “wear-pattern features dominate, not physiology.” Several named features are HR level/contrast summaries, and correlated-feature Gini importance is not a mechanistic decomposition.
+
+- Likewise, near-zero-variance variables are not necessarily “not information.” Say they are plausible low-yield/dilution candidates to test.
+
+### Repeated-split plan
+
+Before implementing [the feature-selection plan](./artifacts_sq/plans/sidequest_feat_sel_repeated_splits_2026-09-19.md:1), I would fix these points:
+
+- Define the proposed 95% intervals as Monte Carlo intervals over split realizations, conditional on this cohort. Across-repeat SD does not replace participant-sampling uncertainty.
+- “No multiplicity tangle” is incorrect: there are multiple arms × six variants × three sources. Either designate primary contrasts or call all intervals descriptive.
+- A3 validation AUROC is selection-biased because that validation fold selects the features; it should not be compared directly with other validation metrics.
+- The stated “caret-nzv” rule is not caret’s exact rule. Caret uses the most-common/second-most-common frequency ratio plus percent unique. Either implement that or call the proposed >95% rule custom.
+- Specify whether correlation pruning uses Pearson or Spearman correlation.
+- Do not reuse the same outer test partitions in feature-engineering phase 2 if its specification is informed by feature-selection results. Use fresh outer splits or a nested workflow.
+- Parallel workers should not append directly to one shared `fsplit_metrics.csv`; write atomic per-cell checkpoints and aggregate afterward.
+- Benchmark permutation importance separately—the 540 PI runs may dominate runtime despite only 2,700 model fits.
+
+The main tuned comparison is sound as a descriptive report. It would be stronger if it added paired tuned-minus-default bootstrap deltas; currently it gives the improvement point estimate but only the tuned model’s marginal bootstrap SD.
+
+> update the reports. Make your version for feature sel plan according to your best judgement
+
+<details><summary>16 previous messages</summary>
+
+> I’ll revise all three documents: make the frozen-split archive factually consistent with the artifacts, regenerate the tuned comparison with paired tuned-minus-default uncertainty and explicit second-look language, and replace the feature-selection plan with a leakage-safe, inferentially precise design. I’ll also update the comparison generator so the report remains reproducible.
+>
+> I’m first fixing the generated comparison at its source. The revised report will verify exact resample identity, show paired tuned-minus-default AUROC uncertainty, and clearly separate post-selection CV scores from the reused-holdout evidence.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./src/sidequest/compare_models.py` (+45 -16)
+>
+> </details>
+>
+> dont replace the feature seleciton plan!!! make your own and label it as your own, keep existing one as is - it is being implemented
+>
+> Dont update any functions that run analysis or such
+>
+> Understood. I’ll leave the existing feature-selection plan untouched and create a separate plan clearly labeled as my proposal. I also won’t change analysis functions; I’m reverting the comparison-function edit I had just started, then I’ll restrict changes to Markdown reports and the new plan document.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./src/sidequest/compare_models.py` (+16 -45)
+>
+> </details>
+>
+> The analysis code is restored and will remain untouched. I’m now correcting only the archival Markdown report, while preserving historical limitations rather than implying the tuned extension was covered by the earlier verifier.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./artifacts_sq/plans/sidequest_strict_coverage_frozen_split_2026-09-19.md` (+28 -26)
+>
+> </details>
+>
+> I’m updating the comparison Markdown directly, without touching its generator or any modeling code. The numerical additions are recomputed solely from the already-saved, exactly aligned bootstrap draw files.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./artifacts_sq/tuned_500_comparison.md` (+33 -32)
+>
+> </details>
+>
+> I’m adding a separate alternative plan under a new filename and output namespace. It will not supersede, edit, or collide with the feature-selection plan already being implemented.
+>
+> <details><summary>Created a file, edited a file</summary>
+>
+> - Wrote `./artifacts_sq/plans/CODEX_feature_selection_repeated_holdouts_2026-09-19.md` (+253 -0)
+> - Wrote `./artifacts_sq/tuned_500_comparison.md` (+5 -0)
+>
+> </details>
+>
+> The separate Codex plan is in place. I’m doing a final documentation-only audit now: confirming the active feature-selection plan is byte-for-byte unchanged, the analysis function is restored, the corrected report agrees with saved artifacts, and the new Markdown has no formatting defects.
+>
+> <details><summary>Edited 2 files</summary>
+>
+> - Wrote `./artifacts_sq/plans/CODEX_feature_selection_repeated_holdouts_2026-09-19.md` (+8 -5)
+> - Wrote `./artifacts_sq/plans/sidequest_strict_coverage_frozen_split_2026-09-19.md` (+1 -1)
+>
+> </details>
+>
+> The requested separation is preserved: the active plan is untouched, my proposal uses its own filename and future artifact namespace, and no analysis-function content remains changed. I’m checking the final Markdown and artifact consistency once more before handing it back.
+</details>
+
+Updated documentation only; no analysis functions or active implementation plan were changed.
+
+- Corrected the [frozen-split archive](./artifacts_sq/plans/sidequest_strict_coverage_frozen_split_2026-09-19.md), including source-6 allocation, actual artifact names, verification scope, completed comparison status, and statistical interpretation.
+- Expanded [tuned_500_comparison.md](./artifacts_sq/tuned_500_comparison.md) with paired tuned-minus-default bootstrap deltas and explicit second-look/post-selection caveats.
+- Added my independent [Codex feature-selection proposal](./artifacts_sq/plans/CODEX_feature_selection_repeated_holdouts_2026-09-19.md). It uses a separate `fsplit_codex/` namespace and includes:
+  - leakage-safe train/validation/test handling;
+  - precisely defined NZV and correlation pruning;
+  - a restricted primary comparison family;
+  - conditional Monte Carlo uncertainty and multiplicity handling;
+  - atomic parallel checkpoints;
+  - an independent verification contract;
+  - explicit safeguards for adaptive feature engineering.
+
+The actively implemented [existing feature-selection plan](./artifacts_sq/plans/sidequest_feat_sel_repeated_splits_2026-09-19.md) remains byte-for-byte unchanged. `compare_models.py` was restored unchanged, including its original timestamp. Markdown checks passed, and no models were refitted.
+
+<details><summary>1 previous message</summary>
+
+> Context compaction
+>
+> Source: automatic
+> Status: completed
+</details>
+
+> the feature selection report based on the analysis that was running is done. check it out in light of what you know and the existinf reports
+
+<details><summary>3 previous messages</summary>
+
+> I’ll review the completed feature-selection report against its active plan, saved artifacts/logs, and the baseline/tuned reports. I’ll keep this read-only and won’t modify the plan, reports, or analysis code.
+>
+> I found the completed run: 90 repeat cells (30 each for sources 3, 6, and 7), a consolidated metrics table, run log, reproducibility record, and `feat_sel_report.md`. I’m now checking whether the report’s claims match those artifacts and the implemented protocol—not just reading the prose at face value.
+>
+> The implementation is internally coherent so far, but the written interpretation is stronger than the design supports in a few places. In particular, “pre-registered” does not make multiplicity disappear, and the repeated-split intervals describe split-to-split variability conditional on this cohort—not population uncertainty. I’m quantifying how much those distinctions change the conclusions.
+</details>
+
+Bottom line: the run is technically complete and internally reproducible. Its practical conclusion is sound: after G1 regularization, neither correlation pruning nor permutation-importance top-k is a reliable default. The current prose, however, overstates several inferential claims.
+
+### Substantive result
+
+- A1 hygiene produced no detected AUROC change: mean deltas ranged from −0.0016 to +0.0070 and every unadjusted 95% interval included zero. It reduced `all` from 534→400 features (source 3), mean 736→401 (source 6), and 623→401 (source 7).
+- This does **not** establish equivalence: no equivalence margin was specified, and A1 combines indicator removal with NZV removal. The supported claim is “the combined A1 pipeline showed no detectable harm,” not “missing indicators are proven AUROC-neutral.”
+- Under the narrower primary comparisons in my alternative plan, A2 on `all` was unsupported:
+
+  - source 3: +0.00231, simultaneous-style 97.5% CI [−0.00127, +0.00588]
+  - source 6: +0.00215, [−0.00113, +0.00542]
+
+- A2 effects are small and source/variant-dependent; A3 is unstable and offers no consistent advantage. Thus “do not adopt A2 or A3 as defaults” is justified.
+- This fits the earlier reports: regularization mattered substantially relative to sklearn defaults, while selection adds little once G1 is fixed. The remaining signal still looks predominantly like recording/wear-pattern information rather than physiology.
+
+### Corrections needed in the interpretation
+
+1. **Multiplicity does not disappear through pre-specification.** The report displays 90 contrasts. If treated as one family, Holm correction leaves only three A2-vs-A0 results: source-3 `rec` +0.0050, source-3 `win` +0.0035, and source-6 `roll_win` −0.0083. The other “significant” findings should be described as unadjusted exploratory intervals. See the current claim in [sidequest_report.md](./artifacts_sq/sidequest_report.md:214).
+
+2. **One unadjusted result was omitted:** source-3 `roll_win`, A2−A0 = −0.0037 [−0.0068, −0.0006], shown in [feat_sel_report.md](./artifacts_sq/fsplit/feat_sel_report.md:28).
+
+3. **The frozen-versus-repeated comparison cannot isolate “draw luck.”** It compares 90%-training/10%-test, 500-tree fits against 70%-training/15%-test, 100-tree fits. The ±2.7/2.3 SD values are descriptive standardized discrepancies, not estimates of frozen-fold luck. The claim that both protocol differences make both gaps conservative is especially invalid for the positive source-6 gap. Repeated splitting reduces dependence on one partition; it does not create new independent validation.
+
+4. **The implementation differs from the active plan.** The plan specifies sorted feature-name order for correlation pruning and canonical tie-breaking, but the code scans transformed positional order and uses stable positional ties ([plan](./artifacts_sq/plans/sidequest_feat_sel_repeated_splits_2026-09-19.md:45), [implementation](./src/sidequest/feat_sel.py:130)). The run is deterministic, but it is not the exact planned A2/A3 rule.
+
+5. **Phase 2 is now adaptive.** Reusing these same test partitions for feature engineering supports paired descriptive comparisons only, not a fresh test. This limitation is already stated correctly in the [Codex alternative plan](./artifacts_sq/plans/CODEX_feature_selection_repeated_holdouts_2026-09-19.md:236).
+
+### Verification performed
+
+- Log completed 90/90 cells in 11.5 minutes.
+- All 2,700 expected metric rows are present: no duplicates, nulls, or non-finite values; every source×variant×arm has 30 repeats.
+- The report regenerates byte-identically from the 90 cell files.
+- Saved script hashes match the current implementation.
+- Current inputs reconstruct disjoint, exhaustive stratified splits.
+- I found no direct test leakage in the code: preprocessing/NZV/correlation use training, PI uses validation, and test is only scored.
+- Unlike the original 135-check pipeline, this phase has no independent verifier, saved per-repeat participant assignments, predictions, or input hashes. Therefore AUROCs cannot be independently recomputed from saved predictions.
+
+I made no repository changes and ran no model fits.
+
+<details><summary>1 previous message</summary>
+
+> Context compaction
+>
+> Source: automatic
+> Status: completed
+</details>
+
+> ok there are new reports, and a new MNAR\_PLAN.md to treat missingness patterms in data as singal
+
+<details><summary>4 previous messages</summary>
+
+> I’ll review the new September reports and `MNAR_PLAN.md` against the completed feature-selection evidence and existing protocol. I’ll treat this as read-only: no plan edits and no analysis-code changes.
+>
+> I found the new material: a completed feature-engineering run/report, an updated synthesis report, and the new MNAR plan. I’m checking both the scientific claims and whether the recorded artifacts support them.
+>
+> The feature-engineering run is complete, but I’ve already found an inference-label problem worth checking carefully: the report calls its intervals “97.5%” and family-wise controlled, while the generator appears to use the usual 95% critical value. I’m recomputing the primary intervals and auditing artifact consistency before judging the conclusions.
+>
+> The MNAR plan has a strong core idea—model the observation process explicitly and keep the gated and ungated targets separate—but two design details currently prevent the intended interpretation: the “values-only” RF can still learn missingness through native NaN routing, and adequate-day-only diurnal means cannot be reconstructed from the saved hourly table because it has no date dimension. I’m verifying the remaining cohort and feature contracts now.
+</details>
+
+The feature-engineering run is mechanically complete, and its practical decision—do not adopt these engineered families—is supported. The reports need scientific corrections, and I would not run `MNAR_PLAN.md` unchanged.
+
+### Feature-engineering results
+
+Verified:
+
+- 90/90 cells, 2,700 metric rows, 30 repeats per group.
+- No duplicate keys, null/nonfinite metrics, or missing repeats.
+- Cell JSON and consolidated CSV agree to floating-point serialization precision.
+- B0 reproduces FS A1 with maximum AUROC difference \(5.6\times10^{-17}\).
+- Current analysis-script hashes match `feng_repro.json`.
+- I found no direct test leakage.
+
+The main primary estimates are small: source 3 `all` ≈ +0.0009; source 6 `all` ≈ +0.0028/+0.0034. The no-effect conclusion remains, but the interval calculation is wrong:
+
+- The generator uses `t.ppf(0.975)`, producing ordinary 95% intervals while labelling them 97.5% ([generator](./src/sidequest/feat_eng.py:293)).
+- Four primary comparisons require 98.75% individual intervals for Bonferroni-simultaneous 95% coverage—not 97.5%.
+- Correct family-wise intervals are approximately:
+
+  - s3 F1: [−0.0021, +0.0039]
+  - s3 F2: [−0.0022, +0.0039]
+  - s6 F1: [−0.0012, +0.0068]
+  - s6 F2: [−0.0010, +0.0078]
+
+Thus all still include zero, but the claimed ≈0.003 detection floor is too optimistic.
+
+Other report corrections:
+
+- E1 is misdescribed as `weekday_mean × time-of-day share`. The `tod_*` parents are event-weighted mean HR in bpm, not shares ([dictionary](./artifacts_sq/feature_dictionary_sq.csv:70)). E1 therefore multiplies two HR levels and is not specifically a wear-pattern interaction.
+- The claim that dedup evicts 87–95% of E1 “in every cell” is false. For source 6 it removes about 44–50%.
+- E3 does not contain “genuinely new information”: all engineered variables are deterministic transformations. E3 merely survives the pairwise-correlation filter more often. In source-7 `all`, the E3-only contrast is not significant; the negative F1 contrast combines E1+E2+E3.
+- Secondary “significant” findings are nominal, unadjusted findings. Across the 57 non-no-op contrasts, 14 have raw \(p<.05\), but only two survive a post-hoc Holm correction—and both are source-3 `rec` results.
+- The exact FE protocol was frozen before FE execution, but after the FS results. The earlier plan explicitly says the FE specification would follow FS results ([FS plan](./artifacts_sq/plans/sidequest_feat_sel_repeated_splits_2026-09-19.md:78)); therefore “pre-registered relative to FS summaries” is too strong.
+- “[M]odel-side levers … are exhausted” overreaches. These particular transformations and selection rules failed; that does not establish that every representation or model family would fail.
+
+The updated synthesis also retains the previously identified FS problems: multiplicity does not “dissolve,” frozen-versus-repeated discrepancies cannot be attributed solely to draw luck, and its FS “97.5%” intervals are also 95% intervals ([synthesis](./artifacts_sq/sidequest_report.md:210)).
+
+### MNAR plan
+
+The core idea is worthwhile as an exploratory observation-process analysis. I verified the stated cohorts:
+
+- G: 20,485, classes 6,788/13,697.
+- U: 25,784, classes 9,662/16,122.
+- Every U participant occurs in `epoch_days`; source and timezone fields are complete.
+- The reported gate-failure probabilities, 0.297 and 0.150, are correct.
+
+Two issues should be resolved before implementation:
+
+1. The proposed adequate-day-only diurnal means cannot be reconstructed from the frozen artifacts. `epoch_hours.parquet` is aggregated only by participant/channel/hour and contains no date dimension ([existing builder](./src/features.py:104)). Either redefine these as all-valid-event diurnal means, as v1 actually did, drop them, or perform a new date-aware extraction.
+
+2. `V` is not values-only. Native RF NaN routing directly exposes which values are missing, so `V` already contains implicit \(R_X\). Consequently, `R`, `V`, and `RV` cannot decompose “recording process versus physiology” as currently interpreted ([variants](./MNAR_PLAN.md:119)). Reframe `V` as “values plus implicit missingness,” or add a train-imputed, no-indicator comparator specifically to suppress missingness information.
+
+I would also add source-only and gate-only ablations: otherwise high `R` performance could be almost entirely device choice or the known class-dependent gate, rather than structured missingness. Numeric zero-variance filtering must retain columns that are constant when observed but sometimes NaN, and source-slice AUROC should require adequate counts in both classes, not merely total \(n\ge50\).
+
+Finally, “informative observation process” is more accurate than “MNAR analysis.” The plan correctly acknowledges that it does not identify an MNAR mechanism or recover outcomes for the 11 unlabeled participants.
+
+No files were changed and no models were fitted during this review.
+
+> generate a final meta-report. Pulling conclusions, make figures, prepare tables, include experiment outline, descibe representations. Should be a pdf. Imagine you ran these epxeriments, and now you are writing a report. Include idea and possible implmenetations of mnar. dont try to complicate things and use obscure language.
+
+<details><summary>6 previous messages</summary>
+
+> I’ll produce a standalone PDF meta-report covering the original pooled experiment, per-source side quest, tuning, feature selection, feature engineering, and the proposed missingness study. I’ll clearly separate completed evidence from the unrun MNAR proposal, use plain language, and only add report/figure files—no analysis functions or existing plans will be changed.
+>
+> I’m building the report around a simple evidence hierarchy: pooled baseline, strict per-source analysis, model tuning, feature-selection/engineering stress tests, then the unrun missingness extension. The figures will be regenerated from the saved machine-readable results rather than copied from prose.
+>
+> <details><summary>Created a file</summary>
+>
+> - Wrote `./reports/build_meta_report.py` (+669 -0)
+>
+> </details>
+>
+> The report source and four result figures plus the missingness figure are ready. I’m now rendering the local HTML to PDF, then I’ll inspect page count, extracted text, and page images for layout problems.
+>
+> The first render is clean and readable (11 A4 pages). I found two wording refinements before finalizing: state both coverage gates explicitly, and remove a causal-sounding phrase about source 6’s channel-3002 eligibility. I’m applying those small report-only corrections and rerendering.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./reports/build_meta_report.py` (+5 -4)
+>
+> </details>
+</details>
+
+Done: [final meta-report PDF](./reports/recorded_salutation_meta_report_2026-09-20.pdf).
+
+It is 11 A4 pages with five figures, experiment outlines, representation descriptions, results tables, corrected repeated-split intervals, conclusions, limitations, and practical MNAR-inspired implementations clearly marked as unrun.
+
+Also available:
+
+- [HTML version](./reports/recorded_salutation_meta_report_2026-09-20.html)
+- [Report generator](./reports/build_meta_report.py)
+
+I verified the rendered pages visually and through PDF text extraction. No models were fitted, existing plans/reports were untouched, and no analysis functions changed. PDF SHA-256: `2ffac9dea7ac66b3701e479ecc3bd1a9ddb4f56ad98e456842c027112155dd6a`.
+
+> now there is a linked github right? which one
+
+<details><summary>2 previous messages</summary>
+
+> I’ll check the repository’s configured Git remotes and current branch.
+>
+> Context compaction
+>
+> Source: automatic
+> Status: completed
+</details>
+
+Yes. The repository’s `origin` points to [mol2people/imputation](https://github.com/mol2people/imputation) via SSH:
+
+`git@github.com:mol2people/imputation.git`
+
+Both fetch and push use it; the current branch is `main`.
+
+> add evrrything relevant, and that can fit. Beony d raw data, to a commit and push it. make sure you are using mol2people github name
+
+<details><summary>11 previous messages</summary>
+
+> I’ll inventory the working tree, identify report/code artifacts versus raw or oversized data, and verify the local commit identity and `mol2people/imputation` remote before staging anything.
+>
+> The repository identity is already `mol2people`, and both fetch/push target `mol2people/imputation`. The working tree is almost entirely untracked, so I’m classifying it carefully before staging—especially the CSVs, generated artifacts, logs, and report sources.
+>
+> The raw exports are 6 MB–21 GB and include identifiers, so they will stay out. I’m now separating compact aggregate evidence (metrics, logs, plans, tables) from participant-level manifests/predictions, feature matrices, and serialized models; the latter should not go to GitHub even when they technically fit.
+>
+> I’m adding repository safeguards so future `git add` operations exclude root-level raw/support CSVs, participant-level tables and predictions, serialized models, and resampling indices. Compact aggregate results, experiment cell summaries, logs, plans, source, figures, and the final PDF will remain eligible for the commit. No analysis function is being edited.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./.gitignore` (+17 -8)
+>
+> </details>
+>
+> The inclusion set is 412 files totaling about 15.4 MiB, with every tested raw/private or bulky path ignored. I’m staging that set now, then I’ll inspect the exact index before committing.
+>
+> The staged commit contains 447 files (14.48 MiB); the largest is the 1.14 MiB PDF. The exclusion audit found no raw CSV, Parquet table, prediction file, split manifest, serialized model, resample-index file, cache, or OS metadata. I’m running lightweight integrity checks now—syntax, the small rolling-feature fixture, report hashes, PDF validity, and secret/identifier scans—without rerunning any analysis.
+>
+> Two checks need adjustment: macOS redirected bytecode writes to a sandboxed cache, and the system Python lacks `pytest`. The report hashes, file validity, identifier audit, and credential scan passed. I’ll rerun syntax with a permitted cache and execute the fixture directly if its assertions support that; this does not change the staged content.
+>
+> Syntax now passes. The fixture itself is still unrun because `/usr/bin/python3` has no NumPy; I’ll check the recorded experiment environment or another installed interpreter before treating that as an unverified test rather than installing anything.
+>
+> The commit is ready: all Python files compile, report hashes and file checks pass, and no raw/private paths or common credential signatures are staged. The only unrun check is the NumPy-based fixture because the available system Python lacks project dependencies; I’m not installing or rerunning analysis for this archival push. I’ll commit as `mol2people` now.
+>
+> what no stop
+</details>
+
+Stopped. Nothing was pushed.
+
+A local commit was created on `main`: `41b7045`. I’ll make no further changes.
+
+> update commit text to "impute Salutation exp %today's date" and then push to repo
+
+<details><summary>2 previous messages</summary>
+
+> I’ll amend only the local commit message to `impute Salutation exp 2026-09-20`, confirm the `mol2people/imputation` target and identity, then push `main` and verify the remote commit.
+>
+> The amended commit is `04e4e48` with the requested message and `mol2people` author identity. I’m pushing it to `origin/main` now.
+</details>
+
+Done. Amended and pushed to `mol2people/imputation` on `main`.
+
+Commit: [`04e4e48`](https://github.com/mol2people/imputation/commit/04e4e4840d99fe4222031b7615fc82d10b1f50d4)
+Message: `impute Salutation exp 2026-09-20`
+
+Local `main` and `origin/main` are synchronized. Raw/private data remains excluded.

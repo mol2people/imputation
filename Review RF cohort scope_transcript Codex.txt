@@ -1,0 +1,76 @@
+# Review RF cohort scope
+
+> can you look at /Users/bulat/.opencode/plan sidequest plan. AFter that tell me would RF models be applyied to all-source cohorts or only garmin
+
+<details><summary>1 previous message</summary>
+
+> I’ll inspect the Sidequest plan and cross-check its cohort/model wording against the project’s recorded decisions, focusing specifically on whether RF fitting is scoped to Garmin or to every source cohort.
+</details>
+
+Only the **Garmin cohort**.
+
+- Eligibility cohorts are constructed/exported for all allowed sources.
+- Modeling is restricted to the **3,848 sole-source Garmin participants** ([plan.md:47](~/.opencode/plan/plan.md:47), [plan.md:69](~/.opencode/plan/plan.md:69)).
+- The six RF feature variants all use the same Garmin-only split ([plan.md:125](~/.opencode/plan/plan.md:125), [plan.md:151](~/.opencode/plan/plan.md:151)).
+- The `all` variant means **all feature blocks**, not all source cohorts.
+- Extending RF fitting to Apple, Samsung, Nokia, or GoogleFit is explicitly out of scope ([plan.md:241](~/.opencode/plan/plan.md:241)).
+
+Also, this is currently only a protocol: no cohorts or RF models have been run yet.
+
+> ok i want to extend RF fitting to eligible cohorts. Can you modify the plan? After the mod check it for consistency. Does it read like something a bachelor ML student could implement?
+
+<details><summary>9 previous messages</summary>
+
+> I’ll revise the Sidequest protocol so modeling is defined per eligible source cohort, then audit the resulting estimands, split feasibility, artifact naming, counts, bootstrap rules, and implementation clarity. The main issue I’ll resolve explicitly is that Nokia (9 participants) and GoogleFit (41, only 5 in salutation 10) cannot support the same credible 80/10/10 validation/test protocol as Garmin, Apple, and Samsung.
+>
+> if nokia and samsung cannot - fucl them
+>
+> One correction before I edit: Samsung is viable (`540`, with `208/332` by class); Nokia is not, and GoogleFit is the other non-viable cohort (`41`, only `5` in salutation 10). I’ll therefore define the modeled sources as Garmin, Apple, and Samsung, using an explicit rule requiring at least 20 participants from each class in both validation and test under the 80/10/10 split. Nokia and GoogleFit will remain audit-only.
+>
+> \*sorry googlefit not samsung
+>
+> Understood: exclude Nokia and GoogleFit; keep Samsung. I’ll make the modeled cohorts exactly Garmin (3), Apple (6), and Samsung (7), with Nokia (9) and GoogleFit (13) retained only in eligibility/audit outputs.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./SIDEQUEST_PLAN.md` (+96 -71)
+>
+> </details>
+>
+> The substantive rewrite is in the workspace copy. I’m now checking for stale Garmin-only language, verifying every split/class sum and source loop/artifact contract, and assessing whether the implementation instructions are concrete enough for the intended student level before syncing the authoritative `.opencode` copy.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./SIDEQUEST_PLAN.md` (+7 -6)
+>
+> </details>
+>
+> The authoritative `.opencode` plan is now synced. I’m doing the final audit against that exact file—not just the workspace copy—including byte equality, Markdown structure, source eligibility, split arithmetic, model-count arithmetic, section references, and stale-scope wording.
+</details>
+
+Updated both [the authoritative plan](~/.opencode/plan/plan.md:1) and [the workspace copy](./SIDEQUEST_PLAN.md:1); they are byte-identical.
+
+Key changes:
+
+- Model Garmin, Apple, and Samsung separately—no pooled-source RF.
+- Nokia and GoogleFit remain audit-only.
+- Defined model eligibility as ≥200 participants per class, guaranteeing ≥20/class in validation and test. This is pragmatic, not a power guarantee ([plan.md:51](~/.opencode/plan/plan.md:51)).
+- Added exact source-specific splits ([plan.md:125](~/.opencode/plan/plan.md:125)).
+- Expanded six variants across three sources: 18 default RF fits ([plan.md:148](~/.opencode/plan/plan.md:148)).
+- Made preprocessing, bootstrap sampling, artifacts, and verification source-specific.
+- Added an implementation order and explicit two-stage allocation MILP ([plan.md:143](~/.opencode/plan/plan.md:143), [plan.md:209](~/.opencode/plan/plan.md:209)).
+- Removed the obsolete Garmin-only runtime estimate.
+- Preserved the Sidequest-specific 100-bootstrap rule.
+
+Consistency checks passed:
+
+- Coverage-eligible total: 8,880; modeled total: 8,830.
+- Every split total and class count reconciles.
+- All modeled validation/test sets contain ≥20 participants per class.
+- Three sources × six variants = 18 fits.
+- No stale Garmin-only modeling language.
+- Markdown tables, section references, whitespace, artifact paths, and source restrictions passed structural checks.
+
+No cohort construction or modeling was executed.
+
+Bachelor-level assessment: the RF modeling portion is appropriate, but the complete pipeline is not a typical unaided bachelor task. The two-stage MILP, timezone/coverage semantics, rolling calendar features, and 146+ GiB raw processing make it an advanced thesis-level implementation. A strong final-year student could implement it using the existing v2 code, deterministic fixtures, and periodic review. For a conventional bachelor ML project, I would provide the cohort and feature artifacts and assign Sections 4–8.
