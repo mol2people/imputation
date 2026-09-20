@@ -1,0 +1,3 @@
+# Participant-level manifests, predictions, and all derived run outputs stay local.
+output/
+__pycache__/
