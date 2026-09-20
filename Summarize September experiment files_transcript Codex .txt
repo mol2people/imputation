@@ -477,3 +477,839 @@ Commit: [`04e4e48`](https://github.com/mol2people/imputation/commit/04e4e4840d99
 Message: `impute Salutation exp 2026-09-20`
 
 Local `main` and `origin/main` are synchronized. Raw/private data remains excluded.
+
+<details><summary>1 previous message</summary>
+
+> Context compaction
+>
+> Source: manual
+> Status: completed
+</details>
+
+> can you look at the github repo with the pushed files? I would like to continue working with feature modelling
+
+<details><summary>15 previous messages</summary>
+
+> I’ll inspect the pushed `main` branch and map the existing feature-modelling plans, results, and implementation state. I’ll keep this read-only and identify the cleanest next experiment rather than changing analysis code.
+>
+> <details><summary>Explored a search, ran 5 commands, searched the web</summary>
+>
+> <details><summary>Explored a search</summary>
+>
+> - Searched for `impute|salutation|feature|mnar` in `MEMORY.md`
+>
+> </details>
+>
+> - Ran `'git' 'remote' '-v'`
+>
+> - Ran `'git' 'show' '-s' '--format=%H%n%an <%ae>%n%s%n%ci' 'HEAD'`
+>
+> - Ran `'git' 'ls-tree' '--name-only' 'HEAD'`
+>
+> - Ran `'zsh' '-lc' 'git ls-tree -r --name-only HEAD | rg -i '\''(feature|mnar|report|plan|result|model|final)'\'''`
+>
+> - Ran `'git' 'status' '--short' '--branch'`
+>
+> Searched the web for `https://github.com/mol2people/imputation`
+>
+> </details>
+>
+> The local checkout is clean and points to the expected `mol2people/imputation` remote. GitHub’s public page fetch did not resolve in the browser tool, so I’m verifying the remote branch directly and then reading the committed modelling reports/artifacts from the synchronized checkout.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `git ls-remote origin refs/heads/main`
+>
+> </details>
+>
+> you may use micromamba datenspende repo for future work on this
+>
+> Got it—I’ll use the micromamba environment `datenspende` for this project’s future Python checks and modelling work. I’ll also inspect its available stack now so any proposed next experiment matches the installed environment.
+>
+> <details><summary>Ran 4 commands</summary>
+>
+> - Ran `wc -l REPORT.md MNAR_PLAN.md artifacts_sq/feng/feat_eng_report.md artifacts_sq/fsplit/feat_sel_report.md artifacts_sq/plans/CODEX_feature_selection_repeated_holdouts_2026-09-19.md artifacts_sq/plans/sidequest_feat_sel_repeated_splits_2026-09-19.md artifacts_sq/sidequest_report.md`
+> - Ran `micromamba env list`
+> - Ran `micromamba run -n datenspende python --version`
+> - Ran `micromamba run -n datenspende python -c 'import numpy, pandas, sklearn, scipy, matplotlib; print("numpy", numpy.__version__); print("pandas", pandas.__version__); print("sklearn", sklearn.__version__); print("scipy", scipy.__version__); print("matplotlib", matplotlib.__version__)'`
+>
+> </details>
+>
+> dont worry about the env. we are doing scientific work not engineering
+>
+> <details><summary>Explored 7 files</summary>
+>
+> - Read `./REPORT.md`
+> - Read `./artifacts_sq/feng/feat_eng_report.md`
+> - Read `./MNAR_PLAN.md`
+> - Read `./artifacts_sq/fsplit/feat_sel_report.md`
+> - Read `./artifacts_sq/sidequest_report.md`
+> - Read `./artifacts_sq/plans/CODEX_feature_selection_repeated_holdouts_2026-09-19.md`
+> - Read `./artifacts_sq/plans/sidequest_feat_sel_repeated_splits_2026-09-19.md`
+>
+> </details>
+>
+> Understood. I’ll ignore environment/tooling details and focus on the scientific modelling question: what signal is present, what has already been ruled out, and which next analysis is scientifically informative.
+>
+> <details><summary>Explored 3 files, ran a command</summary>
+>
+> - Ran `/bin/zsh -lc 'git ls-remote origin refs/heads/main'`
+>
+> <details><summary>Explored 3 files</summary>
+>
+> - Read `./artifacts_sq/fsplit/feat_sel_report.md`
+> - Read `./artifacts_sq/feng/feat_eng_report.md`
+> - Read `./artifacts_sq/plans/sidequest_feat_sel_repeated_splits_2026-09-19.md`
+>
+> </details>
+>
+> </details>
+>
+> github is up to date for sure
+>
+> <details><summary>Explored 4 files</summary>
+>
+> - Read `./MNAR_PLAN.md`
+> - Read `./MNAR_PLAN.md`
+> - Read `./artifacts_sq/sidequest_report.md`
+> - Read `./artifacts_sq/sidequest_report.md`
+>
+> </details>
+>
+> Thanks—I’ll treat the pushed `main` as authoritative and stop checking GitHub state. Scientifically, the key question is whether to keep optimizing the existing feature space or move to a cleaner decomposition of recording-pattern versus physiological-value signal; I’m checking the remaining comparison report before giving you a recommendation.
+>
+> <details><summary>Explored 19 files, 2 searches</summary>
+>
+> - Read `./artifacts_v2/model_report.md`
+> - Read `./artifacts_v2/cohort_coverage_report.md`
+> - Read `./reports/recorded_salutation_meta_report_2026-09-20_manifest.json`
+> - Read `./artifacts_v2/reproducibility.json`
+> - Read `./artifacts/feature_dictionary.csv`
+> - Read `./artifacts_v2/feature_dictionary.csv`
+> - Read `./artifacts/model_params.json`
+> - Read `./artifacts_v2/model_params.json`
+> - Searched for `v2|recording|feature selection|feature engineering|MNAR|missingness` in `REPORT.md`
+> - Read `./reports/recorded_salutation_meta_report_2026-09-20.html`
+> - Searched for `epoch_hours|hour|local_day|local_hour|adequate` in `src`
+> - Read `./artifacts_sq/fsplit/feat_sel_report.md`
+> - Read `./artifacts_sq/feng/feat_eng_report.md`
+> - Read `./MNAR_PLAN.md`
+> - Read `./reports/recorded_salutation_meta_report_2026-09-20.html`
+> - Read `./artifacts_sq/sidequest_report.md`
+> - Read `~/.codex/memories/MEMORY.md`
+> - Read `./src/epoch_worker.py`
+> - Read `./reports/recorded_salutation_meta_report_2026-09-20.html`
+> - Read `./MNAR_PLAN.md`
+> - Read `~/.codex/memories/MEMORY.md`
+>
+> </details>
+</details>
+
+I reviewed the pushed repository. Scientifically, further generic feature selection is not the best next step.
+
+Current evidence:
+
+- Hygiene removal of missingness indicators and near-zero-variance terms greatly reduces width without detectable AUROC loss.
+- Correlation pruning and permutation top-k selection are unstable and source-dependent. [Feature-selection report](./artifacts_sq/fsplit/feat_sel_report.md:1)
+- The tested interactions, ratios, and drift terms produced no reliable primary improvement. [Feature-engineering report](./artifacts_sq/feng/feat_eng_report.md:1)
+- The unresolved scientific question is therefore what the signal represents: recording behaviour/device context versus measured HR values.
+
+My recommended next study is the informative-recording-pattern analysis:
+
+| Model | Scientific purpose |
+|---|---|
+| Source/gate anchor | Quantify coarse device and coverage-selection signal |
+| Recording process without source | Test wear, gaps, coverage and channel availability |
+| Recording process with source | Measure additional discrimination from device context |
+| HR values, median-imputed | Value-focused comparison with missingness mostly suppressed |
+| HR values, native NaNs | Values plus implicit missingness information |
+| Recording + native HR values | Full pattern-mixture predictor |
+| `V0` and `P` | Secondary probes of resting-channel value versus mere presence |
+
+The gate alone already implies AUROC ≈ 0.574 from the reported class-specific pass rates, so the observation process contains nontrivial signal before modelling richer patterns.
+
+Three protocol issues should be resolved before running it:
+
+1. `MNAR_PLAN.md` requests adequate-day-only diurnal means, but `epoch_hours.parquet` has no date field. Those means cannot be reconstructed from the frozen aggregate. Use all-event diurnal means or omit them. The final meta-report correctly identifies this conflict. [MNAR plan](./MNAR_PLAN.md:104), [stored hourly schema](./src/epoch_worker.py:17), [meta-report](./reports/recorded_salutation_meta_report_2026-09-20.html:177)
+
+2. The plan omits the source/gate anchors and imputed-versus-native value comparison recommended by the meta-report. Those contrasts are essential for interpreting what `R`, `V`, and `RV` mean.
+
+3. Feature-block deltas should primarily use paired repeated participant splits. The existing experiments showed that individual frozen-test estimates could land 2.3–2.7 split SDs from their repeated-split means. Keep the frozen v1 split only as a descriptive bridge to AUROC 0.713. [Sidequest synthesis](./artifacts_sq/sidequest_report.md:219)
+
+I would call this an “informative recording-pattern analysis,” not an MNAR test: it cannot identify an MNAR mechanism or isolate physiology.
+
+No files or analysis functions were changed. My suggested next action is a separately labelled scientific protocol incorporating these corrections while preserving the existing `MNAR_PLAN.md`.
+
+> i like that
+
+<details><summary>4 previous messages</summary>
+
+> I’ll turn it into a separate, clearly labelled scientific protocol. I’ll preserve `MNAR_PLAN.md`, all existing feature-selection plans, reports, artifacts, and every analysis function unchanged.
+>
+> <details><summary>Created a file, explored a search, a list</summary>
+>
+> <details><summary>Explored a search, a list</summary>
+>
+> - Listed files
+> - Searched for `(^|/)(CODEX_.*(RECORD|MISSING)|.*INFORMATIVE.*PLAN).*\.md$`
+>
+> </details>
+>
+> - Wrote `./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md` (+272 -0)
+>
+> </details>
+>
+> The separate proposal is written. I’m doing a scientific consistency pass now—especially the feature definitions, nested contrasts, multiplicity calculation, and the diurnal-data limitation.
+>
+> <details><summary>Edited a file, explored a file, 2 searches, a list, ran 13 commands</summary>
+>
+> <details><summary>Explored a file</summary>
+>
+> - Read `./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+>
+> </details>
+>
+> - Ran `git diff --stat`
+>
+> - Ran `git status --short`
+>
+> - Ran `git diff --check`
+>
+> - Ran `git diff --name-only`
+>
+> - Wrote `./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md` (+11 -6)
+>
+> - Ran `git status --short`
+>
+> - Ran `git diff --no-index --check /dev/null CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+>
+> <details><summary>Explored a search</summary>
+>
+> - Searched for `validation|70/15/15|80/20|98\.75|t\.ppf|diurnal` in `CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+>
+> </details>
+>
+> - Ran `awk 'BEGIN {p1=13697/16122; p0=2874/9662; printf("pass_y1=%.6f fail_y0=%.6f binary_auc=%.6f V_width=%d\n", p1, p0, (p1+p0)/2, 11*3+2)}'`
+>
+> - Ran `git diff --name-only`
+>
+> - Wrote `./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md` (+4 -4)
+>
+> - Ran `git diff --no-index --check /dev/null CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+>
+> - Ran `git status --short`
+>
+> - Ran `wc -l -w CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+>
+> <details><summary>Explored a search</summary>
+>
+> - Searched for ``^#|^\| `A|^\| `R|^\| `V|^\| `P|Primary U|adequate-day-only|80/20|Stopping rule`` in `CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+>
+> </details>
+>
+> - Wrote `./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md` (+17 -4)
+>
+> - Ran `git status --short`
+>
+> - Ran `git diff --no-index --check /dev/null CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+>
+> <details><summary>Explored 2 files, a list</summary>
+>
+> - Read `./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+> - Read `./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+> - Listed files in `MNAR_PLAN.md`
+>
+> </details>
+>
+> </details>
+</details>
+
+Created a separate proposal: [CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md](./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md:1).
+
+It specifies:
+
+- `A`, `R`, `Vm`, `Vn`, `RV`, `V0`, and `P` representations.
+- U as the primary ungated population; G as an exploratory v1 bridge.
+- Thirty paired 80/20 participant splits with a fixed regularized RF.
+- Four prespecified primary contrasts with correct simultaneous intervals.
+- Omission of unrecoverable adequate-day diurnal means.
+- Explicit scientific interpretation and stopping rules.
+
+All existing plans, reports, artifacts, and analysis functions remain untouched. The new plan is untracked and has not been committed or pushed.
+
+> trust
+
+<details><summary>4 previous messages</summary>
+
+> I’m auditing the plan against the approved scientific direction, checking both repository state and whether the protocol is sufficiently reproducible and interpretable. I’ll separate confirmed defects from optional refinements and leave the file unchanged during this review.
+>
+> <details><summary>Explored 3 files, 2 searches, a list, ran 6 commands</summary>
+>
+> - Ran `git status --short --branch`
+>
+> - Ran `git diff --name-status`
+>
+> - Ran `git diff --cached --name-status`
+>
+> <details><summary>Explored a list</summary>
+>
+> - Listed files in `CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+>
+> </details>
+>
+> - Ran `git diff --exit-code -- MNAR_PLAN.md EXPERIMENT_PLAN.md SIDEQUEST_PLAN.md artifacts_sq/plans src`
+>
+> <details><summary>Explored 3 files, 2 searches</summary>
+>
+> - Read `./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+> - Searched for `20,485|5,299|6,788|13,697|2,874|2,425|25,784|9,662|16,122` in `REPORT.md`
+> - Read `./src/epoch_worker.py`
+> - Read `./artifacts_sq/sidequest_report.md`
+> - Searched for `[[:blank:]]+$` in `CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+>
+> </details>
+>
+> - Ran `awk 'BEGIN {u0=6788+2874; u1=13697+2425; auc=((13697/u1)+(2874/u0))/2; printf("U classes=%d/%d total=%d gate_AUROC=%.9f V_width=%d Bonferroni_CI_coverage=%.4f\n",u0,u1,u0+u1,auc,11*3+2,1-(0.05/4))}'`
+>
+> - Ran `for f in MNAR_PLAN.md EXPERIMENT_PLAN.md SIDEQUEST_PLAN.md artifacts/cohort_manifest.parquet artifacts/epoch_days.parquet artifacts/epoch_hours.parquet artifacts/predictions_test.csv; do test -e "$f" || exit 1; done`
+>
+> </details>
+>
+> The document-level checks pass so far. I found one substantive interpretation risk worth testing against the actual aggregates: whether the proposed “imputed” comparator can really be described as suppressing missingness, and whether every required anchor/timezone field exists across the ungated cohort.
+>
+> <details><summary>Ran 3 commands</summary>
+>
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python -c 'import pandas as pd; import pyarrow.parquet as pq; c=pd.read_parquet("artifacts/cohort_manifest.parquet"); print("cohort_columns", list(c.columns)); print("category_counts", c["cohort_category"].value_counts(dropna=False).to_dict()); print("hour_schema", pq.read_schema("artifacts/epoch_hours.parquet").names); print("day_schema", pq.read_schema("artifacts/epoch_days.parquet").names); print("meta_schema", pq.read_schema("artifacts/epoch_meta.parquet").names)'`
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python -c 'import pandas as pd; c=pd.read_parquet("artifacts/cohort_manifest.parquet"); u=c[c.cohort_category.isin(["eligible","below_coverage_gate"])].copy(); print("U_n", len(u)); print("U_y", u.y.value_counts(dropna=False).sort_index().to_dict()); print("G_y", u[u.cohort_category.eq("eligible")].y.value_counts(dropna=False).sort_index().to_dict()); print("anchor_missing", u[["epoch_primary_source","epoch_multisource","gate_pass"]].isna().sum().to_dict()); print("tz_missing_participants", int((u.tz_missing_events>0).sum()), "tz_missing_events", int(u.tz_missing_events.sum())); dusers=pd.read_parquet("artifacts/epoch_days.parquet", columns=["user"])["user"].drop_duplicates(); print("U_without_day_rows", int((~u.user_id.isin(dusers)).sum()))'`
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python -c 'import numpy as np, sklearn; from sklearn.ensemble import RandomForestClassifier; X=np.array([[0.,np.nan],[1.,1.],[0.,0.],[1.,np.nan]]*10); y=np.array([0,1,0,1]*10); m=RandomForestClassifier(n_estimators=5,max_features=0.4,min_samples_leaf=2,class_weight="balanced_subsample",random_state=1).fit(X,y); print("sklearn",sklearn.__version__,"native_nan_smoke",m.predict_proba([[0.5,np.nan]]).round(6).tolist())'`
+>
+> </details>
+</details>
+
+## Trust audit
+
+**Overall confidence: 91% — subjective and uncalibrated.**
+The main requirement was met: a separate Codex-labelled scientific protocol was created without altering existing plans, reports, artifacts, or analysis functions. It is scientifically strong but needs one interpretive correction and several reproducibility details before being frozen or implemented.
+
+### Confirmed defects
+
+1. **Moderate — `Vn − Vm` does not isolate missingness visibility.**
+   [The plan](./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md:142) describes median imputation as largely suppressing missingness and interprets `Vn − Vm` as its contribution. A forest can still recognize the point mass created by median imputation, and the contrast also changes split geometry.
+   **Fix:** call it a native-NaN versus median-imputation encoding contrast, not a pure missingness effect.
+
+2. **Moderate-low — frozen-v1 fitting is underspecified.**
+   [The bridge section](./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md:219) does not explicitly say whether fitting uses training only or training plus validation, and gives no bootstrap seed.
+   **Fix:** specify training-only fitting, descriptive validation/test evaluation, and an exact bootstrap seed stream.
+
+3. **Low — seed generation is not byte-for-byte reproducible.**
+   `SeedSequence(...)` inputs are specified, but not the conversion to the integer passed to sklearn.
+   **Fix:** prescribe something such as `int(seed_sequence.generate_state(1, dtype=np.uint32)[0])`.
+
+4. **Low — the `R` block partly depends on a mutable external plan.**
+   [Section 4.2](./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md:84) lists the feature families but refers to `MNAR_PLAN.md` for their precise semantics.
+   **Fix:** freeze the exact 51 recording-feature names/definitions or pin the referenced document to a commit/hash.
+
+### Plausible risks
+
+- G1 was selected using earlier, overlapping project data. U is the primary new analysis, but it is **not independent validation**. This should be stated explicitly.
+- Source is not part of the repeated-split stratification. Large sample size and paired arms make serious imbalance unlikely, but rare-source margins should be checked.
+- “Adequately represented” source slices lack a numerical threshold. This affects reproducibility, not the primary analysis.
+
+### Checks passed
+
+- Only the new plan is present as an untracked file; no tracked or staged changes exist.
+- `MNAR_PLAN.md`, existing feature-selection plans, reports, and all `src/` files are unchanged.
+- Actual parquet data reproduce G/U totals and class counts exactly.
+- All 25,784 U participants have source/gate fields and epoch-day rows.
+- No U participant has missing timezone events.
+- The hourly schema contains no date field, confirming that adequate-day-only diurnal means cannot be recovered.
+- Gate-only AUROC arithmetic reproduces 0.573519; value-block width reproduces 35.
+- The selected G1 configuration matches the existing tuning evidence.
+- Installed RF native-NaN handling passed a small smoke test.
+- No trailing-whitespace problems were found.
+
+### Not run
+
+No feature extraction, model fitting, repeated splits, bootstrap, or external validation was run—correctly, because this task was plan-only.
+
+**Necessary before freezing:** correct the `Vn − Vm` interpretation and specify the frozen-bridge/seed rules. The remaining points are small but worthwhile reproducibility improvements. No files were changed during this audit.
+
+> fix 1, everything else is irrelevant.
+
+<details><summary>2 previous messages</summary>
+
+> I’ll make only that scientific wording correction: `Vn − Vm` will be defined as a native-NaN versus median-imputation encoding contrast, not as an isolated missingness effect. Everything else stays unchanged.
+>
+> <details><summary>Edited a file, explored a file, 2 searches, ran a command</summary>
+>
+> - Wrote `./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md` (+6 -4)
+>
+> - Ran `git status --short`
+>
+> <details><summary>Explored a file, 2 searches</summary>
+>
+> - Read `./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+> - Searched for `missingness largely suppressed|contribution of allowing value missingness|apparently value-based discrimination depends` in `CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+> - Searched for `[[:blank:]]+$` in `CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+>
+> </details>
+>
+> </details>
+</details>
+
+Fixed only issue 1 in [the plan](./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md:142).
+
+`Vn − Vm` is now explicitly an encoding comparison, not a pure missingness effect. No other files or protocol decisions were changed.
+
+<details><summary>1 previous message</summary>
+
+> Context compaction
+>
+> Source: manual
+> Status: completed
+</details>
+
+Model changed
+
+gpt-5.6-sol -> gpt-5.6-terra
+
+> ok i want you to run an experiment based on the plan above. Dont mod existing pieces of code, create a separate folder inside /Users/bulat/Documents/datenspende\_IMPUTE\_sex label it with date and experiment name. Then try to implement the plan. Before doing so, ask me questions
+
+<details><summary>2 previous messages</summary>
+
+> I’ll keep the existing code untouched and implement the protocol only in a new dated experiment directory. I’m checking the recorded plan context so the questions are limited to decisions that affect the run.
+>
+> <details><summary>Explored a search</summary>
+>
+> - Searched for `informative recording|mnar|feature.*plan|2026-09-20` in `MEMORY.md`
+>
+> </details>
+</details>
+
+Before I start, please confirm:
+
+1. Run the full protocol—including all U arms/contrasts plus the exploratory G and frozen-v1 bridge—or only the four U primary contrasts?
+
+2. Should I do a small end-to-end smoke run first, then proceed automatically to the fixed 30-split experiment if it passes?
+
+3. May the new dated folder contain standalone runner code, derived feature matrices, predictions, figures, and a results report, while leaving all existing code and artifacts read-only?
+
+> 1. briefly, what are U arms and G?
+> 2. Obv, but smoke test is checking code correctness. So make sure to set seeds and test reproducibility. For selecting participants draw at random (but with a seed). Dont overnengineer.&#x20;
+> 3. YES
+
+<details><summary>4 previous messages</summary>
+
+> `U` is the full cohort (gate-passing plus below-gate participants): it tests whether recording context and missingness patterns predict recorded salutation. `G` is the gate-passing subset: the same question after the original coverage restriction, treated as exploratory because selection has already occurred.
+>
+> I’ll run the full planned hierarchy: U as the primary analysis, with G and the frozen-v1 comparison as secondary checks. I’ll make the run reproducible with fixed seeds, a code-correctness smoke test, and seeded participant sampling for the smoke test.
+>
+> <details><summary>Explored a file, a search, a list</summary>
+>
+> - Searched for `datenspende_IMPUTE|salutation|sidequest|informative` in `MEMORY.md`
+> - Read `./CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`
+> - Listed files
+>
+> </details>
+>
+> how big would be the model you use? and which model
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `find . -maxdepth 3 -type f \( -name '*.parquet' -o -name '*manifest*' \) -print | sed -n '1,200p'`
+>
+> </details>
+</details>
+
+A fixed, regularized random forest—not a large model:
+
+```python
+RandomForestClassifier(
+    n_estimators=100,
+    max_features=0.4,
+    min_samples_leaf=10,
+    max_depth=None,
+    class_weight="balanced_subsample",
+)
+```
+
+Each fitted model has 100 trees. The largest arm uses roughly 35 HR-value features + about 51 recording-process features + the small source/gate anchor block: approximately 90–100 effective inputs after categorical encoding. It is deliberately modest; the repeated experiment fits one such forest per arm, cohort, and split.
+
+> good have a go then
+
+<details><summary>38 previous messages</summary>
+
+> I’m starting the isolated run now in `2026-09-20_informative_recording_features`. It will contain standalone code and outputs only; existing analysis code and artifacts remain untouched. I’ll first reconstruct the frozen U/G cohorts and feature blocks from the aggregate parquet artifacts, then run the seeded smoke and repeat it to verify identical results before the full 30-split run.
+>
+> <details><summary>Created 3 files, explored 3 files, a search, ran 7 commands</summary>
+>
+> - Ran `micromamba env list`
+>
+> - Ran `micromamba run -n datenspende python -c "import pandas as pd; from pathlib import Path; root=Path('artifacts');
+> for name in ['cohort_manifest.parquet','epoch_days.parquet','epoch_sources.parquet','epoch_meta.parquet','epoch_features.parquet']:
+>  d=pd.read_parquet(root/name); print('FILE',name,'shape',d.shape); print('columns',list(d.columns)); print(d.head(3).to_string(index=False)); print()"`
+>
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python -c "import pandas as pd; from pathlib import Path; root=Path('artifacts');
+> for name in ['cohort_manifest.parquet','epoch_days.parquet','epoch_sources.parquet','epoch_meta.parquet','epoch_features.parquet']:
+>  d=pd.read_parquet(root/name); print('FILE',name,'shape',d.shape); print('columns',list(d.columns)); print(d.head(3).to_string(index=False)); print()"`
+>
+> <details><summary>Explored 3 files</summary>
+>
+> - Read `./src/features.py`
+> - Read `./src/config.py`
+> - Read `./MNAR_PLAN.md`
+>
+> </details>
+>
+> - Ran `du -sh artifacts/epoch_days.parquet artifacts/epoch_hours.parquet artifacts/cohort_manifest.parquet artifacts/epoch_features.parquet && /Users/bulat/micromamba/envs/datenspende/bin/python -c "import importlib.metadata as md; import sklearn, pandas, pyarrow, scipy; print('python packages', 'sklearn='+sklearn.__version__, 'pandas='+pandas.__version__, 'pyarrow='+pyarrow.__version__, 'scipy='+scipy.__version__)"`
+>
+> <details><summary>Explored a search</summary>
+>
+> - Searched for `*predict*` in `artifacts`
+>
+> </details>
+>
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python -c "import pandas as pd
+> for name in ['artifacts/split_manifest.csv','artifacts/predictions_test.csv','artifacts/epoch_hours.parquet']:
+>  d=pd.read_csv(name) if name.endswith('.csv') else pd.read_parquet(name)
+>  print(name, d.shape, list(d.columns)); print(d.head(5).to_string(index=False)); print()"`
+>
+> - Ran `mkdir -p 2026-09-20_informative_recording_features`
+>
+> - Wrote `./2026-09-20_informative_recording_features/.gitignore` (+2 -0)
+> - Wrote `./2026-09-20_informative_recording_features/README.md` (+22 -0)
+> - Wrote `./2026-09-20_informative_recording_features/run_experiment.py` (+1187 -0)
+>
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python -m py_compile run_experiment.py`
+>
+> </details>
+>
+> The isolated runner is in place and compiles. It reconstructs the 51 recording-process and 35 adequate-day HR-value features directly from the frozen aggregate artifacts, with no raw-epoch rescan. I’m executing the two identical seeded smoke passes now; they cover both G and U, all planned arms, native-NaN handling, median encoding, and split membership.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python run_experiment.py --mode smoke`
+>
+> </details>
+>
+> dont use 10 cores. use 5
+>
+> The smoke found a real reproducibility issue before any full fit: parallel forest prediction accumulation differed at about machine precision between identical runs. The sampled IDs, splits, and model seeds were identical, but strict probability equality failed. I’m switching this standalone run to one worker so the reproducibility check is genuinely exact rather than merely numerically close.
+>
+> who gives a shit about numerical issues. it aint a fancy MCMC study ffs
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./2026-09-20_informative_recording_features/run_experiment.py` (+25 -16)
+>
+> </details>
+>
+> Got it. I’ll use five workers and treat the observed \(10^{-16}\)-scale accumulation differences as irrelevant. The smoke will still require identical seeded participant samples, train/test memberships, and hard predictions; probabilities and metrics will be compared at a tight \(10^{-12}\) numerical tolerance.
+>
+> <details><summary>Edited 2 files, ran a command</summary>
+>
+> - Wrote `./2026-09-20_informative_recording_features/README.md` (+2 -1)
+> - Wrote `./2026-09-20_informative_recording_features/run_experiment.py` (+11 -7)
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python -m py_compile run_experiment.py && /Users/bulat/micromamba/envs/datenspende/bin/python run_experiment.py --mode smoke`
+>
+> </details>
+>
+> The smoke passed: both runs selected the same seeded participants and produced identical split memberships and hard predictions, with probability/metric differences below \(10^{-12}\). I’m moving directly to the full 30-repeat run now, using five workers per forest.
+>
+> <details><summary>Explored 2 searches, ran 2 commands</summary>
+>
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python run_experiment.py --mode full`
+>
+> <details><summary>Explored a search</summary>
+>
+> - Searched for `repeat_*.parquet` in `G`
+>
+> </details>
+>
+> - Ran `pgrep -fal run_experiment.py`
+>
+> <details><summary>Explored a search</summary>
+>
+> - Searched for `repeat_*.parquet` in `G`
+>
+> </details>
+>
+> </details>
+>
+> The full run is progressing normally; G has started writing repeated-split outputs. I’ll keep it running and monitor the saved repeat artifacts rather than interrupting the fits.
+>
+> <details><summary>Explored 3 searches</summary>
+>
+> - Searched for `repeat_*.parquet` in `G`
+> - Searched for `repeat_*.parquet` in `G`
+> - Searched for `repeat_*.parquet` in `G`
+>
+> </details>
+>
+> G is 16/30 repeated splits in. The models are running at a steady pace; no failed artifacts or cohort/feature assertions have appeared.
+>
+> <details><summary>Explored a search, ran 2 commands</summary>
+>
+> <details><summary>Explored a search</summary>
+>
+> - Searched for `repeat_*.parquet` in `G`
+>
+> </details>
+>
+> - Ran `find output/predictions/G -maxdepth 1 -type f -name 'repeat_*.parquet' | wc -l; find output/predictions/U -maxdepth 1 -type f -name 'repeat_*.parquet' 2>/dev/null | wc -l`
+>
+> - Ran `find output/predictions/G -maxdepth 1 -type f -name 'repeat_*.parquet' | wc -l; find output/predictions/U -maxdepth 1 -type f -name 'repeat_*.parquet' 2>/dev/null | wc -l`
+>
+> </details>
+>
+> G is now 25/30. Once it finishes, the same fixed arms will run on the larger primary U cohort; the saved output layout keeps every repeat’s participant-level predictions and split membership local to this new experiment folder.
+>
+> <details><summary>Explored 2 searches, ran 2 commands</summary>
+>
+> - Ran `find output/predictions/G -maxdepth 1 -type f -name 'repeat_*.parquet' | wc -l; find output/predictions/U -maxdepth 1 -type f -name 'repeat_*.parquet' 2>/dev/null | wc -l`
+>
+> - Ran `find output/predictions/G -maxdepth 1 -type f -name 'repeat_*.parquet' | wc -l; find output/predictions/U -maxdepth 1 -type f -name 'repeat_*.parquet' 2>/dev/null | wc -l`
+>
+> <details><summary>Explored 2 searches</summary>
+>
+> - Searched for `repeat_*.parquet` in `U`
+> - Searched for `repeat_*.parquet` in `U`
+>
+> </details>
+>
+> </details>
+>
+> The exploratory G repeats are complete; U, the primary ungated cohort, is underway (6/30). So far the run is behaving as expected, with each repeat written atomically enough to monitor without touching the active process.
+>
+> <details><summary>Explored 3 searches</summary>
+>
+> - Searched for `repeat_*.parquet` in `U`
+> - Searched for `repeat_*.parquet` in `U`
+> - Searched for `repeat_*.parquet` in `U`
+>
+> </details>
+>
+> U is 14/30. The fixed five-worker forest is taking roughly 10–15 seconds per U repeat across its ten arms; no tuning or adaptive reruns are occurring.
+>
+> <details><summary>Explored 3 searches</summary>
+>
+> - Searched for `repeat_*.parquet` in `U`
+> - Searched for `repeat_*.parquet` in `U`
+> - Searched for `repeat_*.parquet` in `U`
+>
+> </details>
+>
+> U has reached 21/30. After repeat 30, the script will calculate the prespecified paired AUROC summaries, run the one frozen-v1 G bridge with aligned bootstrap draws, and write the report—still entirely inside the new directory.
+>
+> <details><summary>Explored a search, ran 2 commands</summary>
+>
+> <details><summary>Explored a search</summary>
+>
+> - Searched for `repeat_*.parquet` in `U`
+>
+> </details>
+>
+> - Ran `find output/predictions/U -maxdepth 1 -type f -name 'repeat_*.parquet' | wc -l; test -f output/repeated_metrics.csv && echo summaries_written || true`
+>
+> - Ran `find output/predictions/U -maxdepth 1 -type f -name 'repeat_*.parquet' | wc -l; test -f output/repeated_metrics.csv && echo summaries_written || true`
+>
+> </details>
+>
+> U is at 29/30; the repeated-split portion is nearly complete. I’ll inspect the generated summaries and bridge outputs once the final reporting stage has finished rather than interpreting partial results.
+>
+> <details><summary>Ran 4 commands</summary>
+>
+> - Ran `find output/predictions/U -maxdepth 1 -type f -name 'repeat_*.parquet' | wc -l; test -f output/repeated_metrics.csv && echo summaries_written || true; test -f output/report.md && echo report_written || true`
+> - Ran `find output/bridge -maxdepth 1 -type f -print 2>/dev/null | sort; test -f output/report.md && echo report_written || true; test -f output/reproducibility.json && echo final_repro_written || true`
+> - Ran `find output/bridge -maxdepth 1 -type f -print 2>/dev/null | sort; test -f output/report.md && echo report_written || true; stat -f '%m %N' output/reproducibility.json`
+> - Ran `find output/bridge -maxdepth 1 -type f -print 2>/dev/null | sort; test -f output/report.md && echo report_written || true`
+>
+> </details>
+>
+> The 30 G and 30 U repeated splits have finished. The frozen-v1 bridge has written its aligned predictions and bootstrap draws; I’m waiting for its final summary/report write before checking the results tables.
+>
+> <details><summary>Explored a list, ran 3 commands</summary>
+>
+> <details><summary>Explored a list</summary>
+>
+> - Listed files in `output`
+>
+> </details>
+>
+> - Ran `find output/bridge -maxdepth 1 -type f -print 2>/dev/null | sort; test -f output/report.md && echo report_written || true; stat -f '%m %N' output/bridge/bootstrap_auroc.parquet`
+>
+> - Ran `lsof output/bridge/bootstrap_auroc.parquet`
+>
+> - Ran `lsof -n -c python | rg 'datenspende_IMPUTE_sex|run_experiment'`
+>
+> </details>
+>
+> The process stopped after writing the bridge bootstrap artifacts, before its summary tables. The repeated-split outputs are intact. I’m diagnosing that final bridge-only reporting failure now; I will not rerun the 60 completed repeated fits.
+>
+> <details><summary>Ran 2 commands</summary>
+>
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python -c "import pandas as pd; from sklearn.metrics import roc_auc_score; p=pd.read_parquet('output/bridge/predictions.parquet'); v=pd.read_csv('../artifacts/predictions_test.csv')[['user_id','y','proba_1']].assign(arm='v1'); q=pd.concat([p,v],ignore_index=True); print(q.shape, q.columns.tolist(), q.groupby('arm').size().to_dict());
+> for arm,x in q.groupby('arm',sort=False): print(arm, x.columns.tolist(), x['pred'].notna().all() if 'pred' in x else 'no pred', roc_auc_score(x['y'],x['proba_1']))"`
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python -c "import pandas as pd; from sklearn.metrics import roc_auc_score; from run_experiment import evaluate; p=pd.read_parquet('output/bridge/predictions.parquet'); v=pd.read_csv('../artifacts/predictions_test.csv')[['user_id','y','proba_1']].copy(); v['arm']='v1'; q=pd.concat([p,v],ignore_index=True); m=(q.groupby('arm',sort=False).apply(lambda x: pd.Series(evaluate(x['y'].to_numpy(),x['proba_1'].to_numpy(),x['pred'].to_numpy()) if 'pred' in x and x['pred'].notna().all() else {'auroc':roc_auc_score(x['y'],x['proba_1'])}),include_groups=False).reset_index()); print(m.to_string(index=False)); w=q.pivot(index='user_id',columns='arm',values='proba_1'); print(w.shape, w.isna().sum().sum())"`
+>
+> </details>
+>
+> I found the cause: only the bridge report formatter failed. A pandas group-by call reshaped the bridge metrics long rather than wide, so the first requested AUROC lookup failed after bootstrap generation. I’m fixing that standalone reporting bug and will resume from the saved 60-repeat results, rerunning only the eight-model bridge.
+>
+> <details><summary>Edited a file, ran a command</summary>
+>
+> - Wrote `./2026-09-20_informative_recording_features/run_experiment.py` (+34 -7)
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python -m py_compile run_experiment.py && /Users/bulat/micromamba/envs/datenspende/bin/python run_experiment.py --mode finalize`
+>
+> </details>
+>
+> The bridge now completed correctly. The remaining failure is purely report rendering: this environment lacks the optional `tabulate` package. I’m replacing that dependency with a small built-in Markdown-table formatter, so no package installation or experiment rerun is needed beyond the already-completed bridge.
+>
+> <details><summary>Edited a file, explored a list, ran a command</summary>
+>
+> - Wrote `./2026-09-20_informative_recording_features/run_experiment.py` (+11 -1)
+>
+> <details><summary>Explored a list</summary>
+>
+> - Listed files in `metrics.csv`
+>
+> </details>
+>
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python -m py_compile run_experiment.py && /Users/bulat/micromamba/envs/datenspende/bin/python run_experiment.py --mode finalize`
+>
+> </details>
+>
+> The experiment is complete. I’m doing the final read-only verification now: cohort/split integrity, saved prediction coverage, the prespecified U contrasts, and agreement of reconstructed G value features with the frozen feature table.
+>
+> <details><summary>Explored a file, ran 2 commands</summary>
+>
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python -c "import json; from pathlib import Path; import pandas as pd; root=Path('output'); m=pd.read_csv(root/'repeated_metrics.csv'); c=pd.read_csv(root/'paired_auroc_comparisons.csv'); a=pd.read_csv(root/'absolute_metric_summary.csv'); b=pd.read_csv(root/'bridge/metrics.csv'); d=pd.read_csv(root/'bridge/v1_paired_deltas.csv'); rep=json.loads((root/'reproducibility.json').read_text()); print('metric rows by cohort',m.groupby('cohort').size().to_dict()); print('arms',m.groupby('cohort')['arm'].unique().apply(list).to_dict()); print('nonfinite AUROC',int(m.auroc.isna().sum())); print('primary U'); print(c.loc[c.primary_u, ['contrast','mean_delta_auroc','sd_delta_auroc','mc_se','ci_low','ci_high','share_delta_gt_zero']].to_string(index=False)); print('absolute U'); print(a.loc[a.cohort.eq('U'), ['arm','auroc_mean','auroc_sd','balanced_accuracy_mean','balanced_accuracy_sd']].to_string(index=False)); print('bridge'); print(b[['arm','auroc']].to_string(index=False)); print('repro',rep['rf_params'],rep['smoke'])"`
+>
+> - Ran `/Users/bulat/micromamba/envs/datenspende/bin/python -c "import json; from pathlib import Path; import numpy as np; import pandas as pd; from run_experiment import VALUE_STATS, CHANNELS; root=Path('output'); feat=pd.read_parquet(root/'data/features_u.parquet'); expected={'G':(20485, ['A','R0','R','Vm','Vn','RV','V0','P']), 'U':(25784, ['Agate','Asource','A','R0','R','Vm','Vn','RV','V0','P'])};
+> for cohort,(n,arms) in expected.items():
+>  for repeat in range(30):
+>   membership=pd.read_parquet(root/'splits'/cohort/f'repeat_{repeat:02d}.parquet'); pred=pd.read_parquet(root/'predictions'/cohort/f'repeat_{repeat:02d}.parquet'); assert len(membership)==n and membership.user_id.is_unique; tr=set(membership.loc[membership.split.eq('train'),'user_id']); te=set(membership.loc[membership.split.eq('test'),'user_id']); assert not(tr&te) and len(tr)+len(te)==n; assert set(pred.arm)==set(arms) and len(pred)==len(te)*len(arms); [assertion for assertion in []];
+>  for arm, p in pred.groupby('arm'): assert set(p.user_id)==te and p.user_id.is_unique
+>  print(cohort,'30 disjoint/exhaustive memberships and arm-aligned prediction files: pass')
+> for path in sorted((root/'schemas'/'G').glob('*.json')):
+>  s=json.loads(path.read_text()); assert all('a__gate_pass' not in x['raw_columns'] for x in s.values())
+> for path in sorted((root/'schemas'/'U').glob('*.json')):
+>  s=json.loads(path.read_text()); assert not s['Vm']['native_nan_in_training_matrix']; assert s['Vn']['native_nan_in_training_matrix']
+> print('schema checks (no G gate leakage; Vm no NaNs; Vn native NaNs): pass')
+> old=pd.read_parquet('../artifacts/epoch_features.parquet').set_index('user_id'); new=feat.set_index('user_id').loc[old.index]; pairs=[]
+> for ch in CHANNELS:
+>  for stat in VALUE_STATS: pairs.append((f'v__ch{ch}_{stat}',f'ch{ch}_{stat}'))
+> pairs += [('v__ch3000_minus_ch3001_mean','ch3000_minus_ch3001_mean'),('v__ch3000_minus_ch3002_mean','ch3000_minus_ch3002_mean')]
+> maxdiff=0.0
+> for left,right in pairs:
+>  a=new[left].to_numpy(float); b=old[right].to_numpy(float); assert np.array_equal(np.isnan(a),np.isnan(b)); maxdiff=max(maxdiff, float(np.nanmax(np.abs(a-b))))
+> print('G value-feature agreement with frozen epoch_features:',len(pairs),'columns; max abs diff',maxdiff)"`
+>
+> <details><summary>Explored a file</summary>
+>
+> - Read `./output/report.md`
+>
+> </details>
+>
+> </details>
+>
+> Verification passed: all 60 split manifests are disjoint/exhaustive, every arm’s prediction IDs match its test split, G contains no gate predictor, `Vm` contains no NaNs, `Vn` retains them, and all 35 reconstructed G value columns match the frozen feature table exactly. I’m checking the final workspace boundary now, then I’ll summarize the findings.
+>
+> <details><summary>Edited a file, explored a search, ran a command</summary>
+>
+> - Wrote `./2026-09-20_informative_recording_features/.gitignore` (+1 -0)
+>
+> - Ran `git status --short && git diff --check && rg -n '[[:blank:]]+$' run_experiment.py README.md .gitignore || true`
+>
+> <details><summary>Explored a search</summary>
+>
+> - Searched for `[[:blank:]]+$` in `run_experiment.py`
+>
+> </details>
+>
+> </details>
+</details>
+
+Completed the full isolated experiment: 540 repeated-split fits, 8 frozen-v1 bridge fits, five workers per forest, and a reproducibility smoke test.
+
+Primary U result: the full representation reached AUROC 0.7239 ± 0.0060.
+
+- Recording process beyond source/gate: ΔAUROC 0.0741, simultaneous 95% CI [0.0708, 0.0774].
+- HR values beyond recording process: 0.0412 [0.0383, 0.0442].
+- Explicit process features beyond native-NaN values: 0.0167 [0.0147, 0.0187].
+- Native NaNs versus median encoding: −0.0006 [−0.0019, 0.0007]—no meaningful advantage here.
+
+The frozen-v1 bridge’s RV AUROC was 0.7200 versus v1’s 0.7132; its aligned bootstrap delta includes zero, so it is descriptive rather than evidence of improvement.
+
+Read the results in the [report](./2026-09-20_informative_recording_features/output/report.md). The standalone [runner](./2026-09-20_informative_recording_features/run_experiment.py) and all local outputs are in the new dated folder. Existing tracked code/artifacts were not changed.
+
+Verification passed: exact cohort counts, 30 disjoint/exhaustive splits per cohort, aligned prediction IDs, no G gate leakage, correct Vm/Vn missingness handling, and exact agreement of all 35 reconstructed G HR-value columns with the frozen feature table.
+
+This supports informative recording patterns as predictive signal for recorded salutation; it does not identify an MNAR mechanism or a causal/physiological effect.
+
+> push to github
+
+<details><summary>10 previous messages</summary>
+
+> I’ll commit and push only the new dated experiment implementation and its report-facing files; participant-level outputs remain ignored and local. I’ll verify the branch, remote, and Git identity first.
+>
+> <details><summary>Explored a search, ran a command</summary>
+>
+> <details><summary>Explored a search</summary>
+>
+> - Searched for `github|push|mol2people|commit` in `MEMORY.md`
+>
+> </details>
+>
+> - Ran `git status --short && git branch --show-current && git remote -v && git config user.name && git config user.email && git check-ignore -v 2026-09-20_informative_recording_features/output/report.md`
+>
+> </details>
+>
+> The remote is `github.com:mol2people/imputation.git` and Git is configured as `mol2people`. I’ll include the separately labeled protocol plus the new experiment’s README, runner, and nested ignore rule; I’ll leave the unrelated untracked `experiments/` directory and all local predictions/results out of the commit.
+>
+> <details><summary>Ran 2 commands</summary>
+>
+> - Ran `git add CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md 2026-09-20_informative_recording_features && git diff --cached --check && git diff --cached --stat`
+> - Ran `git diff --cached --name-status && git status --short`
+>
+> </details>
+>
+> Staging review passed: exactly four intended files, no generated outputs, and no whitespace errors. I’m committing them now and pushing `main` to the mol2people remote.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `git commit -m "add informative recording experiment" && git push origin main`
+>
+> </details>
+>
+> The commit was created locally as `9172b56`, but GitHub’s `main` advanced independently, so the push was correctly rejected as non-fast-forward. I’ll fetch and inspect the remote-only commit before rebasing this isolated commit; I won’t overwrite remote history.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `git fetch origin main && git log --oneline --left-right --graph HEAD...origin/main && git diff --name-status HEAD...origin/main`
+>
+> </details>
+>
+> The remote-only change is five unrelated transcript files; it does not overlap this experiment. I’ll rebase the new commit onto that current `origin/main` and push the rebased commit.
+>
+> <details><summary>Explored a file, ran 2 commands</summary>
+>
+> - Ran `git rebase origin/main && git push origin main`
+>
+> - Ran `git status --short --branch && git log -1 --format='%H%n%s%n%an <%ae>' && git rev-parse HEAD origin/main`
+>
+> <details><summary>Explored a file</summary>
+>
+> - Read `~/.codex/memories/MEMORY.md`
+>
+> </details>
+>
+> </details>
+</details>
+
+Pushed successfully to `origin/main`.
+
+Commit: [`26ce761`](https://github.com/mol2people/imputation/commit/26ce7616d0a42bc6686496bc4799877260252153) — `add informative recording experiment`
+Author: `mol2people <bulat.zagidullin@tu-dresden.de>`
+
+It includes the standalone runner, README, nested output ignore rule, and Codex protocol. Local participant-level outputs remain untracked. The unrelated `experiments/` directory was left untouched.
