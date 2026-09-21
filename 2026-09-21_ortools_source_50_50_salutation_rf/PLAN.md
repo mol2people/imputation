@@ -1,7 +1,6 @@
 # OR-Tools configurable source-specific salutation RF
 
-**Date:** 2026-09-21  
-**Status:** completed
+**Date:** 2026-09-21 — **Status:** completed
 
 ## Question
 
