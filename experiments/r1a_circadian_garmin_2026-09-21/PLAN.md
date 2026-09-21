@@ -40,8 +40,9 @@ RF would otherwise absorb via its existing coverage features)?
   Each has schema `(user, channel, hour, n, vsum, vsumsq)`. The cohort
   filter (`channel == 3000 ∧ user ∈ s3`) is applied after load;
   coverage statistics are printed and recorded.
-- **ch3000 only** (vendor caveat: 3001/3002 are deferred to the leakage
-  audit, not folded into R1a).
+- **ch3000 only** (vendor caveat). **Standing decision 2026-09-21:
+  the vendor-circularity audit is declined** — ch3000-only is the
+  convention for feature-side arms, not a deferral.
 
 ## 3. Features (35 R1a columns per user)
 
@@ -132,8 +133,9 @@ OLS residualisation (per repeat, fit on train users only):
 - **Same-partition reuse** — not independent validation.
 - **Curve features correlate with wear pattern by construction**;
   `BASE⊕R1a_resid` exists to test the deconfounded version.
-- **ch3001/ch3002 excluded** — vendor-processing caveat; the leakage
-  audit can rerun R1a with these channels later if it exonerates them.
+- **ch3001/ch3002 excluded** — vendor-processing caveat. The
+  vendor-circularity audit is **declined** (standing decision,
+  2026-09-21); ch3000-only stands.
 - **Weekday/weekend contrast not derivable** from the hour-of-day cache
   (dates are lost); that family lives in R1b.
 - **Caveats carried from the FS phase**: vendor-processing for ch3001/3002,
