@@ -1,0 +1,204 @@
+{
+ "timestamp": "2026-09-21T22:04:32",
+ "script_sha256": "fd4384790ccd5d3162e5363fb887bd508876a48896b44898909f2499e83e20e5",
+ "scan_script_sha256": "9a85fde3c3d5f17368b2844e1d9a35201291b61f43dfad083b887733f2175b59",
+ "python": "3.14.5",
+ "numpy": "2.4.6",
+ "pandas": "3.0.3",
+ "scipy": "1.17.1",
+ "sklearn": "1.9.0",
+ "joblib": "1.5.3",
+ "ortools": "9.15.6755",
+ "config": {
+  "R": 10,
+  "N_JOBS_OUTER": 8,
+  "N_TREES": 100,
+  "G1": {
+   "max_features": 0.4,
+   "min_samples_leaf": 10,
+   "max_depth": null,
+   "class_weight": "balanced_subsample"
+  },
+  "DAY_SLOT": 7,
+  "RANDOM_TRIAL_BASE": 50,
+  "ALLOC_SEED_BASE": 20260921,
+  "ALLOC_TIME_LIMIT": 300,
+  "DESIGNATED_DAYS": 40,
+  "COHORT_SIZE": 3848,
+  "allocator_spec": {
+   "id_column": "user_id",
+   "stratify_columns": [
+    "salutation"
+   ],
+   "partition_columns": [
+    "age_band",
+    "bmi_group"
+   ],
+   "fold_sizes": {
+    "train": 70,
+    "val": 15,
+    "test": 15
+   }
+  }
+ },
+ "seed_streams": {
+  "allocator": "SeedSequence([20260921, 3, r])",
+  "day_level_rf": "SeedSequence([20260919, 3, r, 7])",
+  "participant_rf": "SeedSequence([20260919, 3, r, 5])  (R1a slot)",
+  "random40_trial": "SeedSequence([20260919, 3, 0, 50+t])"
+ },
+ "allocator_gate": {
+  "all_phases_optimal": true,
+  "n_partitions": 23,
+  "balance_csv_equality": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "cross_expt_test_user_set": {
+   "0": {
+    "mine": 573,
+    "ref": 573,
+    "eq": true,
+    "symdiff": 0
+   },
+   "1": {
+    "mine": 573,
+    "ref": 573,
+    "eq": true,
+    "symdiff": 0
+   },
+   "2": {
+    "mine": 573,
+    "ref": 573,
+    "eq": true,
+    "symdiff": 0
+   },
+   "3": {
+    "mine": 573,
+    "ref": 573,
+    "eq": true,
+    "symdiff": 0
+   },
+   "4": {
+    "mine": 573,
+    "ref": 573,
+    "eq": true,
+    "symdiff": 0
+   },
+   "5": {
+    "mine": 573,
+    "ref": 573,
+    "eq": true,
+    "symdiff": 0
+   },
+   "6": {
+    "mine": 573,
+    "ref": 573,
+    "eq": true,
+    "symdiff": 0
+   },
+   "7": {
+    "mine": 573,
+    "ref": 573,
+    "eq": true,
+    "symdiff": 0
+   },
+   "8": {
+    "mine": 573,
+    "ref": 573,
+    "eq": true,
+    "symdiff": 0
+   },
+   "9": {
+    "mine": 573,
+    "ref": 573,
+    "eq": true,
+    "symdiff": 0
+   }
+  },
+  "base_auroc_recompute": {
+   "0": {
+    "recomputed": 0.7356326390538792,
+    "recorded": 0.7356326390538792,
+    "max_abs_diff": 0.0
+   },
+   "1": {
+    "recomputed": 0.7037037037037037,
+    "recorded": 0.7037037037037037,
+    "max_abs_diff": 0.0
+   },
+   "2": {
+    "recomputed": 0.7055779942451361,
+    "recorded": 0.7055779942451361,
+    "max_abs_diff": 0.0
+   },
+   "3": {
+    "recomputed": 0.7616747181964574,
+    "recorded": 0.7616747181964574,
+    "max_abs_diff": 0.0
+   },
+   "4": {
+    "recomputed": 0.768889183457052,
+    "recorded": 0.768889183457052,
+    "max_abs_diff": 0.0
+   },
+   "5": {
+    "recomputed": 0.7593714451998624,
+    "recorded": 0.7593714451998624,
+    "max_abs_diff": 0.0
+   },
+   "6": {
+    "recomputed": 0.7473356309650053,
+    "recorded": 0.7473356309650053,
+    "max_abs_diff": 0.0
+   },
+   "7": {
+    "recomputed": 0.7480116648992577,
+    "recorded": 0.7480116648992577,
+    "max_abs_diff": 0.0
+   },
+   "8": {
+    "recomputed": 0.7341148577449947,
+    "recorded": 0.7341148577449947,
+    "max_abs_diff": 0.0
+   },
+   "9": {
+    "recomputed": 0.7506627783669142,
+    "recorded": 0.7506627783669142,
+    "max_abs_diff": 0.0
+   }
+  },
+  "ortools_version": "9.15.6755",
+  "folds_sha256": "9fb463157247d8c34003f555b6d37e5eb30cfa1bbb398644fbcb91d4a02ee28c",
+  "demographics_sha256": "a0bbb33e48af83891d358e6b918fde1a20154a820056d06568f54850c1176795",
+  "r1aaf_predictions_sha256": "3224b8cf5d8362b92d772895e0832d8d55108b1817090b36ae4d85852cfd6365"
+ },
+ "input_sha256": {
+  "features_all.parquet": "0f3507756fbf5bc7b565c1d41c631aa81fccf2a51a79013e7fdd33315548c7e6",
+  "split_manifest_sq.parquet": "1b0768ae23b7b63a5cbb6c7c364e161621b1419a8830c9b2ff341c5a7dafde0b",
+  "cohort_manifest_model_sources.parquet": "a84061ff871a0fedde04a7c882e891dcac12ae7d8a8981c900ae311159bd5766",
+  "13Aug_1222.csv": "8c12348e338bb1c7e424f27e3c1c371caacd3099c89cc6a4785d97d26f4cdb42",
+  "epoch_days.parquet": "ec0b7eea97d3ef462ed34b817cc246d835a112106c11fb065b1a5bd86290589a",
+  "r1aaf_demographics.parquet": "a0bbb33e48af83891d358e6b918fde1a20154a820056d06568f54850c1176795",
+  "r1aaf_predictions.csv": "3224b8cf5d8362b92d772895e0832d8d55108b1817090b36ae4d85852cfd6365",
+  "r1aaf_metrics.csv": "c9bbd7342388f51803935314188bee9ec0b6c4167b449835b75e1af98dd5d0d2",
+  "rescan_output.parquet": "b395e2a004f98d450682ae5d431bc0bc980a19f7584d2d80595bfafb84fb17d7",
+  "dayall_table.parquet": "967cfbf50c04021b5b91a3b46be16c5e1004dc001697ca7ed38b5a13fecb4e21",
+  "day40_table.parquet": "bb998fbed54ef2a9c5f77e0646a75c3bf08127749b4069f8382660347f36e4be",
+  "p40.parquet": "0cc28472b91fcbe6dfa30fe7963f8c2e29604e6e5e4fcf6e45005b694a38ff62",
+  "folds.parquet": "9fb463157247d8c34003f555b6d37e5eb30cfa1bbb398644fbcb91d4a02ee28c"
+ },
+ "r1a_runner": {
+  "path": "/Users/bulat/Documents/datenspende_IMPUTE_sex/experiments/r1a_circadian_garmin_2026-09-21/run_r1a.py",
+  "sha256": "8d76c913e455aff0dfa0d9f7202e834e75f62138ebadbdef8c494a444f0a49be"
+ },
+ "wall_seconds": 0.4
+}
