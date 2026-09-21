@@ -1,0 +1,17 @@
+{
+  "bench_users": 100,
+  "bench_days_per_user": 40,
+  "mr_transform_wall_s_bench_100x40": 0.88,
+  "mr_per_day_ms_bench": 0.219,
+  "mr_proj_full_per_alloc_s": 33.7,
+  "hydra_transform_wall_s_bench_100x40": 8.51,
+  "hydra_per_day_ms_bench": 2.127,
+  "hydra_proj_full_per_alloc_s": 327.5,
+  "shuffled_mr_doubles_mr_wall": true,
+  "ten_alloc_proj_mr_min": 11.2,
+  "ten_alloc_proj_hydra_min": 54.6,
+  "peak_rss_mb": 4255.6,
+  "fill_min": 54.79999923706055,
+  "fill_max": 77.19999694824219,
+  "fill_used_nan": 0
+}

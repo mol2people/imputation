@@ -1,0 +1,57 @@
+{
+  "timestamp": "2026-09-21T23:40:40",
+  "python": "3.14.5",
+  "numpy": "2.4.6",
+  "torch": "2.14.0",
+  "numba": "0.67.0",
+  "pin": {
+    "multirocket_repo": "ChangWeiTan/MultiRocket",
+    "multirocket_commit": "3ccaa4f8ed11769b904af885e17018c39c89a2ac",
+    "multirocket_file_sha256": "71d1e61bf59a6a7ff21c76b36d73e88dbf4e6307f1cea547cb342373687a7786",
+    "multirocket_file_path": "cache/vendor/multirocket/multirocket/multirocket.py",
+    "hydra_repo": "angus924/hydra",
+    "hydra_commit": "144bb7aa3186654042f00f36b078370c620acb06",
+    "hydra_file_sha256": "56de99eb1723567ee0a2b3763513ecb4a645d8b1732116c50a07af2b2e3a2d4f",
+    "hydra_file_path": "cache/vendor/hydra/code/hydra.py"
+  },
+  "fixture_multirocket": {
+    "n_examples": 10,
+    "input_length": 288,
+    "num_features_per_transformation": 1250,
+    "width_day": 9408,
+    "width_day_per_transformation_base": 1176,
+    "byte_identical_repeat": true,
+    "batch_vs_unbatched_agreement": true,
+    "any_nan": false,
+    "any_inf": false,
+    "nan_to_num_zero_frac": 0.003050595238095238,
+    "transform_wall_s_warmup_excluded": 0.0027,
+    "max_abs": 287.0
+  },
+  "fixture_hydra": {
+    "n_examples": 10,
+    "input_length": 288,
+    "k": 8,
+    "g": 64,
+    "width_day": 6144,
+    "width_day_expected": 6144,
+    "byte_identical_repeat": true,
+    "batch_vs_unbatched_agreement": true,
+    "sparse_scaler_byte_repeat": true,
+    "any_nan": false,
+    "any_inf": false,
+    "transform_wall_s_warmup_excluded": 0.0148,
+    "max_abs": 77.0
+  },
+  "gates": {
+    "mr_width_9408": true,
+    "mr_byte_repeat": true,
+    "mr_batch_vs_single": true,
+    "mr_no_nan": true,
+    "hydra_width_6144": true,
+    "hydra_byte_repeat": true,
+    "hydra_batch_vs_single": true,
+    "hydra_no_nan": true
+  },
+  "wall_seconds": 1.0
+}

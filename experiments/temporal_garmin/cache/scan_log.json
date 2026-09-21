@@ -1,0 +1,34 @@
+{
+  "files": 3848,
+  "workers": 2,
+  "failures": 0,
+  "designated_pairs": 153920,
+  "designated_distinct_bins_per_day": {
+    "min": 20,
+    "p50": 282.0,
+    "p99": 288.0,
+    "lt8": 0,
+    "zero_mask_days": 0
+  },
+  "span_audit_ms": {
+    "p50_per_user_median": 60000,
+    "p90_per_user_median": 60000,
+    "p99_per_user_median": 60000,
+    "max_per_user_max": 80213000,
+    "weighted_frac_gt_5min": 0.0004,
+    "weighted_frac_gt_10min": 0.0004,
+    "users_gt_5min_50pct_of_events": 0,
+    "predeclared_rule_triggered": false
+  },
+  "tz_change_audit": {
+    "users_with_gt1_tz_offsets": 3836,
+    "users_max_tz_unique": 14
+  },
+  "nan_tz_rejected_total": 0,
+  "end_nan_dropped_total": 0,
+  "raw_event_rows_total_per_user_median": null,
+  "input_sha256": {
+    "day40_table.parquet": "bb998fbed54ef2a9c5f77e0646a75c3bf08127749b4069f8382660347f36e4be"
+  },
+  "elapsed_s": 302.7
+}
