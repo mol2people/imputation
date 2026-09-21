@@ -1,0 +1,6 @@
+# Derived intermediates (rebuildable from epoch_days.parquet + sidequest modules)
+cache/
+
+# Python
+__pycache__/
+*.pyc

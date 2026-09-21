@@ -1,0 +1,8 @@
+[dayscale] start 2026-09-21T17:11:15 | mode=full
+[dayscale] building day table ...
+[dayscale] day table: 1,635,698 rows x 34 cols | 3848 users (0s)
+/Users/bulat/micromamba/envs/datenspende/lib/python3.14/site-packages/joblib/externals/loky/process_executor.py:782: UserWarning: A worker stopped while some jobs were given to the executor. This can be caused by a too short worker timeout or by a memory leak.
+  warnings.warn(
+[dayscale] all repeats + SA done (9699s)
+[dayscale] results written to /Users/bulat/Documents/datenspende_IMPUTE_sex/experiments/dayscale_garmin_2026-09-21/results
+[dayscale] done in 9699s

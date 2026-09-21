@@ -1,0 +1,56 @@
+{
+ "timestamp": "2026-09-21T19:52:55",
+ "script_sha256": "132d23d4471a92bec658924fd5d1423408af8f7c05df198c3a22e274bae656cb",
+ "python": "3.14.5",
+ "numpy": "2.4.6",
+ "pandas": "3.0.3",
+ "scipy": "1.17.1",
+ "sklearn": "1.9.0",
+ "joblib": "1.5.3",
+ "config": {
+  "FS_SEED": 20260919,
+  "BASELINE_SEED": 20260921,
+  "SRC": 3,
+  "R": 30,
+  "K_CAP": 300,
+  "VI_DAY": 6,
+  "N_TREES": 100,
+  "PI_REPEATS": 3,
+  "G1": {
+   "max_features": 0.4,
+   "min_samples_leaf": 10,
+   "max_depth": null,
+   "class_weight": "balanced_subsample"
+  },
+  "N_JOBS_OUTER": 5,
+  "KS": [
+   1,
+   2,
+   4,
+   8,
+   16,
+   32,
+   64,
+   128
+  ],
+  "TRIALS": 200,
+  "BOOT": 500,
+  "PI_SUB": 30000,
+  "ARMS": [
+   "A",
+   "B",
+   "A_covs"
+  ],
+  "SA_ARMS": {
+   "A_K100": 100,
+   "A_uncapped": null
+  }
+ },
+ "input_sha256": {
+  "epoch_days.parquet": "ec0b7eea97d3ef462ed34b817cc246d835a112106c11fb065b1a5bd86290589a",
+  "split_manifest_sq.parquet": "1b0768ae23b7b63a5cbb6c7c364e161621b1419a8830c9b2ff341c5a7dafde0b",
+  "features_all.parquet": "0f3507756fbf5bc7b565c1d41c631aa81fccf2a51a79013e7fdd33315548c7e6",
+  "13Aug_1222.csv": "8c12348e338bb1c7e424f27e3c1c371caacd3099c89cc6a4785d97d26f4cdb42"
+ },
+ "wall_seconds": 9699.3
+}
