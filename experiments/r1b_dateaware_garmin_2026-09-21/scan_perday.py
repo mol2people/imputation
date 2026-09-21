@@ -52,10 +52,19 @@ def build_day_sets(with_first40: bool = True):
     dates_ndarray)]; first40_pairs is a set of (uid, date) for the designated
     40-day windows (PLAN §4), used only for the coverage gate.
     """
+    # restrict to the s3 strict cohort (3,848 users): epoch_days contains
+    # all sole-source users (sources 3/6/7/9/13), but the rescan filter
+    # ``source == 3`` rejects non-s3 events — scanning them would fail the
+    # designated-day coverage gate (first run of this script did exactly that)
+    cm = pd.read_parquet(
+        REPO / "artifacts_sq" / "cohort_manifest_model_sources.parquet",
+        columns=["user_id", "source_id"])
+    s3 = set(cm[cm.source_id == SRC].user_id.astype("int64"))
     ed = pd.read_parquet(REPO / "artifacts_v2" / "epoch_days.parquet",
                          columns=["user", "channel", "date", "n", "cov_s",
                                   "hours"])
     ed["user"] = ed["user"].astype("int64")
+    ed = ed[ed.user.isin(s3)]
     h3 = ed[ed.channel == CH]
     adequate = (h3.hours >= 8) & ((h3.cov_s >= 8 * 3600) | (h3.n >= 60))
     ad = h3[adequate].sort_values(["user", "date"])
