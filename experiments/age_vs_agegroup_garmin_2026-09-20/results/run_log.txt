@@ -1,0 +1,39 @@
+Run log — age_vs_agegroup_garmin (final run)
+============================================
+
+NOTE: stdout of this run was not tee'd to a file at execution time (the
+machine-readable record is `age_repro.json`). This log is a faithful summary
+reconstructed from the session transcript; all numbers below are verbatim
+from the run's stdout / `time` output.
+
+Command:
+  python experiments/age_vs_agegroup_garmin_2026-09-20/run_age_vs_agegroup.py
+  env: micromamba "datenspende" (python 3.14.5, sklearn 1.9.0, numpy 2.4.6,
+       pandas 3.0.3, scipy 1.17.1, joblib 1.5.3)
+  workers: 5 (joblib loky), n_jobs=1 per RF fit
+
+Wall clock:
+  start 2026-09-20T18:02:12  ->  done 2026-09-20T18:07:12
+  time(1): 5:01.13 total (300.0s compute per age_repro.json)
+
+Key stdout lines (verbatim):
+  [age-exp] start 2026-09-20T18:02:12 | mode=full
+  [age-exp] validation: REF50 replica vs frozen A3_k50/A1 —
+           max |delta AUROC| = 0.00e+00; top-50 sets identical 30/30 = True
+  [age-exp] 5 arms x 30 repeats complete
+  [age-exp] results written to experiments/age_vs_agegroup_garmin_2026-09-20/results
+  [age-exp] done in 300s
+
+Validation gate (pre-registered in PLAN.md §6):
+  The REF50 arm re-implements the frozen FS-phase A3_k50 selection and was
+  required to reproduce it bit-exactly before any experimental arm was
+  interpreted. Gate passed: max |delta AUROC| 0.00e+00 and identical top-50
+  sets on all 30/30 repeats.
+
+Post-run file edits (documented, no compute rerun):
+  - REPORT.md Table 1: two cosmetic "nan" cells patched by hand
+    (AGE50_force and AGE_all hygiene-val share the AGE50 hygiene fit
+    = 0.7514); footnote added. Machine CSVs untouched.
+  - REPORT.md §8 Interpretation filled after results inspection.
+  - §3 extended with the Elderly-vs-age position comparison computed
+    post-hoc from artifacts_sq/fsplit/cells + age_top50_sets.json.

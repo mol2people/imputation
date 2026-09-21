@@ -1,0 +1,41 @@
+{
+ "timestamp": "2026-09-20T18:07:12",
+ "script_sha256": "eaf405a15d5ec3e540bd717a44f3e4fc21b962cdf38c2e826d3b91e6497b271b",
+ "python": "3.14.5",
+ "numpy": "2.4.6",
+ "pandas": "3.0.3",
+ "scipy": "1.17.1",
+ "sklearn": "1.9.0",
+ "joblib": "1.5.3",
+ "config": {
+  "FS_SEED": 20260919,
+  "SRC": 3,
+  "R": 30,
+  "K": 50,
+  "VI_ALL": 5,
+  "N_TREES": 100,
+  "PI_REPEATS": 3,
+  "G1": {
+   "max_features": 0.4,
+   "min_samples_leaf": 10,
+   "max_depth": null,
+   "class_weight": "balanced_subsample"
+  },
+  "N_JOBS_OUTER": 5,
+  "fractions": [
+   0.7,
+   0.15,
+   0.15
+  ],
+  "age_convention": "birthday = Dec 1 of birth year; anchor = window_start",
+  "cutoff_anchor": "2022-12-18"
+ },
+ "validation": "max |delta AUROC| vs frozen A3_k50/A1 = 0.00e+00; top-50 sets identical on all 30/30 repeats = True",
+ "input_sha256": {
+  "13Aug_1222.csv": "8c12348e338bb1c7e424f27e3c1c371caacd3099c89cc6a4785d97d26f4cdb42",
+  "features_all.parquet": "0f3507756fbf5bc7b565c1d41c631aa81fccf2a51a79013e7fdd33315548c7e6",
+  "split_manifest_sq.parquet": "1b0768ae23b7b63a5cbb6c7c364e161621b1419a8830c9b2ff341c5a7dafde0b",
+  "cohort_manifest_model_sources.parquet": "a84061ff871a0fedde04a7c882e891dcac12ae7d8a8981c900ae311159bd5766"
+ },
+ "wall_seconds": 300.0
+}
