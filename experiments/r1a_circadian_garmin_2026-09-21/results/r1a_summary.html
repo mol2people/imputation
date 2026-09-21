@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>R1a — Participant-level Circadian Curve Features (Garmin)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  @page { size: A4; margin: 20mm 17mm 18mm 17mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 10.2pt; line-height: 1.42; color: #1a1a1a; margin: 0;
+  }
+  h1 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+       font-size: 16.5pt; margin: 0 0 2pt 0; letter-spacing: -0.2pt; }
+  .subtitle { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+       font-size: 10pt; color: #555; margin: 0 0 10pt 0; }
+  h2 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+       font-size: 11.5pt; margin: 14pt 0 5pt 0;
+       border-bottom: 0.6pt solid #999; padding-bottom: 2pt; }
+  p { margin: 4pt 0; }
+  ul { margin: 4pt 0 4pt 0; padding-left: 16pt; }
+  li { margin: 2.5pt 0; }
+  code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 8.6pt;
+         background: #f2f2f2; padding: 0.5pt 2.5pt; border-radius: 2pt; }
+  table { border-collapse: collapse; margin: 7pt 0; width: auto; }
+  th, td { padding: 3pt 9pt; font-size: 9.6pt; text-align: left; }
+  thead tr { border-top: 1pt solid #333; border-bottom: 0.6pt solid #333; }
+  tbody tr:last-child { border-bottom: 1pt solid #333; }
+  tbody tr + tr { border-top: 0.35pt solid #ccc; }
+  th { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+       font-size: 9pt; }
+  .status { background: #f5f5f5; border-left: 2.5pt solid #666;
+            padding: 5pt 9pt; margin: 8pt 0; font-size: 9.6pt; }
+  .eqblock { margin: 7pt 0 7pt 6pt; }
+  .footer { margin-top: 16pt; padding-top: 5pt; border-top: 0.6pt solid #999;
+            font-size: 8.6pt; color: #666;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  .avoid-break { page-break-inside: avoid; }
+</style>
+</head>
+<body>
+<h1>R1a — Participant-level Circadian Curve Features (Garmin)</h1>
+<p class="subtitle">Plan-language summary &middot; Datenspende sex-imputation program</p>
+
+<div class="status">
+<b>Status:</b> run 2026-09-21, commits <code>4868482</code> + <code>a494e35</code>.
+30 repeats &times; 5 arms, wall 447&thinsp;s, no rescan (raw epochs untouched).
+<b>Standing decision:</b> vendor-circularity audit <b>declined</b> (2026-09-21);
+ch3000-only is the convention for feature-side arms, not a deferral.
+</div>
+
+<h2>Cohort &amp; label</h2>
+<ul>
+  <li>s3 (Garmin) strict-coverage model union, <b>n = 3,848</b>; 70/15/15 &rarr; 2692/578/578 per repeat.</li>
+  <li>Label = recorded salutation, \(y{=}1 \Leftrightarrow\) female-form (2464/1384 = 64.0% prevalence).</li>
+  <li>Splits = the frozen FS-phase participant splits: <code>SeedSequence([20260919, 3, r])</code>,
+      per-class permutation, test&rarr;val&rarr;train. <b>Paired with every prior experiment</b>
+      (FS, FE, age, dayscale).</li>
+</ul>
+
+<h2>Input</h2>
+<p><code>artifacts_v2/epoch_hours.parquet</code>, filtered <code>channel = 3000 &and; user &isin; cohort</code>
+&rarr; 92,286 (user, hour-of-day) cells, coverage 1.0000. Schema
+<code>(user, channel, hour &isin; {0..23}, n, vsum, vsumsq)</code>: per-user sums of all valid
+minute-observations grouped by <b>local clock hour</b> over the whole recording. Zero-cost source
+— the discovery that made R1a free.</p>
+
+<h2>Features (35 per user)</h2>
+<p>Per user, hourly mean and weight over the recording:</p>
+<div class="eqblock">
+$$\bar h_k = \frac{\sum \texttt{vsum}}{\sum \texttt{n}}, \qquad
+   n_k = \sum \texttt{n}, \qquad k = 0,\dots,23$$
+</div>
+
+<p><b>Curve block (11).</b> Weighted cosinor, 3 harmonics, weighted least squares with
+weights \(W=\operatorname{diag}(n_k)\):</p>
+<div class="eqblock avoid-break">
+$$\widehat{\mathrm{HR}}(k) = M + \sum_{j=1}^{3}\left[a_j\cos\!\left(\frac{2\pi jk}{24}\right)
+   + b_j\sin\!\left(\frac{2\pi jk}{24}\right)\right], \qquad
+   \hat\beta = (X^{\top}\! W X)^{-1} X^{\top}\! W\,\bar h$$
+</div>
+<p>solved via <code>lstsq</code> (min-norm under rank deficiency). Emits: mesor \(M\);
+harmonic amplitudes \(A_j = \sqrt{a_j^2 + b_j^2}\) (24/12/8-h); acrophase</p>
+<div class="eqblock">
+$$\mathrm{acro} = \arg\max_{t \in [0,24)} \widehat{\mathrm{HR}}(t)$$
+</div>
+<p>evaluated on a 0.25-h grid (phase-convention-free), and goodness-of-fit</p>
+<div class="eqblock">
+$$\mathrm{resid\_sd} = \sqrt{\frac{\sum_k n_k\left(\bar h_k - \widehat{\mathrm{HR}}(k)\right)^2}{\sum_k n_k}}$$
+</div>
+<p>plus the curve summaries</p>
+<div class="eqblock">
+$$\mathrm{night\_mean} = \frac{\sum_{k<6} n_k \bar h_k}{\sum_{k<6} n_k}, \qquad
+   \mathrm{contrast} = \operatorname{wmean}(\bar h,\,8..19) - \operatorname{wmean}(\bar h,\,0..5), \qquad
+   p_k \propto \left(\bar h_k - \min \bar h\right)^{+},\;\; H = -\sum_k p_k \ln p_k$$
+</div>
+<p>with <code>morning_slope</code> = weighted-LS slope of \(\bar h_k\) on \(k\) over
+\(k \in \{5,\dots,9\}\) (bpm/h) and <code>range</code> \(= \max \bar h - \min \bar h\)
+over worn hours.</p>
+
+<p><b>Raw profile (24).</b> <code>hour_h0..h23</code> \(= \bar h_k\), NaN where \(n_k = 0\)
+(structural; median-imputed downstream).</p>
+
+<p><b>Wear-partialled variant</b> (per repeat, OLS fit on train users only):</p>
+<div class="eqblock avoid-break">
+$$f_{\mathrm{resid}} = f - \left[\hat\gamma_0 + \sum_{k=0}^{22} \hat\gamma_k\, s_k
+   + \hat\gamma_{23} \log n_{\mathrm{total}}\right], \qquad
+   s_k = \frac{n_k}{\sum_k n_k}$$
+</div>
+<p>i.e. each curve feature linearly residualised on its own hour-of-day coverage profile;
+residuals applied to all users (train-fit coefficients).</p>
+
+<h2>Protocol</h2>
+<ul>
+  <li><b>Arms (5):</b> <code>BASE</code> (FS-A1 replica), <code>R1a_only</code>,
+      <code>BASE&oplus;R1a</code>, <code>R1a_resid_only</code>, <code>BASE&oplus;R1a_resid</code>.</li>
+  <li><b>Hygiene:</b> SQPreprocessor on train (median impute + one-hot + indicators) &rarr; A1:
+      drop <code>__missing</code>, caret nzv (dominant &gt;95% &and; unique/n &lt; 10%).
+      400 cols BASE &rarr; 435 combined (no R1a column dropped).</li>
+  <li><b>Model:</b> RF G1 @ 100 trees — <code>max_features=0.4</code>,
+      <code>min_samples_leaf=10</code>, <code>class_weight=balanced_subsample</code>;
+      seed <code>SeedSequence([20260919, 3, r, 5])</code> — the same stream as FS/age,
+      which is what makes BASE bit-exact.</li>
+</ul>
+
+<h2>Inference</h2>
+<p>Primary family: s3 <code>all</code>, two comparisons vs BASE, paired per repeat:</p>
+<div class="eqblock">
+$$\Delta_r = \mathrm{AUROC}(\mathrm{arm},\,r) - \mathrm{AUROC}(\mathrm{BASE},\,r),
+   \qquad r = 0,\dots,29$$
+$$\bar\Delta \;\pm\; t_{0.9875,\,29}\; s\,/\sqrt{30}$$
+</div>
+<p>Two 97.5% CIs &rArr; Bonferroni-simultaneous 95% family.
+Detection floor &asymp; 0.003 AUROC (MC SE &asymp; 0.0015).</p>
+
+<h2>Results</h2>
+<p><b>Gate:</b> BASE = frozen FS A1, max \(|\Delta| = 0\mathrm{e}{+}00\) over 30/30 repeats.</p>
+
+<table class="avoid-break">
+<thead><tr><th>arm</th><th>test AUROC (mean &plusmn; SD)</th></tr></thead>
+<tbody>
+<tr><td><code>BASE</code></td><td>0.7434 &plusmn; 0.0155</td></tr>
+<tr><td><code>R1a_only</code></td><td>0.6921 &plusmn; 0.0200</td></tr>
+<tr><td><code>R1a_resid_only</code></td><td>0.6885 &plusmn; 0.0157</td></tr>
+<tr><td><code>BASE&oplus;R1a</code></td><td>0.7463 &plusmn; 0.0179</td></tr>
+<tr><td><code>BASE&oplus;R1a_resid</code></td><td><b>0.7470 &plusmn; 0.0173</b></td></tr>
+</tbody>
+</table>
+
+<p><b>Primary comparisons</b> (97.5% t-CI, Bonferroni-simultaneous 95% — both clear zero):</p>
+<table class="avoid-break">
+<thead><tr><th>comparison</th><th>mean &Delta;</th><th>97.5% CI</th></tr></thead>
+<tbody>
+<tr><td>BASE&oplus;R1a &minus; BASE</td><td>+0.0029</td><td>[+0.0004, +0.0054]</td></tr>
+<tr><td>BASE&oplus;R1a_resid &minus; BASE</td><td><b>+0.0036</b></td><td>[+0.0014, +0.0058]</td></tr>
+</tbody>
+</table>
+
+<p><b>Direction read</b> (class 0 = male-form salutation, class 1 = female-form):</p>
+<table class="avoid-break">
+<thead><tr><th>feature</th><th>class 0 (male)</th><th>class 1 (female)</th></tr></thead>
+<tbody>
+<tr><td><code>cosinor_acro_h</code> (peak time)</td><td>13.76 h</td><td>14.53 h (+0.77 h later)</td></tr>
+<tr><td><code>curve_night_mean</code> (00&ndash;05)</td><td>64.8 bpm</td><td>60.8 bpm</td></tr>
+<tr><td><code>hour_h9</code></td><td>79.6 bpm</td><td>75.1 bpm</td></tr>
+<tr><td><code>hour_h20</code></td><td>77.6 bpm</td><td>75.1 bpm</td></tr>
+<tr><td><code>cosinor_A3</code> (8-h amplitude)</td><td>1.77</td><td>1.57</td></tr>
+</tbody>
+</table>
+
+<h2>Key findings</h2>
+<ul>
+  <li><b>Both primary comparisons clear zero</b> — the first feature-side lever past the
+      detection floor since FS-phase saturation; same order as the age counter (+0.0029).</li>
+  <li><b>Standalone density:</b> 35 curve features alone reach 0.6921, i.e.
+      $\frac{0.6921-0.5}{0.7434-0.5} = 79\%$ of the participant-level excess signal.</li>
+  <li><b>Shape, not coverage:</b> residualising the hour-of-day coverage profile out of each
+      curve feature <i>before</i> addition raises the increment (+0.0036 vs +0.0029) — the added
+      information is relative timing/form of the hourly profile, not wear volume.
+      Coverage-partialling is a cheap denoiser worth carrying into R1b.</li>
+  <li><b>Direction is opposite to lab resting physiology</b> (women: higher resting HR, earlier
+      phase): male curves run hotter at every clock hour and peak earlier. The classifier is
+      likely reading activity load / cohort composition / wear behaviour, not textbook circadian
+      dimorphism. Label is recorded salutation, not biological sex/gender.</li>
+  <li><b>Positioning:</b> the <i>trait</i> complement to dayscale&rsquo;s <i>state</i> result.
+      Participant level is near-saturated; the day level (base &asymp; 0.65) has the headroom —
+      R1b (per-day curves, weekday/weekend contrast, minute-scale dynamics, episodes) should be
+      evaluated there first; its day-curve cache doubles as the D2 warm-start input.</li>
+</ul>
+
+<div class="footer">
+Source: <code>experiments/r1a_circadian_garmin_2026-09-21/</code> &middot;
+PLAN.md &amp; results/REPORT.md &middot; git <code>4868482</code>, <code>a494e35</code> &middot;
+rendered 2026-09-21
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "\\(", right: "\\)", display: false}
+    ],
+    throwOnError: false
+  });
+});
+</script>
+</body>
+</html>
