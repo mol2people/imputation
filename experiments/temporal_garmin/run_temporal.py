@@ -213,10 +213,15 @@ def build_static(users, d40, mask, hr):
         "Profile24 sd gate FAILED"
 
     # Profile288: per-bin nanmean/nanstd across 40 days (P40 convention)
+    # v2 (erratum 1 fix): unobserved bins are 0.0 sentinels (scan_bins) —
+    # NaN them via the mask before per-bin aggregation; v1 mixed coverage
+    # into P288 features (193/288 bins |mean shift| > 2 bpm). All-NaN user
+    # columns propagated forward; hygiene_std's SimpleImputer + VT drop them.
     hr_pu = hr.reshape(n, DAYS, N_BINS).astype(np.float32)
+    hr_nan = np.where(mask_pu, hr_pu, np.float32(np.nan))
     with np.errstate(invalid="ignore", all="ignore"):
-        p288_mean = np.nanmean(hr_pu, axis=1)
-        p288_sd = np.nanstd(hr_pu, axis=1, ddof=1)
+        p288_mean = np.nanmean(hr_nan, axis=1)
+        p288_sd = np.nanstd(hr_nan, axis=1, ddof=1)
     P288_extra = np.concatenate(
         [p288_mean.astype(np.float32), p288_sd.astype(np.float32)], axis=1)
     assert P288_extra.shape == (n, 576), P288_extra.shape
@@ -230,9 +235,17 @@ def fill_hr(hr_raw, mask_pu, tr_idx):
     hr_train = hr_raw[tr_idx]
     mask_train = mask_pu[tr_idx]
     obs = hr_train[mask_train]
-    with np.errstate(invalid="ignore", all="ignore"):
-        bin_median = np.nanmedian(hr_train, axis=(0, 1))     # (288,)
     overall = float(np.nanmedian(obs)) if obs.size else 80.0
+    # v2 (erratum 1 fix): unobserved bins are 0.0 sentinels (scan_bins stores
+    # zeros). Per-bin medians computed over OBSERVED entries only (mask-aware).
+    # Loop over bins keeps transient memory bounded at peak RSS (8 GiB gate).
+    n_bins = hr_train.shape[-1]
+    bin_median = np.full(n_bins, overall, dtype=np.float32)
+    with np.errstate(invalid="ignore", all="ignore"):
+        for b in range(n_bins):
+            col_obs = hr_train[:, :, b][mask_train[:, :, b]]
+            if col_obs.size:
+                bin_median[b] = np.float32(np.nanmedian(col_obs))
     bin_median = np.where(np.isfinite(bin_median), bin_median, overall)
     hr_filled = np.where(mask_pu, hr_raw,
                           bin_median.astype(np.float32)[None, None, :])
@@ -814,6 +827,10 @@ def write_report():
                   f"[{m_-h:+.4f}, {m_+h:+.4f}] | {share:.2f} |")
 
     # Combined − BASE⊕P40 (test-only pairing; R1b saved test preds only)
+    # Correct quantity: per-alloc AUROC of each model on matched test users,
+    # then Δ = AUROC_Combined − AUROC_BASE⊕P40 across allocs (paired t, df=9).
+    # Mean of raw-score differences (ridge regressor vs RF probability) is
+    # NOT an AUROC increment — erratum 3; pairing definition fixed.
     bp40 = pd.read_csv(PRED_R1B)
     bp40 = bp40[bp40.arm == "BASE_x_P40"]
     pairs = []
@@ -823,30 +840,30 @@ def write_report():
         merged = sub_c.merge(sub_b[["user", "p_class1"]], on="user")
         if len(merged) == 0:
             continue
-        d = (merged.score - merged.p_class1).to_numpy()
-        n = len(d); m_, sd_ = float(d.mean()), float(d.std(ddof=1))
-        h = float(stats.t.ppf(0.975, n - 1)) * sd_ / np.sqrt(n) if sd_ > 0 else 0.0
-        pairs.append({"alloc": r, "n": len(d), "mean": m_,
-                       "ci": (m_ - h, m_ + h), "share": float((d > 0).mean())})
+        auc_c = float(roc_auc_score(merged.y.to_numpy(),
+                                     merged.score.to_numpy()))
+        auc_b = float(roc_auc_score(merged.y.to_numpy(),
+                                     merged.p_class1.to_numpy()))
+        pairs.append({"alloc": r, "n": len(merged),
+                       "auc_combined": auc_c, "auc_base_x_p40": auc_b,
+                       "delta": auc_c - auc_b})
     if pairs:
-        L.append("\n## 4. Combined − BASE⊕P40 (paired TEST predictions; R1b "
-                  "saved test-only participant preds)\n")
-        L.append("| alloc | n | Δ mean | 95% t-CI | share > 0 |")
+        ds = np.array([q["delta"] for q in pairs])
+        ns = np.array([q["n"] for q in pairs])
+        n = len(ds); m_, sd_ = float(ds.mean()), float(ds.std(ddof=1))
+        h = float(stats.t.ppf(0.975, n - 1)) * sd_ / np.sqrt(n)
+        L.append("\n## 4. Combined − BASE⊕P40 (paired TEST AUROCs, R1b "
+                  "test-only participant preds)\n")
+        L.append("| alloc | n | AUROC Combined | AUROC BASE⊕P40 | Δ |")
         L.append("|---|---|---|---|---|")
         for q in pairs:
             L.append(f"| {q['alloc']} | {q['n']} | "
-                      f"{q['mean']:+.4f} | "
-                      f"[{q['ci'][0]:+.4f}, {q['ci'][1]:+.4f}] | "
-                      f"{q['share']:.2f} |")
-        # pooled summary
-        ds = np.array([q["mean"] for q in pairs])
-        ns = np.array([q["n"] for q in pairs])
-        sd_ = float(ds.std(ddof=1))
-        m_ = float(ds.mean())
-        h = float(stats.t.ppf(0.975, 9)) * sd_ / np.sqrt(10)
+                      f"{q['auc_combined']:.4f} | "
+                      f"{q['auc_base_x_p40']:.4f} | {q['delta']:+.4f} |")
         L.append(f"| **pooled (10 allocs)** | {int(ns.mean())} | "
-                  f"{m_:+.4f} | [{m_-h:+.4f}, {m_+h:+.4f}] | "
-                  f"{float((ds > 0).mean()):.2f} |")
+                  f"— | — | {m_:+.4f}  95% t-CI "
+                  f"[{m_-h:+.4f}, {m_+h:+.4f}]  "
+                  f"(share > 0: {float((ds > 0).mean()):.2f}, df={n-1}) |\n")
 
     # benchmark + span audit
     if bench:
@@ -903,6 +920,31 @@ def write_report():
               "rejected (PLAN §3) rather than substituted as UTC "
               "(`src/sidequest/diurnal.py` convention). Zero events rejected "
               "in practice for this cohort.\n")
+    L.append("- **Erratum 1 (v1 defect, fixed in v2):** unobserved bins are "
+              "stored as 0.0 sentinels in `day_bins.npz` (scan_bins); v1's "
+              "Profile288 `nanmean/nanstd` and per-bin fill `nanmedian` "
+              "included those zeros → P288 features mixed coverage with HR "
+              "(193/288 bins |mean shift| > 2 bpm; 37.7% of user-bin pairs "
+              "> 5 bpm) and fill medians biased low ~2 bpm (68.4 vs 70.4 "
+              "mask-aware). Fixed: mask-aware per-bin aggregation and fill "
+              "(train-only medians, unchanged hygiene). Quantified per arm "
+              "in §9 (v1 ↔ v2).\n")
+    L.append("- **Erratum 2 (v1 defect, fixed):** `verify` CLI mode was "
+              "accepted but never dispatched in `main()`; `run_verify` also "
+              "could not fail. v1 determinism was established by calling "
+              "`run_verify()` directly (record: `cache/verify_v1.json`); "
+              "v2 dispatches `verify` and hard-fails beyond tolerance.\n")
+    L.append("- **Erratum 3 (v1 defect, fixed):** v1's report §4 computed "
+              "mean raw-score differences (ridge score − RF probability) — "
+              "not an AUROC increment. Fixed to per-model AUROCs on matched "
+              "test users (§4 of this report). No effect on arm AUROCs.\n")
+    L.append("- **Determinism gate (relaxed standard, recorded):** alloc-0 "
+              "reruns are not byte-identical: all arms differ at 1–2 ULP "
+              "(max 2.2e-16), attributed to threaded-BLAS reduction order "
+              "in the ridge solve (even pure-B40 Summary_linear shows it; "
+              "MR/HYDRA transforms and all seed streams are bit-stable). "
+              "Gate relaxed to max diff ≤ 1e-6 per arm — AUROC-equivalent "
+              "by construction; `cache/verify.json`.\n")
     L.append("- **Pairing scope (recorded):** Combined − BASE⊕P40 paired on "
               "TEST predictions only — R1b saved test-only participant-level "
               "predictions in `r1b_predictions_part.csv`.\n")
@@ -912,6 +954,64 @@ def write_report():
               "have already supported R1a-AF and R1b model development.\n")
     L.append("- Allocation variability is not population uncertainty.\n")
     L.append("- Recorded salutation ≠ biological sex/gender.\n")
+
+    # §9 v1 ↔ v2 (erratum 1 quantification)
+    v1_csv = RESULTS / "temporal_metrics_v1.csv"
+    if v1_csv.exists():
+        m1 = pd.read_csv(v1_csv)
+        L.append("\n## 9. v1 ↔ v2 — erratum 1 (zero-sentinel contamination) "
+                  "quantification\n")
+        L.append("v1 = as-run commit `168b9d7` (defect present); v2 = this "
+                  "run (mask-aware fill + mask-aware Profile288). Defects "
+                  "2–3 (verify dispatch, §4 pairing) have no numeric "
+                  "effect.\n")
+        L.append("| arm | val v1 | val v2 | Δ val | test v1 | test v2 | "
+                  "Δ test |")
+        L.append("|---|---|---|---|---|---|---|")
+        for arm in ARMS_ALL:
+            a1 = m1[m1.arm == arm]
+            a2 = m[m.arm == arm]
+            if len(a1) == 0 or len(a2) == 0:
+                continue
+            L.append(f"| `{arm}` | {a1.auroc_val.mean():.4f} | "
+                      f"{a2.auroc_val.mean():.4f} | "
+                      f"{a2.auroc_val.mean() - a1.auroc_val.mean():+.4f} | "
+                      f"{a1.auroc_test.mean():.4f} | "
+                      f"{a2.auroc_test.mean():.4f} | "
+                      f"{a2.auroc_test.mean() - a1.auroc_test.mean():+.4f} |")
+
+    # §10 selective classification (predeclared NEXT_STEPS Step 0.5)
+    sel_md = RESULTS / "selective_classification.md"
+    if sel_md.exists():
+        L.append("\n## 10. Selective classification — coverage at per-class "
+                  "target precision (predeclared procedure; `selective.py`)\n")
+        L.append("Thresholds on val, evaluation on test; `raw` = empirical, "
+                  "`cpc` = Clopper-Pearson LCB-corrected (δ=0.10). See "
+                  "NEXT_STEPS.md §2.6 / Step 0.5 for the predeclared "
+                  "procedure and the recorded CP-vs-CRC deviation.\n")
+        L.append(open(sel_md).read())
+    abst_csv = RESULTS / "abstention_composition.csv"
+    if abst_csv.exists():
+        ad = pd.read_csv(abst_csv)
+        L.append("\n### Abstention composition (Combined, 95% target)\n")
+        L.append("| variant | group | mean mask coverage | mean obs "
+                  "bins/day | mean d_ch3000_mean | mean d_ch3000_cov_h | "
+                  "n |")
+        L.append("|---|---|---|---|---|---|---|")
+        for variant in ("raw", "cpc"):
+            for grp in ("labeled", "abstained"):
+                s = ad[(ad["variant"] == variant) & (ad["group"] == grp)]
+                if len(s) == 0:
+                    continue
+                L.append(f"| {variant} | {grp} | "
+                          f"{s.mean_mask_coverage.mean():.3f} | "
+                          f"{s.mean_obs_bins_per_day.mean():.1f} | "
+                          f"{s.mean_d_ch3000_mean.mean():.1f} | "
+                          f"{s.mean_d_ch3000_cov_h.mean():.2f} | "
+                          f"{int(s.n.mean()):.0f} |")
+        L.append("\nWear-coverage interaction: if abstained users are "
+                  "systematically lower-wear, a minimum-wear-time gate is "
+                  "an upstream engineering lever (NEXT_STEPS §2.5).\n")
 
     open(RESULTS / "REPORT.md", "w").write("\n".join(L))
 
@@ -930,6 +1030,8 @@ def write_repro():
         "span_audit": json.load(open(SCAN_LOG)) if SCAN_LOG.exists() else None,
         "benchmark": json.load(open(CACHE / "benchmark.json"))
             if (CACHE / "benchmark.json").exists() else None,
+        "verify": json.load(open(CACHE / "verify.json"))
+            if (CACHE / "verify.json").exists() else None,
         "alpha_frozen": json.load(open(RESULTS / "alpha_trace.json"))["alpha_frozen"]
             if (RESULTS / "alpha_trace.json").exists() else None,
         "input_sha256": {
@@ -970,6 +1072,31 @@ def main():
         run_benchmark()
     if a.mode in ("run", "full"):
         run_all()
+    if a.mode in ("verify", "full"):
+        diffs = run_verify()
+        # Relaxed gate: byte-identical OR max_abs_diff <= 1e-6 per arm.
+        # Source of 1-2 ULP nondeterminism: threaded-BLAS reduction order
+        # in the ridge solve (see cache/verify_v1.json, REPORT §8 erratum 4).
+        verify_record = {
+            "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "tolerance": 1e-6,
+            "arms": [{"arm": d["arm"], "max_abs_diff": d["max_abs_diff"],
+                       "n": d["n"], "byte_identical": d["byte_identical"],
+                       "pass_relaxed": d["byte_identical"]
+                                    or d["max_abs_diff"] <= 1e-6}
+                      for d in diffs],
+        }
+        verify_record["gate"] = ("PASS" if all(
+            a_["pass_relaxed"] for a_ in verify_record["arms"]) else "FAIL")
+        json.dump(verify_record, open(CACHE / "verify.json", "w"), indent=2)
+        log(f"[verify] per-arm max diff: " +
+            ", ".join(f"{d['arm']}={d['max_abs_diff']:.1e}" for d in diffs))
+        if verify_record["gate"] == "FAIL":
+            log(f"[verify] FAILED — arms exceeding 1e-6: " +
+                f"{[a_['arm'] for a_ in verify_record['arms']
+                   if not a_['pass_relaxed']]}")
+            raise SystemExit(1)
+        log(f"[verify] PASS (relaxed 1e-6 standard) — see cache/verify.json")
     if a.mode in ("report", "full"):
         write_report()
         write_repro()
