@@ -111,6 +111,11 @@ OLS residualisation (per repeat, fit on train users only):
 - Source 3, variant `all`. Two comparisons: `BASE⊕R1a − BASE` and
   `BASE⊕R1a_resid − BASE`. 97.5% t-CIs (two-sided), Bonferroni-simultaneous
   95% family. **Detection floor ≈ 0.003 AUROC at R=30.**
+  *(Erratum 2026-09-21: the run implemented the program's 95% t-CI formula
+  (`t.ppf(0.975, 29)`, see `feat_sel._mean_ci`); the reported CIs in
+  `results/REPORT.md` are 95% t-CIs. Bonferroni-simultaneous 97.5% CIs
+  added in REPORT §6 erratum. R1a-AF follow-up commit `a87027c` reports
+  both side-by-side.)*
 - Secondary cells: source 3 `rec`, `win` (FS precedent); the standalone
   `R1a_only` / `R1a_resid_only` arms (how far curve-alone gets without
   the cached matrix); top-Gini R1a features inside `BASE⊕R1a`;

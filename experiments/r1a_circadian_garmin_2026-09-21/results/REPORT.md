@@ -16,9 +16,9 @@ Run 2026-09-21T18:03:39 | implements [`../PLAN.md`](../PLAN.md) | 30 FS-phase re
 | `R1a_resid_only` | 0.6885 ± 0.0157 | 0.6868 | 35 |
 | `BASE_x_R1a_resid` | 0.7470 ± 0.0173 | 0.7500 | 435 |
 
-## 2. Paired test-AUROC deltas (97.5% t-CI)
+## 2. Paired test-AUROC deltas (95% t-CI; Bonferroni 97.5% in §6)
 
-| comparison | mean Δ | 97.5% t-CI | SD | share > 0 |
+| comparison | mean Δ | 95% t-CI | SD | share > 0 |
 |---|---|---|---|---|
 | BASE⊕R1a − BASE | +0.0029 | [+0.0004, +0.0054] | 0.0067 | 0.60 |
 | BASE⊕R1a_resid − BASE | +0.0036 | [+0.0014, +0.0058] | 0.0058 | 0.70 |
@@ -74,13 +74,26 @@ Run 2026-09-21T18:03:39 | implements [`../PLAN.md`](../PLAN.md) | 30 FS-phase re
 
 ## 6. Interpretation
 
-**Primary family (both comparisons Bonferroni-simultaneous 95%, i.e. 97.5% t-CIs):
-both clear zero.** The wear-partialled curve is the stronger and tighter
-increment: `BASE⊕R1a_resid − BASE = +0.0036 [+0.0014, +0.0058]` (share > 0 in
-70% of repeats) vs `+0.0029 [+0.0004, +0.0054]` raw. Magnitude is at the
-detection floor (~0.003 at R=30) — the same order as the age counter
-(+0.0029) — but resolved, and it is the first *feature-side* lever to clear
-the floor since the FS-phase saturation point.
+**Primary family (both comparisons clear zero under the program's 95% t-CIs
+and under Bonferroni-simultaneous 97.5% t-CIs for the wear-partialled arm).**
+The wear-partialled curve is the stronger and tighter increment:
+`BASE⊕R1a_resid − BASE = +0.0036 [+0.0014, +0.0058]` 95% / `[+0.0011, +0.0061]`
+97.5% (share > 0 in 70% of repeats) vs `+0.0029 [+0.0004, +0.0054]` 95% /
+`[+0.0000, +0.0058]` 97.5% raw. Magnitude is at the detection floor
+(~0.003 at R=30) — the same order as the age counter (+0.0029) — but resolved,
+and it is the first *feature-side* lever to clear the floor since the FS-phase
+saturation point.
+
+> **Erratum (2026-09-21).** This report and the summary PDF originally labeled
+> these CIs "97.5% t-CIs". The reported intervals were computed with
+> `t.ppf(0.975, 29)` (`run_r1a.mean_ci`) — a **95%** two-sided t-CI, matching
+> the frozen program convention (`feat_sel._mean_ci`, `feat_sel.build_report`,
+> `age_vs_agegroup_garmin_2026-09-20/results/REPORT.md`). The generator script
+> `run_r1a.py` lines 499–500 are left untouched to preserve the sha recorded in
+> `r1a_repro.json`; those report-label lines are superseded by this erratum.
+> Corrected Bonferroni-simultaneous 97.5% t-CIs (`t.ppf(0.9875, 29)·sd/√30`)
+> are given above. The R1a-AF follow-up (commit `a87027c`) reports both 95%
+> and Bonferroni 97.5% CIs side-by-side by design.
 
 **Standalone: 35 curve features alone reach 0.6921** vs 0.7434 for the full
 400-col matrix — 79% of the participant-level excess signal

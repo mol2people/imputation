@@ -131,9 +131,11 @@ residuals applied to all users (train-fit coefficients).</p>
 <div class="eqblock">
 $$\Delta_r = \mathrm{AUROC}(\mathrm{arm},\,r) - \mathrm{AUROC}(\mathrm{BASE},\,r),
    \qquad r = 0,\dots,29$$
-$$\bar\Delta \;\pm\; t_{0.9875,\,29}\; s\,/\sqrt{30}$$
+$$\bar\Delta \;\pm\; t_{0.975,\,29}\; s\,/\sqrt{30} \quad\text{(95% t-CI)}$$
+$$\bar\Delta \;\pm\; t_{0.9875,\,29}\; s\,/\sqrt{30} \quad\text{(97.5% Bonferroni, 2 comparisons)}$$
 </div>
-<p>Two 97.5% CIs &rArr; Bonferroni-simultaneous 95% family.
+<p>Primary CIs are 95% t-CIs (program convention, <code>t.ppf(0.975, 29)</code>);
+Bonferroni-simultaneous 97.5% CIs reported alongside for the 2-comparison family.
 Detection floor &asymp; 0.003 AUROC (MC SE &asymp; 0.0015).</p>
 
 <h2>Results</h2>
@@ -150,12 +152,12 @@ Detection floor &asymp; 0.003 AUROC (MC SE &asymp; 0.0015).</p>
 </tbody>
 </table>
 
-<p><b>Primary comparisons</b> (97.5% t-CI, Bonferroni-simultaneous 95% — both clear zero):</p>
+<p><b>Primary comparisons</b> (95% t-CI / Bonferroni 97.5% in parentheses):</p>
 <table class="avoid-break">
-<thead><tr><th>comparison</th><th>mean &Delta;</th><th>97.5% CI</th></tr></thead>
+<thead><tr><th>comparison</th><th>mean &Delta;</th><th>95% t-CI</th><th>97.5% t-CI (Bonferroni)</th></tr></thead>
 <tbody>
-<tr><td>BASE&oplus;R1a &minus; BASE</td><td>+0.0029</td><td>[+0.0004, +0.0054]</td></tr>
-<tr><td>BASE&oplus;R1a_resid &minus; BASE</td><td><b>+0.0036</b></td><td>[+0.0014, +0.0058]</td></tr>
+<tr><td>BASE&oplus;R1a &minus; BASE</td><td>+0.0029</td><td>[+0.0004, +0.0054]</td><td>[+0.0000, +0.0058]</td></tr>
+<tr><td>BASE&oplus;R1a_resid &minus; BASE</td><td><b>+0.0036</b></td><td>[+0.0014, +0.0058]</td><td>[+0.0011, +0.0061]</td></tr>
 </tbody>
 </table>
 
