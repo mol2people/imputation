@@ -1,0 +1,7 @@
+[r1aaf] start 2026-09-21T19:38:48 | mode=full | R=10 | workers=4
+[r1aaf] demographics: 3848 users, 23 partitions
+[r1aaf] r1a features: 3848 users x 61 cols
+[r1aaf] 10 allocations x 5 arms done (102s)
+[r1aaf] allocator gate: all_phases_optimal=True for 10/10 allocations (230 partition solves)
+[r1aaf] results written to /Users/bulat/Documents/datenspende_IMPUTE_sex/experiments/r1a_allocfolds_garmin_2026-09-21/results
+[r1aaf] done in 102s

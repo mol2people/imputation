@@ -1,0 +1,73 @@
+{
+ "timestamp": "2026-09-21T19:40:29",
+ "script_sha256": "0c6be7fae6b8ad29dd42fd423acf886fb87adc334fbb7f5e03b6d42747065fbb",
+ "python": "3.14.5",
+ "numpy": "2.4.6",
+ "pandas": "3.0.3",
+ "scipy": "1.17.1",
+ "sklearn": "1.9.0",
+ "joblib": "1.5.3",
+ "ortools": "9.15.6755",
+ "config": {
+  "R": 10,
+  "N_JOBS_OUTER": 4,
+  "ARMS": [
+   "BASE",
+   "R1a_only",
+   "BASE_x_R1a",
+   "R1a_resid_only",
+   "BASE_x_R1a_resid"
+  ],
+  "N_TREES": 100,
+  "G1": {
+   "max_features": 0.4,
+   "min_samples_leaf": 10,
+   "max_depth": null,
+   "class_weight": "balanced_subsample"
+  },
+  "ALLOC_SEED_BASE": 20260921,
+  "ALLOC_TIME_LIMIT": 300,
+  "allocator_spec": {
+   "id_column": "user_id",
+   "stratify_columns": [
+    "salutation"
+   ],
+   "partition_columns": [
+    "age_band",
+    "bmi_group"
+   ],
+   "fold_sizes": {
+    "train": 70,
+    "val": 15,
+    "test": 15
+   }
+  },
+  "rf_seed_stream": "SeedSequence([20260919, 3, r, 5]) (= run_r1a.rf_seed(r))",
+  "alloc_seeds": [
+   2256801314,
+   3414674331,
+   1344715685,
+   3106585843,
+   2675366730,
+   2342924474,
+   1780492483,
+   271739077,
+   199442435,
+   3544586559
+  ]
+ },
+ "gate": "all_phases_optimal=True for 10/10 allocations (230 partition solves)",
+ "r1a_runner": {
+  "path": "/Users/bulat/Documents/datenspende_IMPUTE_sex/experiments/r1a_circadian_garmin_2026-09-21/run_r1a.py",
+  "sha256": "8d76c913e455aff0dfa0d9f7202e834e75f62138ebadbdef8c494a444f0a49be"
+ },
+ "input_sha256": {
+  "features_all.parquet": "0f3507756fbf5bc7b565c1d41c631aa81fccf2a51a79013e7fdd33315548c7e6",
+  "split_manifest_sq.parquet": "1b0768ae23b7b63a5cbb6c7c364e161621b1419a8830c9b2ff341c5a7dafde0b",
+  "cohort_manifest_model_sources.parquet": "a84061ff871a0fedde04a7c882e891dcac12ae7d8a8981c900ae311159bd5766",
+  "13Aug_1222.csv": "8c12348e338bb1c7e424f27e3c1c371caacd3099c89cc6a4785d97d26f4cdb42",
+  "demographics.parquet": "a0bbb33e48af83891d358e6b918fde1a20154a820056d06568f54850c1176795",
+  "r1a_features_epoch_hours.parquet": "f8588f3776baa1cda2f06ef8f6a86e7ac1e424b17bb7298115a28573d3bb45c6"
+ },
+ "wall_seconds": 101.7
+}
