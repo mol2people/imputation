@@ -1,0 +1,81 @@
+{
+ "timestamp": "2026-09-21T18:03:39",
+ "script_sha256": "8d76c913e455aff0dfa0d9f7202e834e75f62138ebadbdef8c494a444f0a49be",
+ "python": "3.14.5",
+ "numpy": "2.4.6",
+ "pandas": "3.0.3",
+ "scipy": "1.17.1",
+ "sklearn": "1.9.0",
+ "joblib": "1.5.3",
+ "config": {
+  "FS_SEED": 20260919,
+  "SRC": 3,
+  "R": 30,
+  "VI_ALL": 5,
+  "N_TREES": 100,
+  "G1": {
+   "max_features": 0.4,
+   "min_samples_leaf": 10,
+   "max_depth": null,
+   "class_weight": "balanced_subsample"
+  },
+  "N_JOBS_OUTER": 2,
+  "ARMS": [
+   "BASE",
+   "R1a_only",
+   "BASE_x_R1a",
+   "R1a_resid_only",
+   "BASE_x_R1a_resid"
+  ],
+  "R1A_FEATURES": [
+   "cosinor_M",
+   "cosinor_A1",
+   "cosinor_A2",
+   "cosinor_A3",
+   "cosinor_acro_h",
+   "cosinor_resid_sd",
+   "curve_night_mean",
+   "curve_morning_slope",
+   "curve_day_night_contrast",
+   "curve_range",
+   "curve_entropy",
+   "hour_h0",
+   "hour_h1",
+   "hour_h2",
+   "hour_h3",
+   "hour_h4",
+   "hour_h5",
+   "hour_h6",
+   "hour_h7",
+   "hour_h8",
+   "hour_h9",
+   "hour_h10",
+   "hour_h11",
+   "hour_h12",
+   "hour_h13",
+   "hour_h14",
+   "hour_h15",
+   "hour_h16",
+   "hour_h17",
+   "hour_h18",
+   "hour_h19",
+   "hour_h20",
+   "hour_h21",
+   "hour_h22",
+   "hour_h23"
+  ]
+ },
+ "validation": "max |delta AUROC| vs frozen FS A1 (s3 all) = 0.00e+00 across 30/30 repeats",
+ "hours_cache": {
+  "path": "/Users/bulat/Documents/datenspende_IMPUTE_sex/artifacts_v2/epoch_hours.parquet",
+  "coverage": 1.0
+ },
+ "input_sha256": {
+  "features_all.parquet": "0f3507756fbf5bc7b565c1d41c631aa81fccf2a51a79013e7fdd33315548c7e6",
+  "split_manifest_sq.parquet": "1b0768ae23b7b63a5cbb6c7c364e161621b1419a8830c9b2ff341c5a7dafde0b",
+  "cohort_manifest_model_sources.parquet": "a84061ff871a0fedde04a7c882e891dcac12ae7d8a8981c900ae311159bd5766",
+  "epoch_hours (chosen)": "267ee5b5fc7e40a6dbba55bea9d35736d78a6aede36641446795b9acce783451",
+  "fsplit_metrics.csv": "c607316be72b7ee517b86e2e569c7b4bcf5842d4e4f01cd1bec30295dbcdbac4"
+ },
+ "wall_seconds": 446.9
+}

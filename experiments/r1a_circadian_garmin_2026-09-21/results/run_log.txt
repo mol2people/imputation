@@ -1,0 +1,8 @@
+[r1a] start 2026-09-21T17:56:12 | mode=full
+[r1a] s3 cohort: 3848 users
+[r1a] candidate epoch_hours.parquet: 92,286 ch3000 cohort rows, coverage 1.0000 (3848/3848)
+[r1a] r1a features: cache hit (3848 users)
+[r1a] 30 repeats x 5 arms done (444s)
+[r1a] BASE gate: max |delta AUROC| vs frozen FS A1 (s3 all) = 0.00e+00 across 30/30 repeats
+[r1a] results written to /Users/bulat/Documents/datenspende_IMPUTE_sex/experiments/r1a_circadian_garmin_2026-09-21/results
+[r1a] done in 447s
