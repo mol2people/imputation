@@ -39,6 +39,20 @@ The informative-recording experiment supports using observation patterns as pred
 - **The comparison designs differ.** V1/v2 and the original sidequest used optimized allocations; feature selection, engineering, age and original R1a used repeated label-stratified random splits. R1a-AF uses demographic balancing. These remain evaluations on reused cohorts, not independent validation. Repeated-split intervals describe split/model randomization conditional on the observed cohort.
 - **The September 20 meta-report is now incomplete.** It still describes missingness modelling as unrun and predates the newer experiments. It does, however, contain corrected simultaneous intervals for feature selection/engineering that supersede the older reports' mislabeled intervals. R1a and day-scale reports also contain explicit errata. See the [meta-report PDF](reports/recorded_salutation_meta_report_2026-09-20.pdf) and its [HTML source](reports/recorded_salutation_meta_report_2026-09-20.html).
 
+## Research direction
+
+The work so far emphasizes controlled ablations, paired comparisons and reproducible evaluation. Several summary-feature extensions produced small gains; recording patterns and circadian representations provided more useful increments. The next phase will test assumptions about representation and generalization.
+
+- **Ask a discriminating question.** Each experiment should state its hypothesis, competing explanations, and which outcomes would change the next research decision. The immediate question is whether within-day structure adds information beyond HR distributions and recording patterns.
+
+- **Compare representations under matched conditions.** Hold participants, observation windows and evaluation splits fixed. Compare hourly profiles, five-minute profiles and temporal transforms, including comparisons with the same learner to isolate representation gains.
+
+- **Separate exploration from confirmation.** Reused cohorts and allocations support development and conditional stability checks. After selecting a candidate, freeze the pipeline and evaluate on untouched participants. Additional splits of the existing cohort do not provide independent confirmation.
+
+- **Keep interpretations proportional to evidence.** Distinguish observed predictive gains from proposed mechanisms. Residualization does not establish causal independence or mediation. A negative result applies to the tested configuration; it does not establish a performance ceiling.
+
+- **Define advancement decisions before running.** Specify the gain, stability and computational cost that would justify further investment. Prioritize participant-level AUROC during representation development, then evaluate calibration and precision–coverage trade-offs for high-confidence labeling with abstention. Performance among participants with observed salutation does not establish performance where salutation is missing.
+
 ## Cohort allocation package
 
 [`cohort_allocator`](cohort_allocator/README.md) is the separate reusable OR-Tools package. It accepts a participant-level demographic summary, variables to balance, optional independent partitions, and relative fold sizes, then exports assignments, prepared cohorts and balance diagnostics. R1a-AF is the completed experiment demonstrating its use for the later feature comparisons.
