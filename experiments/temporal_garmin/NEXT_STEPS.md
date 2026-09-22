@@ -192,18 +192,31 @@ wear-driven (labeled vs abstained mask coverage 0.90 vs 0.88, ~254 vs 261 obs
 bins/day); the separator is mean HR (71.1 vs 74.0 bpm) — ambiguous physiology, not
 data scarcity. So the minimum-wear-time upstream lever (§2.5) is NOT the binding one.
 
-**Step 0.7 — α extended-grid addendum (predeclared 2026-09-22, before running).**
-Motivation: alloc-0 precalibration selected the grid maximum (1e3) for every family in
-v1 AND v2 (REPORT §8 caveat); MultiRocket/HYDRA last-decade val gains (+0.041/+0.047)
-still climbing → wide arms undershrunk, primary deltas if anything understated.
-Procedure (frozen): rebuild alloc-0 arm matrices exactly as `fit_alloc(r=0)` (same
-seeds, same fill, same hygiene), sweep α over
-[1e2, 3e2, 1e3, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6] per family on VALIDATION only, report
-val AUROC curves + the α* test AUROC at alloc-0. Decision rule (frozen): if Combined
-val gain ≥ 0.01 over the frozen-α val AUROC → user decision on a v3 full rerun
-(72 min); below that, record the curve and stop (α boundary is a caveat, not a
-defect — same protocol across arms kept the ladder fair). No other change rides
-along (no pooling/kernel changes).
+**Step 0.7 — α extended-grid addendum (DONE 2026-09-22; `results/alpha_addendum.{json,md}`).**
+Grid [1e2, 3e2, 1e3, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6] on alloc-0 val only; matrices rebuilt
+via `fit_alloc(0)` (same seeds/fill/hygiene as v2). **Frozen decision rule result:
+Combined val gain +0.0152 ≥ 0.01 → USER DECISION required on v3 full rerun.**
+
+| family | frozen α | val @ frozen | α* | val @ α* | gain | test @ frozen | test @ α* |
+|---|---|---|---|---|---|---|---|
+| Summary_linear | 1e3 | 0.7161 | 3e2 | 0.7176 | +0.0015 | 0.7107 | 0.7118 |
+| Profile24 | 1e3 | 0.7459 | 1e3 | 0.7459 | +0.0000 | 0.7404 | 0.7404 |
+| Profile288 | 1e3 | 0.7204 | 1e4 | 0.7343 | +0.0138 | 0.7339 | **0.7178** |
+| MultiRocket | 1e3 | 0.8234 | 3e3 | 0.8348 | +0.0114 | 0.8507 | 0.8626 |
+| HYDRA | 1e3 | 0.8194 | 1e4 | 0.8468 | +0.0274 | 0.8401 | 0.8674 |
+| Combined | 1e3 | 0.8446 | 1e4 | 0.8598 | **+0.0152** | 0.8625 | **0.8784** |
+
+Notes: α* interior in the grid for every family (MR 3e3, HYDRA/Combined 1e4 — not at
+the 1e6 boundary → no further extension needed). MR/HYDRA/Combined test gains track
+val gains (+0.0119/+0.0273/+0.0159), test-corroborated. **Profile288 is the exception**
+(val +0.0138 but test −0.016) — the textbook alloc-0 val-α selection-overfit signature
+(§2.4 caveat materializes here); do NOT carry its gain forward. Sanity vs v2 metrics csv
+at frozen α: max |Δval| = 0.0, max |Δtest| = 0.0 (the rebuild is bit-identical at α=1e3).
+Wall 429 s; peak RSS 6308 MiB (6.16 GiB; darwin `ru_maxrss` is bytes, initial run
+divided by 1024 — unit-corrected, json note).
+
+**Decision needed:** v3 full rerun (72 min, extended grid from alloc-0 freeze, no other
+changes) vs record-only. See message 2026-09-22 for the full cost/benefit framing.
 
 **Step 0.5 procedure — as predeclared 2026-09-22 (archived verbatim, unchanged):**
 
@@ -286,7 +299,74 @@ arms + cnt-profile arm. Small; can be sensitivity arms inside Step 2 rather than
 **Step 4 — label-noise probe** (§2.3): contradiction audit + confident-error inspection;
 sets the honest ceiling for any target number.
 
-## 5. Discipline reminders
+## 5. Appendix A — Step 2 multichannel plan (DRAFT, pending freeze; informed by §3 channel inventory + v2 Step 0.5 gap)
+
+The binormal projection at v2 framing promised ×2.7 coverage@95% precision at AUROC 0.93 vs ×1 at AUROC 0.86; the realized gain from BASE⊕P40 (0.75) to Combined (0.86) was only **×2.0** because the projection is symmetric and the realized operating characteristic is asymmetric (strong class-1, weak class-0). The next experiment must close that gap in the applied currency. New channels are the lever; this is the plan to evaluate them.
+
+**A.1 Estimand & primary metric.** Reuse v2 estimand. Primary: AUROC. **Co-primary: coverage@95% precision** (Step 0.5 procedure, raw + CP-LCB variants, val threshold → test evaluation). The coverage@precision metric is the binding one for the applied goal (imputing labels for downstream study design) and is not a monotone function of AUROC — must be measured, not inferred.
+
+**A.2 Cohort / folds / test users.** Identical to v2: R1b's 3,848 Garmin cohort, same designated 40-day window, same 10 allocs, same fold/test-user set. Two pairing anchors recorded: against R1b BASE⊕P40 (inter-experiment), against v2 Combined (intra-experiment, the within-design delta). Folds parquet + r1b_predictions_part.csv read-only.
+
+**A.3 Channels + coverage gate.** Predeclared per-bin aggregation (channel-specific analogues of `scan_bins.py`):
+- **Steps (1000)**: mean steps per 5-min bin (integer, float-cast). Mask-aware fill (train-median per clock-bin).
+- **MET (1012)**: mean MET per bin (float). Same fill.
+- **WalkBinary (1115) / SedentaryBinary (1104)**: mean per bin ∈ [0,1] (fraction of bin marked active). Same fill.
+- **ActivityType (1200–1202)**: 1200 dominates; encode as 5 binary channels (walk/run/cycle/other/inactive) per bin → mean per binary. Or treat 1200 as ordinal (1–7 mapped to bins). Decide at freeze.
+- **Sleep stages (2000/2001/2003/2005/2006)**: 5 binary channels per bin (in-bed, light, deep, REM, awake). Same fill.
+- **HRResting (3001)**: mean resting HR per bin. Native scale; same fill.
+- **HRRestingHourly (3002)**: hourly resolution; 24 bins/day with 12× upsample or separate arm at native 24-bin × 40-day.
+- **Excluded from primary** (predeclared): SPO2 (3009, 44% coverage skew), RespirationSleep (4002, 54% coverage skew) — record as exploratory partial-coverage arms if material; otherwise excluded.
+
+**Coverage gate** (predeclared): include a channel in the multichannel HYDRA stack only if ≥ 80% of users have ≥ 30/40 designated days with ≥ 12 bins of data on that channel. Failing channels → partial-coverage arm restricted to the qualifying subset (record selection bias in REPORT; do not pool).
+
+**A.4 Multichannel representation.** HYDRA is natively multichannel (`hydra_multivariate.py` in vendored repo, or stack channels and forward Hydra per-channel — verify at bench). Pool across 40 days exactly as v2 (mask-aware nanmean + nanstd per day-feature). MultiRocket is 1D; per-channel pooled (apply_mr_pooled per channel separately, concatenate feature blocks).
+
+**A.5 Arms (proposed primary family; exploratory arms noted).**
+
+| arm | channels | conv kernel | role |
+|---|---|---|---|
+| v2_Combined (replay) | HR | MR pooled + HYDRA pooled | control (within-experiment anchor) |
+| Steps_only | Steps | MR + HYDRA | primary |
+| Sleep_only | Sleep (5 stages) | MR + HYDRA | primary |
+| RestingHR_only | HRResting | MR + HYDRA | primary (partial-coverage, exploratory tag) |
+| HR+Steps | HR, Steps | multichannel HYDRA + per-channel MR | primary |
+| HR+Sleep | HR, Sleep | multichannel HYDRA + per-channel MR | primary |
+| HR+Steps+Sleep | HR, Steps, Sleep | multichannel HYDRA + per-channel MR | primary |
+| HR+Steps+Sleep+RestingHR | 4 channels | multichannel HYDRA + per-channel MR | primary (if 4-channel bench feasible) |
+| MultiChannel_Combined | stacked feature blocks across all channels | mixed | primary summary arm |
+| Shuffled_MC | permuted placement within channels (each channel shuffled independently) | MR | control (placement-signal sanity in the multichannel setting) |
+
+**Primary family (frozen Bonferroni correction, 4 paired deltas, df=9, t.ppf(1−0.05/8, 9))**: HR+Steps+Sleep − v2_Combined, HR+Steps+Sleep − BASE⊕P40, MultiChannel_Combined − v2_Combined, MultiChannel_Combined − BASE⊕P40. All other pairwise comparisons are exploratory.
+
+**A.6 Hygiene & head.** Reuse v2 protocol verbatim: train-only SimpleImputer → VarianceThreshold → SparseScaler (HYDRA block) / StandardScaler (others); Ridge with α frozen per family via alloc-0 precalibration on the **extended grid** [1e2..1e6]. **The Step 0.7 addendum verdict is in (Combined val gain +0.0152 ≥ 0.01) and the conv-arm α optima are interior in that grid (MR 3e3, HYDRA/Combined 1e4), so the multichannel experiment uses the extended grid from the start — no v2-style 1e-3..1e3 grid retreat.** Summary_RF control carries forward unchanged.
+
+**A.7 Determinism + gates.** Same standards as v2: byte-identical OR max diff ≤ 1e-6 per arm (relaxed gate with the `verify` CLI dispatched and hard-failing); seed streams stable across all components; peak RSS ≤ 8 GiB (v2 plateau 8197 MiB; multichannel HYDRA forward cost scales ~linearly with D — bench first).
+
+**A.8 Statistics.** Bonferroni two-sided 95%-simultaneous CIs on the 4 primary deltas (df=9). Report arm AUROCs (mean ± SD across 10 allocs); primary paired deltas; coverage@95% and coverage@98% (raw + cpc, per-arm per-alloc); MultiChannel_Combined vs BASE⊕P40 paired test deltas (fold/test-user gate identical to v2). Risk-coverage curves for the 3-4 most promising arms per Step 0.5 procedure. Abstention composition for MultiChannel_Combined (wear-driven or physiology-driven?).
+
+**A.9 Expected gain vs v2 — honest framing.** Binormal projection at AUROC 0.86 → 0.92 gives ×2.2 coverage@95% (smaller than the original ×2.7 because the symmetric projection is now discounted by the realized asymmetry). **Realistic primary target: AUROC ≥ 0.90 AND coverage@95% precision raw ≥ 35% (vs Combined 25.2%) — and CP-LCB-certified coverage ≥ 15% (vs Combined 8.1%).** These are the bridging numbers; do not promise physiological interpretation, only predictability from the export (README discipline).
+
+**A.10 Compute projection.** v2 was 72 min for 7 arms × 10 allocs; multichannel adds ~6 new arms and multichannel HYDRA forward costs that scale with D. Bench first: 100-user × 40-day multichannel HYDRA forward for D ∈ {1, 2, 3, 4}; full-projection = 10×. If D=4 HYDRA wall exceeds 8 min/alloc combined, restrict D=4 to exploratory status or drop it.
+
+**A.11 Pitfalls (predeclared).** (i) The binormal ×2.7–3.5 was optimistic at v2 (realized ×2.0); do not promise ×3 at v3. (ii) RestingHR's 24% coverage creates selection bias; the partial-coverage arm is NOT comparable to the full-coverage arms at the cohort level. (iii) Per-channel hygiene must remain train-only — no test leakage through the multichannel fill or scaler. (iv) Multichannel HYDRA padding (same 9-tap, dilations {1,2,4,8,16,32}, padding 4d); output feature count scales linearly with D — record per-arm n_cols; VarianceThreshold may drop more constant columns as D grows (e.g., count_min on flat binary channels). (v) Integer/binary channel distributions challenge SparseScaler's sqrt assumption — reuse as-is, validate the per-arm AUROC sanity vs a StandardScaler variant at bench (record the choice). (vi) Activity-type mapping is a free parameter — fix at freeze (recommend 5-binary or 1-ordinal, not both).
+
+**A.12 Open freeze checklist.** Before promoting this draft to `PLAN.md` (frozen):
+1. Primary family size: 4 paired deltas (above) vs full pairwise Bonferroni — user.
+2. RestingHR: partial-coverage primary arm vs excluded.
+3. Max D for multichannel HYDRA: 2/3/4 — bench-gated.
+4. Coverage gate thresholds (K_min, % users): confirm or tighten.
+5. α grid: **RESOLVED by Step 0.7** — extended grid [1e2..1e6], α* interior for every
+   family; P288's val-only gain is selection noise (test −0.016) and is not carried
+   forward.
+6. Activity-type encoding (5-binary vs 1-ordinal) — pick one.
+7. Sleep stages encoding: 5 binary channels or coarser (in-bed/light/deep/REM/awake → 3-level ordered?).
+8. Pairing targets confirmed (v2 Combined + BASE⊕P40).
+9. Wear-coverage threshold for "primary cohort inclusion" (currently all 3,848; v2 had no exclusion).
+10. Bonferroni factor: 4 (primary family) or 8 (×2 for raw+cpc on coverage)?
+
+**A.13 What does NOT change.** Same cohort, same designated 40-day window, same folds, same fold/test-user gate, same train/val/test hygiene, same ridge α-precalibration discipline, same v2 erratum (mask-aware fill) carried forward, same RSS gate, same vendor SHAs, same determinism gate.
+
+## 6. Discipline reminders
 
 - Every step above = new frozen plan (estimand, arms, seeds, gates, stats predeclared
   before results are seen); deviations recorded as errata, never silent.

@@ -1,0 +1,410 @@
+{
+  "timestamp": "2026-09-22T12:46:17",
+  "grid": [
+    100.0,
+    300.0,
+    1000.0,
+    3000.0,
+    10000.0,
+    30000.0,
+    100000.0,
+    300000.0,
+    1000000.0
+  ],
+  "frozen_alpha": {
+    "Summary_linear": 1000.0,
+    "Profile24": 1000.0,
+    "Profile288": 1000.0,
+    "MultiRocket": 1000.0,
+    "HYDRA": 1000.0,
+    "Combined": 1000.0
+  },
+  "decision_rule": "Combined val gain >= 0.01 over frozen-alpha val -> user decision on v3 full rerun; else record only",
+  "families": {
+    "Summary_linear": {
+      "alpha_star": 300.0,
+      "auroc_val_star": 0.7175616231552097,
+      "auroc_val_frozen": 0.7160909966422864,
+      "auroc_test_frozen": 0.7106596974736676,
+      "auroc_test_star": 0.711781631952694,
+      "gain_val": 0.0014706265129232898,
+      "trace": [
+        {
+          "alpha": 100.0,
+          "auroc_val": 0.7146724277050418,
+          "auroc_test": 0.7136163248066314
+        },
+        {
+          "alpha": 300.0,
+          "auroc_val": 0.7175616231552097,
+          "auroc_test": 0.711781631952694
+        },
+        {
+          "alpha": 1000.0,
+          "auroc_val": 0.7160909966422864,
+          "auroc_test": 0.7106596974736676
+        },
+        {
+          "alpha": 3000.0,
+          "auroc_val": 0.712538067102215,
+          "auroc_test": 0.7066339325783374
+        },
+        {
+          "alpha": 10000.0,
+          "auroc_val": 0.70793097165465,
+          "auroc_test": 0.699229165016763
+        },
+        {
+          "alpha": 30000.0,
+          "auroc_val": 0.7044691428720165,
+          "auroc_test": 0.6914284205802381
+        },
+        {
+          "alpha": 100000.0,
+          "auroc_val": 0.6908821156198757,
+          "auroc_test": 0.6789287505609671
+        },
+        {
+          "alpha": 300000.0,
+          "auroc_val": 0.6588016346078762,
+          "auroc_test": 0.6620601356880759
+        },
+        {
+          "alpha": 1000000.0,
+          "auroc_val": 0.6295387698794868,
+          "auroc_test": 0.6494680710646499
+        }
+      ]
+    },
+    "Profile24": {
+      "alpha_star": 1000.0,
+      "auroc_val_star": 0.7459330019001016,
+      "auroc_val_frozen": 0.7459330019001016,
+      "auroc_test_frozen": 0.7403843615532852,
+      "auroc_test_star": 0.7403843615532852,
+      "gain_val": 0.0,
+      "trace": [
+        {
+          "alpha": 100.0,
+          "auroc_val": 0.7382154663057343,
+          "auroc_test": 0.7445553179694305
+        },
+        {
+          "alpha": 300.0,
+          "auroc_val": 0.7456857284156276,
+          "auroc_test": 0.7451096855943613
+        },
+        {
+          "alpha": 1000.0,
+          "auroc_val": 0.7459330019001016,
+          "auroc_test": 0.7403843615532852
+        },
+        {
+          "alpha": 3000.0,
+          "auroc_val": 0.7411176761498217,
+          "auroc_test": 0.7340355323249121
+        },
+        {
+          "alpha": 10000.0,
+          "auroc_val": 0.7340118170696791,
+          "auroc_test": 0.7246244819302552
+        },
+        {
+          "alpha": 30000.0,
+          "auroc_val": 0.726723756474661,
+          "auroc_test": 0.7170217259312056
+        },
+        {
+          "alpha": 100000.0,
+          "auroc_val": 0.7211796246648792,
+          "auroc_test": 0.7107388928486577
+        },
+        {
+          "alpha": 300000.0,
+          "auroc_val": 0.7151930034618288,
+          "auroc_test": 0.7061059634117368
+        },
+        {
+          "alpha": 1000000.0,
+          "auroc_val": 0.7035321065097999,
+          "auroc_test": 0.6997043372667036
+        }
+      ]
+    },
+    "Profile288": {
+      "alpha_star": 10000.0,
+      "auroc_val_star": 0.7342590905541528,
+      "auroc_val_frozen": 0.7204117754236186,
+      "auroc_test_frozen": 0.7338507431166019,
+      "auroc_test_star": 0.7177740819936116,
+      "gain_val": 0.013847315130534277,
+      "trace": [
+        {
+          "alpha": 100.0,
+          "auroc_val": 0.6917280512246544,
+          "auroc_test": 0.7129431641192153
+        },
+        {
+          "alpha": 300.0,
+          "auroc_val": 0.7069028345349957,
+          "auroc_test": 0.726881550117473
+        },
+        {
+          "alpha": 1000.0,
+          "auroc_val": 0.7204117754236186,
+          "auroc_test": 0.7338507431166019
+        },
+        {
+          "alpha": 3000.0,
+          "auroc_val": 0.7306801322262423,
+          "auroc_test": 0.7290726221588659
+        },
+        {
+          "alpha": 10000.0,
+          "auroc_val": 0.7342590905541528,
+          "auroc_test": 0.7177740819936116
+        },
+        {
+          "alpha": 30000.0,
+          "auroc_val": 0.7316822405580572,
+          "auroc_test": 0.7124679918692748
+        },
+        {
+          "alpha": 100000.0,
+          "auroc_val": 0.7239907337515291,
+          "auroc_test": 0.7067659248699876
+        },
+        {
+          "alpha": 300000.0,
+          "auroc_val": 0.7156354928550976,
+          "auroc_test": 0.7013674401414958
+        },
+        {
+          "alpha": 1000000.0,
+          "auroc_val": 0.7078398708972123,
+          "auroc_test": 0.6961669438504792
+        }
+      ]
+    },
+    "MultiRocket": {
+      "alpha_star": 3000.0,
+      "auroc_val_star": 0.8348082979775631,
+      "auroc_val_frozen": 0.8233686457221687,
+      "auroc_test_frozen": 0.8507431166019903,
+      "auroc_test_star": 0.8625828251630105,
+      "gain_val": 0.01143965225539434,
+      "trace": [
+        {
+          "alpha": 100.0,
+          "auroc_val": 0.7874098753221062,
+          "auroc_test": 0.8104722684195244
+        },
+        {
+          "alpha": 300.0,
+          "auroc_val": 0.8025976730263673,
+          "auroc_test": 0.8282120324173068
+        },
+        {
+          "alpha": 1000.0,
+          "auroc_val": 0.8233686457221687,
+          "auroc_test": 0.8507431166019903
+        },
+        {
+          "alpha": 3000.0,
+          "auroc_val": 0.8348082979775631,
+          "auroc_test": 0.8625828251630105
+        },
+        {
+          "alpha": 10000.0,
+          "auroc_val": 0.8283011010177257,
+          "auroc_test": 0.8594018109342415
+        },
+        {
+          "alpha": 30000.0,
+          "auroc_val": 0.81610661391499,
+          "auroc_test": 0.8492912013938385
+        },
+        {
+          "alpha": 100000.0,
+          "auroc_val": 0.8010880033316848,
+          "auroc_test": 0.8336897125207888
+        },
+        {
+          "alpha": 300000.0,
+          "auroc_val": 0.7851583851740025,
+          "auroc_test": 0.8148016155856499
+        },
+        {
+          "alpha": 1000000.0,
+          "auroc_val": 0.7573075821858976,
+          "auroc_test": 0.7889179271930518
+        }
+      ]
+    },
+    "HYDRA": {
+      "alpha_star": 10000.0,
+      "auroc_val_star": 0.8468205835654234,
+      "auroc_val_frozen": 0.8193992555766678,
+      "auroc_test_frozen": 0.8401441355824819,
+      "auroc_test_star": 0.8673873445790767,
+      "gain_val": 0.02742132798875563,
+      "trace": [
+        {
+          "alpha": 100.0,
+          "auroc_val": 0.7655196647492126,
+          "auroc_test": 0.7851693461101871
+        },
+        {
+          "alpha": 300.0,
+          "auroc_val": 0.7865248965355685,
+          "auroc_test": 0.8083075948364615
+        },
+        {
+          "alpha": 1000.0,
+          "auroc_val": 0.8193992555766678,
+          "auroc_test": 0.8401441355824819
+        },
+        {
+          "alpha": 3000.0,
+          "auroc_val": 0.842668991905047,
+          "auroc_test": 0.8611309099548587
+        },
+        {
+          "alpha": 10000.0,
+          "auroc_val": 0.8468205835654234,
+          "auroc_test": 0.8673873445790767
+        },
+        {
+          "alpha": 30000.0,
+          "auroc_val": 0.831008094953018,
+          "auroc_test": 0.8604049523507826
+        },
+        {
+          "alpha": 100000.0,
+          "auroc_val": 0.8040552851453707,
+          "auroc_test": 0.8430611652279507
+        },
+        {
+          "alpha": 300000.0,
+          "auroc_val": 0.7829459382076576,
+          "auroc_test": 0.825915366542594
+        },
+        {
+          "alpha": 1000000.0,
+          "auroc_val": 0.7622140086936151,
+          "auroc_test": 0.7990813336501148
+        }
+      ]
+    },
+    "Combined": {
+      "alpha_star": 10000.0,
+      "auroc_val_star": 0.8598024415002994,
+      "auroc_val_frozen": 0.8445951222051589,
+      "auroc_test_frozen": 0.8625432274755154,
+      "auroc_test_star": 0.8783559040152054,
+      "gain_val": 0.01520731929514052,
+      "trace": [
+        {
+          "alpha": 100.0,
+          "auroc_val": 0.8241364949634296,
+          "auroc_test": 0.8430347667696207
+        },
+        {
+          "alpha": 300.0,
+          "auroc_val": 0.8308649366199017,
+          "auroc_test": 0.8489480214355482
+        },
+        {
+          "alpha": 1000.0,
+          "auroc_val": 0.8445951222051589,
+          "auroc_test": 0.8625432274755154
+        },
+        {
+          "alpha": 3000.0,
+          "auroc_val": 0.8584814805174523,
+          "auroc_test": 0.8744753306406905
+        },
+        {
+          "alpha": 10000.0,
+          "auroc_val": 0.8598024415002994,
+          "auroc_test": 0.8783559040152054
+        },
+        {
+          "alpha": 30000.0,
+          "auroc_val": 0.8440485176605323,
+          "auroc_test": 0.8713735117869117
+        },
+        {
+          "alpha": 100000.0,
+          "auroc_val": 0.8195424139097843,
+          "auroc_test": 0.8564055859137827
+        },
+        {
+          "alpha": 300000.0,
+          "auroc_val": 0.7985892396991072,
+          "auroc_test": 0.8383886381035348
+        },
+        {
+          "alpha": 1000000.0,
+          "auroc_val": 0.7766599859444545,
+          "auroc_test": 0.8161215385021514
+        }
+      ]
+    }
+  },
+  "sanity": {
+    "Summary_linear": {
+      "csv_auroc_val": 0.7160909966422864,
+      "rebuild_auroc_val": 0.7160909966422864,
+      "csv_auroc_test": 0.7106596974736676,
+      "rebuild_auroc_test": 0.7106596974736676,
+      "absdiff_val": 0.0,
+      "absdiff_test": 0.0
+    },
+    "Profile24": {
+      "csv_auroc_val": 0.7459330019001016,
+      "rebuild_auroc_val": 0.7459330019001016,
+      "csv_auroc_test": 0.7403843615532852,
+      "rebuild_auroc_test": 0.7403843615532852,
+      "absdiff_val": 0.0,
+      "absdiff_test": 0.0
+    },
+    "Profile288": {
+      "csv_auroc_val": 0.7204117754236186,
+      "rebuild_auroc_val": 0.7204117754236186,
+      "csv_auroc_test": 0.7338507431166019,
+      "rebuild_auroc_test": 0.7338507431166019,
+      "absdiff_val": 0.0,
+      "absdiff_test": 0.0
+    },
+    "MultiRocket": {
+      "csv_auroc_val": 0.8233686457221687,
+      "rebuild_auroc_val": 0.8233686457221687,
+      "csv_auroc_test": 0.8507431166019903,
+      "rebuild_auroc_test": 0.8507431166019903,
+      "absdiff_val": 0.0,
+      "absdiff_test": 0.0
+    },
+    "HYDRA": {
+      "csv_auroc_val": 0.8193992555766678,
+      "rebuild_auroc_val": 0.8193992555766678,
+      "csv_auroc_test": 0.8401441355824819,
+      "rebuild_auroc_test": 0.8401441355824819,
+      "absdiff_val": 0.0,
+      "absdiff_test": 0.0
+    },
+    "Combined": {
+      "csv_auroc_val": 0.8445951222051589,
+      "rebuild_auroc_val": 0.8445951222051589,
+      "csv_auroc_test": 0.8625432274755154,
+      "rebuild_auroc_test": 0.8625432274755154,
+      "absdiff_val": 0.0,
+      "absdiff_test": 0.0
+    }
+  },
+  "combined_gain_val": 0.01520731929514052,
+  "verdict": "USER DECISION: v3 full rerun (Combined val gain +0.0152 >= 0.01)",
+  "peak_rss_mb": 6308.6,
+  "wall_s": 428.9,
+  "peak_rss_note": "darwin getrusage ru_maxrss is bytes; initial run divided by 1024 (KiB convention). Corrected post-hoc; script fixed."
+}

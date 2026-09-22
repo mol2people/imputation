@@ -1,0 +1,17 @@
+[addendum] start 2026-09-22T12:39:13
+[addendum] frozen alpha from metrics csv: {'Summary_linear': 1000.0, 'Profile24': 1000.0, 'Profile288': 1000.0, 'MultiRocket': 1000.0, 'HYDRA': 1000.0, 'Combined': 1000.0}
+/Users/bulat/Documents/datenspende_IMPUTE_sex/experiments/temporal_garmin/run_temporal.py:223: RuntimeWarning: Mean of empty slice
+  p288_mean = np.nanmean(hr_nan, axis=1)
+/Users/bulat/micromamba/envs/datenspende/lib/python3.14/site-packages/numpy/lib/_nanfunctions_impl.py:1997: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+[addendum] loaded 3848 users; rebuilding alloc-0 arm matrices
+[addendum] alloc-0 rebuilt (train=2696 val=579 test=573); sweeping 9 alphas x 6 families
+[addendum]   Summary_linear  alpha*=     300  val 0.7161 -> 0.7176 (+0.0015)  test 0.7107 -> 0.7118
+[addendum]   Profile24       alpha*=    1000  val 0.7459 -> 0.7459 (+0.0000)  test 0.7404 -> 0.7404
+[addendum]   Profile288      alpha*=   10000  val 0.7204 -> 0.7343 (+0.0138)  test 0.7339 -> 0.7178
+[addendum]   MultiRocket     alpha*=    3000  val 0.8234 -> 0.8348 (+0.0114)  test 0.8507 -> 0.8626
+[addendum]   HYDRA           alpha*=   10000  val 0.8194 -> 0.8468 (+0.0274)  test 0.8401 -> 0.8674
+[addendum]   Combined        alpha*=   10000  val 0.8446 -> 0.8598 (+0.0152)  test 0.8625 -> 0.8784
+[addendum] verdict: USER DECISION: v3 full rerun (Combined val gain +0.0152 >= 0.01)
+[addendum] done in 428.9 s; peak RSS 6460000.0 MiB — results/alpha_addendum.{json,md}
+addendum exit=0
