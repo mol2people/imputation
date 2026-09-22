@@ -1,5 +1,7 @@
 # Minimal experiment: predicting recorded SALUTATION from epoch data
 
+> **Status (2026-09-22):** executed as Pooled v1 — results in [REPORT.md](REPORT.md); superseded by the Pooled v2 protocol ([artifacts_v2/model_report.md](artifacts_v2/model_report.md)) and later experiments (see [README.md](README.md)). Body below is the original 2026-09-18 draft, unchanged.
+
 Draft protocol, 2026-09-18. This document plans the experiment; no splits, features, or fitted models have been generated. Confirmed decisions: **80% training / 10% validation / 10% test**, participant-level assignment, **salutation 10 versus 20 only**, and **exclusion of sources 38, 46 and 48** from both daily and epoch records. Code 30 is excluded for this experiment.
 
 Fit **one random forest with default learning parameters**, with a fixed random seed for reproducibility. There is **no hyperparameter tuning, cross-validation, model comparison or ablation study**. Use **10 bootstrap resamples** of test participants for a rough assessment of metric variability.
