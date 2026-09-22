@@ -1,0 +1,192 @@
+{
+  "timestamp": "2026-09-22T14:54:12",
+  "python": "3.14.5",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "scipy": "1.17.1",
+  "sklearn": "1.9.0",
+  "numba": "0.67.0",
+  "pin": {
+    "multirocket_repo": "ChangWeiTan/MultiRocket",
+    "multirocket_commit": "3ccaa4f8ed11769b904af885e17018c39c89a2ac",
+    "multirocket_file_sha256": "71d1e61bf59a6a7ff21c76b36d73e88dbf4e6307f1cea547cb342373687a7786",
+    "multirocket_file_path": "cache/vendor/multirocket/multirocket/multirocket.py",
+    "hydra_repo": "angus924/hydra",
+    "hydra_commit": "144bb7aa3186654042f00f36b078370c620acb06",
+    "hydra_file_sha256": "56de99eb1723567ee0a2b3763513ecb4a645d8b1732116c50a07af2b2e3a2d4f",
+    "hydra_file_path": "cache/vendor/hydra/code/hydra.py"
+  },
+  "input_sha256": {
+    "day40_table.parquet": "bb998fbed54ef2a9c5f77e0646a75c3bf08127749b4069f8382660347f36e4be",
+    "folds.parquet": "9fb463157247d8c34003f555b6d37e5eb30cfa1bbb398644fbcb91d4a02ee28c",
+    "day_bins.npz": "266312e913d901260074424d15b33ca36f8e4f6bf1a9edbb663dad4f5397e0d6"
+  },
+  "config": {
+    "MR_NUM_FEATURES_PER_TRANS": 1250,
+    "MR_WIDTH": 9408,
+    "ALPHA_GRID": [
+      0.001,
+      1.0,
+      1000.0,
+      10000.0,
+      100000.0,
+      1000000.0
+    ],
+    "ALLOCATION_TARGETS": [
+      0,
+      1,
+      2
+    ],
+    "COMPONENT_IDS": {
+      "DAY_SELECT": 0,
+      "MR_FIT_HR": 1,
+      "M_BASE": 10,
+      "M_DIFF": 11,
+      "C_BASE": 12,
+      "C_DIFF": 13,
+      "SHUFFLE_PERM": 14
+    },
+    "seed_streams": {
+      "comp_seed": "SeedSequence([20260921, 3, r, component])",
+      "shuffle_perm": "SeedSequence([20260921, 3, 14, user, date]) \u2014 alloc-independent, reused across allocs",
+      "shuffled_mr_fit": "same component seeds as unshuffled counterpart (M: 10/11, C: 12/13)"
+    },
+    "threading": {
+      "numba_layer": "workqueue",
+      "numba_threads": 8
+    },
+    "pooling": {
+      "T(HR)": "mask_pu day-gate (temporal, unchanged)",
+      "T(M)/T(C)/T(M_shuffled)/T(C_shuffled)": "unconditional (all 40 days)"
+    },
+    "hygiene": "SimpleImputer(median)+VarianceThreshold(0)+StandardScaler, per block, train-only fit",
+    "alpha_selection": "per arm per alloc by validation AUROC; tie -> smallest alpha; grid boundary recorded"
+  },
+  "metrics_summary": {
+    "M_static": {
+      "val_mean": 0.5741,
+      "val_sd": 0.0137,
+      "test_mean": 0.5465,
+      "test_sd": 0.0313,
+      "n_cols": 576,
+      "alphas": [
+        10000.0,
+        10000.0,
+        10000.0
+      ]
+    },
+    "M_temporal": {
+      "val_mean": 0.6186,
+      "val_sd": 0.0153,
+      "test_mean": 0.6166,
+      "test_sd": 0.0265,
+      "n_cols": 19391,
+      "alphas": [
+        100000.0,
+        100000.0,
+        10000.0
+      ]
+    },
+    "M_shuffled": {
+      "val_mean": 0.586,
+      "val_sd": 0.0135,
+      "test_mean": 0.5859,
+      "test_sd": 0.0225,
+      "n_cols": 19382,
+      "alphas": [
+        100000.0,
+        10000.0,
+        10000.0
+      ]
+    },
+    "C_static": {
+      "val_mean": 0.5745,
+      "val_sd": 0.0184,
+      "test_mean": 0.5498,
+      "test_sd": 0.0308,
+      "n_cols": 576,
+      "alphas": [
+        10000.0,
+        10000.0,
+        10000.0
+      ]
+    },
+    "C_temporal": {
+      "val_mean": 0.6192,
+      "val_sd": 0.0221,
+      "test_mean": 0.6332,
+      "test_sd": 0.0283,
+      "n_cols": 19392,
+      "alphas": [
+        100000.0,
+        100000.0,
+        10000.0
+      ]
+    },
+    "C_shuffled": {
+      "val_mean": 0.598,
+      "val_sd": 0.015,
+      "test_mean": 0.5976,
+      "test_sd": 0.0145,
+      "n_cols": 19392,
+      "alphas": [
+        10000.0,
+        10000.0,
+        10000.0
+      ]
+    },
+    "H": {
+      "val_mean": 0.8311,
+      "val_sd": 0.0161,
+      "test_mean": 0.8464,
+      "test_sd": 0.0157,
+      "n_cols": 19119,
+      "alphas": [
+        10000.0,
+        1000.0,
+        10000.0
+      ]
+    },
+    "H_recording": {
+      "val_mean": 0.8142,
+      "val_sd": 0.0218,
+      "test_mean": 0.8357,
+      "test_sd": 0.0076,
+      "n_cols": 57614,
+      "alphas": [
+        10000.0,
+        10000.0,
+        10000.0
+      ]
+    }
+  },
+  "fixture": {
+    "M": {
+      "wall_s_chunk64": 0.82,
+      "shape": [
+        200,
+        9408
+      ],
+      "chunk_invariance_max_diff": 0.0,
+      "any_nan": false,
+      "any_inf": false,
+      "repeat_max_diff": 0.0
+    },
+    "C": {
+      "wall_s_chunk64": 0.89,
+      "shape": [
+        200,
+        9408
+      ],
+      "chunk_invariance_max_diff": 0.0,
+      "any_nan": false,
+      "any_inf": false
+    },
+    "fixture_users": 200
+  },
+  "wall_s": {
+    "alloc_0": 148.8,
+    "alloc_1": 149.1,
+    "alloc_2": 148.6
+  }
+}

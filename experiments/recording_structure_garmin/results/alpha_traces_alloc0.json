@@ -1,0 +1,242 @@
+{
+  "M_static": {
+    "alpha_selected": 10000.0,
+    "trace": [
+      {
+        "alpha": 0.001,
+        "auroc_val": 0.5468518181108306
+      },
+      {
+        "alpha": 1.0,
+        "auroc_val": 0.5436893203883495
+      },
+      {
+        "alpha": 1000.0,
+        "auroc_val": 0.5736614695853615
+      },
+      {
+        "alpha": 10000.0,
+        "auroc_val": 0.5880358676696427
+      },
+      {
+        "alpha": 100000.0,
+        "auroc_val": 0.5733491241312892
+      },
+      {
+        "alpha": 1000000.0,
+        "auroc_val": 0.5512376688617612
+      }
+    ],
+    "boundary": false
+  },
+  "M_temporal": {
+    "alpha_selected": 100000.0,
+    "trace": [
+      {
+        "alpha": 0.001,
+        "auroc_val": 0.5038262318123845
+      },
+      {
+        "alpha": 1.0,
+        "auroc_val": 0.507092844686223
+      },
+      {
+        "alpha": 1000.0,
+        "auroc_val": 0.5546994976443947
+      },
+      {
+        "alpha": 10000.0,
+        "auroc_val": 0.5974517816705276
+      },
+      {
+        "alpha": 100000.0,
+        "auroc_val": 0.6299617376818761
+      },
+      {
+        "alpha": 1000000.0,
+        "auroc_val": 0.6246909081444076
+      }
+    ],
+    "boundary": false
+  },
+  "M_shuffled": {
+    "alpha_selected": 100000.0,
+    "trace": [
+      {
+        "alpha": 0.001,
+        "auroc_val": 0.5457846378094172
+      },
+      {
+        "alpha": 1.0,
+        "auroc_val": 0.5357114969155886
+      },
+      {
+        "alpha": 1000.0,
+        "auroc_val": 0.5513678128009578
+      },
+      {
+        "alpha": 10000.0,
+        "auroc_val": 0.5862594028996069
+      },
+      {
+        "alpha": 100000.0,
+        "auroc_val": 0.601004711210599
+      },
+      {
+        "alpha": 1000000.0,
+        "auroc_val": 0.5641349332361592
+      }
+    ],
+    "boundary": false
+  },
+  "C_static": {
+    "alpha_selected": 10000.0,
+    "trace": [
+      {
+        "alpha": 0.001,
+        "auroc_val": 0.5760951612483407
+      },
+      {
+        "alpha": 1.0,
+        "auroc_val": 0.5722298862541971
+      },
+      {
+        "alpha": 1000.0,
+        "auroc_val": 0.5809235013925402
+      },
+      {
+        "alpha": 10000.0,
+        "auroc_val": 0.5937556937973398
+      },
+      {
+        "alpha": 100000.0,
+        "auroc_val": 0.5773315286707098
+      },
+      {
+        "alpha": 1000000.0,
+        "auroc_val": 0.55328743590411
+      }
+    ],
+    "boundary": false
+  },
+  "C_temporal": {
+    "alpha_selected": 100000.0,
+    "trace": [
+      {
+        "alpha": 0.001,
+        "auroc_val": 0.48378406517608474
+      },
+      {
+        "alpha": 1.0,
+        "auroc_val": 0.48607459850594753
+      },
+      {
+        "alpha": 1000.0,
+        "auroc_val": 0.584619589265728
+      },
+      {
+        "alpha": 10000.0,
+        "auroc_val": 0.614786954371535
+      },
+      {
+        "alpha": 100000.0,
+        "auroc_val": 0.6359093157031677
+      },
+      {
+        "alpha": 1000000.0,
+        "auroc_val": 0.6262266066269293
+      }
+    ],
+    "boundary": false
+  },
+  "C_shuffled": {
+    "alpha_selected": 10000.0,
+    "trace": [
+      {
+        "alpha": 0.001,
+        "auroc_val": 0.5509123090137692
+      },
+      {
+        "alpha": 1.0,
+        "auroc_val": 0.549038236289336
+      },
+      {
+        "alpha": 1000.0,
+        "auroc_val": 0.5919987506181836
+      },
+      {
+        "alpha": 10000.0,
+        "auroc_val": 0.6151643717952054
+      },
+      {
+        "alpha": 100000.0,
+        "auroc_val": 0.6114552695280981
+      },
+      {
+        "alpha": 1000000.0,
+        "auroc_val": 0.5756917150368308
+      }
+    ],
+    "boundary": false
+  },
+  "H": {
+    "alpha_selected": 10000.0,
+    "trace": [
+      {
+        "alpha": 0.001,
+        "auroc_val": 0.7778833389729041
+      },
+      {
+        "alpha": 1.0,
+        "auroc_val": 0.7794060230615061
+      },
+      {
+        "alpha": 1000.0,
+        "auroc_val": 0.8246700851141362
+      },
+      {
+        "alpha": 10000.0,
+        "auroc_val": 0.830409432832713
+      },
+      {
+        "alpha": 100000.0,
+        "auroc_val": 0.8018298237851064
+      },
+      {
+        "alpha": 1000000.0,
+        "auroc_val": 0.757854186730524
+      }
+    ],
+    "boundary": false
+  },
+  "H_recording": {
+    "alpha_selected": 10000.0,
+    "trace": [
+      {
+        "alpha": 0.001,
+        "auroc_val": 0.7476899450792576
+      },
+      {
+        "alpha": 1.0,
+        "auroc_val": 0.7506962700747026
+      },
+      {
+        "alpha": 1000.0,
+        "auroc_val": 0.7875139904734636
+      },
+      {
+        "alpha": 10000.0,
+        "auroc_val": 0.809339129076759
+      },
+      {
+        "alpha": 100000.0,
+        "auroc_val": 0.8050834222650252
+      },
+      {
+        "alpha": 1000000.0,
+        "auroc_val": 0.7708946094380386
+      }
+    ],
+    "boundary": false
+  }
+}
