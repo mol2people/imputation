@@ -1,3 +1,10 @@
+> **RETIRED (2026-09-22).** This pre-run checkpoint is superseded: the
+> numba-seeding premise in the RNG/determinism section is incorrect
+> (numba `np.random.randint` inside njit uses numba internal RNG, not
+> numpy global state) - see the `_nb_seed` erratum in REPORT.md section 8
+> and `vendor_setup.py`. Kept as the historical pre-run record;
+> authoritative post-run documentation is REPORT.md + NEXT_STEPS.md.
+
 # TEMPORAL — execution context checkpoint (written pre-run, 2026-09-21)
 
 Durable recovery point for the temporal-representation experiment, written before the run per

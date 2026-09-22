@@ -1,0 +1,56 @@
+{
+  "timestamp": "2026-09-22T12:26:20",
+  "tolerance": 1e-06,
+  "arms": [
+    {
+      "arm": "Summary_linear",
+      "max_abs_diff": 1.1102230246251565e-16,
+      "n": 579,
+      "byte_identical": false,
+      "pass_relaxed": true
+    },
+    {
+      "arm": "Profile24",
+      "max_abs_diff": 1.1102230246251565e-16,
+      "n": 579,
+      "byte_identical": false,
+      "pass_relaxed": true
+    },
+    {
+      "arm": "Profile288",
+      "max_abs_diff": 2.220446049250313e-16,
+      "n": 579,
+      "byte_identical": false,
+      "pass_relaxed": true
+    },
+    {
+      "arm": "MultiRocket",
+      "max_abs_diff": 2.220446049250313e-16,
+      "n": 579,
+      "byte_identical": false,
+      "pass_relaxed": true
+    },
+    {
+      "arm": "HYDRA",
+      "max_abs_diff": 2.220446049250313e-16,
+      "n": 579,
+      "byte_identical": false,
+      "pass_relaxed": true
+    },
+    {
+      "arm": "Combined",
+      "max_abs_diff": 2.220446049250313e-16,
+      "n": 579,
+      "byte_identical": false,
+      "pass_relaxed": true
+    },
+    {
+      "arm": "Shuffled_MR",
+      "max_abs_diff": 2.220446049250313e-16,
+      "n": 579,
+      "byte_identical": false,
+      "pass_relaxed": true
+    }
+  ],
+  "gate": "PASS"
+}

@@ -7,30 +7,48 @@ plan. The next experiment requires its own frozen plan before execution.
 
 ## 1. Where we stand
 
-Same cohort/folds/test-users as R1b (3,848 Garmin, 10 allocations, first-40-day window).
-Reference anchors: R1b BASE⊕P40 = 0.7568 val / 0.7513 test.
+**v2 results (post-erratum; this file's 10-alloc snapshot).** Same cohort/folds/test-users as R1b
+(3,848 Garmin, 10 allocations, first-40-day window). R1b BASE⊕P40 anchors at
+0.7568 val / 0.7513 test (paired test AUROCs across 10 allocs in REPORT §4).
 
-| arm | val (mean of 5) | test (mean of 5) |
+| arm | val (mean ± SD, 10 allocs) | test (mean ± SD, 10 allocs) |
 |---|---|---|
-| Combined | **0.8490** | **0.8610** |
-| HYDRA | 0.8369 | 0.8477 |
-| MultiRocket | 0.8295 | 0.8407 |
-| Profile24 | 0.7263 | 0.7311 |
-| Profile288 | 0.7160 | 0.7220 |
-| Summary_linear | 0.7104 | 0.7027 |
-| Summary_RF | 0.6987 | 0.6933 |
-| Shuffled_MR | 0.6648 | 0.6564 |
+| Combined | **0.8489 ± 0.0141** | **0.8565 ± 0.0146** |
+| HYDRA | 0.8374 ± 0.0149 | 0.8442 ± 0.0113 |
+| MultiRocket | 0.8284 ± 0.0184 | 0.8361 ± 0.0149 |
+| Profile24 | 0.7248 ± 0.0233 | 0.7370 ± 0.0157 |
+| Profile288 | 0.7140 ± 0.0181 | 0.7327 ± 0.0159 |
+| Summary_linear | 0.7077 ± 0.0193 | 0.7157 ± 0.0204 |
+| Summary_RF | 0.6962 ± 0.0132 | 0.7031 ± 0.0192 |
+| Shuffled_MR | 0.6619 ± 0.0139 | 0.6643 ± 0.0183 |
 
-Established so far (all primary deltas positive in every completed allocation, an order of
-magnitude above the Bonferroni MDD ≈ 0.01):
+Primary family deltas vs `Summary_RF` (Bonferroni 4-arm, df=9, all 10/10 positive, REPORT §2):
+Profile288 +0.018, MultiRocket +0.132, HYDRA +0.141, Combined +0.153.
+Within-day placement signal: MultiRocket − Shuffled_MR = **+0.166** (10/10, REPORT §3).
+Test pairing vs R1b BASE⊕P40: Combined − BASE⊕P40 = **+0.1051** pooled, 95% t-CI
+[+0.0878, +0.1225], share > 0 = 1.00, df=9 (REPORT §4).
 
-- Within-day temporal placement of 5-min HR values carries ~+0.15 AUROC beyond summary
-  statistics and hourly profiles. MultiRocket − Shuffled_MR ≈ +0.16 isolates placement.
-- Hourly aggregation destroys it (Profile24 ≈ Profile288 ≈ 0.72, both ≈ Summary + 0.02).
-- Combination adds modestly over the best single transform (+0.01–0.02).
+Selective classification (REPORT §10; `results/selective_classification.{md,csv}`):
+- Combined raw @95%: cov₁ 21.4 ± 9.8%, cov₀ 3.8 ± 3.4%, cov_total **25.2 ± 10.5%**
+  (test precision 0.956 / 0.937 — class-1 holds at the 95% target; class-0 mild
+  small-set boundary drop).
+- Combined cpc (Clopper-Pearson LCB, δ=0.10) @95%: cov₁ **8.1 ± 9.2%** (~5/10 allocs
+  attain, test precision 0.959 over attained); class-0 cpc unattainable everywhere;
+  @98% cpc unattainable in all 10 allocs.
+- Combined − BASE⊕P40 raw @95%: **+12.4 pp** cov_total (25.2 vs 12.8, ~×2.0);
+  cpc @95%: **+8.1 pp** (8.1 vs 0 — R1b BASE can't certify anything at n_val=579).
+- Binormal projection (AUROC 0.86, π₁=0.64, symmetric): 22.2% raw cov_total @95%.
+  Observed 25.2% slightly exceeds it because class-1 is stronger than binormal; class-0
+  is weaker than binormal. Asymmetric per-class threshold shape is real.
+- Random sanity (seeded uniform scores on real users): raw cov 0.2%, test precision ≈
+  prevalence, cpc rejects everything — threshold mechanic is sane.
 
-Pending lock-in: allocs 5–9; byte-identical alloc-0 `verify` gate; REPORT.md; README row;
-commit. Peak RSS plateaued at 7.46 GiB (under the 8 GiB gate).
+v2 determinism: `verify` gate PASS under relaxed 1e-6 standard (1–2 ULP per arm,
+threaded-BLAS reduction order; MR/HYDRA/seed streams bit-stable).
+v2 plateau RSS 8197 MiB (+0.06% over the 8192 MiB gate, recorded in REPORT §8).
+
+Open: **α extended-grid addendum** (predeclared below) — alloc-0 α froze at the grid
+boundary (1e3) for every family in v1 *and* v2; wide arms were still climbing.
 
 ## 2. What we're missing — open threats, ranked
 
@@ -152,13 +170,42 @@ Sleep→booleanValue (pipeline `parse_value_format_selection`).
 
 ## 4. Roadmap
 
-**Step 0 — lock the current run** (in flight): allocs 5–9 → `verify` gate → REPORT.md →
-README row (respect the 14-line research-direction section) → commit code + results +
-NEXT_STEPS.md → retire/rewrite CONTEXT.md (numba-seed gotcha superseded by `_nb_seed`
-erratum in vendor_setup.py).
+**Step 0 — lock the current run** (DONE 2026-09-22): allocs 0–9 → `verify` gate (PASS,
+relaxed 1e-6, 1–2 ULP) → REPORT.md (§1–§10) → README row (research-direction section
+untouched) → commit code + results + NEXT_STEPS.md → CONTEXT.md retirement banner.
+v2 = post-erratum primary record; v1 kept as `*_v1` erratum record (commit `168b9d7`).
 
-**Step 0.5 — selective-classification analysis (post hoc on saved predictions; procedure
-predeclared 2026-09-22 before any coverage/precision numbers are computed):**
+**Step 0.5 — selective-classification analysis** (DONE 2026-09-22; numbers above in §1;
+procedure below as predeclared 2026-09-22 before any coverage/precision numbers were
+computed; outputs `results/selective_classification.{md,csv}`,
+`risk_coverage_curves.csv`, `abstention_composition.csv`, embedded REPORT §10).
+Recorded deviation: the `cpc` variant uses the Clopper-Pearson 90% LCB on val precision
+(`L = B(δ, s, f+1)` per candidate threshold; CRC was predeclared in outline but CP-LCB
+is the correct finite-sample control for a precision *ratio* — CRC bounds bounded-loss
+*expectations*, not precision ratios; recorded as a deviation from the predeclared
+outline, formula in `selective.py`).
+Aggregation-bug fixes recorded post-numbers (display layer only; thresholds/targets/
+selection rule untouched): unattainable thresholds now report precision as undefined
+(not 0) and are excluded from precision means; cov_total/abst now grouped per-arm
+correctly for non-crossfit arms. Abstention composition verdict: abstention is NOT
+wear-driven (labeled vs abstained mask coverage 0.90 vs 0.88, ~254 vs 261 obs
+bins/day); the separator is mean HR (71.1 vs 74.0 bpm) — ambiguous physiology, not
+data scarcity. So the minimum-wear-time upstream lever (§2.5) is NOT the binding one.
+
+**Step 0.7 — α extended-grid addendum (predeclared 2026-09-22, before running).**
+Motivation: alloc-0 precalibration selected the grid maximum (1e3) for every family in
+v1 AND v2 (REPORT §8 caveat); MultiRocket/HYDRA last-decade val gains (+0.041/+0.047)
+still climbing → wide arms undershrunk, primary deltas if anything understated.
+Procedure (frozen): rebuild alloc-0 arm matrices exactly as `fit_alloc(r=0)` (same
+seeds, same fill, same hygiene), sweep α over
+[1e2, 3e2, 1e3, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6] per family on VALIDATION only, report
+val AUROC curves + the α* test AUROC at alloc-0. Decision rule (frozen): if Combined
+val gain ≥ 0.01 over the frozen-α val AUROC → user decision on a v3 full rerun
+(72 min); below that, record the curve and stop (α boundary is a caveat, not a
+defect — same protocol across arms kept the ladder fair). No other change rides
+along (no pooling/kernel changes).
+
+**Step 0.5 procedure — as predeclared 2026-09-22 (archived verbatim, unchanged):**
 
 Procedure (frozen, will not be adjusted after seeing numbers):
 - **Per alloc r ∈ {0,…,9}, per arm.** Primary: `Combined`. Reference: `Summary_RF`,

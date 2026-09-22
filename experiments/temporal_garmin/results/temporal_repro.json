@@ -1,0 +1,224 @@
+{
+  "timestamp": "2026-09-22T12:33:03",
+  "python": "3.14.5",
+  "numpy": "2.4.6",
+  "torch": "2.14.0",
+  "pandas": "3.0.3",
+  "scipy": "1.17.1",
+  "sklearn": "1.9.0",
+  "vendor": {
+    "timestamp": "2026-09-21T23:40:40",
+    "python": "3.14.5",
+    "numpy": "2.4.6",
+    "torch": "2.14.0",
+    "numba": "0.67.0",
+    "pin": {
+      "multirocket_repo": "ChangWeiTan/MultiRocket",
+      "multirocket_commit": "3ccaa4f8ed11769b904af885e17018c39c89a2ac",
+      "multirocket_file_sha256": "71d1e61bf59a6a7ff21c76b36d73e88dbf4e6307f1cea547cb342373687a7786",
+      "multirocket_file_path": "cache/vendor/multirocket/multirocket/multirocket.py",
+      "hydra_repo": "angus924/hydra",
+      "hydra_commit": "144bb7aa3186654042f00f36b078370c620acb06",
+      "hydra_file_sha256": "56de99eb1723567ee0a2b3763513ecb4a645d8b1732116c50a07af2b2e3a2d4f",
+      "hydra_file_path": "cache/vendor/hydra/code/hydra.py"
+    },
+    "fixture_multirocket": {
+      "n_examples": 10,
+      "input_length": 288,
+      "num_features_per_transformation": 1250,
+      "width_day": 9408,
+      "width_day_per_transformation_base": 1176,
+      "byte_identical_repeat": true,
+      "batch_vs_unbatched_agreement": true,
+      "any_nan": false,
+      "any_inf": false,
+      "nan_to_num_zero_frac": 0.003050595238095238,
+      "transform_wall_s_warmup_excluded": 0.0027,
+      "max_abs": 287.0
+    },
+    "fixture_hydra": {
+      "n_examples": 10,
+      "input_length": 288,
+      "k": 8,
+      "g": 64,
+      "width_day": 6144,
+      "width_day_expected": 6144,
+      "byte_identical_repeat": true,
+      "batch_vs_unbatched_agreement": true,
+      "sparse_scaler_byte_repeat": true,
+      "any_nan": false,
+      "any_inf": false,
+      "transform_wall_s_warmup_excluded": 0.0148,
+      "max_abs": 77.0
+    },
+    "gates": {
+      "mr_width_9408": true,
+      "mr_byte_repeat": true,
+      "mr_batch_vs_single": true,
+      "mr_no_nan": true,
+      "hydra_width_6144": true,
+      "hydra_byte_repeat": true,
+      "hydra_batch_vs_single": true,
+      "hydra_no_nan": true
+    },
+    "wall_seconds": 1.0
+  },
+  "span_audit": {
+    "files": 3848,
+    "workers": 2,
+    "failures": 0,
+    "designated_pairs": 153920,
+    "designated_distinct_bins_per_day": {
+      "min": 20,
+      "p50": 282.0,
+      "p99": 288.0,
+      "lt8": 0,
+      "zero_mask_days": 0
+    },
+    "span_audit_ms": {
+      "p50_per_user_median": 60000,
+      "p90_per_user_median": 60000,
+      "p99_per_user_median": 60000,
+      "max_per_user_max": 80213000,
+      "weighted_frac_gt_5min": 0.0004,
+      "weighted_frac_gt_10min": 0.0004,
+      "users_gt_5min_50pct_of_events": 0,
+      "predeclared_rule_triggered": false
+    },
+    "tz_change_audit": {
+      "users_with_gt1_tz_offsets": 3836,
+      "users_max_tz_unique": 14
+    },
+    "nan_tz_rejected_total": 0,
+    "end_nan_dropped_total": 0,
+    "raw_event_rows_total_per_user_median": null,
+    "input_sha256": {
+      "day40_table.parquet": "bb998fbed54ef2a9c5f77e0646a75c3bf08127749b4069f8382660347f36e4be"
+    },
+    "elapsed_s": 302.7
+  },
+  "benchmark": {
+    "bench_users": 100,
+    "bench_days_per_user": 40,
+    "mr_transform_wall_s_bench_100x40": 0.88,
+    "mr_per_day_ms_bench": 0.219,
+    "mr_proj_full_per_alloc_s": 33.7,
+    "hydra_transform_wall_s_bench_100x40": 8.51,
+    "hydra_per_day_ms_bench": 2.127,
+    "hydra_proj_full_per_alloc_s": 327.5,
+    "shuffled_mr_doubles_mr_wall": true,
+    "ten_alloc_proj_mr_min": 11.2,
+    "ten_alloc_proj_hydra_min": 54.6,
+    "peak_rss_mb": 4255.6,
+    "fill_min": 54.79999923706055,
+    "fill_max": 77.19999694824219,
+    "fill_used_nan": 0
+  },
+  "verify": {
+    "timestamp": "2026-09-22T12:26:20",
+    "tolerance": 1e-06,
+    "arms": [
+      {
+        "arm": "Summary_linear",
+        "max_abs_diff": 1.1102230246251565e-16,
+        "n": 579,
+        "byte_identical": false,
+        "pass_relaxed": true
+      },
+      {
+        "arm": "Profile24",
+        "max_abs_diff": 1.1102230246251565e-16,
+        "n": 579,
+        "byte_identical": false,
+        "pass_relaxed": true
+      },
+      {
+        "arm": "Profile288",
+        "max_abs_diff": 2.220446049250313e-16,
+        "n": 579,
+        "byte_identical": false,
+        "pass_relaxed": true
+      },
+      {
+        "arm": "MultiRocket",
+        "max_abs_diff": 2.220446049250313e-16,
+        "n": 579,
+        "byte_identical": false,
+        "pass_relaxed": true
+      },
+      {
+        "arm": "HYDRA",
+        "max_abs_diff": 2.220446049250313e-16,
+        "n": 579,
+        "byte_identical": false,
+        "pass_relaxed": true
+      },
+      {
+        "arm": "Combined",
+        "max_abs_diff": 2.220446049250313e-16,
+        "n": 579,
+        "byte_identical": false,
+        "pass_relaxed": true
+      },
+      {
+        "arm": "Shuffled_MR",
+        "max_abs_diff": 2.220446049250313e-16,
+        "n": 579,
+        "byte_identical": false,
+        "pass_relaxed": true
+      }
+    ],
+    "gate": "PASS"
+  },
+  "alpha_frozen": {
+    "Summary_linear": 1000.0,
+    "Profile24": 1000.0,
+    "Profile288": 1000.0,
+    "MultiRocket": 1000.0,
+    "HYDRA": 1000.0,
+    "Combined": 1000.0
+  },
+  "input_sha256": {
+    "day40_table.parquet": "bb998fbed54ef2a9c5f77e0646a75c3bf08127749b4069f8382660347f36e4be",
+    "folds.parquet": "9fb463157247d8c34003f555b6d37e5eb30cfa1bbb398644fbcb91d4a02ee28c",
+    "r1b_predictions_part.csv": "605fbe3f8a89684d22580e466d6629a469737f0b0bbc6bcc50c00add14d7b835",
+    "day_bins.npz": "266312e913d901260074424d15b33ca36f8e4f6bf1a9edbb663dad4f5397e0d6"
+  },
+  "config": {
+    "MR_NUM_FEATURES_PER_TRANS": 1250,
+    "MR_WIDTH": 9408,
+    "HY_WIDTH": 6144,
+    "ALPHA_GRID": [
+      0.001,
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0,
+      1000.0
+    ],
+    "G1": {
+      "max_features": 0.4,
+      "min_samples_leaf": 10,
+      "max_depth": null,
+      "class_weight": "balanced_subsample"
+    },
+    "N_TREES": 100,
+    "COMPONENT_IDS": {
+      "DAY_SELECT": 0,
+      "MR_FIT": 1,
+      "HYDRA": 2,
+      "SHUFFLE": 3,
+      "RF": 4
+    },
+    "seed_streams": {
+      "comp_seed": "SeedSequence([20260921, 3, r, component])",
+      "shuffle_within_day": "default_rng(comp_seed(r, SHUFFLE)) \u2014 vectorized per-day within-row permutation (masks unchanged)"
+    },
+    "threading": {
+      "numba_layer": "workqueue",
+      "numba_threads": 8,
+      "torch_threads": 8
+    }
+  }
+}

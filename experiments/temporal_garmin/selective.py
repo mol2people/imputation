@@ -182,7 +182,7 @@ def _eval_high(tau: float, scores_te: np.ndarray, y_te: np.ndarray,
         sel = scores_te >= tau
     n_sel = int(sel.sum())
     if n_sel == 0:
-        return (0, 0, 0.0, (float("nan"), float("nan")))
+        return (0, 0, float("nan"), (float("nan"), float("nan")))
     correct = int(((y_te == assigned) & sel).sum())
     prec = correct / n_sel
     return (n_sel, correct, prec, wilson_ci(correct, n_sel))
@@ -196,7 +196,7 @@ def _eval_low(tau: float, scores_te: np.ndarray, y_te: np.ndarray,
         sel = scores_te <= tau
     n_sel = int(sel.sum())
     if n_sel == 0:
-        return (0, 0, 0.0, (float("nan"), float("nan")))
+        return (0, 0, float("nan"), (float("nan"), float("nan")))
     correct = int(((y_te == assigned) & sel).sum())
     prec = correct / n_sel
     return (n_sel, correct, prec, wilson_ci(correct, n_sel))
@@ -596,8 +596,10 @@ def write_md(rows: list[dict], md_path: Path):
                 s0 = sub[(sub.target == tgt) & (sub.variant == variant)
                           & (sub["class"] == 0)]
                 if len(s1) and len(s0):
-                    # pair by alloc (+ xfit_dir if present)
-                    if "xfit_dir" in s1.columns:
+                    # pair by alloc (+ xfit_dir only for crossfit arms)
+                    has_xfit = ("xfit_dir" in s1.columns
+                                and s1.xfit_dir.notna().any())
+                    if has_xfit:
                         m1 = s1.groupby(["alloc", "xfit_dir"]).cov_test.mean()
                         m0 = s0.groupby(["alloc", "xfit_dir"]).cov_test.mean()
                     else:
@@ -623,22 +625,33 @@ def write_md(rows: list[dict], md_path: Path):
                     f"{tot_str} | {abst_str} |")
 
     if "Combined" in df.arm.unique() and "BASE_x_P40" in df.arm.unique():
-        L.append("\n#### Combined − BASE⊕P40 (cpc variant; applied delta)\n")
-        L.append("| target | metric | Combined | BASE⊕P40 | Δ |")
-        L.append("|---|---|---|---|---|")
+        L.append("\n#### Combined − BASE⊕P40 (applied coverage delta)\n")
+        L.append("| target | variant | cov₁ Combined | cov₁ BASE⊕P40 | "
+                  "Δ cov₁ | cov₀ Combined | cov₀ BASE⊕P40 | Δ cov₀ | "
+                  "Δ cov_total |")
+        L.append("|---|---|---|---|---|---|---|---|---|")
         for tgt in TARGETS:
-            for cls in (1, 0):
-                c = df[(df.arm == "Combined") & (df.target == tgt)
-                        & (df.variant == "cpc") & (df["class"] == cls)]
-                b = df[(df.arm == "BASE_x_P40") & (df.target == tgt)
-                        & (df.variant == "cpc") & (df["class"] == cls)]
-                if len(c) == 0 or len(b) == 0:
+            for variant in ("raw", "cpc"):
+                row = []
+                tots = {}
+                for cls in (1, 0):
+                    c = df[(df.arm == "Combined") & (df.target == tgt)
+                           & (df.variant == variant) & (df["class"] == cls)]
+                    b = df[(df.arm == "BASE_x_P40") & (df.target == tgt)
+                           & (df.variant == variant) & (df["class"] == cls)]
+                    if len(c) == 0 or len(b) == 0:
+                        row = []
+                        break
+                    cc = c.cov_test; bb = b.cov_test
+                    tots[cls] = (cc.mean(), bb.mean())
+                    row.append(f"{cc.mean()*100:.1f} | {bb.mean()*100:.1f} | "
+                               f"{(cc.mean()-bb.mean())*100:+.1f}")
+                if not row:
                     continue
-                cc = c.cov_test; bb = b.cov_test
-                L.append(f"| {tgt*100:.0f}% | cov{cls} | "
-                          f"{cc.mean()*100:.1f}% ± {cc.std(ddof=1)*100:.1f}% | "
-                          f"{bb.mean()*100:.1f}% ± {bb.std(ddof=1)*100:.1f}% | "
-                          f"{(cc.mean()-bb.mean())*100:+.1f} pp |")
+                dtot = ((tots[1][0] + tots[0][0])
+                        - (tots[1][1] + tots[0][1]))
+                L.append(f"| {tgt*100:.0f}% | {variant} | "
+                         f"{row[0]} | {row[1]} | {dtot*100:+.1f} |")
     open(md_path, "w").write("\n".join(L) + "\n")
 
 

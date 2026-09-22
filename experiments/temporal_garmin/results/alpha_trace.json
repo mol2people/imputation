@@ -1,0 +1,19 @@
+{
+  "alpha_frozen": {
+    "Summary_linear": 1000.0,
+    "Profile24": 1000.0,
+    "Profile288": 1000.0,
+    "MultiRocket": 1000.0,
+    "HYDRA": 1000.0,
+    "Combined": 1000.0
+  },
+  "precalibration_trace": {
+    "Summary_linear": [],
+    "HYDRA": [],
+    "Profile288": [],
+    "MultiRocket": [],
+    "Profile24": [],
+    "Combined": []
+  },
+  "resumed": true
+}

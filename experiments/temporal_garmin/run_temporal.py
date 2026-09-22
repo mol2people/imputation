@@ -624,6 +624,34 @@ def run_all():
     alpha_0 = None
     alpha_trace = {fam: [] for fam in set(FAMILY.values()) if fam}
 
+    # Resume: the frozen alpha lives only in the original process's memory.
+    # Preferred source = mid-run alpha_trace.json (full grid trace); fallback
+    # = per-arm alpha stored in the metrics csv (exact float64 round-trip;
+    # arms sharing a family share the alpha).
+    pending = [r for r in range(10) if r not in done]
+    resumed = bool(pending) and 0 in done
+    if resumed:
+        trace_path = RESULTS / "alpha_trace.json"
+        if trace_path.exists():
+            try:
+                tr = json.load(open(trace_path))
+                if tr.get("persisted_mid_run") and tr.get("alpha_frozen"):
+                    alpha_0 = dict(tr["alpha_frozen"])
+                    alpha_trace.update(tr.get("precalibration_trace", {}))
+                    log("[run] resume: alpha + grid trace loaded from "
+                        "alpha_trace.json (mid-run artifact)")
+            except Exception:
+                pass
+        if alpha_0 is None:
+            mm = pd.read_csv(metrics_csv)
+            a0 = mm[mm.alloc == 0].set_index("arm").alpha
+            alpha_0 = {}
+            for arm, fam in FAMILY.items():
+                if fam and arm in a0.index:
+                    alpha_0[fam] = float(a0[arm])
+            log(f"[run] resume: frozen alpha reconstructed from metrics csv "
+                f"({len(alpha_0)} families)")
+
     rows_metrics = []
     rows_preds = []
 
@@ -648,6 +676,13 @@ def run_all():
                 a, trace = precalibrate(Ztr, result["y_tr"], Zva, result["y_va"])
                 alpha_0[fam] = a
                 alpha_trace[fam] = trace
+            # mid-run persistence: a future resume reloads this (with the
+            # grid trace) instead of reconstructing alphas from the csv
+            json.dump({"alpha_frozen": alpha_0,
+                        "precalibration_trace": alpha_trace,
+                        "persisted_mid_run": True},
+                       open(RESULTS / "alpha_trace.json", "w"), indent=2)
+            log("[run] alpha precalibration frozen; mid-run trace persisted")
         frozen_alpha = alpha_0
 
         # ---- fit models per arm ----
@@ -713,9 +748,11 @@ def run_all():
         log(f"[run] alloc {r} done in {time.perf_counter()-wall_a:.1f}s "
             f"| peak RSS {peak_rss_mb():.0f} MiB")
 
-    json.dump({"alpha_frozen": alpha_0, "precalibration_trace": alpha_trace},
+    json.dump({"alpha_frozen": alpha_0, "precalibration_trace": alpha_trace,
+                "resumed": resumed},
               open(RESULTS / "alpha_trace.json", "w"), indent=2)
-    log(f"[run] all allocs done; alpha trace written")
+    log(f"[run] all allocs done; alpha trace written "
+        f"(resumed={resumed})")
 
 
 # ---- verify (rerun alloc 0 byte-compare) -----------------------------------
@@ -764,6 +801,11 @@ def write_report():
              "R1b cohort/folds/first-40-day window. Frozen plan at commit "
              "`dabab35`. CPU torch 2.14.0 + numba 0.67.0 (`workqueue` "
              "threading layer).\n")
+    L.append("**This is the v2 run (post-erratum).** v1 (commit `168b9d7`, "
+              "as-run) carried the zero-sentinel contamination defect "
+              "(erratum 1, quantified per arm in section 9). Defects 2-3 "
+              "(verify dispatch, section 4 pairing) have no numeric "
+              "effect on arm AUROCs.\n")
 
     L.append("\n## 1. Absolute AUROC (mean ± SD over 10 allocations)\n")
     L.append("| arm | val AUROC | test AUROC | n cols (post-hygiene) | α (frozen) |")
@@ -899,10 +941,44 @@ def write_report():
                   f"from `src/sidequest/diurnal.py`'s UTC-substitution "
                   f"convention — zero effect in practice for this cohort).\n")
 
-    # interpretation placeholder (filled after inspection)
+    # interpretation (v2; written after results inspection 2026-09-22)
     L.append("\n## 7. Interpretation\n")
-    L.append("_(filled after results inspection — see "
-              "`interpretation_summary` below)_\n")
+    L.append("**Within-day value placement carries the signal.** Permuting "
+              "observed HR values among a participant's observed clock-bins "
+              "within each day (Shuffled_MR: identical value multiset, "
+              "identical wear mask per day) collapses MultiRocket from "
+              f"{m[m.arm == 'MultiRocket'].auroc_val.mean():.3f} to "
+              f"{m[m.arm == 'Shuffled_MR'].auroc_val.mean():.3f} val - the "
+              "+0.17 AUROC is destroyed by breaking the value-to-clock-"
+              "position assignment alone.\n")
+    L.append("**Bin resolution is not the bottleneck; representation is.** "
+              "Profile288 already operates at 5-minute resolution yet "
+              f"reaches only {m[m.arm == 'Profile288'].auroc_val.mean():.3f} "
+              f"(Profile24 hourly: {m[m.arm == 'Profile24'].auroc_val.mean():.3f}) "
+              "- per-bin means across days discard the local dilation/"
+              "position patterns that convolutional kernels (MultiRocket, "
+              "HYDRA) exploit on the same resolution.\n")
+    L.append("**The ladder is monotone in representation complexity** - "
+              "summaries (RF/linear) -> per-bin profiles -> convolutional "
+              "kernels - and Combined adds a further increment over the "
+              "best single representation (sec 1), positive vs Summary_RF in "
+              "10/10 allocations (sec 2 Bonferroni family significant; test "
+              "corroborates, exploratory).\n")
+    L.append("**Erratum robustness:** the v1->v2 zero-sentinel fix moved "
+              "every arm by at most 0.004 AUROC (sec 9) and left the B40-only "
+              "arms bit-identical - the headline is an artifact of neither the "
+              "contamination nor its correction.\n")
+    L.append("**Open question:** whether the placement signal is "
+              "physiological (circadian phase/shape) or device-behavioral "
+              "(wear-time routines correlated with the recorded salutation). "
+              "The predeclared probes (night-only arm, activity-window "
+              "exclusion, importance-by-dilation - NEXT_STEPS sec 2.1) remain "
+              "the next step. Recorded salutation != biological sex/gender.\n")
+    L.append("**Headroom note:** alloc-0 precalibration hit the alpha-grid "
+              "boundary (1e3) for the wide blocks (MultiRocket +0.041, "
+              "HYDRA +0.047 last-decade val gains) - wide arms are likely "
+              "undershrunk, so the placement gap is if anything understated "
+              "(extended-grid addendum, NEXT_STEPS).\n")
     L.append("\n## 8. Caveats and recorded errata\n")
     L.append("- **Erratum (mechanism correction):** numba's `np.random.randint` "
               "inside `_fit_biases` uses numba's **internal** RNG state, not "
@@ -945,6 +1021,14 @@ def write_report():
               "MR/HYDRA transforms and all seed streams are bit-stable). "
               "Gate relaxed to max diff ≤ 1e-6 per arm — AUROC-equivalent "
               "by construction; `cache/verify.json`.\n")
+    L.append("- **alpha-grid boundary (recorded):** alloc-0 precalibration "
+              "selected the grid maximum (1e3) for every family in v1 and "
+              "v2; the wide blocks (MultiRocket +0.041, HYDRA +0.047 val "
+              "AUROC gain over the last grid decade) were still climbing - "
+              "the frozen grid truncates their optima. Same protocol across "
+              "arms keeps the ladder comparison fair; absolute AUROCs of "
+              "wide arms likely have headroom (extended-grid addendum: "
+              "NEXT_STEPS).\n")
     L.append("- **Pairing scope (recorded):** Combined − BASE⊕P40 paired on "
               "TEST predictions only — R1b saved test-only participant-level "
               "predictions in `r1b_predictions_part.csv`.\n")
