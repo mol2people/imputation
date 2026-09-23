@@ -1,8 +1,0 @@
-select user_id, salutation, birth_date, weight, height, source
-from datenspende.users v
-where v.salutation is null
---	and v.source is not null
---	and v.birth_date is not null
---	and v.weight is not null
---	and v.height is not null
-ORDER BY v.user_id asc;

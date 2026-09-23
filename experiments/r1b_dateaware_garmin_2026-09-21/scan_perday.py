@@ -57,10 +57,10 @@ def build_day_sets(with_first40: bool = True):
     # ``source == 3`` rejects non-s3 events — scanning them would fail the
     # designated-day coverage gate (first run of this script did exactly that)
     cm = pd.read_parquet(
-        REPO / "artifacts_sq" / "cohort_manifest_model_sources.parquet",
+        REPO / "experiments" / "artifacts_sq" / "cohort_manifest_model_sources.parquet",
         columns=["user_id", "source_id"])
     s3 = set(cm[cm.source_id == SRC].user_id.astype("int64"))
-    ed = pd.read_parquet(REPO / "artifacts_v2" / "epoch_days.parquet",
+    ed = pd.read_parquet(REPO / "experiments" / "artifacts_v2" / "epoch_days.parquet",
                          columns=["user", "channel", "date", "n", "cov_s",
                                   "hours"])
     ed["user"] = ed["user"].astype("int64")
@@ -148,7 +148,7 @@ def main(workers: int) -> None:
           f"{len(first40_pairs):,}", flush=True)
 
     # load-balance: biggest files first (sidequest precedent)
-    man = pd.read_parquet(REPO / "artifacts_sq" / "raw_file_manifest.parquet",
+    man = pd.read_parquet(REPO / "experiments" / "artifacts_sq" / "raw_file_manifest.parquet",
                           columns=["user_id", "bytes"])
     man["user_id"] = man["user_id"].astype("int64")
     man = man[man.user_id.isin({u for u, _ in jobs})]

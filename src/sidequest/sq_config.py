@@ -9,8 +9,8 @@ See SIDEQUEST_PLAN.md (sections referenced in each module).
 from pathlib import Path
 
 PROJECT = Path("/Users/bulat/Documents/datenspende_IMPUTE_sex")
-ARTIFACTS_V2 = PROJECT / "artifacts_v2"       # side quest reads v2 only
-ARTIFACTS_SQ = PROJECT / "artifacts_sq"       # side quest writes here only
+ARTIFACTS_V2 = PROJECT / "experiments" / "artifacts_v2"  # side quest reads v2 only
+ARTIFACTS_SQ = PROJECT / "experiments" / "artifacts_sq"  # side quest writes here only
 EPOCH_DIR = PROJECT / "out"                   # raw epoch export (targeted mini-scan)
 
 # ---------------------------------------------------------------- universe ---

@@ -1,6 +1,6 @@
 # Side-quest report: strict-coverage cohorts and per-source RF benchmarks
 
-Generated 2026-09-19 from `src/sidequest/`; all outputs under `artifacts_sq/`. Verification: **135/135 checks passed** (`verification_sq.json`; re-derives eligibility, selection, windows, splits, features, schemas, predictions, and the bootstrap from raw inputs).
+Generated 2026-09-19 from `src/sidequest/`; all outputs under `experiments/artifacts_sq/`. Verification: **135/135 checks passed** (`verification_sq.json`; re-derives eligibility, selection, windows, splits, features, schemas, predictions, and the bootstrap from raw inputs).
 
 Plan-status note: the 2026-09-19 decision made plan section 1 gate semantics authoritative; the count rows in section 2 and the Apple/Samsung rows of section 4 are superseded. Corrected anchors live in `src/sidequest/sq_config.py`. One frozen-table correction was required: source 7 train sal10 is **167**, not 166 (166+266 != 433 and 166+21+21 != 209).
 
@@ -214,7 +214,7 @@ Spec: `plans/sidequest_feat_sel_repeated_splits_2026-09-19.md` (repo copy; the f
 - **Repeated stratified splits replace the frozen single-look test**: R = 30 train/val/test (70/15/15) resamples per source, no allocation matching. Every arm sees every repeat → the paired Δ(arm − A0) over repeats is the primary estimand and the multiplicity tangle dissolves. No per-fit bootstrap.
 - **Uniform config G1 at 100 trees** (no per-cell tuning; per-cell tuning shown to buy ≤ 0.006 CV AUROC, below selection noise). 100 vs 500 trees verified on our own data at G1: AUROC deltas ±0.005 with flipped signs across sources, importance ρ ≈ 0.98, top-20 overlap 17/20, 4–5× cheaper; per-cell RF seed shared across arms makes paired deltas deterministic given the split.
 - **Arms**: A0 baseline / A1 hygiene (drop all `__missing` indicators + caret-nzv) / A2 = A1 + |ρ| > 0.95 dedup / A3 top-k ∈ {50, 100} by permutation importance **on that repeat's validation fold** (val-based selection per repeat replaces nested CV entirely; test used once per arm-repeat).
-- Driver `src/sidequest/feat_sel.py` (resumable per source-repeat); results in `artifacts_sq/fsplit/`, comparison in `fsplit/feat_sel_report.md`. Feature engineering is a follow-on phase spec'd after these results (same split seeds → paired across phases).
+- Driver `src/sidequest/feat_sel.py` (resumable per source-repeat); results in `experiments/artifacts_sq/fsplit/`, comparison in `fsplit/feat_sel_report.md`. Feature engineering is a follow-on phase spec'd after these results (same split seeds → paired across phases).
 
 ### 9.1 Outcome (R = 30; full tables in `fsplit/feat_sel_report.md`)
 
@@ -241,7 +241,7 @@ Spec: `plans/sidequest_feat_sel_repeated_splits_2026-09-19.md` (repo copy; the f
 
 ## 10. Feature engineering under repeated splits (completed 2026-09-19)
 
-Phase spec pre-registered in `artifacts_sq/plans/sidequest_feature_engineering_repeated_splits_2026-09-19.md` (frozen before any FE evaluation; one arithmetic correction — E3 = 18 columns, not 36 — made after a structural smoke run, before any test summary was inspected). Driver: `src/sidequest/feat_eng.py`; artifacts: `artifacts_sq/feng/` (90/90 cells, 2,700 rows, 12.7 min, log `feng_run.log`); full tables: `artifacts_sq/feng/feat_eng_report.md`. The phase is **adaptive relative to the cohort's analysis history and pre-registered relative to the FS phase's test summaries**; it is never independent validation (guard above).
+Phase spec pre-registered in `experiments/artifacts_sq/plans/sidequest_feature_engineering_repeated_splits_2026-09-19.md` (frozen before any FE evaluation; one arithmetic correction — E3 = 18 columns, not 36 — made after a structural smoke run, before any test summary was inspected). Driver: `src/sidequest/feat_eng.py`; artifacts: `experiments/artifacts_sq/feng/` (90/90 cells, 2,700 rows, 12.7 min, log `feng_run.log`); full tables: `experiments/artifacts_sq/feng/feat_eng_report.md`. The phase is **adaptive relative to the cohort's analysis history and pre-registered relative to the FS phase's test summaries**; it is never independent validation (guard above).
 
 **Design.** Identical splits and RF seeds as the FS phase (verified: arm **B0** = hygiene on the original matrix reproduces FS arm A1 with max |ΔAUROC| 5.6e-17 across all 270 cells — the two phases are bit-compatible, so all FE deltas are paired against the adopted baseline). Families (54 columns, added as raw columns before the standard preprocessor): **E1** wear-pattern interactions `weekday_mean × tod_b` (24), **E2** channel ratios `chA/chB`, denominator > 0 guarded (12), **E3** drift deltas `w30_mean − w7_mean` (18). Arms: B0 / **F1** (+ all applicable families) / **F2** (= F1 + \|ρ\|>0.95 dedup, **originals-first** so engineered terms can be evicted but never evict their parents) / **F1_E{1,2,3}** single-family attribution arms (no-ops for `demo`).
 

@@ -54,13 +54,13 @@ ARMS = ("REF50", "AGE50", "AGE50_force", "AGE50_nodemo", "AGE_all")
 
 RESULTS = HERE / "results"
 
-ART = REPO / "artifacts_sq"
+ART = REPO / "experiments" / "artifacts_sq"
 PATH_SPLIT = ART / "split_manifest_sq.parquet"
 PATH_FEATS = ART / "features_all.parquet"
 PATH_COHORT = ART / "cohort_manifest_model_sources.parquet"
 PATH_SAVED_METRICS = ART / "fsplit" / "fsplit_metrics.csv"
 PATH_SAVED_CELLS = ART / "fsplit" / "cells"
-PATH_SALUTATION = REPO / "13Aug_1222.csv"
+PATH_SALUTATION = REPO / "data" / "13Aug_1222.csv"
 
 
 def rf_seed(r: int) -> int:

@@ -11,7 +11,7 @@
 Per-source (Garmin=3, Apple=6, Samsung=7) strict-coverage cohorts → 398-feature blocks → frozen stratified splits → RF variant comparison (demo / rec / win / roll_rec / roll_win / all) predicting recorded salutation class (sal10 vs sal20), plus a 48-config × 5-fold tuned-500 extension.
 
 ## 2. Scope guard
-- Writes confined to `artifacts_sq/` and `src/sidequest/`. v1 / v2 modules and artifacts untouched.
+- Writes confined to `experiments/artifacts_sq/` and `src/sidequest/`. v1 / v2 modules and artifacts untouched.
 - Env: micromamba `datenspende` (`~/micromamba/envs/datenspende/bin/python`, Python 3.14.5, pandas 3.0.3, sklearn 1.9.0, scipy/HiGHS, joblib). Seeds anchored in `src/sidequest/sq_config.py`.
 - Spec: `SIDEQUEST_PLAN.md` §1 semantics authoritative. §2/§4 count rows **superseded** (8,880 / 8,830 → **8,885 / 8,835**).
 
@@ -27,9 +27,9 @@ Per-source (Garmin=3, Apple=6, Samsung=7) strict-coverage cohorts → 398-featur
 | 6 | Preprocessing | `preprocess.py` (`SQPreprocessor`) | median impute + per-column `__missing` indicators (≥1 train-missing → indicator); one-hot demographics, mode impute; drop all-missing-in-train + zero-variance-post-transform (train-only); no scaling |
 | 7 | Model — default-100 | `model.py` | RF, default sklearn config, `n_estimators=100`; test = frozen fold (385 / 444 / 54); 100-draw within-class bootstrap, `SeedSequence([20260918, source_id])` → **identical draws across runs / variants**; paired deltas |
 | 8 | Baseline verification | `verify.py` | **135/135 checks pass** for the default-100 sidequest and its upstream artifacts |
-| 9 | Baseline report + reproducibility | `report.py` | `artifacts_sq/sidequest_report.md`, `reproducibility_sq.json` (**22 SHA-256**), `verification_sq.json` |
+| 9 | Baseline report + reproducibility | `report.py` | `experiments/artifacts_sq/sidequest_report.md`, `reproducibility_sq.json` (**22 SHA-256**), `verification_sq.json` |
 | 10 | Later tuned-500 extension | `model_tune.py` | 18/18 source × variant cells complete; see §7; not included in the baseline verifier or baseline SHA-256 manifest |
-| 11 | Default-vs-tuned comparison | `compare_models.py` | `artifacts_sq/tuned_500_comparison.md` generated |
+| 11 | Default-vs-tuned comparison | `compare_models.py` | `experiments/artifacts_sq/tuned_500_comparison.md` generated |
 
 ## 4. Frozen-split allocation (FRACS ≈ 80 / 10 / 10)
 
@@ -125,7 +125,7 @@ Test AUROC (frozen fold):
 
 ## 13. Deliverables inventory
 ```
-artifacts_sq/
+experiments/artifacts_sq/
   sidequest_report.md
   reproducibility_sq.json              (22 SHA-256)
   verification_sq.json
@@ -142,11 +142,11 @@ src/sidequest/
 ```
 
 ## 14. Open / superseded items at archive time
-- `compare_models.py` has been executed; its output is `artifacts_sq/tuned_500_comparison.md`.
+- `compare_models.py` has been executed; its output is `experiments/artifacts_sq/tuned_500_comparison.md`.
 - **v2 pooled rerun under tuned / G1 config** to contextualize the 0.68333 anchor: **deferred / optional**, now superseded by the FS phase under repeated splits (the new protocol makes a single-anchor context unnecessary).
 - **Feature-selection phase** under repeated (non-frozen) splits, uniform G1 config — the existing implementation plan remains in `sidequest_feat_sel_repeated_splits_2026-09-19.md`; the independent alternative `CODEX_feature_selection_repeated_holdouts_2026-09-19.md` is documented separately without replacing it.
 - **Feature-engineering phase 2** remains deferred. If its specification is adapted after inspecting feature-selection evaluation results, subsequent results on the same participants must be described as exploratory; reusing the same evaluation partitions would not constitute independent confirmation.
 
 ---
 
-*Archive of the frozen-split side-quest protocol as executed on 2026-09-19. Frozen artifacts (`artifacts_sq/`, `src/sidequest/`) unchanged by the next phase.*
+*Archive of the frozen-split side-quest protocol as executed on 2026-09-19. Frozen artifacts (`experiments/artifacts_sq/`, `src/sidequest/`) unchanged by the next phase.*

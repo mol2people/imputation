@@ -1,6 +1,6 @@
 # OR-Tools configurable source-specific salutation experiment
 
-Standalone experiment created 2026-09-21. It reads the raw `../out/` epoch
+Standalone experiment created 2026-09-21. It reads the raw `../../out/` epoch
 files and linked salutation/BMI tables, but does not modify any existing module
 or artifact.
 
@@ -8,7 +8,7 @@ Run from the repository root:
 
 ```sh
 /Users/bulat/micromamba/envs/datenspende/bin/python \
-  2026-09-21_ortools_source_50_50_salutation_rf/run_experiment.py --mode all
+  experiments/2026-09-21_ortools_source_50_50_salutation_rf/run_experiment.py --mode all
 ```
 
 The allocation is configurable without changing the source code. Defaults
@@ -16,7 +16,7 @@ reproduce the completed experiment:
 
 ```sh
 /Users/bulat/micromamba/envs/datenspende/bin/python \
-  2026-09-21_ortools_source_50_50_salutation_rf/run_experiment.py \
+  experiments/2026-09-21_ortools_source_50_50_salutation_rf/run_experiment.py \
   --mode allocate \
   --balance-vars salutation,age_band_5y,bmi_group \
   --fold-sizes 1,1
@@ -27,7 +27,7 @@ and age band, reusing the existing raw-cohort cache:
 
 ```sh
 /Users/bulat/micromamba/envs/datenspende/bin/python \
-  2026-09-21_ortools_source_50_50_salutation_rf/run_experiment.py \
+  experiments/2026-09-21_ortools_source_50_50_salutation_rf/run_experiment.py \
   --mode allocate \
   --output-dir output_75_25_salutation_age \
   --balance-vars salutation,age_band_5y \

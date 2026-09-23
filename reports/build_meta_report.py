@@ -149,7 +149,7 @@ def build_figures() -> dict[str, Path]:
     figures["flow"] = savefig(fig, "01_pooled_cohort_flow.png")
 
     # Figure 2: strict source-specific cohorts.
-    cohort = pd.read_csv(ROOT / "artifacts_sq" / "source_cohorts.csv")
+    cohort = pd.read_csv(ROOT / "experiments" / "artifacts_sq" / "source_cohorts.csv")
     cohort = cohort[cohort["source_id"].isin([3, 6, 7])].copy()
     fig, ax = plt.subplots(figsize=(9.2, 3.7))
     y = np.arange(len(cohort))
@@ -178,8 +178,8 @@ def build_figures() -> dict[str, Path]:
     default: dict[int, list[float]] = {}
     tuned: dict[int, list[float]] = {}
     for source in (3, 6, 7):
-        d0 = read_json(ROOT / "artifacts_sq" / f"source_{source}" / "metrics_sq.json")
-        d1 = read_json(ROOT / "artifacts_sq" / f"source_{source}" / "tuned_500" / "metrics_sq.json")
+        d0 = read_json(ROOT / "experiments" / "artifacts_sq" / f"source_{source}" / "metrics_sq.json")
+        d1 = read_json(ROOT / "experiments" / "artifacts_sq" / f"source_{source}" / "tuned_500" / "metrics_sq.json")
         default[source] = [float(d0["variants"][v]["test"]["auroc"]) for v in VARIANTS]
         tuned[source] = [float(d1["variants"][v]["test"]["auroc"]) for v in VARIANTS]
 
@@ -202,8 +202,8 @@ def build_figures() -> dict[str, Path]:
     figures["auroc"] = savefig(fig, "03_source_variant_auroc.png")
 
     # Figure 4: corrected simultaneous intervals for repeated-split primary families.
-    fs = pd.read_csv(ROOT / "artifacts_sq" / "fsplit" / "fsplit_metrics.csv")
-    fe = pd.read_csv(ROOT / "artifacts_sq" / "feng" / "feng_metrics.csv")
+    fs = pd.read_csv(ROOT / "experiments" / "artifacts_sq" / "fsplit" / "fsplit_metrics.csv")
+    fe = pd.read_csv(ROOT / "experiments" / "artifacts_sq" / "feng" / "feng_metrics.csv")
     effects: list[tuple[str, str, dict]] = []
     for source in (3, 6):
         effects.append((f"FS  s{source} all: A2 - A0", "FS", paired_effect(fs, source, "all", "A2", "A0", 0.975)))
@@ -272,19 +272,19 @@ def build_figures() -> dict[str, Path]:
 
 
 def build_html(figures: dict[str, Path]) -> str:
-    v1 = read_json(ROOT / "artifacts" / "metrics.json")
-    v2 = read_json(ROOT / "artifacts_v2" / "metrics.json")
-    cohorts = pd.read_csv(ROOT / "artifacts_sq" / "source_cohorts.csv")
-    fs = pd.read_csv(ROOT / "artifacts_sq" / "fsplit" / "fsplit_metrics.csv")
-    fe = pd.read_csv(ROOT / "artifacts_sq" / "feng" / "feng_metrics.csv")
+    v1 = read_json(ROOT / "experiments" / "artifacts" / "metrics.json")
+    v2 = read_json(ROOT / "experiments" / "artifacts_v2" / "metrics.json")
+    cohorts = pd.read_csv(ROOT / "experiments" / "artifacts_sq" / "source_cohorts.csv")
+    fs = pd.read_csv(ROOT / "experiments" / "artifacts_sq" / "fsplit" / "fsplit_metrics.csv")
+    fe = pd.read_csv(ROOT / "experiments" / "artifacts_sq" / "feng" / "feng_metrics.csv")
 
     # Side-quest result rows and best tuned point per source.
     source_rows = []
     side_rows = []
     for source in (3, 6, 7):
         cohort = cohorts[cohorts["source_id"] == source].iloc[0]
-        d0 = read_json(ROOT / "artifacts_sq" / f"source_{source}" / "metrics_sq.json")
-        d1 = read_json(ROOT / "artifacts_sq" / f"source_{source}" / "tuned_500" / "metrics_sq.json")
+        d0 = read_json(ROOT / "experiments" / "artifacts_sq" / f"source_{source}" / "metrics_sq.json")
+        d1 = read_json(ROOT / "experiments" / "artifacts_sq" / f"source_{source}" / "tuned_500" / "metrics_sq.json")
         default_vals = {v: float(d0["variants"][v]["test"]["auroc"]) for v in VARIANTS}
         tuned_vals = {v: float(d1["variants"][v]["test"]["auroc"]) for v in VARIANTS}
         best_variant = max(tuned_vals, key=tuned_vals.get)
@@ -450,7 +450,7 @@ def build_html(figures: dict[str, Path]) -> str:
   <div class="cover-box">
     <strong>Central finding.</strong> Wearable epoch data contain modest information about recorded salutation. Most usable signal is tied to recording pattern, device context, and broad heart-rate summaries. Regularization helps. Feature selection and the tested hand-built transformations do not provide a reliable general improvement.
   </div>
-  <p class="meta"><strong>Evidence base:</strong> frozen September 2026 artifacts in <code>artifacts/</code>, <code>artifacts_v2/</code>, and <code>artifacts_sq/</code>.<br>
+  <p class="meta"><strong>Evidence base:</strong> frozen September 2026 artifacts in <code>experiments/artifacts/</code>, <code>experiments/artifacts_v2/</code>, and <code>experiments/artifacts_sq/</code>.<br>
   <strong>Outcome:</strong> recorded salutation code 10 versus 20.<br>
   <strong>Status:</strong> all model results are completed; the missingness analysis is a proposal and has not been run.</p>
 </section>
@@ -634,12 +634,12 @@ def build_html(figures: dict[str, Path]) -> str:
 {table(
     ["Topic", "Artifact"],
     [
-        ["Pooled experiment", "REPORT.md; artifacts/metrics.json; artifacts_v2/metrics.json"],
-        ["Strict source cohorts", "artifacts_sq/source_cohorts.csv; artifacts_sq/sidequest_report.md"],
-        ["Tuning", "artifacts_sq/tuned_500_comparison.md; source_*/tuned_500/"],
-        ["Feature selection", "artifacts_sq/fsplit/fsplit_metrics.csv; feat_sel_report.md"],
-        ["Feature engineering", "artifacts_sq/feng/feng_metrics.csv; feat_eng_report.md"],
-        ["Missingness proposal", "MNAR_PLAN.md"],
+        ["Pooled experiment", "reports/REPORT.md; experiments/artifacts/metrics.json; experiments/artifacts_v2/metrics.json"],
+        ["Strict source cohorts", "experiments/artifacts_sq/source_cohorts.csv; experiments/artifacts_sq/sidequest_report.md"],
+        ["Tuning", "experiments/artifacts_sq/tuned_500_comparison.md; source_*/tuned_500/"],
+        ["Feature selection", "experiments/artifacts_sq/fsplit/fsplit_metrics.csv; feat_sel_report.md"],
+        ["Feature engineering", "experiments/artifacts_sq/feng/feng_metrics.csv; feat_eng_report.md"],
+        ["Missingness proposal", "plans/MNAR_PLAN.md"],
     ],
 )}
 

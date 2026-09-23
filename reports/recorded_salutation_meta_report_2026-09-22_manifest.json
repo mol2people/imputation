@@ -1,22 +1,10 @@
 {
-  "html": "reports/recorded_salutation_meta_report_2026-09-22.html",
-  "pdf": "reports/recorded_salutation_meta_report_2026-09-22.pdf",
-  "figures": {
-    "reports/figures/06_temporal_ladder.png": "2e0ab0ced8dc633427a01672101ae174b7bc71420a73276afc01efce55bd9185",
-    "reports/figures/07_coverage_at_precision.png": "dd7ca3e09095b9df83e5dbe362c734464613233e8e9225c1db606a468517c8ad"
-  },
-  "build_script": "reports/build_meta_report_2026-09-22.py",
-  "inputs": {
-    "temporal_metrics_v2": "experiments/temporal_garmin/results/temporal_metrics.csv",
-    "temporal_metrics_v1": "experiments/temporal_garmin/results/temporal_metrics_v1.csv",
-    "selective_classification": "experiments/temporal_garmin/results/selective_classification.csv",
-    "alpha_addendum": "experiments/temporal_garmin/results/alpha_addendum.json"
-  },
-  "input_hashes": {
-    "experiments/temporal_garmin/results/temporal_metrics.csv": "2dec59fd13cd856522b7e9527499d9aa3da23a508ca7eb58fd4586d7f2dee6a8",
-    "experiments/temporal_garmin/results/temporal_metrics_v1.csv": "df220529365f781b33741f12fc0f2d5c1b2230a82f0b1c9690627af4a48bca8a",
-    "experiments/temporal_garmin/results/selective_classification.csv": "dae72d81825da678c42148fadfdfa5fad3332f11b44d111edbab3e0b7c29d000",
-    "experiments/temporal_garmin/results/alpha_addendum.json": "113b3ae08300d791a74d54eb873a2a56cf74555548bb3148092fe4494ac2e2f2"
-  },
-  "note": "Reporting only; no model fitting."
+  "source": "recorded_salutation_meta_report_2026-09-22.md",
+  "source_sha256": "9fb7b4e7c4b9a456111df1cf5db077fa510c6332f4d468e45ab20d9f591d69b8",
+  "export_script": "export_meta_report_pdf.py",
+  "html": "recorded_salutation_meta_report_2026-09-22.html",
+  "html_sha256": "087bdcefc497dabe41d3cadecb47da16d3435e264eba731b857b45badeebffe5",
+  "pdf": "recorded_salutation_meta_report_2026-09-22.pdf",
+  "pdf_sha256": "3378d5b45e9688a024dcec860108bc9ed60d80c1fec6db79404b677b732b926c",
+  "note": "Lab-report layout derived from reviewed Markdown; no models or metrics recomputed."
 }

@@ -17,11 +17,12 @@ INCLUDE_DEMOGRAPHIC_PREDICTORS = VARIANT != "v1"
 
 # ---------------------------------------------------------------- paths -----
 PROJECT = Path("/Users/bulat/Documents/datenspende_IMPUTE_sex")
-DAILY_CSV = PROJECT / "15Sep_2230_PG_type65-66.csv"
-SALUTATION_CSV = PROJECT / "13Aug_1222.csv"
-WHO_CSV = PROJECT / "df_whoOneAverage.csv"
+DAILY_CSV = PROJECT / "data" / "15Sep_2230_PG_type65-66.csv"
+SALUTATION_CSV = PROJECT / "data" / "13Aug_1222.csv"
+WHO_CSV = PROJECT / "data" / "df_whoOneAverage.csv"
 EPOCH_DIR = PROJECT / "out"
-ARTIFACTS = PROJECT / "artifacts" if VARIANT == "v1" else PROJECT / f"artifacts_{VARIANT}"
+ARTIFACTS = (PROJECT / "experiments" / "artifacts" if VARIANT == "v1"
+             else PROJECT / "experiments" / f"artifacts_{VARIANT}")
 ARTIFACTS.mkdir(exist_ok=True)
 
 # ------------------------------------------------------------- provenance ---

@@ -57,10 +57,10 @@ SA_ARMS = {"A_K100": 100, "A_uncapped": None}   # label -> cap (None = uncapped)
 
 RESULTS = HERE / "results"
 CACHE = HERE / "cache"
-PATH_SPLIT = REPO / "artifacts_sq" / "split_manifest_sq.parquet"
-PATH_FEATS_ALL = REPO / "artifacts_sq" / "features_all.parquet"
-PATH_EPOCH_DAYS = REPO / "artifacts_v2" / "epoch_days.parquet"
-PATH_SALUTATION = REPO / "13Aug_1222.csv"
+PATH_SPLIT = REPO / "experiments" / "artifacts_sq" / "split_manifest_sq.parquet"
+PATH_FEATS_ALL = REPO / "experiments" / "artifacts_sq" / "features_all.parquet"
+PATH_EPOCH_DAYS = REPO / "experiments" / "artifacts_v2" / "epoch_days.parquet"
+PATH_SALUTATION = REPO / "data" / "13Aug_1222.csv"
 
 STAT_COLS = [f"d_ch{c}_{s}" for c in CH_HR for s in STATS]
 GAP_COLS = ["d_gap_3000_3001_mean", "d_gap_3000_3002_mean",
@@ -324,7 +324,7 @@ def build_day_table():
     if cache_path.exists():
         return pd.read_parquet(cache_path)
 
-    cm = pd.read_parquet(REPO / "artifacts_sq" /
+    cm = pd.read_parquet(REPO / "experiments" / "artifacts_sq" /
                          "cohort_manifest_model_sources.parquet")
     s3_users = set(cm[cm.source_id == SRC].user_id.tolist())
     split = pd.read_parquet(PATH_SPLIT)

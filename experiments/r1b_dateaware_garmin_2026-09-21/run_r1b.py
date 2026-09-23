@@ -67,12 +67,12 @@ RANDOM_TRIAL_BASE = 50
 COHORT_SIZE = 3848
 DESIGNATED_DAYS = 40
 
-PATH_SAL = REPO / "13Aug_1222.csv"
+PATH_SAL = REPO / "data" / "13Aug_1222.csv"
 R1AAF_BALANCE = R1AAF_DIR / "cache" / "balance_run{r}.csv"
 R1AAF_PRED = R1AAF_DIR / "results" / "r1aaf_predictions.csv"
 R1AAF_METRICS = R1AAF_DIR / "results" / "r1aaf_metrics.csv"
 R1AAF_DEMO = R1AAF_DIR / "cache" / "demographics.parquet"
-PATH_EPOCH_DAYS = REPO / "artifacts_v2" / "epoch_days.parquet"
+PATH_EPOCH_DAYS = REPO / "experiments" / "artifacts_v2" / "epoch_days.parquet"
 
 RESULTS = HERE / "results"
 CACHE = HERE / "cache"

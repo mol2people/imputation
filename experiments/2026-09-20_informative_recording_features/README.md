@@ -1,6 +1,6 @@
 # Informative recording-feature experiment
 
-Standalone implementation of `CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`.
+Standalone implementation of `plans/CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`.
 It reads only the frozen v1 aggregate parquet/CSV artifacts in `../artifacts/` and writes
 only under `output/` in this directory.  It does not import, edit, or regenerate the
 existing analysis code or artifacts.

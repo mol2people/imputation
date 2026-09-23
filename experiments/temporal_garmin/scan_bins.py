@@ -199,7 +199,7 @@ def main(workers: int) -> None:
                       for u, g in d40.groupby("user", sort=True)}
 
     # load-balance: biggest files first (sidequest/R1b precedent)
-    man = pd.read_parquet(REPO / "artifacts_sq" / "raw_file_manifest.parquet",
+    man = pd.read_parquet(REPO / "experiments" / "artifacts_sq" / "raw_file_manifest.parquet",
                           columns=["user_id", "bytes"])
     man["user_id"] = man["user_id"].astype("int64")
     man = man[man.user_id.isin(set(users_sorted))]

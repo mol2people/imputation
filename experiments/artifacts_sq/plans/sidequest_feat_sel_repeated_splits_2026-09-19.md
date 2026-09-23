@@ -2,7 +2,7 @@
 
 **Label:** `sidequest_feat_sel_repeated_splits_v1`
 **Date:** 2026-09-19
-**Status:** Implemented + executed 2026-09-19 (90/90 cells, 11.5 min); results in `artifacts_sq/fsplit/`, comparison in `artifacts_sq/fsplit/feat_sel_report.md`, summary in `artifacts_sq/sidequest_report.md` §9.1
+**Status:** Implemented + executed 2026-09-19 (90/90 cells, 11.5 min); results in `experiments/artifacts_sq/fsplit/`, comparison in `experiments/artifacts_sq/fsplit/feat_sel_report.md`, summary in `experiments/artifacts_sq/sidequest_report.md` §9.1
 **Companion to:** `sidequest_strict_coverage_frozen_split_2026-09-19.md` (frozen-split phase, archived)
 
 ---
@@ -54,7 +54,7 @@ Motivating facts (from frozen-phase diagnostics, s3 `all`): indicators 131/534 t
 
 ## 7. Artifacts
 ```
-artifacts_sq/fsplit/
+experiments/artifacts_sq/fsplit/
   fsplit_metrics.csv        # long: source, variant, arm, repeat, auroc_val, auroc_test,
                            # n_features, n_ind_dropped, n_nzv_dropped, n_corr_dropped, seconds
   pruned_{source}_{r}.json # per repeat: indicator / nzv / corr-dedup column lists

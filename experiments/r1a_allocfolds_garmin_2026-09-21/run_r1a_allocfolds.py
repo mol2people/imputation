@@ -61,7 +61,7 @@ BAND_MID = {"20-29": 25, "30-39": 35, "40-49": 45,
 RESULTS = HERE / "results"
 CACHE = HERE / "cache"
 R1A_CACHE = r1a.CACHE / "r1a_features_epoch_hours.parquet"
-PATH_SAL = REPO / "13Aug_1222.csv"
+PATH_SAL = REPO / "data" / "13Aug_1222.csv"
 
 
 def log(msg):

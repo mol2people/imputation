@@ -309,29 +309,29 @@ hr.thin { border: 0; border-top: 1px solid #999; margin: 16px 0; }
     stages = [
         ("Pooled v1", "20,485 all-source; default RF",
          "test AUROC 0.7132",
-         "REPORT.md"),
+         "reports/REPORT.md"),
         ("Pooled v2", "20,485 + demographics/source indicators; new exclusions",
          "test AUROC 0.6833",
-         "artifacts_v2/model_report.md"),
+         "experiments/artifacts_v2/model_report.md"),
         ("Strict source-specific", "Garmin 3,848; Apple 4,446; Samsung 541",
          "source-specific summaries beat demographics",
-         "artifacts_sq/sidequest_report.md"),
+         "experiments/artifacts_sq/sidequest_report.md"),
         ("RF tuning", "shared config adopted",
          "max_features=0.4, min_samples_leaf=10, "
          "class_weight=balanced_subsample, depth unrestricted, n=100",
-         "artifacts_sq/tuned_500_comparison.md"),
+         "experiments/artifacts_sq/tuned_500_comparison.md"),
         ("Feature selection (30 splits)",
          "hygiene, corr prune, top-k",
          "no consistent gain; selected subsets unstable",
-         "artifacts_sq/fsplit/feat_sel_report.md"),
+         "experiments/artifacts_sq/fsplit/feat_sel_report.md"),
         ("Feature engineering",
          "interactions, ratios, rolling diffs",
          "max +0.0034 AUROC, intervals cross zero",
-         "artifacts_sq/feng/feat_eng_report.md"),
+         "experiments/artifacts_sq/feng/feat_eng_report.md"),
         ("Informative recording / missingness",
          "25,784 ungated; recording + value model",
          "combined 0.7239; recording model adds +0.0167",
-         "2026-09-20_informative_recording_features/README.md"),
+         "experiments/2026-09-20_informative_recording_features/README.md"),
         ("Continuous age vs age groups",
          "Garmin",
          "0.7445 → 0.7475 (+0.0029, CI [−0.0008, +0.0067])",
@@ -339,7 +339,7 @@ hr.thin { border: 0; border-top: 1px solid #999; margin: 16px 0; }
         ("OR-Tools 50/50, source-balanced",
          "Garmin / Apple / Samsung",
          "G 0.7290/0.7094; A 0.6875/0.6787; S 0.6289/0.6493",
-         "2026-09-21_ortools_source_50_50_salutation_rf/PLAN.md"),
+         "experiments/2026-09-21_ortools_source_50_50_salutation_rf/PLAN.md"),
         ("R1a circadian features",
          "Garmin",
          "baseline 0.7434 → combined 0.7463 (+0.0029)",
@@ -395,8 +395,8 @@ hr.thin { border: 0; border-top: 1px solid #999; margin: 16px 0; }
         "Document date 22 September 2026 &middot; "
         "Reporting only — no model was refit for this document.<br>"
         "Inputs: frozen artifacts in "
-        "<code>experiments/*/results/</code>, <code>artifacts/</code>, "
-        "<code>artifacts_sq/</code>; per-experiment reports cited in Table&nbsp;1. "
+        "<code>experiments/*/results/</code>, <code>experiments/artifacts/</code>, "
+        "<code>experiments/artifacts_sq/</code>; per-experiment reports cited in Table&nbsp;1. "
         "Build script: <code>reports/build_meta_report_2026-09-22.py</code>."
         "</div>"
     )

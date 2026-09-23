@@ -1,7 +1,7 @@
 # Experiment report: predicting recorded SALUTATION from epoch data
 
-Implementation of `EXPERIMENT_PLAN.md` (protocol frozen 2026-09-18). Status: **complete**.
-All artifacts are under `artifacts/`; code under `src/`. Environment:
+Implementation of `plans/EXPERIMENT_PLAN.md` (protocol frozen 2026-09-18). Status: **complete**.
+All artifacts are under `experiments/artifacts/`; code under `src/`. Environment:
 `~/micromamba/envs/datenspende/bin/python` (Python 3.14.5, pandas 3.0.3,
 numpy 2.4.6, scikit-learn 1.9.0, pyarrow 25.0.1).
 
@@ -21,9 +21,9 @@ cohort_report.py → model.py → verify.py`.
 
 | Input | Resolved target | Role |
 | --- | --- | --- |
-| `15Sep_2230_PG_type65-66.csv` | `datenspende_epoch2daily/…` | candidate set, daily source profile |
-| `13Aug_1222.csv` | local | recorded `salutation` (10/20/30) |
-| `df_whoOneAverage.csv` | `datenspende_epoch2daily/…` | `age_group`, `bmi_grp` (allocation/reporting only) |
+| `data/15Sep_2230_PG_type65-66.csv` | `datenspende_epoch2daily/…` | candidate set, daily source profile |
+| `data/13Aug_1222.csv` | `Documents/DATA/…` | recorded `salutation` (10/20/30) |
+| `data/df_whoOneAverage.csv` | `datenspende_epoch2daily/…` | `age_group`, `bmi_grp` (allocation/reporting only) |
 | `out/<user_id>.csv` | `datenspende_epoch2daily/out` | epoch channels 3000/3001/3002 |
 
 Epoch facts established from the data: `startTimestamp`/`endTimestamp` are epoch **ms**;
@@ -35,7 +35,7 @@ Garmin (source 3) emits 1-minute interval buckets**; per-source semantics are no
 interchangeable, so source availability is kept as an explicit predictor and balance
 variable. Whether processed channels (3001/3002) use user-entered sex/salutation in the
 vendor calculation is **unverified from these exports**; this limits causal interpretation.
-See `artifacts/cohort_coverage_report.md`.
+See `experiments/artifacts/cohort_coverage_report.md`.
 
 ## 3. Frozen eligibility and coverage gate
 
@@ -65,7 +65,7 @@ See `artifacts/cohort_coverage_report.md`.
 
 Coverage by channel among the gate-passing cohort: 3000 → 19,315 participants with ≥14
 adequate days (median 273); 3001 → 18,436 (median 194); 3002 → 19,965 (median 213).
-Per-group exclusion tabulation: `artifacts/exclusion_by_group.csv`.
+Per-group exclusion tabulation: `experiments/artifacts/exclusion_by_group.csv`.
 
 ## 5. Allocation and balance
 
@@ -82,7 +82,7 @@ Targets: train 16,388 / val 2,049 / test 2,048; class-1 (salutation 20) 10,957 /
 Balance outcome: **max one-variable pairwise difference 0.392 pp; zero categories exceed
 1 pp**; all joint strata ≥10 have members in every split; all continuous SMDs vs train
 ≤0.027 (birth year, epoch span, adequate days, valid events). Full details:
-`artifacts/split_balance_report.md`, `split_balance.csv`, `split_balance_continuous.csv`,
+`experiments/artifacts/split_balance_report.md`, `split_balance.csv`, `split_balance_continuous.csv`,
 `split_manifest.csv`.
 
 ## 6. Features
@@ -97,7 +97,7 @@ all 20,485), acquisition/coverage summaries, and epoch channel/source availabili
 Categorical predictors: `epoch_primary_source`, `epoch_multisource`. All-missing-in-training
 columns are dropped; median imputation adds missingness indicators; one-hot uses unknown
 levels ignored. No IDs, salutation, linked gender, age, BMI, WHO or survey metadata enter
-the predictor matrix. Dictionary: `artifacts/feature_dictionary.csv`.
+the predictor matrix. Dictionary: `experiments/artifacts/feature_dictionary.csv`.
 
 ## 7. Model and results
 
@@ -131,7 +131,7 @@ physiological contribution is not isolated.
 
 ## 8. Verification and reproducibility
 
-`src/verify.py` asserts and `artifacts/reproducibility.json` records: labels exclusively
+`src/verify.py` asserts and `experiments/artifacts/reproducibility.json` records: labels exclusively
 10/20; no excluded-source eligibility records or predictors; all included pass the frozen
 gate; each eligible participant appears exactly once; splits disjoint and complete; feature
 rows match eligible participants; no prohibited metadata or salutation in features;

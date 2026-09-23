@@ -45,12 +45,12 @@ from sklearn.metrics import accuracy_score, balanced_accuracy_score, roc_auc_sco
 
 
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parent
+REPO = HERE.parent.parent
 DEFAULT_OUTPUT = HERE / "output"
 OUTPUT = DEFAULT_OUTPUT
 RAW_DIR = REPO / "out"
-SALUTATION_PATH = REPO / "13Aug_1222.csv"
-WHO_PATH = REPO / "df_whoOneAverage.csv"
+SALUTATION_PATH = REPO / "data" / "13Aug_1222.csv"
+WHO_PATH = REPO / "data" / "df_whoOneAverage.csv"
 
 STUDY_SEED = 20260921
 MAX_WORKERS = 5

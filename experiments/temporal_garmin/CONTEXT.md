@@ -47,7 +47,7 @@ commit. Context checkpointed to disk (this file); user asked to run /compact bef
   train/val/test = 2,696/579/573. Gate: per-alloc test-user set == R1b prediction record.
 - `experiments/r1b_dateaware_garmin_2026-09-21/results/r1b_predictions_part.csv` — BASE⊕P40
   predictions (val+test) for the Combined−BASE⊕P40 pairing secondary; zero refits.
-- `artifacts_sq/cohort_manifest_model_sources.parquet` + `artifacts_sq/split_manifest_sq.parquet`
+- `experiments/artifacts_sq/cohort_manifest_model_sources.parquet` + `experiments/artifacts_sq/split_manifest_sq.parquet`
   — cohort (3,848 Garmin/source-3; labels 10→0, 20→1) and membership.
 - Raw epochs via `src/sidequest/sq_config.py:EPOCH_DIR`; parse rules frozen from
   `src/sidequest/diurnal.py` + `sq_config.py`: source==3, type 3000, HR 25–230, positive starts,

@@ -45,14 +45,14 @@ COVER_THRESHOLD = 0.99                  # min cohort coverage to accept cache
 
 RESULTS = HERE / "results"
 CACHE = HERE / "cache"
-ART = REPO / "artifacts_sq"
+ART = REPO / "experiments" / "artifacts_sq"
 
 PATH_SPLIT = ART / "split_manifest_sq.parquet"
 PATH_FEATS = ART / "features_all.parquet"
 PATH_COHORT = ART / "cohort_manifest_model_sources.parquet"
 PATH_SAVED_METRICS = ART / "fsplit" / "fsplit_metrics.csv"
-HOURS_CANDIDATES = (REPO / "artifacts_v2" / "epoch_hours.parquet",
-                    REPO / "artifacts" / "epoch_hours.parquet")
+HOURS_CANDIDATES = (REPO / "experiments" / "artifacts_v2" / "epoch_hours.parquet",
+                    REPO / "experiments" / "artifacts" / "epoch_hours.parquet")
 
 HOURS = [f"hour_h{h}" for h in range(24)]
 WEIGHTS = [f"w_h{h}" for h in range(24)]

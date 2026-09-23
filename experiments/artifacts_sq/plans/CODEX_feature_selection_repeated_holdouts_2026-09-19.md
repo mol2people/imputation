@@ -34,7 +34,7 @@ exploratory algorithm-development evidence.
 ## 2. Frozen inputs and scope
 
 - Cohorts: the existing mutually disjoint source-3, source-6, and source-7 model
-  cohorts in `artifacts_sq/split_manifest_sq.parquet`.
+  cohorts in `experiments/artifacts_sq/split_manifest_sq.parquet`.
 - Features: the existing `features_demographic.parquet`,
   `features_recording.parquet`, `features_window.parquet`,
   `features_rolling.parquet`, and `features_all.parquet`.
@@ -180,7 +180,7 @@ protocol. Any post-result change creates a new, explicitly exploratory version.
 Use a namespace that cannot collide with the active implementation:
 
 ```text
-artifacts_sq/fsplit_codex/
+experiments/artifacts_sq/fsplit_codex/
   split_manifest.parquet
   cells/source_<s>/repeat_<r>/
     metrics.parquet

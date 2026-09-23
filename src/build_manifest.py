@@ -17,7 +17,7 @@ import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from config import (  # noqa: E402
-    ARTIFACTS, DAILY_CSV, SALUTATION_CSV, WHO_CSV, DAILY_TYPES,
+    ARTIFACTS, PROJECT, DAILY_CSV, SALUTATION_CSV, WHO_CSV, DAILY_TYPES,
     EXCLUDED_SOURCES, KEEP_SALUTATIONS, ADEQUATE_HOURS, ADEQUATE_COV_H,
     ADEQUATE_N, MIN_ADEQUATE_DAYS,
 )
@@ -113,7 +113,7 @@ def main():
     import glob
     meta = pd.read_parquet(ARTIFACTS / "epoch_meta.parquet").rename(columns={"user": "user_id"})
     present = {int(os.path.splitext(os.path.basename(p))[0]): os.path.getsize(p)
-               for p in glob.glob(str(ARTIFACTS.parent / "out" / "*.csv"))}
+               for p in glob.glob(str(PROJECT / "out" / "*.csv"))}
     prof["epoch_file_size"] = prof["user_id"].map(present).fillna(-1).astype("int64")
     prof = prof.merge(meta, on="user_id", how="left")
 

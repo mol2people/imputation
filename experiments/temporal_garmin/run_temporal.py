@@ -58,8 +58,8 @@ FOLDS_PARQUET = (REPO / "experiments" / "r1b_dateaware_garmin_2026-09-21"
                  / "cache" / "folds.parquet")
 PRED_R1B = (REPO / "experiments" / "r1b_dateaware_garmin_2026-09-21"
             / "results" / "r1b_predictions_part.csv")
-PATH_SPLIT = REPO / "artifacts_sq" / "split_manifest_sq.parquet"
-PATH_COHORT = REPO / "artifacts_sq" / "cohort_manifest_model_sources.parquet"
+PATH_SPLIT = REPO / "experiments" / "artifacts_sq" / "split_manifest_sq.parquet"
+PATH_COHORT = REPO / "experiments" / "artifacts_sq" / "cohort_manifest_model_sources.parquet"
 
 SRC = 3
 COHORT_SIZE = 3848

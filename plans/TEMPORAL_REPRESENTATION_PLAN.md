@@ -1,6 +1,6 @@
 # Temporal representations for recorded-salutation prediction
 
-> **Status (2026-09-22):** executed 2026-09-21/22 in [`experiments/temporal_garmin/`](experiments/temporal_garmin/) — results in [`results/REPORT.md`](experiments/temporal_garmin/results/REPORT.md) (v2 primary; v1 retained as the erratum record), roadmap and multichannel draft plan in [`NEXT_STEPS.md`](experiments/temporal_garmin/NEXT_STEPS.md). This root copy is the freeze-time authorization record, byte-identical to the experiment's `PLAN.md` (commit `dabab35`). Body below unchanged.
+> **Status (2026-09-22):** executed 2026-09-21/22 in [`experiments/temporal_garmin/`](../experiments/temporal_garmin/) — results in [`results/REPORT.md`](../experiments/temporal_garmin/results/REPORT.md) (v2 primary; v1 retained as the erratum record), roadmap and multichannel draft plan in [`NEXT_STEPS.md`](../experiments/temporal_garmin/NEXT_STEPS.md). This root copy is the freeze-time authorization record, byte-identical to the experiment's `PLAN.md` (commit `dabab35`). Body below unchanged.
 
 Status: **Frozen plan — do not modify; deviations require a new plan.** Amended 2026-09-21 after review (profile ladder arms, Ridge alpha precalibration, locked validation-split primary family, epoch-span audit, BASE⊕P40 pairing); execution authorized 2026-09-21 in `experiments/temporal_garmin/`. No results exist at freeze.
 

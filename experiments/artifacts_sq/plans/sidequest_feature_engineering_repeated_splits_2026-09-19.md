@@ -52,7 +52,7 @@ Primary = source 3 `all` and source 6 `all`: `F1 − B0` and `F2 − B0`, two-si
 
 ## 6. Artifacts, compute, verification
 ```
-artifacts_sq/feng/
+experiments/artifacts_sq/feng/
   cells/{source}_{repeat}.json   # rows + engineered survival lists (resume unit)
   feng_metrics.csv               # + n_eng_input / n_eng_after_hygiene / n_eng_after_dedup
   feng_repro.json                # formulas echo, seeds, versions, script hashes
