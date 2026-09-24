@@ -61,9 +61,9 @@ def main():
     default_garmin, best = _garmin_refs()
 
     points = [
-        ("Wear pattern", wear_mu, wear_lo, wear_hi),
-        ("Correct daily", mr_med,   mr_lo,   mr_hi),
-        ("Shuffle daily", shuf_med, shuf_lo, shuf_hi),
+        ("NAs pattern", wear_mu, wear_lo, wear_hi),
+        ("Daily HR (true)", mr_med,   mr_lo,   mr_hi),
+        ("Daily HR (shuffled)", shuf_med, shuf_lo, shuf_hi),
     ]
 
     fig, ax = plt.subplots(figsize=(8.6, 5.8))
@@ -101,7 +101,7 @@ def main():
     ax.spines["right"].set_visible(False)
     ax.tick_params(axis="x", length=0)
 
-    fig.suptitle("Circadian features double ML improvement in one click",
+    fig.suptitle("Circadian features double RF improvement",
                  fontsize=18, fontweight="bold", y=0.965)
 
     fig.savefig(HERE / "exp_garmin_temporal.png", dpi=400, facecolor="white")
