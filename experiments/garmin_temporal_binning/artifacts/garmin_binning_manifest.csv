@@ -1,0 +1,1001 @@
+customer_id,user_id,salutation,y,is_single_source,n_day_rows,fail_reason,tier_0,tier_1c,delta_1c_0,tier_2,tier_3,csv_path,age_group,bmi_group,age_band_5y,stratum
+9479,9479,10,0,True,69,max_adequate_weeks_lt_11,False,True,True,True,True,out/9479.csv,Middle Ager,overweight,45-49,0__Middle Ager
+17109,17109,20,1,True,648,pass,True,True,False,True,True,out/17109.csv,Middle Ager,normal,60-64,1__Middle Ager
+19126,19126,20,1,True,308,pass,True,True,False,True,True,out/19126.csv,Middle Ager,overweight,40-44,1__Middle Ager
+22854,22854,20,1,True,419,pass,True,True,False,True,True,out/22854.csv,Young Adults,overweight,25-29,1__Young Adults
+26806,26806,20,1,True,550,pass,True,True,False,True,True,out/26806.csv,Middle Ager,normal,35-39,1__Middle Ager
+30003,30003,20,1,True,492,max_adequate_weeks_lt_11,False,True,True,True,True,out/30003.csv,Middle Ager,overweight,50-54,1__Middle Ager
+36502,36502,10,0,True,666,pass,True,True,False,True,True,out/36502.csv,Middle Ager,overweight,50-54,0__Middle Ager
+42450,42450,20,1,True,648,pass,True,True,False,True,True,out/42450.csv,Young Adults,normal,20-24,1__Young Adults
+47652,47652,20,1,True,664,pass,True,True,False,True,True,out/47652.csv,Young Adults,overweight,25-29,1__Young Adults
+50696,50696,20,1,True,497,pass,True,True,False,True,True,out/50696.csv,Middle Ager,normal,50-54,1__Middle Ager
+51391,51391,10,0,True,641,pass,True,True,False,True,True,out/51391.csv,Middle Ager,normal,35-39,0__Middle Ager
+54142,54142,20,1,True,458,pass,True,True,False,True,True,out/54142.csv,Middle Ager,obese,40-44,1__Middle Ager
+56327,56327,20,1,True,271,max_adequate_weeks_lt_11,False,True,True,True,True,out/56327.csv,Middle Ager,overweight,40-44,1__Middle Ager
+56524,56524,10,0,True,609,pass,True,True,False,True,True,out/56524.csv,Middle Ager,normal,45-49,0__Middle Ager
+61752,61752,20,1,True,649,pass,True,True,False,True,True,out/61752.csv,Young Adults,normal,30-34,1__Young Adults
+67934,67934,20,1,True,641,pass,True,True,False,True,True,out/67934.csv,Middle Ager,overweight,50-54,1__Middle Ager
+68483,68483,20,1,True,650,pass,True,True,False,True,True,out/68483.csv,Middle Ager,obese,35-39,1__Middle Ager
+68820,68820,20,1,True,650,pass,True,True,False,True,True,out/68820.csv,Middle Ager,overweight,50-54,1__Middle Ager
+71535,71535,20,1,True,660,pass,True,True,False,True,True,out/71535.csv,Middle Ager,normal,55-59,1__Middle Ager
+71731,71731,20,1,True,658,pass,True,True,False,True,True,out/71731.csv,Middle Ager,obese,55-59,1__Middle Ager
+77522,77522,10,0,True,431,max_adequate_weeks_lt_11,False,True,True,True,True,out/77522.csv,Elderly,normal,65-69,0__Elderly
+77870,77870,20,1,True,565,pass,True,True,False,True,True,out/77870.csv,Elderly,normal,60-64,1__Elderly
+78778,78778,10,0,True,637,pass,True,True,False,True,True,out/78778.csv,Middle Ager,overweight,40-44,0__Middle Ager
+79057,79057,20,1,True,667,pass,True,True,False,True,True,out/79057.csv,Middle Ager,normal,45-49,1__Middle Ager
+84618,84618,20,1,True,106,max_adequate_weeks_lt_11,False,True,True,True,True,out/84618.csv,Middle Ager,overweight,45-49,1__Middle Ager
+86310,86310,20,1,True,656,pass,True,True,False,True,True,out/86310.csv,Middle Ager,normal,35-39,1__Middle Ager
+87339,87339,20,1,True,657,pass,True,True,False,True,True,out/87339.csv,Middle Ager,normal,50-54,1__Middle Ager
+89883,89883,10,0,True,102,max_adequate_weeks_lt_11,False,True,True,True,True,out/89883.csv,Middle Ager,obese,55-59,0__Middle Ager
+90339,90339,10,0,True,682,pass,True,True,False,True,True,out/90339.csv,Middle Ager,obese,55-59,0__Middle Ager
+91934,91934,10,0,True,538,pass,True,True,False,True,True,out/91934.csv,Young Adults,normal,30-34,0__Young Adults
+93380,93380,10,0,True,591,pass,True,True,False,True,True,out/93380.csv,Middle Ager,obese,35-39,0__Middle Ager
+95626,95626,20,1,True,673,pass,True,True,False,True,True,out/95626.csv,Middle Ager,overweight,50-54,1__Middle Ager
+99307,99307,10,0,True,607,pass,True,True,False,True,True,out/99307.csv,Middle Ager,overweight,55-59,0__Middle Ager
+100851,100851,20,1,True,641,pass,True,True,False,True,True,out/100851.csv,Middle Ager,obese,45-49,1__Middle Ager
+109213,109213,20,1,True,649,pass,True,True,False,True,True,out/109213.csv,Young Adults,normal,35-39,1__Young Adults
+112715,112715,20,1,True,658,pass,True,True,False,True,True,out/112715.csv,Young Adults,normal,20-24,1__Young Adults
+113763,113763,10,0,True,646,pass,True,True,False,True,True,out/113763.csv,Elderly,normal,60-64,0__Elderly
+121544,121544,20,1,True,645,pass,True,True,False,True,True,out/121544.csv,Elderly,overweight,70-74,1__Elderly
+121744,121744,20,1,True,646,pass,True,True,False,True,True,out/121744.csv,Middle Ager,normal,45-49,1__Middle Ager
+123208,123208,20,1,True,619,pass,True,True,False,True,True,out/123208.csv,Elderly,overweight,65-69,1__Elderly
+124608,124608,20,1,True,655,pass,True,True,False,True,True,out/124608.csv,Middle Ager,normal,50-54,1__Middle Ager
+124990,124990,10,0,True,665,pass,True,True,False,True,True,out/124990.csv,Elderly,normal,65-69,0__Elderly
+125059,125059,20,1,True,150,pass,True,True,False,True,True,out/125059.csv,Middle Ager,normal,55-59,1__Middle Ager
+126044,126044,20,1,True,606,max_adequate_weeks_lt_11,False,True,True,True,True,out/126044.csv,Middle Ager,overweight,50-54,1__Middle Ager
+128956,128956,20,1,True,648,pass,True,True,False,True,True,out/128956.csv,Elderly,overweight,60-64,1__Elderly
+130131,130131,10,0,True,646,pass,True,True,False,True,True,out/130131.csv,Young Adults,overweight,30-34,0__Young Adults
+132583,132583,10,0,True,695,pass,True,True,False,True,True,out/132583.csv,Young Adults,normal,25-29,0__Young Adults
+139145,139145,20,1,True,649,pass,True,True,False,True,True,out/139145.csv,Young Adults,normal,35-39,1__Young Adults
+139693,139693,10,0,True,637,pass,True,True,False,True,True,out/139693.csv,Elderly,overweight,65-69,0__Elderly
+140373,140373,20,1,True,490,pass,True,True,False,True,True,out/140373.csv,Young Adults,normal,30-34,1__Young Adults
+143353,143353,20,1,True,650,pass,True,True,False,True,True,out/143353.csv,Middle Ager,overweight,45-49,1__Middle Ager
+144639,144639,20,1,True,645,pass,True,True,False,True,True,out/144639.csv,Elderly,normal,70-74,1__Elderly
+146083,146083,20,1,True,446,pass,True,True,False,True,True,out/146083.csv,Elderly,normal,80-84,1__Elderly
+146346,146346,20,1,True,663,pass,True,True,False,True,True,out/146346.csv,Elderly,obese,60-64,1__Elderly
+147982,147982,20,1,True,634,pass,True,True,False,True,True,out/147982.csv,Middle Ager,obese,45-49,1__Middle Ager
+149780,149780,10,0,True,559,max_adequate_weeks_lt_11,False,True,True,True,True,out/149780.csv,Middle Ager,normal,50-54,0__Middle Ager
+152430,152430,20,1,True,657,pass,True,True,False,True,True,out/152430.csv,Middle Ager,overweight,50-54,1__Middle Ager
+153637,153637,20,1,True,425,pass,True,True,False,True,True,out/153637.csv,Middle Ager,overweight,40-44,1__Middle Ager
+153929,153929,20,1,True,647,pass,True,True,False,True,True,out/153929.csv,Middle Ager,overweight,45-49,1__Middle Ager
+157449,157449,20,1,True,653,pass,True,True,False,True,True,out/157449.csv,Middle Ager,overweight,50-54,1__Middle Ager
+157774,157774,20,1,True,393,pass,True,True,False,True,True,out/157774.csv,Young Adults,normal,20-24,1__Young Adults
+159617,159617,20,1,True,658,pass,True,True,False,True,True,out/159617.csv,Middle Ager,normal,35-39,1__Middle Ager
+160103,160103,20,1,True,498,pass,True,True,False,True,True,out/160103.csv,Middle Ager,overweight,55-59,1__Middle Ager
+160524,160524,10,0,True,664,pass,True,True,False,True,True,out/160524.csv,Middle Ager,normal,40-44,0__Middle Ager
+164362,164362,20,1,True,648,pass,True,True,False,True,True,out/164362.csv,Middle Ager,overweight,40-44,1__Middle Ager
+167707,167707,20,1,True,649,pass,True,True,False,True,True,out/167707.csv,Middle Ager,overweight,45-49,1__Middle Ager
+169457,169457,10,0,True,640,pass,True,True,False,True,True,out/169457.csv,Middle Ager,overweight,35-39,0__Middle Ager
+171833,171833,20,1,True,593,pass,True,True,False,True,True,out/171833.csv,Middle Ager,normal,40-44,1__Middle Ager
+174626,174626,20,1,True,582,pass,True,True,False,True,True,out/174626.csv,Middle Ager,normal,40-44,1__Middle Ager
+181034,181034,20,1,True,338,pass,True,True,False,True,True,out/181034.csv,Middle Ager,normal,50-54,1__Middle Ager
+182618,182618,20,1,True,555,max_adequate_weeks_lt_11,False,True,True,True,True,out/182618.csv,Young Adults,normal,20-24,1__Young Adults
+183492,183492,20,1,True,644,pass,True,True,False,True,True,out/183492.csv,Middle Ager,obese,35-39,1__Middle Ager
+184704,184704,10,0,True,649,pass,True,True,False,True,True,out/184704.csv,Middle Ager,obese,50-54,0__Middle Ager
+184874,184874,20,1,True,638,pass,True,True,False,True,True,out/184874.csv,Middle Ager,overweight,40-44,1__Middle Ager
+185627,185627,20,1,True,633,pass,True,True,False,True,True,out/185627.csv,Middle Ager,overweight,45-49,1__Middle Ager
+185768,185768,20,1,True,675,pass,True,True,False,True,True,out/185768.csv,Elderly,overweight,60-64,1__Elderly
+186699,186699,20,1,True,548,pass,True,True,False,True,True,out/186699.csv,Middle Ager,normal,45-49,1__Middle Ager
+187818,187818,20,1,True,654,pass,True,True,False,True,True,out/187818.csv,Middle Ager,overweight,40-44,1__Middle Ager
+190176,190176,10,0,True,650,pass,True,True,False,True,True,out/190176.csv,Middle Ager,overweight,40-44,0__Middle Ager
+198213,198213,20,1,True,435,pass,True,True,False,True,True,out/198213.csv,Middle Ager,normal,35-39,1__Middle Ager
+201658,201658,10,0,True,497,pass,True,True,False,True,True,out/201658.csv,Middle Ager,normal,35-39,0__Middle Ager
+203461,203461,20,1,True,501,pass,True,True,False,True,True,out/203461.csv,Middle Ager,normal,50-54,1__Middle Ager
+205829,205829,20,1,True,529,pass,True,True,False,True,True,out/205829.csv,Young Adults,obese,30-34,1__Young Adults
+207468,207468,20,1,True,514,pass,True,True,False,True,True,out/207468.csv,Middle Ager,normal,35-39,1__Middle Ager
+208120,208120,10,0,True,319,pass,True,True,False,True,True,out/208120.csv,Middle Ager,normal,45-49,0__Middle Ager
+211001,211001,10,0,True,497,pass,True,True,False,True,True,out/211001.csv,Middle Ager,overweight,55-59,0__Middle Ager
+211815,211815,10,0,True,503,pass,True,True,False,True,True,out/211815.csv,Middle Ager,overweight,45-49,0__Middle Ager
+212556,212556,20,1,True,118,max_adequate_weeks_lt_11,False,True,True,True,True,out/212556.csv,Middle Ager,obese,55-59,1__Middle Ager
+217013,217013,10,0,True,502,pass,True,True,False,True,True,out/217013.csv,Young Adults,overweight,30-34,0__Young Adults
+220269,220269,20,1,True,443,max_adequate_weeks_lt_11,False,True,True,True,True,out/220269.csv,Elderly,overweight,60-64,1__Elderly
+223954,223954,20,1,True,660,pass,True,True,False,True,True,out/223954.csv,Young Adults,overweight,30-34,1__Young Adults
+226106,226106,20,1,True,493,pass,True,True,False,True,True,out/226106.csv,Middle Ager,normal,40-44,1__Middle Ager
+228543,228543,20,1,True,505,pass,True,True,False,True,True,out/228543.csv,Middle Ager,normal,55-59,1__Middle Ager
+229959,229959,20,1,True,415,pass,True,True,False,True,True,out/229959.csv,Young Adults,normal,25-29,1__Young Adults
+233916,233916,10,0,True,657,pass,True,True,False,True,True,out/233916.csv,Young Adults,normal,30-34,0__Young Adults
+238407,238407,10,0,True,504,pass,True,True,False,True,True,out/238407.csv,Middle Ager,obese,50-54,0__Middle Ager
+240229,240229,10,0,True,179,pass,True,True,False,True,True,out/240229.csv,Middle Ager,normal,35-39,0__Middle Ager
+253033,253033,10,0,True,496,pass,True,True,False,True,True,out/253033.csv,Young Adults,normal,30-34,0__Young Adults
+253611,253611,10,0,True,515,pass,True,True,False,True,True,out/253611.csv,Middle Ager,overweight,35-39,0__Middle Ager
+255374,255374,10,0,True,494,pass,True,True,False,True,True,out/255374.csv,Middle Ager,obese,35-39,0__Middle Ager
+256422,256422,20,1,True,133,pass,True,True,False,True,True,out/256422.csv,Elderly,obese,70-74,1__Elderly
+256578,256578,10,0,True,426,pass,True,True,False,True,True,out/256578.csv,Middle Ager,obese,60-64,0__Middle Ager
+258335,258335,10,0,True,508,pass,True,True,False,True,True,out/258335.csv,Middle Ager,normal,40-44,0__Middle Ager
+266656,266656,20,1,True,496,pass,True,True,False,True,True,out/266656.csv,Middle Ager,normal,55-59,1__Middle Ager
+270408,270408,20,1,True,508,pass,True,True,False,True,True,out/270408.csv,Young Adults,normal,25-29,1__Young Adults
+271131,271131,20,1,True,365,pass,True,True,False,True,True,out/271131.csv,Elderly,normal,60-64,1__Elderly
+271341,271341,10,0,True,182,max_adequate_weeks_lt_11,False,True,True,True,True,out/271341.csv,Young Adults,normal,15-19,0__Young Adults
+273824,273824,20,1,True,495,pass,True,True,False,True,True,out/273824.csv,Middle Ager,normal,55-59,1__Middle Ager
+274179,274179,10,0,True,496,pass,True,True,False,True,True,out/274179.csv,Middle Ager,obese,40-44,0__Middle Ager
+274345,274345,10,0,True,361,pass,True,True,False,True,True,out/274345.csv,Young Adults,underweight,30-34,0__Young Adults
+274563,274563,20,1,True,487,pass,True,True,False,True,True,out/274563.csv,Middle Ager,overweight,55-59,1__Middle Ager
+275882,275882,20,1,True,655,pass,True,True,False,True,True,out/275882.csv,Young Adults,normal,25-29,1__Young Adults
+279972,279972,10,0,True,154,pass,True,True,False,True,True,out/279972.csv,Middle Ager,overweight,45-49,0__Middle Ager
+285801,285801,20,1,True,491,pass,True,True,False,True,True,out/285801.csv,Middle Ager,overweight,45-49,1__Middle Ager
+286230,286230,20,1,True,497,pass,True,True,False,True,True,out/286230.csv,Middle Ager,normal,35-39,1__Middle Ager
+288623,288623,10,0,True,493,pass,True,True,False,True,True,out/288623.csv,Young Adults,normal,30-34,0__Young Adults
+288721,288721,20,1,True,662,pass,True,True,False,True,True,out/288721.csv,Elderly,normal,60-64,1__Elderly
+289992,289992,20,1,True,655,pass,True,True,False,True,True,out/289992.csv,Middle Ager,normal,35-39,1__Middle Ager
+290974,290974,10,0,True,376,pass,True,True,False,True,True,out/290974.csv,Middle Ager,overweight,55-59,0__Middle Ager
+292872,292872,10,0,True,492,pass,True,True,False,True,True,out/292872.csv,Elderly,obese,65-69,0__Elderly
+293922,293922,10,0,True,653,pass,True,True,False,True,True,out/293922.csv,Middle Ager,normal,50-54,0__Middle Ager
+297071,297071,20,1,True,493,pass,True,True,False,True,True,out/297071.csv,Middle Ager,normal,40-44,1__Middle Ager
+297709,297709,10,0,True,442,pass,True,True,False,True,True,out/297709.csv,Middle Ager,obese,45-49,0__Middle Ager
+298450,298450,20,1,True,305,max_adequate_weeks_lt_11,False,True,True,True,True,out/298450.csv,Young Adults,obese,30-34,1__Young Adults
+298561,298561,20,1,True,395,pass,True,True,False,True,True,out/298561.csv,Young Adults,underweight,20-24,1__Young Adults
+300174,300174,10,0,True,265,pass,True,True,False,True,True,out/300174.csv,Middle Ager,overweight,50-54,0__Middle Ager
+300313,300313,10,0,True,491,pass,True,True,False,True,True,out/300313.csv,Middle Ager,obese,40-44,0__Middle Ager
+304034,304034,10,0,True,171,pass,True,True,False,True,True,out/304034.csv,Middle Ager,obese,45-49,0__Middle Ager
+304753,304753,20,1,True,494,pass,True,True,False,True,True,out/304753.csv,Elderly,normal,65-69,1__Elderly
+305914,305914,20,1,True,55,max_adequate_weeks_lt_11,False,True,True,True,True,out/305914.csv,Middle Ager,normal,50-54,1__Middle Ager
+306770,306770,10,0,True,188,pass,True,True,False,True,True,out/306770.csv,Middle Ager,overweight,50-54,0__Middle Ager
+308426,308426,20,1,True,493,pass,True,True,False,True,True,out/308426.csv,Young Adults,normal,30-34,1__Young Adults
+308684,308684,20,1,True,487,pass,True,True,False,True,True,out/308684.csv,Middle Ager,overweight,55-59,1__Middle Ager
+318640,318640,20,1,True,510,pass,True,True,False,True,True,out/318640.csv,Middle Ager,normal,45-49,1__Middle Ager
+319703,319703,20,1,True,495,pass,True,True,False,True,True,out/319703.csv,Middle Ager,normal,50-54,1__Middle Ager
+323399,323399,10,0,True,313,pass,True,True,False,True,True,out/323399.csv,Young Adults,normal,35-39,0__Young Adults
+323718,323718,20,1,True,497,pass,True,True,False,True,True,out/323718.csv,Middle Ager,overweight,55-59,1__Middle Ager
+328655,328655,10,0,True,363,pass,True,True,False,True,True,out/328655.csv,Middle Ager,normal,35-39,0__Middle Ager
+329983,329983,20,1,True,499,pass,True,True,False,True,True,out/329983.csv,Middle Ager,overweight,50-54,1__Middle Ager
+330071,330071,10,0,True,496,pass,True,True,False,True,True,out/330071.csv,Middle Ager,normal,35-39,0__Middle Ager
+334140,334140,20,1,True,495,pass,True,True,False,True,True,out/334140.csv,Middle Ager,overweight,55-59,1__Middle Ager
+335240,335240,10,0,True,500,pass,True,True,False,True,True,out/335240.csv,Middle Ager,normal,35-39,0__Middle Ager
+337710,337710,20,1,True,87,pass,True,True,False,True,True,out/337710.csv,Elderly,normal,70-74,1__Elderly
+341273,341273,10,0,True,336,pass,True,True,False,True,True,out/341273.csv,Young Adults,overweight,30-34,0__Young Adults
+344909,344909,10,0,True,181,pass,True,True,False,True,True,out/344909.csv,Middle Ager,overweight,50-54,0__Middle Ager
+345087,345087,20,1,True,641,pass,True,True,False,True,True,out/345087.csv,Middle Ager,normal,35-39,1__Middle Ager
+345208,345208,20,1,True,387,pass,True,True,False,True,True,out/345208.csv,Middle Ager,normal,40-44,1__Middle Ager
+345780,345780,10,0,True,507,pass,True,True,False,True,True,out/345780.csv,Middle Ager,normal,35-39,0__Middle Ager
+345895,345895,20,1,True,389,pass,True,True,False,True,True,out/345895.csv,Middle Ager,normal,60-64,1__Middle Ager
+350707,350707,10,0,True,486,pass,True,True,False,True,True,out/350707.csv,Middle Ager,overweight,55-59,0__Middle Ager
+351101,351101,20,1,True,847,pass,True,True,False,True,True,out/351101.csv,Middle Ager,normal,35-39,1__Middle Ager
+352191,352191,20,1,True,116,pass,True,True,False,True,True,out/352191.csv,Middle Ager,overweight,40-44,1__Middle Ager
+352441,352441,10,0,True,654,pass,True,True,False,True,True,out/352441.csv,Middle Ager,normal,50-54,0__Middle Ager
+355419,355419,20,1,True,118,pass,True,True,False,True,True,out/355419.csv,Middle Ager,overweight,40-44,1__Middle Ager
+355601,355601,10,0,True,261,pass,True,True,False,True,True,out/355601.csv,Young Adults,normal,30-34,0__Young Adults
+355989,355989,20,1,True,634,pass,True,True,False,True,True,out/355989.csv,Middle Ager,normal,45-49,1__Middle Ager
+357065,357065,20,1,True,509,pass,True,True,False,True,True,out/357065.csv,Middle Ager,overweight,50-54,1__Middle Ager
+357322,357322,10,0,True,504,pass,True,True,False,True,True,out/357322.csv,Middle Ager,obese,35-39,0__Middle Ager
+360521,360521,10,0,True,639,pass,True,True,False,True,True,out/360521.csv,Middle Ager,normal,50-54,0__Middle Ager
+361397,361397,20,1,True,424,pass,True,True,False,True,True,out/361397.csv,Middle Ager,overweight,40-44,1__Middle Ager
+361916,361916,20,1,True,449,pass,True,True,False,True,True,out/361916.csv,Middle Ager,normal,45-49,1__Middle Ager
+364228,364228,20,1,True,494,pass,True,True,False,True,True,out/364228.csv,Middle Ager,overweight,45-49,1__Middle Ager
+364440,364440,10,0,True,302,pass,True,True,False,True,True,out/364440.csv,Young Adults,normal,30-34,0__Young Adults
+369209,369209,10,0,True,346,max_adequate_weeks_lt_11,False,True,True,True,True,out/369209.csv,Young Adults,underweight,25-29,0__Young Adults
+375337,375337,20,1,True,494,pass,True,True,False,True,True,out/375337.csv,Middle Ager,normal,55-59,1__Middle Ager
+376880,376880,20,1,True,502,pass,True,True,False,True,True,out/376880.csv,Middle Ager,normal,45-49,1__Middle Ager
+378289,378289,10,0,True,513,pass,True,True,False,True,True,out/378289.csv,Young Adults,overweight,25-29,0__Young Adults
+389301,389301,20,1,True,495,pass,True,True,False,True,True,out/389301.csv,Middle Ager,normal,45-49,1__Middle Ager
+397850,397850,10,0,True,515,pass,True,True,False,True,True,out/397850.csv,Middle Ager,overweight,35-39,0__Middle Ager
+397908,397908,10,0,True,642,pass,True,True,False,True,True,out/397908.csv,Elderly,obese,70-74,0__Elderly
+398007,398007,20,1,True,504,pass,True,True,False,True,True,out/398007.csv,Middle Ager,normal,50-54,1__Middle Ager
+398295,398295,10,0,True,249,pass,True,True,False,True,True,out/398295.csv,Young Adults,normal,30-34,0__Young Adults
+398520,398520,20,1,True,518,pass,True,True,False,True,True,out/398520.csv,Elderly,normal,60-64,1__Elderly
+398592,398592,20,1,True,196,pass,True,True,False,True,True,out/398592.csv,Middle Ager,normal,40-44,1__Middle Ager
+402720,402720,20,1,True,419,pass,True,True,False,True,True,out/402720.csv,Middle Ager,overweight,50-54,1__Middle Ager
+403399,403399,10,0,True,500,pass,True,True,False,True,True,out/403399.csv,Middle Ager,overweight,50-54,0__Middle Ager
+404099,404099,10,0,True,495,pass,True,True,False,True,True,out/404099.csv,Middle Ager,normal,40-44,0__Middle Ager
+405843,405843,20,1,True,479,pass,True,True,False,True,True,out/405843.csv,Middle Ager,normal,55-59,1__Middle Ager
+406676,406676,20,1,True,495,pass,True,True,False,True,True,out/406676.csv,Middle Ager,normal,45-49,1__Middle Ager
+412024,412024,20,1,True,496,pass,True,True,False,True,True,out/412024.csv,Elderly,normal,65-69,1__Elderly
+413111,413111,20,1,True,500,pass,True,True,False,True,True,out/413111.csv,Elderly,normal,65-69,1__Elderly
+415050,415050,20,1,True,457,max_adequate_weeks_lt_11,False,True,True,True,True,out/415050.csv,Middle Ager,normal,50-54,1__Middle Ager
+415824,415824,20,1,True,493,pass,True,True,False,True,True,out/415824.csv,Middle Ager,normal,55-59,1__Middle Ager
+420351,420351,20,1,True,237,pass,True,True,False,True,True,out/420351.csv,Middle Ager,normal,45-49,1__Middle Ager
+430412,430412,20,1,True,145,pass,True,True,False,True,True,out/430412.csv,Middle Ager,normal,40-44,1__Middle Ager
+431921,431921,10,0,True,499,pass,True,True,False,True,True,out/431921.csv,Young Adults,normal,30-34,0__Young Adults
+432167,432167,20,1,True,367,pass,True,True,False,True,True,out/432167.csv,Middle Ager,normal,50-54,1__Middle Ager
+432782,432782,10,0,True,497,pass,True,True,False,True,True,out/432782.csv,Middle Ager,obese,45-49,0__Middle Ager
+436295,436295,20,1,True,230,pass,True,True,False,True,True,out/436295.csv,Elderly,normal,65-69,1__Elderly
+436619,436619,10,0,True,546,pass,True,True,False,True,True,out/436619.csv,Young Adults,normal,30-34,0__Young Adults
+438848,438848,20,1,True,292,pass,True,True,False,True,True,out/438848.csv,Middle Ager,obese,45-49,1__Middle Ager
+442019,442019,10,0,True,511,pass,True,True,False,True,True,out/442019.csv,Middle Ager,normal,45-49,0__Middle Ager
+444030,444030,20,1,True,648,pass,True,True,False,True,True,out/444030.csv,Middle Ager,normal,45-49,1__Middle Ager
+444684,444684,20,1,True,499,pass,True,True,False,True,True,out/444684.csv,Young Adults,normal,25-29,1__Young Adults
+445545,445545,20,1,True,400,pass,True,True,False,True,True,out/445545.csv,Middle Ager,normal,45-49,1__Middle Ager
+447715,447715,10,0,True,273,pass,True,True,False,True,True,out/447715.csv,Middle Ager,overweight,55-59,0__Middle Ager
+448027,448027,10,0,True,495,pass,True,True,False,True,True,out/448027.csv,Elderly,normal,60-64,0__Elderly
+451844,451844,20,1,True,495,pass,True,True,False,True,True,out/451844.csv,Elderly,obese,65-69,1__Elderly
+456869,456869,20,1,True,423,pass,True,True,False,True,True,out/456869.csv,Middle Ager,normal,40-44,1__Middle Ager
+457179,457179,20,1,True,493,pass,True,True,False,True,True,out/457179.csv,Elderly,overweight,65-69,1__Elderly
+461946,461946,20,1,True,508,pass,True,True,False,True,True,out/461946.csv,Elderly,overweight,60-64,1__Elderly
+465489,465489,10,0,True,492,pass,True,True,False,True,True,out/465489.csv,Middle Ager,overweight,50-54,0__Middle Ager
+471955,471955,20,1,True,499,pass,True,True,False,True,True,out/471955.csv,Middle Ager,normal,35-39,1__Middle Ager
+472417,472417,20,1,True,515,max_adequate_weeks_lt_11,False,True,True,True,True,out/472417.csv,Elderly,obese,60-64,1__Elderly
+474221,474221,10,0,True,504,pass,True,True,False,True,True,out/474221.csv,Middle Ager,obese,40-44,0__Middle Ager
+476977,476977,20,1,True,518,pass,True,True,False,True,True,out/476977.csv,Middle Ager,normal,45-49,1__Middle Ager
+479849,479849,10,0,True,513,pass,True,True,False,True,True,out/479849.csv,Middle Ager,normal,35-39,0__Middle Ager
+480708,480708,20,1,True,502,pass,True,True,False,True,True,out/480708.csv,Young Adults,overweight,20-24,1__Young Adults
+486523,486523,10,0,True,495,pass,True,True,False,True,True,out/486523.csv,Middle Ager,normal,50-54,0__Middle Ager
+487515,487515,20,1,True,224,pass,True,True,False,True,True,out/487515.csv,Young Adults,normal,30-34,1__Young Adults
+490941,490941,10,0,True,194,pass,True,True,False,True,True,out/490941.csv,Middle Ager,normal,45-49,0__Middle Ager
+492070,492070,10,0,True,360,max_adequate_weeks_lt_11,False,True,True,True,True,out/492070.csv,Middle Ager,normal,40-44,0__Middle Ager
+492176,492176,10,0,True,36,max_adequate_weeks_lt_11,False,True,True,True,True,out/492176.csv,Middle Ager,overweight,40-44,0__Middle Ager
+493092,493092,20,1,True,519,pass,True,True,False,True,True,out/493092.csv,Middle Ager,overweight,35-39,1__Middle Ager
+501583,501583,20,1,True,791,pass,True,True,False,True,True,out/501583.csv,Middle Ager,normal,45-49,1__Middle Ager
+504132,504132,20,1,True,489,pass,True,True,False,True,True,out/504132.csv,Middle Ager,normal,55-59,1__Middle Ager
+506819,506819,20,1,True,508,pass,True,True,False,True,True,out/506819.csv,Middle Ager,obese,50-54,1__Middle Ager
+507793,507793,10,0,True,476,pass,True,True,False,True,True,out/507793.csv,Middle Ager,underweight,50-54,0__Middle Ager
+507795,507795,20,1,True,175,max_adequate_weeks_lt_11,False,True,True,True,True,out/507795.csv,Middle Ager,obese,55-59,1__Middle Ager
+508449,508449,10,0,True,473,pass,True,True,False,True,True,out/508449.csv,Middle Ager,underweight,35-39,0__Middle Ager
+508800,508800,10,0,True,501,pass,True,True,False,True,True,out/508800.csv,Middle Ager,overweight,55-59,0__Middle Ager
+508867,508867,20,1,True,523,pass,True,True,False,True,True,out/508867.csv,Middle Ager,normal,50-54,1__Middle Ager
+509247,509247,20,1,True,171,max_adequate_weeks_lt_11,False,True,True,True,True,out/509247.csv,Elderly,overweight,75-79,1__Elderly
+509624,509624,20,1,True,492,pass,True,True,False,True,True,out/509624.csv,Elderly,overweight,65-69,1__Elderly
+511417,511417,20,1,True,489,pass,True,True,False,True,True,out/511417.csv,Elderly,overweight,70-74,1__Elderly
+512053,512053,20,1,True,549,pass,True,True,False,True,True,out/512053.csv,Young Adults,normal,30-34,1__Young Adults
+515887,515887,20,1,True,397,pass,True,True,False,True,True,out/515887.csv,Middle Ager,normal,50-54,1__Middle Ager
+517848,517848,20,1,True,496,pass,True,True,False,True,True,out/517848.csv,Middle Ager,overweight,45-49,1__Middle Ager
+518232,518232,20,1,True,500,max_adequate_weeks_lt_11,True,True,False,True,True,out/518232.csv,Elderly,obese,60-64,1__Elderly
+518961,518961,20,1,True,517,pass,True,True,False,True,True,out/518961.csv,Middle Ager,normal,40-44,1__Middle Ager
+520017,520017,10,0,True,483,pass,True,True,False,True,True,out/520017.csv,Elderly,overweight,60-64,0__Elderly
+526137,526137,10,0,True,516,pass,True,True,False,True,True,out/526137.csv,Middle Ager,normal,55-59,0__Middle Ager
+529885,529885,10,0,True,257,pass,True,True,False,True,True,out/529885.csv,Middle Ager,normal,35-39,0__Middle Ager
+532019,532019,20,1,True,446,pass,True,True,False,True,True,out/532019.csv,Middle Ager,normal,40-44,1__Middle Ager
+532533,532533,20,1,True,333,pass,True,True,False,True,True,out/532533.csv,Elderly,obese,65-69,1__Elderly
+534077,534077,20,1,True,484,pass,True,True,False,True,True,out/534077.csv,Elderly,overweight,60-64,1__Elderly
+535178,535178,20,1,True,493,pass,True,True,False,True,True,out/535178.csv,Middle Ager,normal,55-59,1__Middle Ager
+536736,536736,20,1,True,290,pass,True,True,False,True,True,out/536736.csv,Middle Ager,obese,35-39,1__Middle Ager
+536867,536867,10,0,True,408,pass,True,True,False,True,True,out/536867.csv,Middle Ager,overweight,45-49,0__Middle Ager
+537472,537472,20,1,True,457,pass,True,True,False,True,True,out/537472.csv,Middle Ager,normal,35-39,1__Middle Ager
+544425,544425,10,0,True,507,pass,True,True,False,True,True,out/544425.csv,Middle Ager,overweight,45-49,0__Middle Ager
+544460,544460,10,0,True,490,pass,True,True,False,True,True,out/544460.csv,Middle Ager,normal,45-49,0__Middle Ager
+548749,548749,20,1,True,466,pass,True,True,False,True,True,out/548749.csv,Young Adults,overweight,25-29,1__Young Adults
+549363,549363,10,0,True,468,pass,True,True,False,True,True,out/549363.csv,Middle Ager,normal,40-44,0__Middle Ager
+550260,550260,20,1,True,498,pass,True,True,False,True,True,out/550260.csv,Middle Ager,normal,45-49,1__Middle Ager
+550892,550892,20,1,True,507,pass,True,True,False,True,True,out/550892.csv,Middle Ager,overweight,40-44,1__Middle Ager
+552325,552325,10,0,True,501,pass,True,True,False,True,True,out/552325.csv,Young Adults,normal,25-29,0__Young Adults
+553161,553161,10,0,True,500,pass,True,True,False,True,True,out/553161.csv,Middle Ager,normal,35-39,0__Middle Ager
+554960,554960,10,0,True,142,pass,True,True,False,True,True,out/554960.csv,Middle Ager,normal,45-49,0__Middle Ager
+555492,555492,10,0,True,132,pass,True,True,False,True,True,out/555492.csv,Middle Ager,normal,50-54,0__Middle Ager
+563033,563033,10,0,True,504,pass,True,True,False,True,True,out/563033.csv,Middle Ager,overweight,50-54,0__Middle Ager
+570135,570135,10,0,True,246,pass,True,True,False,True,True,out/570135.csv,Middle Ager,normal,55-59,0__Middle Ager
+571812,571812,20,1,True,506,pass,True,True,False,True,True,out/571812.csv,Middle Ager,overweight,35-39,1__Middle Ager
+573207,573207,20,1,True,111,max_adequate_weeks_lt_11,False,True,True,True,True,out/573207.csv,Elderly,overweight,60-64,1__Elderly
+578084,578084,10,0,True,665,pass,True,True,False,True,True,out/578084.csv,Young Adults,normal,30-34,0__Young Adults
+583338,583338,20,1,True,264,pass,True,True,False,True,True,out/583338.csv,Young Adults,obese,35-39,1__Young Adults
+591051,591051,20,1,True,497,pass,True,True,False,True,True,out/591051.csv,Middle Ager,normal,50-54,1__Middle Ager
+593049,593049,20,1,True,633,pass,True,True,False,True,True,out/593049.csv,Middle Ager,normal,45-49,1__Middle Ager
+595768,595768,10,0,True,496,pass,True,True,False,True,True,out/595768.csv,Middle Ager,overweight,35-39,0__Middle Ager
+596051,596051,20,1,True,499,pass,True,True,False,True,True,out/596051.csv,Middle Ager,normal,50-54,1__Middle Ager
+596437,596437,10,0,True,500,pass,True,True,False,True,True,out/596437.csv,Young Adults,normal,25-29,0__Young Adults
+596445,596445,10,0,True,497,pass,True,True,False,True,True,out/596445.csv,Middle Ager,normal,45-49,0__Middle Ager
+596841,596841,20,1,True,485,pass,True,True,False,True,True,out/596841.csv,Young Adults,normal,25-29,1__Young Adults
+599396,599396,10,0,True,465,pass,True,True,False,True,True,out/599396.csv,Middle Ager,obese,40-44,0__Middle Ager
+602946,602946,20,1,True,530,pass,True,True,False,True,True,out/602946.csv,Middle Ager,overweight,40-44,1__Middle Ager
+604557,604557,20,1,True,281,pass,True,True,False,True,True,out/604557.csv,Young Adults,overweight,25-29,1__Young Adults
+606159,606159,20,1,True,496,pass,True,True,False,True,True,out/606159.csv,Middle Ager,obese,50-54,1__Middle Ager
+607813,607813,10,0,True,553,pass,True,True,False,True,True,out/607813.csv,Middle Ager,normal,40-44,0__Middle Ager
+608134,608134,20,1,True,117,max_adequate_weeks_lt_11,False,True,True,True,True,out/608134.csv,Young Adults,normal,20-24,1__Young Adults
+608388,608388,20,1,True,506,pass,True,True,False,True,True,out/608388.csv,Elderly,normal,60-64,1__Elderly
+608537,608537,20,1,True,501,pass,True,True,False,True,True,out/608537.csv,Middle Ager,normal,35-39,1__Middle Ager
+612154,612154,10,0,True,500,pass,True,True,False,True,True,out/612154.csv,Young Adults,normal,30-34,0__Young Adults
+612720,612720,20,1,True,420,pass,True,True,False,True,True,out/612720.csv,Young Adults,normal,30-34,1__Young Adults
+613112,613112,10,0,True,328,max_adequate_weeks_lt_11,False,True,True,True,True,out/613112.csv,Middle Ager,normal,50-54,0__Middle Ager
+613523,613523,10,0,True,495,pass,True,True,False,True,True,out/613523.csv,Young Adults,overweight,30-34,0__Young Adults
+614612,614612,20,1,True,492,pass,True,True,False,True,True,out/614612.csv,Middle Ager,overweight,55-59,1__Middle Ager
+617695,617695,10,0,True,385,pass,True,True,False,True,True,out/617695.csv,Middle Ager,normal,55-59,0__Middle Ager
+619649,619649,20,1,True,491,pass,True,True,False,True,True,out/619649.csv,Middle Ager,overweight,45-49,1__Middle Ager
+620975,620975,20,1,True,494,pass,True,True,False,True,True,out/620975.csv,Middle Ager,normal,45-49,1__Middle Ager
+621152,621152,10,0,True,457,pass,True,True,False,True,True,out/621152.csv,Middle Ager,overweight,40-44,0__Middle Ager
+624010,624010,10,0,True,495,pass,True,True,False,True,True,out/624010.csv,Middle Ager,obese,35-39,0__Middle Ager
+624977,624977,10,0,True,202,pass,True,True,False,True,True,out/624977.csv,Middle Ager,normal,45-49,0__Middle Ager
+625366,625366,20,1,True,512,pass,True,True,False,True,True,out/625366.csv,Young Adults,normal,30-34,1__Young Adults
+628661,628661,20,1,True,506,pass,True,True,False,True,True,out/628661.csv,Middle Ager,overweight,55-59,1__Middle Ager
+628861,628861,20,1,True,340,pass,True,True,False,True,True,out/628861.csv,Middle Ager,normal,40-44,1__Middle Ager
+643183,643183,20,1,True,493,pass,True,True,False,True,True,out/643183.csv,Middle Ager,normal,35-39,1__Middle Ager
+643981,643981,20,1,True,477,pass,True,True,False,True,True,out/643981.csv,Middle Ager,normal,40-44,1__Middle Ager
+644091,644091,20,1,True,97,pass,True,True,False,True,True,out/644091.csv,Middle Ager,normal,45-49,1__Middle Ager
+644744,644744,20,1,True,505,pass,True,True,False,True,True,out/644744.csv,Middle Ager,normal,35-39,1__Middle Ager
+646425,646425,20,1,True,500,pass,True,True,False,True,True,out/646425.csv,Middle Ager,normal,45-49,1__Middle Ager
+648107,648107,20,1,True,497,pass,True,True,False,True,True,out/648107.csv,Elderly,normal,70-74,1__Elderly
+648659,648659,20,1,True,280,max_adequate_weeks_lt_11,False,True,True,True,True,out/648659.csv,Middle Ager,normal,35-39,1__Middle Ager
+649313,649313,20,1,True,499,pass,True,True,False,True,True,out/649313.csv,Middle Ager,overweight,45-49,1__Middle Ager
+649449,649449,10,0,True,504,pass,True,True,False,True,True,out/649449.csv,Young Adults,overweight,30-34,0__Young Adults
+652123,652123,10,0,True,504,pass,True,True,False,True,True,out/652123.csv,Middle Ager,obese,35-39,0__Middle Ager
+656138,656138,20,1,True,579,pass,True,True,False,True,True,out/656138.csv,Young Adults,normal,30-34,1__Young Adults
+657533,657533,20,1,True,505,pass,True,True,False,True,True,out/657533.csv,Middle Ager,normal,40-44,1__Middle Ager
+660061,660061,20,1,True,485,pass,True,True,False,True,True,out/660061.csv,Middle Ager,normal,50-54,1__Middle Ager
+661034,661034,20,1,True,293,max_adequate_weeks_lt_11,False,True,True,True,True,out/661034.csv,Young Adults,normal,20-24,1__Young Adults
+663130,663130,20,1,True,622,pass,True,True,False,True,True,out/663130.csv,Middle Ager,overweight,35-39,1__Middle Ager
+665029,665029,20,1,True,176,pass,True,True,False,True,True,out/665029.csv,Middle Ager,normal,40-44,1__Middle Ager
+665050,665050,20,1,True,254,pass,True,True,False,True,True,out/665050.csv,Young Adults,overweight,30-34,1__Young Adults
+665220,665220,20,1,True,526,pass,True,True,False,True,True,out/665220.csv,Middle Ager,normal,50-54,1__Middle Ager
+667650,667650,10,0,True,426,max_adequate_weeks_lt_11,False,True,True,True,True,out/667650.csv,Middle Ager,overweight,40-44,0__Middle Ager
+670244,670244,20,1,True,271,pass,True,True,False,True,True,out/670244.csv,Middle Ager,obese,60-64,1__Middle Ager
+671325,671325,10,0,True,174,pass,True,True,False,True,True,out/671325.csv,Middle Ager,normal,50-54,0__Middle Ager
+671423,671423,20,1,True,137,pass,True,True,False,True,True,out/671423.csv,Middle Ager,normal,45-49,1__Middle Ager
+671705,671705,20,1,True,488,pass,True,True,False,True,True,out/671705.csv,Young Adults,normal,30-34,1__Young Adults
+674424,674424,20,1,True,261,pass,True,True,False,True,True,out/674424.csv,Middle Ager,overweight,45-49,1__Middle Ager
+675401,675401,20,1,True,524,pass,True,True,False,True,True,out/675401.csv,Middle Ager,normal,35-39,1__Middle Ager
+677383,677383,10,0,True,502,pass,True,True,False,True,True,out/677383.csv,Middle Ager,normal,35-39,0__Middle Ager
+678199,678199,10,0,True,511,pass,True,True,False,True,True,out/678199.csv,Middle Ager,overweight,40-44,0__Middle Ager
+679456,679456,20,1,True,336,max_adequate_weeks_lt_11,False,True,True,True,True,out/679456.csv,Middle Ager,overweight,55-59,1__Middle Ager
+682565,682565,20,1,True,323,pass,True,True,False,True,True,out/682565.csv,Elderly,overweight,60-64,1__Elderly
+682914,682914,20,1,True,507,pass,True,True,False,True,True,out/682914.csv,Middle Ager,normal,40-44,1__Middle Ager
+685609,685609,20,1,True,424,max_adequate_weeks_lt_11,False,True,True,True,True,out/685609.csv,Middle Ager,normal,50-54,1__Middle Ager
+689537,689537,10,0,True,430,pass,True,True,False,True,True,out/689537.csv,Young Adults,overweight,30-34,0__Young Adults
+690987,690987,20,1,True,497,pass,True,True,False,True,True,out/690987.csv,Elderly,obese,65-69,1__Elderly
+692799,692799,20,1,True,495,pass,True,True,False,True,True,out/692799.csv,Middle Ager,overweight,50-54,1__Middle Ager
+696774,696774,20,1,True,484,pass,True,True,False,True,True,out/696774.csv,Middle Ager,overweight,40-44,1__Middle Ager
+698861,698861,10,0,True,19,span_lt_13_weeks,False,True,True,True,True,out/698861.csv,Middle Ager,obese,40-44,0__Middle Ager
+700550,700550,20,1,True,495,pass,True,True,False,True,True,out/700550.csv,Middle Ager,overweight,35-39,1__Middle Ager
+701836,701836,20,1,True,516,pass,True,True,False,True,True,out/701836.csv,Elderly,overweight,70-74,1__Elderly
+704317,704317,10,0,True,529,pass,True,True,False,True,True,out/704317.csv,Middle Ager,normal,45-49,0__Middle Ager
+706908,706908,10,0,True,510,pass,True,True,False,True,True,out/706908.csv,Middle Ager,normal,50-54,0__Middle Ager
+707873,707873,20,1,True,435,pass,True,True,False,True,True,out/707873.csv,Elderly,normal,65-69,1__Elderly
+709381,709381,20,1,True,392,max_adequate_weeks_lt_11,False,True,True,True,True,out/709381.csv,Middle Ager,obese,40-44,1__Middle Ager
+710774,710774,20,1,True,399,pass,True,True,False,True,True,out/710774.csv,Middle Ager,overweight,60-64,1__Middle Ager
+711099,711099,20,1,True,462,pass,True,True,False,True,True,out/711099.csv,Middle Ager,normal,50-54,1__Middle Ager
+711245,711245,20,1,True,524,pass,True,True,False,True,True,out/711245.csv,Young Adults,normal,25-29,1__Young Adults
+718508,718508,20,1,True,501,pass,True,True,False,True,True,out/718508.csv,Young Adults,normal,25-29,1__Young Adults
+718704,718704,20,1,True,502,pass,True,True,False,True,True,out/718704.csv,Middle Ager,normal,50-54,1__Middle Ager
+718899,718899,10,0,True,499,max_adequate_weeks_lt_11,False,True,True,True,True,out/718899.csv,Young Adults,underweight,25-29,0__Young Adults
+719050,719050,10,0,True,604,pass,True,True,False,True,True,out/719050.csv,Elderly,normal,60-64,0__Elderly
+719188,719188,20,1,True,496,pass,True,True,False,True,True,out/719188.csv,Young Adults,normal,25-29,1__Young Adults
+726126,726126,10,0,True,150,pass,True,True,False,True,True,out/726126.csv,Middle Ager,normal,45-49,0__Middle Ager
+726499,726499,10,0,True,513,pass,True,True,False,True,True,out/726499.csv,Young Adults,overweight,25-29,0__Young Adults
+727065,727065,20,1,True,162,max_strict_days_among_week_qualifying_lt_65,False,True,True,True,True,out/727065.csv,Middle Ager,overweight,50-54,1__Middle Ager
+731117,731117,20,1,True,640,pass,True,True,False,True,True,out/731117.csv,Elderly,normal,65-69,1__Elderly
+738172,738172,10,0,True,336,pass,True,True,False,True,True,out/738172.csv,Young Adults,normal,20-24,0__Young Adults
+740821,740821,10,0,True,108,max_adequate_weeks_lt_11,False,True,True,True,True,out/740821.csv,Middle Ager,normal,55-59,0__Middle Ager
+742551,742551,10,0,True,455,pass,True,True,False,True,True,out/742551.csv,Middle Ager,overweight,45-49,0__Middle Ager
+743852,743852,20,1,True,113,pass,True,True,False,True,True,out/743852.csv,Middle Ager,obese,60-64,1__Middle Ager
+744145,744145,10,0,True,499,pass,True,True,False,True,True,out/744145.csv,Middle Ager,overweight,40-44,0__Middle Ager
+744436,744436,10,0,True,453,max_adequate_weeks_lt_11,False,True,True,True,True,out/744436.csv,Middle Ager,overweight,50-54,0__Middle Ager
+744971,744971,10,0,True,244,pass,True,True,False,True,True,out/744971.csv,Middle Ager,overweight,55-59,0__Middle Ager
+745143,745143,10,0,True,427,pass,True,True,False,True,True,out/745143.csv,Elderly,overweight,65-69,0__Elderly
+745501,745501,10,0,True,506,max_adequate_weeks_lt_11,False,True,True,True,True,out/745501.csv,Middle Ager,overweight,55-59,0__Middle Ager
+750827,750827,10,0,True,459,pass,True,True,False,True,True,out/750827.csv,Middle Ager,overweight,45-49,0__Middle Ager
+751252,751252,10,0,True,508,pass,True,True,False,True,True,out/751252.csv,Middle Ager,normal,55-59,0__Middle Ager
+753994,753994,10,0,True,513,pass,True,True,False,True,True,out/753994.csv,Middle Ager,normal,35-39,0__Middle Ager
+754586,754586,20,1,True,503,pass,True,True,False,True,True,out/754586.csv,Middle Ager,normal,50-54,1__Middle Ager
+757110,757110,10,0,True,63,max_adequate_weeks_lt_11,False,True,True,True,True,out/757110.csv,Middle Ager,normal,50-54,0__Middle Ager
+757198,757198,20,1,True,82,max_adequate_weeks_lt_11,False,True,True,True,True,out/757198.csv,Middle Ager,overweight,55-59,1__Middle Ager
+757465,757465,20,1,True,495,pass,True,True,False,True,True,out/757465.csv,Young Adults,normal,25-29,1__Young Adults
+761233,761233,20,1,True,504,pass,True,True,False,True,True,out/761233.csv,Young Adults,normal,20-24,1__Young Adults
+763994,763994,20,1,True,507,pass,True,True,False,True,True,out/763994.csv,Elderly,overweight,65-69,1__Elderly
+765954,765954,10,0,True,289,pass,True,True,False,True,True,out/765954.csv,Middle Ager,normal,55-59,0__Middle Ager
+767236,767236,10,0,True,244,pass,True,True,False,True,True,out/767236.csv,Elderly,normal,60-64,0__Elderly
+767773,767773,10,0,True,421,pass,True,True,False,True,True,out/767773.csv,Middle Ager,normal,35-39,0__Middle Ager
+771927,771927,20,1,True,494,pass,True,True,False,True,True,out/771927.csv,Middle Ager,normal,50-54,1__Middle Ager
+773312,773312,10,0,True,192,max_adequate_weeks_lt_11,False,True,True,True,True,out/773312.csv,Middle Ager,normal,35-39,0__Middle Ager
+777687,777687,20,1,True,417,pass,True,True,False,True,True,out/777687.csv,Middle Ager,normal,50-54,1__Middle Ager
+778111,778111,20,1,True,324,pass,True,True,False,True,True,out/778111.csv,Middle Ager,overweight,55-59,1__Middle Ager
+779186,779186,20,1,True,505,pass,True,True,False,True,True,out/779186.csv,Elderly,normal,60-64,1__Elderly
+780355,780355,20,1,True,330,pass,True,True,False,True,True,out/780355.csv,Middle Ager,normal,50-54,1__Middle Ager
+782625,782625,20,1,True,511,pass,True,True,False,True,True,out/782625.csv,Middle Ager,obese,40-44,1__Middle Ager
+783025,783025,20,1,True,504,pass,True,True,False,True,True,out/783025.csv,Middle Ager,normal,50-54,1__Middle Ager
+783245,783245,10,0,True,225,max_adequate_weeks_lt_11,False,True,True,True,True,out/783245.csv,Middle Ager,normal,50-54,0__Middle Ager
+783735,783735,20,1,True,501,pass,True,True,False,True,True,out/783735.csv,Middle Ager,normal,45-49,1__Middle Ager
+783814,783814,10,0,True,663,pass,True,True,False,True,True,out/783814.csv,Elderly,overweight,60-64,0__Elderly
+783835,783835,10,0,True,380,pass,True,True,False,True,True,out/783835.csv,Middle Ager,overweight,35-39,0__Middle Ager
+784920,784920,20,1,True,367,pass,True,True,False,True,True,out/784920.csv,Middle Ager,overweight,55-59,1__Middle Ager
+786776,786776,10,0,True,251,pass,True,True,False,True,True,out/786776.csv,Elderly,overweight,60-64,0__Elderly
+789093,789093,10,0,True,500,pass,True,True,False,True,True,out/789093.csv,Middle Ager,normal,50-54,0__Middle Ager
+797407,797407,10,0,True,526,pass,True,True,False,True,True,out/797407.csv,Young Adults,normal,25-29,0__Young Adults
+804945,804945,20,1,True,495,pass,True,True,False,True,True,out/804945.csv,Middle Ager,normal,50-54,1__Middle Ager
+806286,806286,10,0,True,500,pass,True,True,False,True,True,out/806286.csv,Middle Ager,obese,45-49,0__Middle Ager
+806762,806762,10,0,True,186,pass,True,True,False,True,True,out/806762.csv,Middle Ager,normal,50-54,0__Middle Ager
+808258,808258,10,0,True,447,pass,True,True,False,True,True,out/808258.csv,Middle Ager,obese,35-39,0__Middle Ager
+809234,809234,20,1,True,642,pass,True,True,False,True,True,out/809234.csv,Young Adults,overweight,25-29,1__Young Adults
+813769,813769,10,0,True,504,pass,True,True,False,True,True,out/813769.csv,Middle Ager,obese,40-44,0__Middle Ager
+813871,813871,20,1,True,245,pass,True,True,False,True,True,out/813871.csv,Young Adults,obese,35-39,1__Young Adults
+814392,814392,20,1,True,152,max_adequate_weeks_lt_11,False,True,True,True,True,out/814392.csv,Middle Ager,obese,50-54,1__Middle Ager
+817197,817197,10,0,True,500,pass,True,True,False,True,True,out/817197.csv,Middle Ager,normal,35-39,0__Middle Ager
+818542,818542,20,1,True,394,pass,True,True,False,True,True,out/818542.csv,Middle Ager,obese,45-49,1__Middle Ager
+822027,822027,10,0,True,381,pass,True,True,False,True,True,out/822027.csv,Middle Ager,normal,45-49,0__Middle Ager
+823546,823546,10,0,True,510,pass,True,True,False,True,True,out/823546.csv,Middle Ager,normal,45-49,0__Middle Ager
+835159,835159,20,1,True,497,pass,True,True,False,True,True,out/835159.csv,Middle Ager,normal,50-54,1__Middle Ager
+841748,841748,20,1,True,496,pass,True,True,False,True,True,out/841748.csv,Middle Ager,overweight,45-49,1__Middle Ager
+847036,847036,20,1,True,497,pass,True,True,False,True,True,out/847036.csv,Middle Ager,normal,55-59,1__Middle Ager
+851146,851146,20,1,True,493,pass,True,True,False,True,True,out/851146.csv,Middle Ager,normal,45-49,1__Middle Ager
+851163,851163,20,1,True,509,pass,True,True,False,True,True,out/851163.csv,Middle Ager,overweight,50-54,1__Middle Ager
+857435,857435,20,1,True,427,pass,True,True,False,True,True,out/857435.csv,Middle Ager,normal,35-39,1__Middle Ager
+858119,858119,10,0,True,492,pass,True,True,False,True,True,out/858119.csv,Middle Ager,overweight,45-49,0__Middle Ager
+858697,858697,20,1,True,384,pass,True,True,False,True,True,out/858697.csv,Young Adults,overweight,30-34,1__Young Adults
+859236,859236,10,0,True,499,pass,True,True,False,True,True,out/859236.csv,Middle Ager,obese,55-59,0__Middle Ager
+860519,860519,10,0,True,216,pass,True,True,False,True,True,out/860519.csv,Middle Ager,obese,50-54,0__Middle Ager
+861607,861607,10,0,True,502,pass,True,True,False,True,True,out/861607.csv,Middle Ager,obese,45-49,0__Middle Ager
+861729,861729,20,1,True,85,max_adequate_weeks_lt_11,False,True,True,True,True,out/861729.csv,Middle Ager,overweight,40-44,1__Middle Ager
+862030,862030,20,1,True,524,pass,True,True,False,True,True,out/862030.csv,Young Adults,normal,30-34,1__Young Adults
+862990,862990,10,0,True,501,pass,True,True,False,True,True,out/862990.csv,Young Adults,normal,30-34,0__Young Adults
+864000,864000,10,0,True,360,pass,True,True,False,True,True,out/864000.csv,Young Adults,normal,25-29,0__Young Adults
+865733,865733,20,1,True,504,pass,True,True,False,True,True,out/865733.csv,Middle Ager,overweight,55-59,1__Middle Ager
+866404,866404,10,0,True,302,pass,True,True,False,True,True,out/866404.csv,Elderly,normal,70-74,0__Elderly
+870328,870328,10,0,True,500,pass,True,True,False,True,True,out/870328.csv,Middle Ager,normal,45-49,0__Middle Ager
+870739,870739,20,1,True,688,pass,True,True,False,True,True,out/870739.csv,Middle Ager,normal,55-59,1__Middle Ager
+870983,870983,20,1,True,487,pass,True,True,False,True,True,out/870983.csv,Middle Ager,overweight,45-49,1__Middle Ager
+873012,873012,20,1,True,480,pass,True,True,False,True,True,out/873012.csv,Middle Ager,overweight,40-44,1__Middle Ager
+873206,873206,20,1,True,470,pass,True,True,False,True,True,out/873206.csv,Middle Ager,obese,55-59,1__Middle Ager
+875038,875038,20,1,True,607,pass,True,True,False,True,True,out/875038.csv,Middle Ager,obese,40-44,1__Middle Ager
+883112,883112,20,1,True,503,pass,True,True,False,True,True,out/883112.csv,Elderly,normal,60-64,1__Elderly
+885222,885222,10,0,True,523,pass,True,True,False,True,True,out/885222.csv,Middle Ager,overweight,40-44,0__Middle Ager
+885573,885573,20,1,True,502,pass,True,True,False,True,True,out/885573.csv,Middle Ager,normal,45-49,1__Middle Ager
+886279,886279,20,1,True,344,pass,True,True,False,True,True,out/886279.csv,Elderly,normal,60-64,1__Elderly
+892694,892694,20,1,True,306,max_adequate_weeks_lt_11,False,True,True,True,True,out/892694.csv,Middle Ager,obese,50-54,1__Middle Ager
+892998,892998,10,0,True,488,pass,True,True,False,True,True,out/892998.csv,Middle Ager,normal,45-49,0__Middle Ager
+894357,894357,10,0,True,647,pass,True,True,False,True,True,out/894357.csv,Young Adults,normal,20-24,0__Young Adults
+895435,895435,20,1,True,335,pass,True,True,False,True,True,out/895435.csv,Middle Ager,normal,55-59,1__Middle Ager
+897327,897327,10,0,True,472,max_adequate_weeks_lt_11,False,True,True,True,True,out/897327.csv,Middle Ager,normal,55-59,0__Middle Ager
+898035,898035,20,1,True,365,pass,True,True,False,True,True,out/898035.csv,Middle Ager,normal,40-44,1__Middle Ager
+899067,899067,10,0,True,422,pass,True,True,False,True,True,out/899067.csv,Young Adults,normal,30-34,0__Young Adults
+900534,900534,20,1,True,170,pass,True,True,False,True,True,out/900534.csv,Young Adults,normal,25-29,1__Young Adults
+941393,941393,10,0,True,165,pass,True,True,False,True,True,out/941393.csv,Young Adults,normal,30-34,0__Young Adults
+947197,947197,20,1,True,360,pass,True,True,False,True,True,out/947197.csv,Elderly,obese,65-69,1__Elderly
+950405,950405,20,1,True,495,pass,True,True,False,True,True,out/950405.csv,Middle Ager,overweight,45-49,1__Middle Ager
+951306,951306,20,1,True,498,pass,True,True,False,True,True,out/951306.csv,Elderly,normal,65-69,1__Elderly
+951465,951465,10,0,True,640,pass,True,True,False,True,True,out/951465.csv,Young Adults,normal,30-34,0__Young Adults
+951659,951659,20,1,True,462,pass,True,True,False,True,True,out/951659.csv,Middle Ager,obese,50-54,1__Middle Ager
+952824,952824,20,1,True,501,pass,True,True,False,True,True,out/952824.csv,Young Adults,normal,25-29,1__Young Adults
+953293,953293,20,1,True,302,max_adequate_weeks_lt_11,False,True,True,True,True,out/953293.csv,Middle Ager,normal,35-39,1__Middle Ager
+954370,954370,20,1,True,892,pass,True,True,False,True,True,out/954370.csv,Elderly,overweight,65-69,1__Elderly
+954440,954440,20,1,True,530,pass,True,True,False,True,True,out/954440.csv,Elderly,normal,70-74,1__Elderly
+954703,954703,20,1,True,494,pass,True,True,False,True,True,out/954703.csv,Middle Ager,normal,40-44,1__Middle Ager
+958703,958703,20,1,True,506,pass,True,True,False,True,True,out/958703.csv,Young Adults,normal,30-34,1__Young Adults
+959771,959771,20,1,True,506,pass,True,True,False,True,True,out/959771.csv,Middle Ager,normal,55-59,1__Middle Ager
+961819,961819,10,0,True,510,pass,True,True,False,True,True,out/961819.csv,Young Adults,normal,25-29,0__Young Adults
+963540,963540,20,1,True,675,pass,True,True,False,True,True,out/963540.csv,Middle Ager,overweight,40-44,1__Middle Ager
+969827,969827,10,0,True,506,pass,True,True,False,True,True,out/969827.csv,Middle Ager,normal,45-49,0__Middle Ager
+972111,972111,10,0,True,387,pass,True,True,False,True,True,out/972111.csv,Young Adults,normal,25-29,0__Young Adults
+972448,972448,20,1,True,656,pass,True,True,False,True,True,out/972448.csv,Middle Ager,overweight,55-59,1__Middle Ager
+972697,972697,10,0,True,500,pass,True,True,False,True,True,out/972697.csv,Young Adults,overweight,20-24,0__Young Adults
+972980,972980,20,1,True,521,pass,True,True,False,True,True,out/972980.csv,Middle Ager,overweight,35-39,1__Middle Ager
+976508,976508,10,0,True,505,pass,True,True,False,True,True,out/976508.csv,Middle Ager,normal,50-54,0__Middle Ager
+978575,978575,20,1,True,536,pass,True,True,False,True,True,out/978575.csv,Middle Ager,normal,50-54,1__Middle Ager
+982091,982091,20,1,True,493,max_adequate_weeks_lt_11,False,True,True,True,True,out/982091.csv,Elderly,obese,60-64,1__Elderly
+982253,982253,20,1,True,133,pass,True,True,False,True,True,out/982253.csv,Middle Ager,overweight,55-59,1__Middle Ager
+982552,982552,20,1,True,129,max_adequate_weeks_lt_11,False,True,True,True,True,out/982552.csv,Middle Ager,overweight,60-64,1__Middle Ager
+982817,982817,10,0,True,514,pass,True,True,False,True,True,out/982817.csv,Elderly,normal,60-64,0__Elderly
+983916,983916,20,1,True,527,pass,True,True,False,True,True,out/983916.csv,Middle Ager,normal,35-39,1__Middle Ager
+984065,984065,10,0,True,481,pass,True,True,False,True,True,out/984065.csv,Elderly,obese,70-74,0__Elderly
+988546,988546,10,0,True,501,pass,True,True,False,True,True,out/988546.csv,Young Adults,normal,30-34,0__Young Adults
+993712,993712,10,0,True,502,pass,True,True,False,True,True,out/993712.csv,Middle Ager,overweight,40-44,0__Middle Ager
+994044,994044,20,1,True,514,pass,True,True,False,True,True,out/994044.csv,Elderly,normal,65-69,1__Elderly
+995382,995382,10,0,True,498,pass,True,True,False,True,True,out/995382.csv,Middle Ager,overweight,55-59,0__Middle Ager
+999836,999836,20,1,True,516,pass,True,True,False,True,True,out/999836.csv,Young Adults,normal,30-34,1__Young Adults
+1000176,1000176,20,1,True,500,pass,True,True,False,True,True,out/1000176.csv,Young Adults,overweight,30-34,1__Young Adults
+1000449,1000449,20,1,True,465,pass,True,True,False,True,True,out/1000449.csv,Young Adults,normal,30-34,1__Young Adults
+1000945,1000945,20,1,True,477,pass,True,True,False,True,True,out/1000945.csv,Middle Ager,obese,45-49,1__Middle Ager
+1002906,1002906,10,0,True,877,pass,True,True,False,True,True,out/1002906.csv,Middle Ager,normal,50-54,0__Middle Ager
+1005095,1005095,20,1,True,499,pass,True,True,False,True,True,out/1005095.csv,Middle Ager,normal,45-49,1__Middle Ager
+1005121,1005121,20,1,True,507,pass,True,True,False,True,True,out/1005121.csv,Young Adults,obese,30-34,1__Young Adults
+1005375,1005375,20,1,True,480,max_adequate_weeks_lt_11,False,True,True,True,True,out/1005375.csv,Middle Ager,overweight,70-74,1__Middle Ager
+1005741,1005741,20,1,True,511,pass,True,True,False,True,True,out/1005741.csv,Young Adults,obese,30-34,1__Young Adults
+1006154,1006154,20,1,True,500,pass,True,True,False,True,True,out/1006154.csv,Middle Ager,overweight,40-44,1__Middle Ager
+1006944,1006944,20,1,True,499,pass,True,True,False,True,True,out/1006944.csv,Middle Ager,normal,60-64,1__Middle Ager
+1012321,1012321,20,1,True,525,pass,True,True,False,True,True,out/1012321.csv,Middle Ager,overweight,50-54,1__Middle Ager
+1012389,1012389,10,0,True,499,pass,True,True,False,True,True,out/1012389.csv,Middle Ager,overweight,35-39,0__Middle Ager
+1017244,1017244,20,1,True,513,pass,True,True,False,True,True,out/1017244.csv,Middle Ager,normal,50-54,1__Middle Ager
+1020322,1020322,10,0,True,472,pass,True,True,False,True,True,out/1020322.csv,Middle Ager,normal,35-39,0__Middle Ager
+1021541,1021541,20,1,True,404,pass,True,True,False,True,True,out/1021541.csv,Middle Ager,normal,40-44,1__Middle Ager
+1029192,1029192,20,1,True,334,pass,True,True,False,True,True,out/1029192.csv,Young Adults,overweight,30-34,1__Young Adults
+1033938,1033938,10,0,True,564,pass,True,True,False,True,True,out/1033938.csv,Young Adults,overweight,30-34,0__Young Adults
+1040848,1040848,10,0,True,483,pass,True,True,False,True,True,out/1040848.csv,Elderly,obese,75-79,0__Elderly
+1048580,1048580,20,1,True,514,pass,True,True,False,True,True,out/1048580.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1050525,1050525,20,1,True,504,pass,True,True,False,True,True,out/1050525.csv,Elderly,overweight,60-64,1__Elderly
+1050973,1050973,20,1,True,436,pass,True,True,False,True,True,out/1050973.csv,Middle Ager,normal,45-49,1__Middle Ager
+1051685,1051685,10,0,True,877,pass,True,True,False,True,True,out/1051685.csv,Middle Ager,normal,55-59,0__Middle Ager
+1053386,1053386,10,0,True,393,pass,True,True,False,True,True,out/1053386.csv,Young Adults,normal,20-24,0__Young Adults
+1057686,1057686,10,0,True,510,pass,True,True,False,True,True,out/1057686.csv,Middle Ager,overweight,50-54,0__Middle Ager
+1062066,1062066,10,0,True,492,pass,True,True,False,True,True,out/1062066.csv,Middle Ager,normal,55-59,0__Middle Ager
+1065121,1065121,20,1,True,522,pass,True,True,False,True,True,out/1065121.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1065613,1065613,10,0,True,497,pass,True,True,False,True,True,out/1065613.csv,Young Adults,underweight,30-34,0__Young Adults
+1067828,1067828,20,1,True,115,pass,True,True,False,True,True,out/1067828.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1068046,1068046,10,0,True,530,pass,True,True,False,True,True,out/1068046.csv,Middle Ager,normal,40-44,0__Middle Ager
+1068390,1068390,20,1,True,115,pass,True,True,False,True,True,out/1068390.csv,Middle Ager,normal,40-44,1__Middle Ager
+1068426,1068426,20,1,True,453,pass,True,True,False,True,True,out/1068426.csv,Middle Ager,overweight,40-44,1__Middle Ager
+1068738,1068738,10,0,True,504,pass,True,True,False,True,True,out/1068738.csv,Middle Ager,normal,50-54,0__Middle Ager
+1068929,1068929,20,1,True,495,pass,True,True,False,True,True,out/1068929.csv,Middle Ager,normal,55-59,1__Middle Ager
+1068977,1068977,10,0,True,496,pass,True,True,False,True,True,out/1068977.csv,Middle Ager,overweight,45-49,0__Middle Ager
+1070079,1070079,20,1,True,173,max_adequate_weeks_lt_11,False,True,True,True,True,out/1070079.csv,Young Adults,overweight,30-34,1__Young Adults
+1070173,1070173,20,1,True,470,pass,True,True,False,True,True,out/1070173.csv,Middle Ager,normal,50-54,1__Middle Ager
+1071408,1071408,20,1,True,499,pass,True,True,False,True,True,out/1071408.csv,Middle Ager,obese,55-59,1__Middle Ager
+1071925,1071925,20,1,True,505,pass,True,True,False,True,True,out/1071925.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1071957,1071957,20,1,True,107,max_adequate_weeks_lt_11,False,True,True,True,True,out/1071957.csv,Middle Ager,normal,40-44,1__Middle Ager
+1071966,1071966,20,1,True,496,pass,True,True,False,True,True,out/1071966.csv,Elderly,overweight,65-69,1__Elderly
+1072271,1072271,20,1,True,239,pass,True,True,False,True,True,out/1072271.csv,Elderly,overweight,65-69,1__Elderly
+1073268,1073268,20,1,True,506,pass,True,True,False,True,True,out/1073268.csv,Middle Ager,normal,35-39,1__Middle Ager
+1073471,1073471,20,1,True,509,pass,True,True,False,True,True,out/1073471.csv,Elderly,normal,60-64,1__Elderly
+1073839,1073839,10,0,True,494,pass,True,True,False,True,True,out/1073839.csv,Middle Ager,obese,45-49,0__Middle Ager
+1074094,1074094,20,1,True,504,pass,True,True,False,True,True,out/1074094.csv,Middle Ager,normal,50-54,1__Middle Ager
+1074579,1074579,10,0,True,132,pass,True,True,False,True,True,out/1074579.csv,Middle Ager,normal,40-44,0__Middle Ager
+1074950,1074950,10,0,True,475,pass,True,True,False,True,True,out/1074950.csv,Middle Ager,normal,60-64,0__Middle Ager
+1075228,1075228,20,1,True,494,pass,True,True,False,True,True,out/1075228.csv,Middle Ager,normal,60-64,1__Middle Ager
+1075404,1075404,20,1,True,505,pass,True,True,False,True,True,out/1075404.csv,Middle Ager,normal,35-39,1__Middle Ager
+1075748,1075748,10,0,True,646,pass,True,True,False,True,True,out/1075748.csv,Middle Ager,obese,45-49,0__Middle Ager
+1075816,1075816,20,1,True,502,pass,True,True,False,True,True,out/1075816.csv,Middle Ager,normal,45-49,1__Middle Ager
+1076384,1076384,10,0,True,693,max_adequate_weeks_lt_11,False,True,True,True,True,out/1076384.csv,Middle Ager,obese,40-44,0__Middle Ager
+1077187,1077187,20,1,True,494,pass,True,True,False,True,True,out/1077187.csv,Middle Ager,normal,45-49,1__Middle Ager
+1077688,1077688,20,1,True,506,pass,True,True,False,True,True,out/1077688.csv,Young Adults,normal,30-34,1__Young Adults
+1077703,1077703,20,1,True,501,pass,True,True,False,True,True,out/1077703.csv,Elderly,overweight,70-74,1__Elderly
+1077856,1077856,20,1,True,494,pass,True,True,False,True,True,out/1077856.csv,Young Adults,normal,35-39,1__Young Adults
+1077955,1077955,10,0,True,137,max_adequate_weeks_lt_11,False,True,True,True,True,out/1077955.csv,Middle Ager,normal,50-54,0__Middle Ager
+1078976,1078976,20,1,True,93,pass,True,True,False,True,True,out/1078976.csv,Young Adults,obese,35-39,1__Young Adults
+1079219,1079219,10,0,True,409,pass,True,True,False,True,True,out/1079219.csv,Middle Ager,overweight,45-49,0__Middle Ager
+1079540,1079540,10,0,True,421,pass,True,True,False,True,True,out/1079540.csv,Middle Ager,normal,55-59,0__Middle Ager
+1080564,1080564,20,1,True,473,pass,True,True,False,True,True,out/1080564.csv,Elderly,normal,65-69,1__Elderly
+1082377,1082377,20,1,True,523,pass,True,True,False,True,True,out/1082377.csv,Middle Ager,normal,60-64,1__Middle Ager
+1084185,1084185,10,0,True,513,pass,True,True,False,True,True,out/1084185.csv,Young Adults,overweight,25-29,0__Young Adults
+1084267,1084267,20,1,True,498,pass,True,True,False,True,True,out/1084267.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1084497,1084497,20,1,True,459,pass,True,True,False,True,True,out/1084497.csv,Middle Ager,normal,40-44,1__Middle Ager
+1085527,1085527,20,1,True,509,pass,True,True,False,True,True,out/1085527.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1085896,1085896,20,1,True,499,pass,True,True,False,True,True,out/1085896.csv,Middle Ager,normal,55-59,1__Middle Ager
+1086158,1086158,10,0,True,477,pass,True,True,False,True,True,out/1086158.csv,Elderly,normal,65-69,0__Elderly
+1086657,1086657,20,1,True,503,pass,True,True,False,True,True,out/1086657.csv,Middle Ager,normal,55-59,1__Middle Ager
+1087295,1087295,20,1,True,499,pass,True,True,False,True,True,out/1087295.csv,Middle Ager,normal,45-49,1__Middle Ager
+1088040,1088040,10,0,True,281,pass,True,True,False,True,True,out/1088040.csv,Middle Ager,normal,55-59,0__Middle Ager
+1089310,1089310,10,0,True,117,pass,True,True,False,True,True,out/1089310.csv,Young Adults,obese,30-34,0__Young Adults
+1089436,1089436,10,0,True,451,pass,True,True,False,True,True,out/1089436.csv,Young Adults,overweight,30-34,0__Young Adults
+1089723,1089723,10,0,True,482,pass,True,True,False,True,True,out/1089723.csv,Young Adults,overweight,30-34,0__Young Adults
+1089796,1089796,20,1,True,530,pass,True,True,False,True,True,out/1089796.csv,Elderly,normal,70-74,1__Elderly
+1090388,1090388,20,1,True,454,pass,True,True,False,True,True,out/1090388.csv,Middle Ager,normal,45-49,1__Middle Ager
+1090738,1090738,10,0,True,330,max_adequate_weeks_lt_11,False,True,True,True,True,out/1090738.csv,Middle Ager,obese,40-44,0__Middle Ager
+1091104,1091104,10,0,True,123,max_adequate_weeks_lt_11,False,True,True,True,True,out/1091104.csv,Middle Ager,normal,55-59,0__Middle Ager
+1091204,1091204,20,1,True,221,max_adequate_weeks_lt_11,False,True,True,True,True,out/1091204.csv,Middle Ager,overweight,40-44,1__Middle Ager
+1091343,1091343,10,0,True,306,pass,True,True,False,True,True,out/1091343.csv,Elderly,obese,60-64,0__Elderly
+1091410,1091410,20,1,True,496,pass,True,True,False,True,True,out/1091410.csv,Middle Ager,normal,50-54,1__Middle Ager
+1091670,1091670,20,1,True,505,pass,True,True,False,True,True,out/1091670.csv,Young Adults,normal,25-29,1__Young Adults
+1091984,1091984,20,1,True,125,pass,True,True,False,True,True,out/1091984.csv,Middle Ager,normal,40-44,1__Middle Ager
+1092538,1092538,20,1,True,398,pass,True,True,False,True,True,out/1092538.csv,Middle Ager,obese,45-49,1__Middle Ager
+1093139,1093139,10,0,True,456,pass,True,True,False,True,True,out/1093139.csv,Middle Ager,normal,35-39,0__Middle Ager
+1093401,1093401,20,1,True,501,pass,True,True,False,True,True,out/1093401.csv,Elderly,overweight,65-69,1__Elderly
+1093742,1093742,20,1,True,496,pass,True,True,False,True,True,out/1093742.csv,Middle Ager,normal,50-54,1__Middle Ager
+1094046,1094046,20,1,True,216,pass,True,True,False,True,True,out/1094046.csv,Middle Ager,overweight,50-54,1__Middle Ager
+1094274,1094274,20,1,True,495,pass,True,True,False,True,True,out/1094274.csv,Middle Ager,normal,45-49,1__Middle Ager
+1094456,1094456,20,1,True,474,pass,True,True,False,True,True,out/1094456.csv,Middle Ager,normal,45-49,1__Middle Ager
+1094522,1094522,20,1,True,508,pass,True,True,False,True,True,out/1094522.csv,Middle Ager,normal,45-49,1__Middle Ager
+1094897,1094897,20,1,True,515,pass,True,True,False,True,True,out/1094897.csv,Middle Ager,normal,35-39,1__Middle Ager
+1095642,1095642,20,1,True,506,pass,True,True,False,True,True,out/1095642.csv,Young Adults,normal,30-34,1__Young Adults
+1095841,1095841,20,1,True,521,pass,True,True,False,True,True,out/1095841.csv,Middle Ager,overweight,40-44,1__Middle Ager
+1097215,1097215,20,1,True,547,pass,True,True,False,True,True,out/1097215.csv,Middle Ager,obese,55-59,1__Middle Ager
+1097465,1097465,20,1,True,521,pass,True,True,False,True,True,out/1097465.csv,Middle Ager,normal,35-39,1__Middle Ager
+1097474,1097474,20,1,True,499,pass,True,True,False,True,True,out/1097474.csv,Middle Ager,obese,50-54,1__Middle Ager
+1098855,1098855,20,1,True,504,pass,True,True,False,True,True,out/1098855.csv,Middle Ager,normal,45-49,1__Middle Ager
+1099234,1099234,20,1,True,498,pass,True,True,False,True,True,out/1099234.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1100624,1100624,20,1,True,511,pass,True,True,False,True,True,out/1100624.csv,Elderly,overweight,75-79,1__Elderly
+1101157,1101157,20,1,True,389,pass,True,True,False,True,True,out/1101157.csv,Middle Ager,obese,45-49,1__Middle Ager
+1101907,1101907,20,1,True,500,pass,True,True,False,True,True,out/1101907.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1102276,1102276,20,1,True,501,pass,True,True,False,True,True,out/1102276.csv,Middle Ager,normal,45-49,1__Middle Ager
+1102314,1102314,20,1,True,508,pass,True,True,False,True,True,out/1102314.csv,Middle Ager,overweight,50-54,1__Middle Ager
+1102360,1102360,20,1,True,419,max_adequate_weeks_lt_11,False,True,True,True,True,out/1102360.csv,Middle Ager,overweight,60-64,1__Middle Ager
+1102436,1102436,20,1,True,426,max_adequate_weeks_lt_11,False,True,True,True,True,out/1102436.csv,Young Adults,normal,35-39,1__Young Adults
+1103054,1103054,10,0,True,491,pass,True,True,False,True,True,out/1103054.csv,Young Adults,normal,30-34,0__Young Adults
+1104012,1104012,20,1,True,367,pass,True,True,False,True,True,out/1104012.csv,Middle Ager,normal,45-49,1__Middle Ager
+1104038,1104038,20,1,True,517,pass,True,True,False,True,True,out/1104038.csv,Young Adults,normal,25-29,1__Young Adults
+1104198,1104198,20,1,True,504,pass,True,True,False,True,True,out/1104198.csv,Middle Ager,overweight,50-54,1__Middle Ager
+1104219,1104219,20,1,True,494,pass,True,True,False,True,True,out/1104219.csv,Elderly,overweight,70-74,1__Elderly
+1104405,1104405,20,1,True,495,pass,True,True,False,True,True,out/1104405.csv,Elderly,overweight,65-69,1__Elderly
+1104546,1104546,10,0,True,264,max_adequate_weeks_lt_11,False,True,True,True,True,out/1104546.csv,Middle Ager,normal,50-54,0__Middle Ager
+1104592,1104592,20,1,True,499,pass,True,True,False,True,True,out/1104592.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1105121,1105121,10,0,True,495,pass,True,True,False,True,True,out/1105121.csv,Middle Ager,obese,45-49,0__Middle Ager
+1105320,1105320,20,1,True,458,pass,True,True,False,True,True,out/1105320.csv,Elderly,obese,65-69,1__Elderly
+1105733,1105733,20,1,True,490,pass,True,True,False,True,True,out/1105733.csv,Elderly,normal,75-79,1__Elderly
+1105913,1105913,20,1,True,504,pass,True,True,False,True,True,out/1105913.csv,Middle Ager,overweight,60-64,1__Middle Ager
+1105916,1105916,20,1,True,498,pass,True,True,False,True,True,out/1105916.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1107348,1107348,20,1,True,502,pass,True,True,False,True,True,out/1107348.csv,Young Adults,overweight,35-39,1__Young Adults
+1108465,1108465,20,1,True,212,max_adequate_weeks_lt_11,False,True,True,True,True,out/1108465.csv,Middle Ager,overweight,50-54,1__Middle Ager
+1108579,1108579,10,0,True,435,max_adequate_weeks_lt_11,False,True,True,True,True,out/1108579.csv,Middle Ager,normal,50-54,0__Middle Ager
+1108949,1108949,20,1,True,204,pass,True,True,False,True,True,out/1108949.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1109030,1109030,20,1,True,477,pass,True,True,False,True,True,out/1109030.csv,Middle Ager,normal,55-59,1__Middle Ager
+1109275,1109275,20,1,True,503,pass,True,True,False,True,True,out/1109275.csv,Middle Ager,normal,50-54,1__Middle Ager
+1109299,1109299,20,1,True,495,pass,True,True,False,True,True,out/1109299.csv,Middle Ager,normal,50-54,1__Middle Ager
+1109526,1109526,20,1,True,495,pass,True,True,False,True,True,out/1109526.csv,Middle Ager,normal,55-59,1__Middle Ager
+1109598,1109598,20,1,True,493,pass,True,True,False,True,True,out/1109598.csv,Young Adults,normal,35-39,1__Young Adults
+1109771,1109771,10,0,True,483,pass,True,True,False,True,True,out/1109771.csv,Middle Ager,normal,40-44,0__Middle Ager
+1109773,1109773,10,0,True,409,max_adequate_weeks_lt_11,False,True,True,True,True,out/1109773.csv,Young Adults,overweight,35-39,0__Young Adults
+1109829,1109829,20,1,True,119,pass,True,True,False,True,True,out/1109829.csv,Young Adults,normal,30-34,1__Young Adults
+1109980,1109980,20,1,True,613,pass,True,True,False,True,True,out/1109980.csv,Young Adults,normal,30-34,1__Young Adults
+1110598,1110598,10,0,True,502,pass,True,True,False,True,True,out/1110598.csv,Middle Ager,normal,40-44,0__Middle Ager
+1111098,1111098,20,1,True,127,pass,True,True,False,True,True,out/1111098.csv,Middle Ager,obese,55-59,1__Middle Ager
+1111168,1111168,20,1,True,510,pass,True,True,False,True,True,out/1111168.csv,Young Adults,overweight,35-39,1__Young Adults
+1111920,1111920,20,1,True,509,pass,True,True,False,True,True,out/1111920.csv,Middle Ager,normal,60-64,1__Middle Ager
+1112126,1112126,10,0,True,25,span_lt_13_weeks,False,True,True,True,True,out/1112126.csv,Middle Ager,normal,45-49,0__Middle Ager
+1112333,1112333,20,1,True,517,pass,True,True,False,True,True,out/1112333.csv,Young Adults,normal,30-34,1__Young Adults
+1112461,1112461,10,0,True,400,pass,True,True,False,True,True,out/1112461.csv,Elderly,obese,75-79,0__Elderly
+1112567,1112567,20,1,True,466,pass,True,True,False,True,True,out/1112567.csv,Young Adults,normal,30-34,1__Young Adults
+1112792,1112792,20,1,True,496,pass,True,True,False,True,True,out/1112792.csv,Middle Ager,normal,40-44,1__Middle Ager
+1113098,1113098,20,1,True,500,pass,True,True,False,True,True,out/1113098.csv,Middle Ager,normal,55-59,1__Middle Ager
+1113155,1113155,10,0,True,499,pass,True,True,False,True,True,out/1113155.csv,Young Adults,normal,35-39,0__Young Adults
+1113237,1113237,20,1,True,517,pass,True,True,False,True,True,out/1113237.csv,Middle Ager,normal,40-44,1__Middle Ager
+1113365,1113365,20,1,True,474,pass,True,True,False,True,True,out/1113365.csv,Middle Ager,obese,50-54,1__Middle Ager
+1113536,1113536,10,0,True,164,pass,True,True,False,True,True,out/1113536.csv,Middle Ager,normal,55-59,0__Middle Ager
+1114319,1114319,10,0,True,497,pass,True,True,False,True,True,out/1114319.csv,Elderly,normal,65-69,0__Elderly
+1114324,1114324,20,1,True,442,max_adequate_weeks_lt_11,False,True,True,True,True,out/1114324.csv,Young Adults,overweight,35-39,1__Young Adults
+1115247,1115247,10,0,True,507,pass,True,True,False,True,True,out/1115247.csv,Middle Ager,normal,60-64,0__Middle Ager
+1115316,1115316,20,1,True,470,pass,True,True,False,True,True,out/1115316.csv,Middle Ager,normal,55-59,1__Middle Ager
+1115713,1115713,20,1,True,500,pass,True,True,False,True,True,out/1115713.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1116385,1116385,20,1,True,501,pass,True,True,False,True,True,out/1116385.csv,Middle Ager,overweight,60-64,1__Middle Ager
+1116790,1116790,10,0,True,494,pass,True,True,False,True,True,out/1116790.csv,Middle Ager,overweight,50-54,0__Middle Ager
+1116860,1116860,20,1,True,496,pass,True,True,False,True,True,out/1116860.csv,Middle Ager,normal,45-49,1__Middle Ager
+1117370,1117370,20,1,True,500,pass,True,True,False,True,True,out/1117370.csv,Young Adults,overweight,35-39,1__Young Adults
+1117576,1117576,10,0,True,497,pass,True,True,False,True,True,out/1117576.csv,Middle Ager,normal,55-59,0__Middle Ager
+1117683,1117683,20,1,True,266,max_adequate_weeks_lt_11,False,True,True,True,True,out/1117683.csv,Young Adults,overweight,30-34,1__Young Adults
+1117714,1117714,20,1,True,495,pass,True,True,False,True,True,out/1117714.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1117915,1117915,20,1,True,514,pass,True,True,False,True,True,out/1117915.csv,Young Adults,normal,35-39,1__Young Adults
+1118191,1118191,20,1,True,249,pass,True,True,False,True,True,out/1118191.csv,Middle Ager,obese,40-44,1__Middle Ager
+1118398,1118398,20,1,True,350,pass,True,True,False,True,True,out/1118398.csv,Elderly,overweight,65-69,1__Elderly
+1118436,1118436,20,1,True,500,pass,True,True,False,True,True,out/1118436.csv,Middle Ager,normal,55-59,1__Middle Ager
+1118542,1118542,10,0,True,498,pass,True,True,False,True,True,out/1118542.csv,Middle Ager,normal,60-64,0__Middle Ager
+1118773,1118773,10,0,True,494,pass,True,True,False,True,True,out/1118773.csv,Middle Ager,normal,60-64,0__Middle Ager
+1119248,1119248,20,1,True,348,pass,True,True,False,True,True,out/1119248.csv,Middle Ager,normal,40-44,1__Middle Ager
+1119338,1119338,20,1,True,447,max_adequate_weeks_lt_11,False,True,True,True,True,out/1119338.csv,Young Adults,normal,30-34,1__Young Adults
+1119377,1119377,10,0,True,499,pass,True,True,False,True,True,out/1119377.csv,Young Adults,overweight,35-39,0__Young Adults
+1119508,1119508,10,0,True,654,pass,True,True,False,True,True,out/1119508.csv,Middle Ager,obese,50-54,0__Middle Ager
+1119654,1119654,20,1,True,493,pass,True,True,False,True,True,out/1119654.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1119660,1119660,20,1,True,499,pass,True,True,False,True,True,out/1119660.csv,Middle Ager,obese,45-49,1__Middle Ager
+1120120,1120120,10,0,True,494,pass,True,True,False,True,True,out/1120120.csv,Middle Ager,overweight,50-54,0__Middle Ager
+1120325,1120325,20,1,True,488,pass,True,True,False,True,True,out/1120325.csv,Young Adults,overweight,35-39,1__Young Adults
+1120326,1120326,20,1,True,428,pass,True,True,False,True,True,out/1120326.csv,Middle Ager,obese,60-64,1__Middle Ager
+1120836,1120836,20,1,True,474,pass,True,True,False,True,True,out/1120836.csv,Young Adults,normal,25-29,1__Young Adults
+1121113,1121113,10,0,True,500,pass,True,True,False,True,True,out/1121113.csv,Middle Ager,obese,60-64,0__Middle Ager
+1121386,1121386,20,1,True,23,span_lt_13_weeks,False,True,True,True,True,out/1121386.csv,Elderly,normal,75-79,1__Elderly
+1121557,1121557,10,0,True,156,pass,True,True,False,True,True,out/1121557.csv,Young Adults,obese,25-29,0__Young Adults
+1121559,1121559,20,1,True,499,pass,True,True,False,True,True,out/1121559.csv,Middle Ager,overweight,40-44,1__Middle Ager
+1121563,1121563,10,0,True,669,pass,True,True,False,True,True,out/1121563.csv,Middle Ager,obese,50-54,0__Middle Ager
+1121766,1121766,20,1,True,434,pass,True,True,False,True,True,out/1121766.csv,Elderly,normal,75-79,1__Elderly
+1121926,1121926,20,1,True,250,pass,True,True,False,True,True,out/1121926.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1121927,1121927,20,1,True,508,pass,True,True,False,True,True,out/1121927.csv,Middle Ager,normal,40-44,1__Middle Ager
+1121967,1121967,20,1,True,372,pass,True,True,False,True,True,out/1121967.csv,Middle Ager,normal,55-59,1__Middle Ager
+1122057,1122057,10,0,True,402,pass,True,True,False,True,True,out/1122057.csv,Young Adults,obese,35-39,0__Young Adults
+1122453,1122453,20,1,True,656,pass,True,True,False,True,True,out/1122453.csv,Middle Ager,obese,50-54,1__Middle Ager
+1122513,1122513,20,1,True,508,pass,True,True,False,True,True,out/1122513.csv,Middle Ager,normal,40-44,1__Middle Ager
+1122557,1122557,20,1,True,495,pass,True,True,False,True,True,out/1122557.csv,Middle Ager,normal,50-54,1__Middle Ager
+1122760,1122760,10,0,True,162,pass,True,True,False,True,True,out/1122760.csv,Middle Ager,normal,45-49,0__Middle Ager
+1122990,1122990,20,1,True,494,pass,True,True,False,True,True,out/1122990.csv,Middle Ager,overweight,60-64,1__Middle Ager
+1123383,1123383,20,1,True,497,pass,True,True,False,True,True,out/1123383.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1123484,1123484,10,0,True,518,pass,True,True,False,True,True,out/1123484.csv,Middle Ager,overweight,55-59,0__Middle Ager
+1123500,1123500,20,1,True,980,pass,True,True,False,True,True,out/1123500.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1123572,1123572,10,0,True,353,pass,True,True,False,True,True,out/1123572.csv,Middle Ager,underweight,50-54,0__Middle Ager
+1124095,1124095,20,1,True,509,pass,True,True,False,True,True,out/1124095.csv,Middle Ager,overweight,60-64,1__Middle Ager
+1124468,1124468,20,1,True,458,pass,True,True,False,True,True,out/1124468.csv,Elderly,normal,65-69,1__Elderly
+1124491,1124491,20,1,True,816,pass,True,True,False,True,True,out/1124491.csv,Middle Ager,obese,35-39,1__Middle Ager
+1124561,1124561,10,0,True,498,pass,True,True,False,True,True,out/1124561.csv,Middle Ager,normal,40-44,0__Middle Ager
+1124621,1124621,20,1,True,198,pass,True,True,False,True,True,out/1124621.csv,Middle Ager,normal,40-44,1__Middle Ager
+1125163,1125163,20,1,True,497,pass,True,True,False,True,True,out/1125163.csv,Middle Ager,overweight,50-54,1__Middle Ager
+1125189,1125189,10,0,True,489,pass,True,True,False,True,True,out/1125189.csv,Middle Ager,normal,50-54,0__Middle Ager
+1125602,1125602,20,1,True,477,pass,True,True,False,True,True,out/1125602.csv,Young Adults,normal,30-34,1__Young Adults
+1126392,1126392,20,1,True,496,pass,True,True,False,True,True,out/1126392.csv,Middle Ager,obese,50-54,1__Middle Ager
+1126447,1126447,20,1,True,210,max_adequate_weeks_lt_11,False,True,True,True,True,out/1126447.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1126767,1126767,10,0,True,453,pass,True,True,False,True,True,out/1126767.csv,Middle Ager,overweight,40-44,0__Middle Ager
+1127812,1127812,20,1,True,248,pass,True,True,False,True,True,out/1127812.csv,Middle Ager,normal,60-64,1__Middle Ager
+1128618,1128618,20,1,True,499,pass,True,True,False,True,True,out/1128618.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1128629,1128629,10,0,True,513,pass,True,True,False,True,True,out/1128629.csv,Middle Ager,normal,45-49,0__Middle Ager
+1129131,1129131,10,0,True,517,pass,True,True,False,True,True,out/1129131.csv,Elderly,overweight,65-69,0__Elderly
+1129502,1129502,10,0,True,493,pass,True,True,False,True,True,out/1129502.csv,Middle Ager,normal,45-49,0__Middle Ager
+1130408,1130408,20,1,True,625,pass,True,True,False,True,True,out/1130408.csv,Middle Ager,underweight,55-59,1__Middle Ager
+1130507,1130507,20,1,True,178,max_adequate_weeks_lt_11,False,True,True,True,True,out/1130507.csv,Middle Ager,normal,55-59,1__Middle Ager
+1130623,1130623,10,0,True,498,pass,True,True,False,True,True,out/1130623.csv,Middle Ager,normal,45-49,0__Middle Ager
+1130697,1130697,20,1,True,494,pass,True,True,False,True,True,out/1130697.csv,Middle Ager,normal,45-49,1__Middle Ager
+1131818,1131818,20,1,True,504,pass,True,True,False,True,True,out/1131818.csv,Middle Ager,normal,40-44,1__Middle Ager
+1131906,1131906,20,1,True,498,pass,True,True,False,True,True,out/1131906.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1132251,1132251,20,1,True,142,pass,True,True,False,True,True,out/1132251.csv,Middle Ager,obese,50-54,1__Middle Ager
+1132536,1132536,10,0,True,477,pass,True,True,False,True,True,out/1132536.csv,Young Adults,normal,20-24,0__Young Adults
+1133011,1133011,10,0,True,322,pass,True,True,False,True,True,out/1133011.csv,Middle Ager,normal,50-54,0__Middle Ager
+1133021,1133021,20,1,True,496,pass,True,True,False,True,True,out/1133021.csv,Elderly,overweight,65-69,1__Elderly
+1133211,1133211,20,1,True,495,pass,True,True,False,True,True,out/1133211.csv,Middle Ager,normal,45-49,1__Middle Ager
+1134193,1134193,20,1,True,455,pass,True,True,False,True,True,out/1134193.csv,Young Adults,normal,35-39,1__Young Adults
+1134347,1134347,10,0,True,477,pass,True,True,False,True,True,out/1134347.csv,Middle Ager,obese,45-49,0__Middle Ager
+1135001,1135001,20,1,True,499,pass,True,True,False,True,True,out/1135001.csv,Young Adults,normal,35-39,1__Young Adults
+1135796,1135796,20,1,True,498,pass,True,True,False,True,True,out/1135796.csv,Elderly,overweight,80-84,1__Elderly
+1136723,1136723,10,0,True,377,pass,True,True,False,True,True,out/1136723.csv,Middle Ager,obese,50-54,0__Middle Ager
+1136878,1136878,20,1,True,507,pass,True,True,False,True,True,out/1136878.csv,Middle Ager,normal,45-49,1__Middle Ager
+1136925,1136925,10,0,True,497,pass,True,True,False,True,True,out/1136925.csv,Young Adults,obese,30-34,0__Young Adults
+1136946,1136946,10,0,True,492,pass,True,True,False,True,True,out/1136946.csv,Elderly,overweight,65-69,0__Elderly
+1137506,1137506,10,0,True,346,pass,True,True,False,True,True,out/1137506.csv,Young Adults,obese,30-34,0__Young Adults
+1137743,1137743,20,1,True,499,pass,True,True,False,True,True,out/1137743.csv,Middle Ager,normal,45-49,1__Middle Ager
+1137891,1137891,20,1,True,500,pass,True,True,False,True,True,out/1137891.csv,Middle Ager,normal,45-49,1__Middle Ager
+1137958,1137958,20,1,True,495,pass,True,True,False,True,True,out/1137958.csv,Middle Ager,normal,45-49,1__Middle Ager
+1138361,1138361,20,1,True,415,pass,True,True,False,True,True,out/1138361.csv,Young Adults,normal,25-29,1__Young Adults
+1138562,1138562,20,1,True,40,max_adequate_weeks_lt_11,False,True,True,True,True,out/1138562.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1138681,1138681,20,1,True,483,pass,True,True,False,True,True,out/1138681.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1138842,1138842,20,1,True,44,max_adequate_weeks_lt_11,False,True,True,True,True,out/1138842.csv,Middle Ager,obese,60-64,1__Middle Ager
+1138864,1138864,20,1,True,494,pass,True,True,False,True,True,out/1138864.csv,Middle Ager,normal,60-64,1__Middle Ager
+1139688,1139688,20,1,True,118,pass,True,True,False,True,True,out/1139688.csv,Middle Ager,obese,50-54,1__Middle Ager
+1140239,1140239,20,1,True,497,pass,True,True,False,True,True,out/1140239.csv,Middle Ager,obese,40-44,1__Middle Ager
+1141311,1141311,10,0,True,470,pass,True,True,False,True,True,out/1141311.csv,Middle Ager,underweight,55-59,0__Middle Ager
+1141596,1141596,10,0,True,466,pass,True,True,False,True,True,out/1141596.csv,Middle Ager,overweight,40-44,0__Middle Ager
+1142051,1142051,20,1,True,496,pass,True,True,False,True,True,out/1142051.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1142126,1142126,10,0,True,353,pass,True,True,False,True,True,out/1142126.csv,Young Adults,normal,30-34,0__Young Adults
+1142188,1142188,20,1,True,367,pass,True,True,False,True,True,out/1142188.csv,Young Adults,normal,35-39,1__Young Adults
+1142355,1142355,10,0,True,497,pass,True,True,False,True,True,out/1142355.csv,Middle Ager,normal,45-49,0__Middle Ager
+1142632,1142632,10,0,True,498,pass,True,True,False,True,True,out/1142632.csv,Middle Ager,normal,45-49,0__Middle Ager
+1142965,1142965,20,1,True,16,span_lt_13_weeks,False,True,True,True,True,out/1142965.csv,Middle Ager,normal,40-44,1__Middle Ager
+1143112,1143112,20,1,True,477,pass,True,True,False,True,True,out/1143112.csv,Middle Ager,normal,60-64,1__Middle Ager
+1143257,1143257,20,1,True,490,pass,True,True,False,True,True,out/1143257.csv,Middle Ager,overweight,40-44,1__Middle Ager
+1143657,1143657,20,1,True,499,pass,True,True,False,True,True,out/1143657.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1144225,1144225,20,1,True,456,pass,True,True,False,True,True,out/1144225.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1144322,1144322,20,1,True,495,pass,True,True,False,True,True,out/1144322.csv,Young Adults,normal,35-39,1__Young Adults
+1144336,1144336,20,1,True,487,pass,True,True,False,True,True,out/1144336.csv,Middle Ager,normal,50-54,1__Middle Ager
+1144345,1144345,10,0,True,499,pass,True,True,False,True,True,out/1144345.csv,Middle Ager,normal,50-54,0__Middle Ager
+1144462,1144462,10,0,True,178,pass,True,True,False,True,True,out/1144462.csv,Middle Ager,normal,40-44,0__Middle Ager
+1144465,1144465,20,1,True,495,pass,True,True,False,True,True,out/1144465.csv,Middle Ager,normal,45-49,1__Middle Ager
+1144488,1144488,20,1,True,234,pass,True,True,False,True,True,out/1144488.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1144651,1144651,20,1,True,495,pass,True,True,False,True,True,out/1144651.csv,Middle Ager,obese,60-64,1__Middle Ager
+1145711,1145711,20,1,True,130,max_adequate_weeks_lt_11,False,True,True,True,True,out/1145711.csv,Middle Ager,normal,40-44,1__Middle Ager
+1145720,1145720,10,0,True,498,pass,True,True,False,True,True,out/1145720.csv,Middle Ager,overweight,40-44,0__Middle Ager
+1145815,1145815,20,1,True,206,pass,True,True,False,True,True,out/1145815.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1145863,1145863,20,1,True,474,pass,True,True,False,True,True,out/1145863.csv,Middle Ager,normal,50-54,1__Middle Ager
+1145959,1145959,20,1,True,495,pass,True,True,False,True,True,out/1145959.csv,Middle Ager,normal,45-49,1__Middle Ager
+1145979,1145979,20,1,True,495,max_adequate_weeks_lt_11,False,True,True,True,True,out/1145979.csv,Middle Ager,obese,60-64,1__Middle Ager
+1146208,1146208,10,0,True,493,pass,True,True,False,True,True,out/1146208.csv,Middle Ager,obese,40-44,0__Middle Ager
+1146488,1146488,10,0,True,402,pass,True,True,False,True,True,out/1146488.csv,Middle Ager,overweight,60-64,0__Middle Ager
+1146848,1146848,20,1,True,490,pass,True,True,False,True,True,out/1146848.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1147171,1147171,10,0,True,495,pass,True,True,False,True,True,out/1147171.csv,Young Adults,overweight,30-34,0__Young Adults
+1147302,1147302,10,0,True,495,pass,True,True,False,True,True,out/1147302.csv,Young Adults,normal,35-39,0__Young Adults
+1147843,1147843,20,1,True,501,pass,True,True,False,True,True,out/1147843.csv,Middle Ager,normal,55-59,1__Middle Ager
+1148113,1148113,20,1,True,495,pass,True,True,False,True,True,out/1148113.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1148134,1148134,10,0,True,101,max_adequate_weeks_lt_11,False,True,True,True,True,out/1148134.csv,Middle Ager,normal,55-59,0__Middle Ager
+1148282,1148282,20,1,True,484,pass,True,True,False,True,True,out/1148282.csv,Middle Ager,normal,45-49,1__Middle Ager
+1149825,1149825,20,1,True,501,pass,True,True,False,True,True,out/1149825.csv,Elderly,obese,70-74,1__Elderly
+1149910,1149910,20,1,True,477,pass,True,True,False,True,True,out/1149910.csv,Young Adults,obese,30-34,1__Young Adults
+1150324,1150324,10,0,True,446,pass,True,True,False,True,True,out/1150324.csv,Middle Ager,normal,40-44,0__Middle Ager
+1150400,1150400,20,1,True,390,pass,True,True,False,True,True,out/1150400.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1151422,1151422,20,1,True,402,pass,True,True,False,True,True,out/1151422.csv,Middle Ager,normal,60-64,1__Middle Ager
+1151603,1151603,20,1,True,493,pass,True,True,False,True,True,out/1151603.csv,Young Adults,normal,35-39,1__Young Adults
+1151627,1151627,20,1,True,182,pass,True,True,False,True,True,out/1151627.csv,Middle Ager,normal,60-64,1__Middle Ager
+1151886,1151886,20,1,True,283,pass,True,True,False,True,True,out/1151886.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1152732,1152732,20,1,True,492,pass,True,True,False,True,True,out/1152732.csv,Middle Ager,normal,50-54,1__Middle Ager
+1152825,1152825,10,0,True,474,pass,True,True,False,True,True,out/1152825.csv,Middle Ager,normal,45-49,0__Middle Ager
+1152979,1152979,20,1,True,495,pass,True,True,False,True,True,out/1152979.csv,Elderly,overweight,65-69,1__Elderly
+1153155,1153155,20,1,True,494,pass,True,True,False,True,True,out/1153155.csv,Middle Ager,normal,50-54,1__Middle Ager
+1153399,1153399,20,1,True,496,pass,True,True,False,True,True,out/1153399.csv,Middle Ager,normal,50-54,1__Middle Ager
+1153914,1153914,20,1,True,328,pass,True,True,False,True,True,out/1153914.csv,Middle Ager,overweight,60-64,1__Middle Ager
+1153931,1153931,20,1,True,494,pass,True,True,False,True,True,out/1153931.csv,Middle Ager,obese,50-54,1__Middle Ager
+1154175,1154175,20,1,True,468,pass,True,True,False,True,True,out/1154175.csv,Elderly,overweight,65-69,1__Elderly
+1154265,1154265,10,0,True,420,pass,True,True,False,True,True,out/1154265.csv,Middle Ager,normal,40-44,0__Middle Ager
+1154313,1154313,20,1,True,494,pass,True,True,False,True,True,out/1154313.csv,Elderly,normal,80-84,1__Elderly
+1154576,1154576,20,1,True,475,pass,True,True,False,True,True,out/1154576.csv,Middle Ager,obese,40-44,1__Middle Ager
+1154833,1154833,20,1,True,471,pass,True,True,False,True,True,out/1154833.csv,Elderly,overweight,85-89,1__Elderly
+1154969,1154969,10,0,True,117,max_adequate_weeks_lt_11,False,True,True,True,True,out/1154969.csv,Middle Ager,overweight,45-49,0__Middle Ager
+1155404,1155404,10,0,True,472,pass,True,True,False,True,True,out/1155404.csv,Middle Ager,overweight,45-49,0__Middle Ager
+1155802,1155802,20,1,True,83,pass,True,True,False,True,True,out/1155802.csv,Middle Ager,overweight,60-64,1__Middle Ager
+1155927,1155927,20,1,True,434,max_adequate_weeks_lt_11,False,True,True,True,True,out/1155927.csv,Young Adults,overweight,35-39,1__Young Adults
+1156057,1156057,10,0,True,462,pass,True,True,False,True,True,out/1156057.csv,Middle Ager,obese,55-59,0__Middle Ager
+1156378,1156378,20,1,True,446,max_adequate_weeks_lt_11,False,True,True,True,True,out/1156378.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1156386,1156386,20,1,True,422,pass,True,True,False,True,True,out/1156386.csv,Young Adults,normal,20-24,1__Young Adults
+1156634,1156634,20,1,True,453,pass,True,True,False,True,True,out/1156634.csv,Elderly,normal,65-69,1__Elderly
+1156739,1156739,20,1,True,450,pass,True,True,False,True,True,out/1156739.csv,Middle Ager,normal,45-49,1__Middle Ager
+1156786,1156786,20,1,True,449,pass,True,True,False,True,True,out/1156786.csv,Young Adults,obese,35-39,1__Young Adults
+1156847,1156847,20,1,True,128,pass,True,True,False,True,True,out/1156847.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1157190,1157190,20,1,True,388,pass,True,True,False,True,True,out/1157190.csv,Middle Ager,overweight,60-64,1__Middle Ager
+1206257,1206257,20,1,True,405,pass,True,True,False,True,True,out/1206257.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1206891,1206891,20,1,True,66,max_adequate_weeks_lt_11,False,True,True,True,True,out/1206891.csv,Middle Ager,normal,40-44,1__Middle Ager
+1206997,1206997,20,1,True,426,pass,True,True,False,True,True,out/1206997.csv,Elderly,normal,65-69,1__Elderly
+1207571,1207571,20,1,True,429,pass,True,True,False,True,True,out/1207571.csv,Young Adults,normal,30-34,1__Young Adults
+1207585,1207585,10,0,True,178,pass,True,True,False,True,True,out/1207585.csv,Middle Ager,overweight,50-54,0__Middle Ager
+1207980,1207980,20,1,True,399,pass,True,True,False,True,True,out/1207980.csv,Young Adults,normal,30-34,1__Young Adults
+1208078,1208078,10,0,True,374,pass,True,True,False,True,True,out/1208078.csv,Middle Ager,normal,60-64,0__Middle Ager
+1208148,1208148,20,1,True,416,pass,True,True,False,True,True,out/1208148.csv,Elderly,normal,70-74,1__Elderly
+1208257,1208257,10,0,True,321,pass,True,True,False,True,True,out/1208257.csv,Middle Ager,normal,55-59,0__Middle Ager
+1208498,1208498,10,0,True,76,max_adequate_weeks_lt_11,False,True,True,True,True,out/1208498.csv,Young Adults,normal,25-29,0__Young Adults
+1208544,1208544,10,0,True,424,pass,True,True,False,True,True,out/1208544.csv,Middle Ager,underweight,55-59,0__Middle Ager
+1208613,1208613,10,0,True,314,pass,True,True,False,True,True,out/1208613.csv,Middle Ager,normal,40-44,0__Middle Ager
+1208952,1208952,20,1,True,49,span_lt_13_weeks,False,True,True,True,True,out/1208952.csv,Middle Ager,normal,50-54,1__Middle Ager
+1209069,1209069,20,1,True,424,pass,True,True,False,True,True,out/1209069.csv,Middle Ager,normal,50-54,1__Middle Ager
+1209229,1209229,10,0,True,424,pass,True,True,False,True,True,out/1209229.csv,Young Adults,normal,35-39,0__Young Adults
+1209429,1209429,20,1,True,369,pass,True,True,False,True,True,out/1209429.csv,Young Adults,normal,30-34,1__Young Adults
+1209524,1209524,10,0,True,125,max_adequate_weeks_lt_11,False,True,True,True,True,out/1209524.csv,Middle Ager,normal,60-64,0__Middle Ager
+1209975,1209975,20,1,True,419,pass,True,True,False,True,True,out/1209975.csv,Middle Ager,normal,55-59,1__Middle Ager
+1210024,1210024,10,0,True,420,pass,True,True,False,True,True,out/1210024.csv,Middle Ager,normal,45-49,0__Middle Ager
+1210100,1210100,10,0,True,414,pass,True,True,False,True,True,out/1210100.csv,Young Adults,normal,35-39,0__Young Adults
+1210233,1210233,10,0,True,407,pass,True,True,False,True,True,out/1210233.csv,Middle Ager,normal,55-59,0__Middle Ager
+1210408,1210408,10,0,True,421,pass,True,True,False,True,True,out/1210408.csv,Young Adults,normal,25-29,0__Young Adults
+1210436,1210436,10,0,True,95,pass,True,True,False,True,True,out/1210436.csv,Middle Ager,overweight,55-59,0__Middle Ager
+1210809,1210809,20,1,True,418,pass,True,True,False,True,True,out/1210809.csv,Middle Ager,normal,45-49,1__Middle Ager
+1210880,1210880,20,1,True,381,pass,True,True,False,True,True,out/1210880.csv,Middle Ager,obese,45-49,1__Middle Ager
+1210912,1210912,10,0,True,203,max_adequate_weeks_lt_11,False,True,True,True,True,out/1210912.csv,Middle Ager,overweight,55-59,0__Middle Ager
+1210915,1210915,10,0,True,414,pass,True,True,False,True,True,out/1210915.csv,Middle Ager,overweight,45-49,0__Middle Ager
+1211029,1211029,20,1,True,417,pass,True,True,False,True,True,out/1211029.csv,Young Adults,normal,25-29,1__Young Adults
+1211042,1211042,20,1,True,416,pass,True,True,False,True,True,out/1211042.csv,Middle Ager,overweight,50-54,1__Middle Ager
+1211274,1211274,20,1,True,385,max_adequate_weeks_lt_11,False,True,True,True,True,out/1211274.csv,Young Adults,overweight,35-39,1__Young Adults
+1211293,1211293,20,1,True,417,pass,True,True,False,True,True,out/1211293.csv,Middle Ager,normal,40-44,1__Middle Ager
+1211878,1211878,20,1,True,417,pass,True,True,False,True,True,out/1211878.csv,Middle Ager,normal,55-59,1__Middle Ager
+1211895,1211895,20,1,True,414,pass,True,True,False,True,True,out/1211895.csv,Middle Ager,overweight,50-54,1__Middle Ager
+1212052,1212052,20,1,True,413,pass,True,True,False,True,True,out/1212052.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1212066,1212066,10,0,True,115,pass,True,True,False,True,True,out/1212066.csv,Middle Ager,overweight,45-49,0__Middle Ager
+1212443,1212443,20,1,True,410,pass,True,True,False,True,True,out/1212443.csv,Young Adults,normal,30-34,1__Young Adults
+1212582,1212582,20,1,True,395,pass,True,True,False,True,True,out/1212582.csv,Middle Ager,normal,50-54,1__Middle Ager
+1212738,1212738,20,1,True,410,pass,True,True,False,True,True,out/1212738.csv,Middle Ager,normal,45-49,1__Middle Ager
+1212979,1212979,20,1,True,408,pass,True,True,False,True,True,out/1212979.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1213174,1213174,20,1,True,288,pass,True,True,False,True,True,out/1213174.csv,Middle Ager,normal,40-44,1__Middle Ager
+1213589,1213589,20,1,True,370,pass,True,True,False,True,True,out/1213589.csv,Middle Ager,overweight,60-64,1__Middle Ager
+1213978,1213978,10,0,True,403,pass,True,True,False,True,True,out/1213978.csv,Middle Ager,normal,50-54,0__Middle Ager
+1214144,1214144,10,0,True,211,pass,True,True,False,True,True,out/1214144.csv,Middle Ager,overweight,60-64,0__Middle Ager
+1214345,1214345,20,1,True,395,pass,True,True,False,True,True,out/1214345.csv,Young Adults,normal,30-34,1__Young Adults
+1214456,1214456,10,0,True,394,pass,True,True,False,True,True,out/1214456.csv,Middle Ager,normal,50-54,0__Middle Ager
+1215070,1215070,20,1,True,399,pass,True,True,False,True,True,out/1215070.csv,Middle Ager,underweight,60-64,1__Middle Ager
+1215381,1215381,10,0,True,354,pass,True,True,False,True,True,out/1215381.csv,Middle Ager,normal,45-49,0__Middle Ager
+1215388,1215388,10,0,True,393,pass,True,True,False,True,True,out/1215388.csv,Middle Ager,overweight,45-49,0__Middle Ager
+1215586,1215586,10,0,True,307,pass,True,True,False,True,True,out/1215586.csv,Middle Ager,overweight,45-49,0__Middle Ager
+1215992,1215992,20,1,True,39,span_lt_13_weeks,False,True,True,True,True,out/1215992.csv,Middle Ager,normal,40-44,1__Middle Ager
+1216293,1216293,20,1,True,136,pass,True,True,False,True,True,out/1216293.csv,Middle Ager,normal,45-49,1__Middle Ager
+1216421,1216421,20,1,True,393,pass,True,True,False,True,True,out/1216421.csv,Middle Ager,obese,40-44,1__Middle Ager
+1216704,1216704,20,1,True,392,pass,True,True,False,True,True,out/1216704.csv,Elderly,obese,65-69,1__Elderly
+1216737,1216737,20,1,True,379,pass,True,True,False,True,True,out/1216737.csv,Middle Ager,overweight,60-64,1__Middle Ager
+1216841,1216841,10,0,True,391,pass,True,True,False,True,True,out/1216841.csv,Middle Ager,normal,40-44,0__Middle Ager
+1216904,1216904,10,0,True,99,pass,True,True,False,True,True,out/1216904.csv,Middle Ager,normal,40-44,0__Middle Ager
+1216978,1216978,20,1,True,388,pass,True,True,False,True,True,out/1216978.csv,Middle Ager,normal,45-49,1__Middle Ager
+1217080,1217080,20,1,True,390,pass,True,True,False,True,True,out/1217080.csv,Middle Ager,normal,40-44,1__Middle Ager
+1217218,1217218,10,0,True,378,pass,True,True,False,True,True,out/1217218.csv,Middle Ager,overweight,50-54,0__Middle Ager
+1217503,1217503,20,1,True,339,max_adequate_weeks_lt_11,False,True,True,True,True,out/1217503.csv,Young Adults,normal,30-34,1__Young Adults
+1217519,1217519,20,1,True,337,pass,True,True,False,True,True,out/1217519.csv,Elderly,overweight,65-69,1__Elderly
+1217724,1217724,10,0,True,381,pass,True,True,False,True,True,out/1217724.csv,Middle Ager,normal,45-49,0__Middle Ager
+1218194,1218194,20,1,True,386,pass,True,True,False,True,True,out/1218194.csv,Middle Ager,normal,40-44,1__Middle Ager
+1218335,1218335,20,1,True,384,pass,True,True,False,True,True,out/1218335.csv,Middle Ager,normal,55-59,1__Middle Ager
+1218477,1218477,20,1,True,385,pass,True,True,False,True,True,out/1218477.csv,Middle Ager,obese,40-44,1__Middle Ager
+1218541,1218541,20,1,True,223,max_adequate_weeks_lt_11,False,True,True,True,True,out/1218541.csv,Young Adults,normal,35-39,1__Young Adults
+1218821,1218821,20,1,True,384,pass,True,True,False,True,True,out/1218821.csv,Middle Ager,normal,45-49,1__Middle Ager
+1219099,1219099,10,0,True,118,pass,True,True,False,True,True,out/1219099.csv,Middle Ager,normal,55-59,0__Middle Ager
+1219585,1219585,20,1,True,373,pass,True,True,False,True,True,out/1219585.csv,Young Adults,normal,30-34,1__Young Adults
+1219620,1219620,10,0,True,377,pass,True,True,False,True,True,out/1219620.csv,Middle Ager,normal,40-44,0__Middle Ager
+1219877,1219877,20,1,True,379,pass,True,True,False,True,True,out/1219877.csv,Young Adults,normal,25-29,1__Young Adults
+1220060,1220060,20,1,True,379,pass,True,True,False,True,True,out/1220060.csv,Young Adults,normal,25-29,1__Young Adults
+1220095,1220095,10,0,True,377,pass,True,True,False,True,True,out/1220095.csv,Young Adults,normal,25-29,0__Young Adults
+1220226,1220226,10,0,True,378,pass,True,True,False,True,True,out/1220226.csv,Middle Ager,normal,40-44,0__Middle Ager
+1220459,1220459,10,0,True,369,pass,True,True,False,True,True,out/1220459.csv,Young Adults,overweight,25-29,0__Young Adults
+1220515,1220515,10,0,True,377,pass,True,True,False,True,True,out/1220515.csv,Middle Ager,overweight,50-54,0__Middle Ager
+1220526,1220526,20,1,True,377,pass,True,True,False,True,True,out/1220526.csv,Middle Ager,normal,55-59,1__Middle Ager
+1220552,1220552,20,1,True,377,pass,True,True,False,True,True,out/1220552.csv,Young Adults,normal,35-39,1__Young Adults
+1220702,1220702,10,0,True,376,pass,True,True,False,True,True,out/1220702.csv,Elderly,normal,70-74,0__Elderly
+1220796,1220796,20,1,True,375,pass,True,True,False,True,True,out/1220796.csv,Young Adults,normal,25-29,1__Young Adults
+1220832,1220832,10,0,True,376,pass,True,True,False,True,True,out/1220832.csv,Young Adults,normal,35-39,0__Young Adults
+1220959,1220959,20,1,True,375,pass,True,True,False,True,True,out/1220959.csv,Elderly,normal,65-69,1__Elderly
+1221128,1221128,20,1,True,376,pass,True,True,False,True,True,out/1221128.csv,Middle Ager,normal,50-54,1__Middle Ager
+1221234,1221234,10,0,True,263,max_adequate_weeks_lt_11,False,True,True,True,True,out/1221234.csv,Middle Ager,obese,40-44,0__Middle Ager
+1221236,1221236,20,1,True,370,pass,True,True,False,True,True,out/1221236.csv,Young Adults,normal,30-34,1__Young Adults
+1221554,1221554,10,0,True,373,pass,True,True,False,True,True,out/1221554.csv,Young Adults,normal,35-39,0__Young Adults
+1221685,1221685,20,1,True,373,pass,True,True,False,True,True,out/1221685.csv,Young Adults,normal,35-39,1__Young Adults
+1221785,1221785,20,1,True,22,max_adequate_weeks_lt_11,False,True,True,True,True,out/1221785.csv,Middle Ager,overweight,50-54,1__Middle Ager
+1222110,1222110,20,1,True,372,pass,True,True,False,True,True,out/1222110.csv,Middle Ager,normal,40-44,1__Middle Ager
+1222115,1222115,10,0,True,379,pass,True,True,False,True,True,out/1222115.csv,Middle Ager,normal,45-49,0__Middle Ager
+1222336,1222336,10,0,True,365,pass,True,True,False,True,True,out/1222336.csv,Young Adults,overweight,35-39,0__Young Adults
+1222369,1222369,10,0,True,380,pass,True,True,False,True,True,out/1222369.csv,Middle Ager,underweight,45-49,0__Middle Ager
+1222782,1222782,20,1,True,153,max_adequate_weeks_lt_11,False,True,True,True,True,out/1222782.csv,Young Adults,overweight,35-39,1__Young Adults
+1222988,1222988,20,1,True,368,pass,True,True,False,True,True,out/1222988.csv,Middle Ager,normal,50-54,1__Middle Ager
+1223383,1223383,20,1,True,150,pass,True,True,False,True,True,out/1223383.csv,Middle Ager,overweight,50-54,1__Middle Ager
+1223866,1223866,20,1,True,362,pass,True,True,False,True,True,out/1223866.csv,Middle Ager,normal,55-59,1__Middle Ager
+1224094,1224094,10,0,True,362,pass,True,True,False,True,True,out/1224094.csv,Young Adults,overweight,35-39,0__Young Adults
+1224127,1224127,20,1,True,185,max_adequate_weeks_lt_11,False,True,True,True,True,out/1224127.csv,Young Adults,normal,35-39,1__Young Adults
+1224231,1224231,10,0,True,294,max_adequate_weeks_lt_11,False,True,True,True,True,out/1224231.csv,Middle Ager,normal,40-44,0__Middle Ager
+1224500,1224500,20,1,True,359,pass,True,True,False,True,True,out/1224500.csv,Middle Ager,normal,60-64,1__Middle Ager
+1224547,1224547,20,1,True,170,pass,True,True,False,True,True,out/1224547.csv,Middle Ager,obese,60-64,1__Middle Ager
+1224683,1224683,20,1,True,353,pass,True,True,False,True,True,out/1224683.csv,Middle Ager,obese,50-54,1__Middle Ager
+1224731,1224731,20,1,True,358,pass,True,True,False,True,True,out/1224731.csv,Middle Ager,overweight,50-54,1__Middle Ager
+1224966,1224966,10,0,True,45,span_lt_13_weeks,False,True,True,True,True,out/1224966.csv,Middle Ager,overweight,40-44,0__Middle Ager
+1225298,1225298,20,1,True,355,pass,True,True,False,True,True,out/1225298.csv,Young Adults,normal,35-39,1__Young Adults
+1225494,1225494,10,0,True,290,max_adequate_weeks_lt_11,False,True,True,True,True,out/1225494.csv,Young Adults,normal,35-39,0__Young Adults
+1225553,1225553,20,1,True,353,pass,True,True,False,True,True,out/1225553.csv,Middle Ager,obese,40-44,1__Middle Ager
+1225605,1225605,10,0,True,353,pass,True,True,False,True,True,out/1225605.csv,Middle Ager,overweight,60-64,0__Middle Ager
+1225634,1225634,20,1,True,352,pass,True,True,False,True,True,out/1225634.csv,Middle Ager,normal,45-49,1__Middle Ager
+1225636,1225636,10,0,True,353,pass,True,True,False,True,True,out/1225636.csv,Middle Ager,normal,40-44,0__Middle Ager
+1225802,1225802,20,1,True,191,max_adequate_weeks_lt_11,False,True,True,True,True,out/1225802.csv,Middle Ager,normal,55-59,1__Middle Ager
+1225884,1225884,20,1,True,351,pass,True,True,False,True,True,out/1225884.csv,Middle Ager,normal,55-59,1__Middle Ager
+1225914,1225914,10,0,True,351,pass,True,True,False,True,True,out/1225914.csv,Middle Ager,normal,50-54,0__Middle Ager
+1226708,1226708,20,1,True,337,pass,True,True,False,True,True,out/1226708.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1226825,1226825,20,1,True,234,pass,True,True,False,True,True,out/1226825.csv,Young Adults,normal,35-39,1__Young Adults
+1227195,1227195,20,1,True,343,pass,True,True,False,True,True,out/1227195.csv,Young Adults,normal,35-39,1__Young Adults
+1228018,1228018,20,1,True,338,pass,True,True,False,True,True,out/1228018.csv,Middle Ager,normal,45-49,1__Middle Ager
+1228358,1228358,10,0,True,335,pass,True,True,False,True,True,out/1228358.csv,Middle Ager,obese,50-54,0__Middle Ager
+1229147,1229147,10,0,True,250,pass,True,True,False,True,True,out/1229147.csv,Young Adults,normal,35-39,0__Young Adults
+1229605,1229605,10,0,True,319,pass,True,True,False,True,True,out/1229605.csv,Elderly,overweight,65-69,0__Elderly
+1229766,1229766,20,1,True,327,pass,True,True,False,True,True,out/1229766.csv,Young Adults,normal,30-34,1__Young Adults
+1229806,1229806,10,0,True,295,pass,True,True,False,True,True,out/1229806.csv,Middle Ager,obese,50-54,0__Middle Ager
+1229837,1229837,10,0,True,327,pass,True,True,False,True,True,out/1229837.csv,Young Adults,normal,25-29,0__Young Adults
+1229920,1229920,20,1,True,326,pass,True,True,False,True,True,out/1229920.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1230051,1230051,20,1,True,175,pass,True,True,False,True,True,out/1230051.csv,Elderly,obese,65-69,1__Elderly
+1230265,1230265,20,1,True,324,pass,True,True,False,True,True,out/1230265.csv,Young Adults,overweight,35-39,1__Young Adults
+1230443,1230443,20,1,True,322,pass,True,True,False,True,True,out/1230443.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1230689,1230689,10,0,True,314,pass,True,True,False,True,True,out/1230689.csv,Young Adults,normal,30-34,0__Young Adults
+1230721,1230721,20,1,True,319,pass,True,True,False,True,True,out/1230721.csv,Young Adults,normal,35-39,1__Young Adults
+1231044,1231044,20,1,True,318,pass,True,True,False,True,True,out/1231044.csv,Middle Ager,normal,40-44,1__Middle Ager
+1231100,1231100,10,0,True,308,pass,True,True,False,True,True,out/1231100.csv,Middle Ager,normal,45-49,0__Middle Ager
+1231253,1231253,10,0,True,239,pass,True,True,False,True,True,out/1231253.csv,Middle Ager,normal,60-64,0__Middle Ager
+1231841,1231841,10,0,True,178,pass,True,True,False,True,True,out/1231841.csv,Middle Ager,underweight,45-49,0__Middle Ager
+1232033,1232033,10,0,True,309,pass,True,True,False,True,True,out/1232033.csv,Middle Ager,normal,35-39,0__Middle Ager
+1232606,1232606,20,1,True,293,max_adequate_weeks_lt_11,False,True,True,True,True,out/1232606.csv,Young Adults,overweight,35-39,1__Young Adults
+1232676,1232676,20,1,True,306,pass,True,True,False,True,True,out/1232676.csv,Middle Ager,obese,40-44,1__Middle Ager
+1233026,1233026,20,1,True,303,pass,True,True,False,True,True,out/1233026.csv,Middle Ager,normal,40-44,1__Middle Ager
+1233032,1233032,20,1,True,301,pass,True,True,False,True,True,out/1233032.csv,Elderly,obese,70-74,1__Elderly
+1233158,1233158,10,0,True,295,pass,True,True,False,True,True,out/1233158.csv,Middle Ager,normal,60-64,0__Middle Ager
+1233494,1233494,20,1,True,293,pass,True,True,False,True,True,out/1233494.csv,Middle Ager,overweight,50-54,1__Middle Ager
+1233527,1233527,20,1,True,289,pass,True,True,False,True,True,out/1233527.csv,Elderly,overweight,65-69,1__Elderly
+1233618,1233618,10,0,True,284,pass,True,True,False,True,True,out/1233618.csv,Middle Ager,normal,55-59,0__Middle Ager
+1233678,1233678,20,1,True,252,pass,True,True,False,True,True,out/1233678.csv,Middle Ager,overweight,60-64,1__Middle Ager
+1233791,1233791,20,1,True,294,pass,True,True,False,True,True,out/1233791.csv,Young Adults,normal,35-39,1__Young Adults
+1233863,1233863,20,1,True,289,pass,True,True,False,True,True,out/1233863.csv,Middle Ager,overweight,40-44,1__Middle Ager
+1234413,1234413,20,1,True,287,pass,True,True,False,True,True,out/1234413.csv,Middle Ager,normal,55-59,1__Middle Ager
+1234431,1234431,20,1,True,286,pass,True,True,False,True,True,out/1234431.csv,Young Adults,normal,30-34,1__Young Adults
+1234553,1234553,10,0,True,254,pass,True,True,False,True,True,out/1234553.csv,Middle Ager,normal,60-64,0__Middle Ager
+1234862,1234862,10,0,True,155,pass,True,True,False,True,True,out/1234862.csv,Middle Ager,obese,45-49,0__Middle Ager
+1234914,1234914,20,1,True,239,pass,True,True,False,True,True,out/1234914.csv,Middle Ager,obese,45-49,1__Middle Ager
+1235039,1235039,20,1,True,279,pass,True,True,False,True,True,out/1235039.csv,Young Adults,obese,35-39,1__Young Adults
+1235254,1235254,10,0,True,273,pass,True,True,False,True,True,out/1235254.csv,Middle Ager,normal,40-44,0__Middle Ager
+1235275,1235275,10,0,True,205,pass,True,True,False,True,True,out/1235275.csv,Middle Ager,obese,50-54,0__Middle Ager
+1235344,1235344,20,1,True,93,max_adequate_weeks_lt_11,False,True,True,True,True,out/1235344.csv,Middle Ager,normal,45-49,1__Middle Ager
+1235500,1235500,20,1,True,274,pass,True,True,False,True,True,out/1235500.csv,Middle Ager,normal,55-59,1__Middle Ager
+1235714,1235714,20,1,True,163,pass,True,True,False,True,True,out/1235714.csv,Middle Ager,normal,55-59,1__Middle Ager
+1235762,1235762,20,1,True,178,pass,True,True,False,True,True,out/1235762.csv,Middle Ager,normal,60-64,1__Middle Ager
+1235863,1235863,20,1,True,237,pass,True,True,False,True,True,out/1235863.csv,Middle Ager,normal,45-49,1__Middle Ager
+1235882,1235882,10,0,True,203,pass,True,True,False,True,True,out/1235882.csv,Young Adults,normal,25-29,0__Young Adults
+1235891,1235891,20,1,True,270,pass,True,True,False,True,True,out/1235891.csv,Middle Ager,normal,40-44,1__Middle Ager
+1236063,1236063,10,0,True,235,pass,True,True,False,True,True,out/1236063.csv,Middle Ager,normal,45-49,0__Middle Ager
+1236083,1236083,10,0,True,202,pass,True,True,False,True,True,out/1236083.csv,Young Adults,overweight,35-39,0__Young Adults
+1236103,1236103,20,1,True,266,pass,True,True,False,True,True,out/1236103.csv,Middle Ager,obese,60-64,1__Middle Ager
+1236959,1236959,10,0,True,257,pass,True,True,False,True,True,out/1236959.csv,Young Adults,normal,35-39,0__Young Adults
+1237028,1237028,10,0,True,245,max_adequate_weeks_lt_11,False,True,True,True,True,out/1237028.csv,Middle Ager,normal,40-44,0__Middle Ager
+1237182,1237182,20,1,True,255,pass,True,True,False,True,True,out/1237182.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1237352,1237352,20,1,True,255,pass,True,True,False,True,True,out/1237352.csv,Middle Ager,obese,45-49,1__Middle Ager
+1237565,1237565,10,0,True,254,pass,True,True,False,True,True,out/1237565.csv,Middle Ager,normal,55-59,0__Middle Ager
+1237716,1237716,10,0,True,254,pass,True,True,False,True,True,out/1237716.csv,Middle Ager,overweight,40-44,0__Middle Ager
+1237832,1237832,20,1,True,253,pass,True,True,False,True,True,out/1237832.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1237842,1237842,20,1,True,252,pass,True,True,False,True,True,out/1237842.csv,Middle Ager,obese,55-59,1__Middle Ager
+1238083,1238083,10,0,True,154,pass,True,True,False,True,True,out/1238083.csv,Middle Ager,normal,45-49,0__Middle Ager
+1238200,1238200,20,1,True,250,pass,True,True,False,True,True,out/1238200.csv,Young Adults,obese,35-39,1__Young Adults
+1238203,1238203,20,1,True,250,pass,True,True,False,True,True,out/1238203.csv,Middle Ager,obese,45-49,1__Middle Ager
+1238464,1238464,20,1,True,125,pass,True,True,False,True,True,out/1238464.csv,Middle Ager,normal,60-64,1__Middle Ager
+1238597,1238597,20,1,True,81,max_adequate_weeks_lt_11,False,True,True,True,True,out/1238597.csv,Young Adults,normal,30-34,1__Young Adults
+1238603,1238603,10,0,True,230,pass,True,True,False,True,True,out/1238603.csv,Young Adults,normal,35-39,0__Young Adults
+1238707,1238707,10,0,True,248,pass,True,True,False,True,True,out/1238707.csv,Young Adults,overweight,25-29,0__Young Adults
+1238803,1238803,10,0,True,141,max_adequate_weeks_lt_11,False,True,True,True,True,out/1238803.csv,Young Adults,underweight,25-29,0__Young Adults
+1238817,1238817,10,0,True,239,pass,True,True,False,True,True,out/1238817.csv,Young Adults,normal,35-39,0__Young Adults
+1238960,1238960,20,1,True,249,pass,True,True,False,True,True,out/1238960.csv,Middle Ager,normal,55-59,1__Middle Ager
+1239147,1239147,20,1,True,232,pass,True,True,False,True,True,out/1239147.csv,Middle Ager,overweight,40-44,1__Middle Ager
+1239148,1239148,10,0,True,244,pass,True,True,False,True,True,out/1239148.csv,Middle Ager,normal,60-64,0__Middle Ager
+1239377,1239377,20,1,True,244,pass,True,True,False,True,True,out/1239377.csv,Middle Ager,obese,40-44,1__Middle Ager
+1239427,1239427,20,1,True,237,pass,True,True,False,True,True,out/1239427.csv,Young Adults,normal,30-34,1__Young Adults
+1239772,1239772,10,0,True,240,pass,True,True,False,True,True,out/1239772.csv,Middle Ager,obese,50-54,0__Middle Ager
+1239841,1239841,20,1,True,227,pass,True,True,False,True,True,out/1239841.csv,Young Adults,normal,50-54,1__Young Adults
+1240131,1240131,20,1,True,223,pass,True,True,False,True,True,out/1240131.csv,Middle Ager,normal,40-44,1__Middle Ager
+1240143,1240143,20,1,True,235,pass,True,True,False,True,True,out/1240143.csv,Elderly,obese,70-74,1__Elderly
+1240282,1240282,10,0,True,196,pass,True,True,False,True,True,out/1240282.csv,Middle Ager,normal,40-44,0__Middle Ager
+1240378,1240378,20,1,True,228,pass,True,True,False,True,True,out/1240378.csv,Middle Ager,normal,50-54,1__Middle Ager
+1240598,1240598,20,1,True,226,pass,True,True,False,True,True,out/1240598.csv,Middle Ager,normal,40-44,1__Middle Ager
+1240679,1240679,10,0,True,204,max_adequate_weeks_lt_11,False,True,True,True,True,out/1240679.csv,Middle Ager,normal,45-49,0__Middle Ager
+1240953,1240953,10,0,True,220,pass,True,True,False,True,True,out/1240953.csv,Young Adults,overweight,35-39,0__Young Adults
+1241018,1241018,20,1,True,218,pass,True,True,False,True,True,out/1241018.csv,Young Adults,normal,30-34,1__Young Adults
+1241185,1241185,10,0,True,214,pass,True,True,False,True,True,out/1241185.csv,Young Adults,overweight,30-34,0__Young Adults
+1241453,1241453,10,0,True,206,pass,True,True,False,True,True,out/1241453.csv,Middle Ager,overweight,55-59,0__Middle Ager
+1241650,1241650,20,1,True,195,pass,True,True,False,True,True,out/1241650.csv,Young Adults,obese,35-39,1__Young Adults
+1241855,1241855,10,0,True,187,pass,True,True,False,True,True,out/1241855.csv,Middle Ager,normal,50-54,0__Middle Ager
+1241863,1241863,20,1,True,194,pass,True,True,False,True,True,out/1241863.csv,Middle Ager,overweight,50-54,1__Middle Ager
+1241964,1241964,20,1,True,166,max_adequate_weeks_lt_11,False,True,True,True,True,out/1241964.csv,Middle Ager,normal,40-44,1__Middle Ager
+1242021,1242021,20,1,True,187,pass,True,True,False,True,True,out/1242021.csv,Elderly,normal,65-69,1__Elderly
+1242275,1242275,20,1,True,20,span_lt_13_weeks,False,True,True,True,True,out/1242275.csv,Middle Ager,overweight,40-44,1__Middle Ager
+1242372,1242372,20,1,True,189,pass,True,True,False,True,True,out/1242372.csv,Elderly,overweight,70-74,1__Elderly
+1242413,1242413,20,1,True,349,pass,True,True,False,True,True,out/1242413.csv,Middle Ager,normal,60-64,1__Middle Ager
+1242424,1242424,20,1,True,170,pass,True,True,False,True,True,out/1242424.csv,Young Adults,normal,35-39,1__Young Adults
+1242451,1242451,20,1,True,168,pass,True,True,False,True,True,out/1242451.csv,Young Adults,normal,35-39,1__Young Adults
+1242535,1242535,20,1,True,173,pass,True,True,False,True,True,out/1242535.csv,Middle Ager,normal,55-59,1__Middle Ager
+1242536,1242536,20,1,True,174,pass,True,True,False,True,True,out/1242536.csv,Middle Ager,normal,50-54,1__Middle Ager
+1242667,1242667,10,0,True,172,pass,True,True,False,True,True,out/1242667.csv,Middle Ager,normal,40-44,0__Middle Ager
+1242673,1242673,20,1,True,169,pass,True,True,False,True,True,out/1242673.csv,Young Adults,overweight,35-39,1__Young Adults
+1242755,1242755,10,0,True,170,pass,True,True,False,True,True,out/1242755.csv,Middle Ager,normal,45-49,0__Middle Ager
+1242835,1242835,20,1,True,168,pass,True,True,False,True,True,out/1242835.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1243062,1243062,20,1,True,101,max_adequate_weeks_lt_11,False,True,True,True,True,out/1243062.csv,Middle Ager,overweight,55-59,1__Middle Ager
+1243178,1243178,20,1,True,158,pass,True,True,False,True,True,out/1243178.csv,Elderly,normal,65-69,1__Elderly
+1243379,1243379,20,1,True,149,max_adequate_weeks_lt_11,False,True,True,True,True,out/1243379.csv,Middle Ager,normal,60-64,1__Middle Ager
+1243511,1243511,10,0,True,43,span_lt_13_weeks,False,True,True,True,True,out/1243511.csv,Middle Ager,obese,45-49,0__Middle Ager
+1243582,1243582,10,0,True,151,pass,True,True,False,True,True,out/1243582.csv,Middle Ager,overweight,45-49,0__Middle Ager
+1243942,1243942,20,1,True,141,pass,True,True,False,True,True,out/1243942.csv,Young Adults,normal,25-29,1__Young Adults
+1243993,1243993,10,0,True,140,pass,True,True,False,True,True,out/1243993.csv,Middle Ager,overweight,40-44,0__Middle Ager
+1244446,1244446,20,1,True,130,pass,True,True,False,True,True,out/1244446.csv,Middle Ager,overweight,45-49,1__Middle Ager
+1245454,1245454,20,1,True,113,pass,True,True,False,True,True,out/1245454.csv,Middle Ager,overweight,60-64,1__Middle Ager
+1245565,1245565,20,1,True,111,pass,True,True,False,True,True,out/1245565.csv,Young Adults,normal,35-39,1__Young Adults
+1246508,1246508,10,0,True,94,pass,True,True,False,True,True,out/1246508.csv,Middle Ager,normal,45-49,0__Middle Ager
+1246702,1246702,20,1,True,91,pass,True,True,False,True,True,out/1246702.csv,Elderly,overweight,65-69,1__Elderly
+1247243,1247243,10,0,True,82,span_lt_13_weeks,False,True,True,True,True,out/1247243.csv,Young Adults,normal,35-39,0__Young Adults
+1247304,1247304,20,1,True,81,span_lt_13_weeks,False,True,True,True,True,out/1247304.csv,Middle Ager,overweight,60-64,1__Middle Ager
+1248152,1248152,10,0,True,63,span_lt_13_weeks,False,True,True,True,True,out/1248152.csv,Young Adults,overweight,30-34,0__Young Adults
+1248306,1248306,20,1,True,61,span_lt_13_weeks,False,True,True,True,True,out/1248306.csv,Middle Ager,normal,45-49,1__Middle Ager
+1248642,1248642,10,0,True,47,span_lt_13_weeks,False,True,True,True,True,out/1248642.csv,Middle Ager,overweight,50-54,0__Middle Ager
+1248832,1248832,20,1,True,50,span_lt_13_weeks,False,True,True,True,True,out/1248832.csv,Middle Ager,obese,45-49,1__Middle Ager
+1248923,1248923,20,1,True,49,span_lt_13_weeks,False,True,True,True,True,out/1248923.csv,Middle Ager,normal,40-44,1__Middle Ager
+1248924,1248924,10,0,True,49,span_lt_13_weeks,False,True,True,True,True,out/1248924.csv,Middle Ager,overweight,50-54,0__Middle Ager
+1249686,1249686,20,1,True,31,span_lt_13_weeks,False,True,True,True,True,out/1249686.csv,Middle Ager,obese,55-59,1__Middle Ager
+1249752,1249752,10,0,True,29,span_lt_13_weeks,False,True,True,True,True,out/1249752.csv,Elderly,normal,65-69,0__Elderly
+1249831,1249831,10,0,True,16,span_lt_13_weeks,False,True,True,True,True,out/1249831.csv,Young Adults,normal,35-39,0__Young Adults
+1249903,1249903,20,1,True,25,span_lt_13_weeks,False,True,True,True,True,out/1249903.csv,Young Adults,normal,35-39,1__Young Adults
+1250171,1250171,20,1,True,19,span_lt_13_weeks,False,True,True,True,True,out/1250171.csv,Elderly,normal,75-79,1__Elderly
+1250265,1250265,20,1,True,21,span_lt_13_weeks,False,True,True,True,True,out/1250265.csv,Middle Ager,normal,60-64,1__Middle Ager

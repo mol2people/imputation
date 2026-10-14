@@ -26,6 +26,7 @@ The prediction target is recorded salutation, codes 10 versus 20. Results do not
 | [Filling sensitivity](experiments/filling_sensitivity_garmin/results/REPORT.md) | Four fills × three allocations, matched B40 + MultiRocket + ridge: test **0.8464 clock median**, **0.8485 global median**, **0.8470 linear**, **0.8473 PCHIP with linear fallback**. PCHIP − linear: **+0.0002 test / −0.0004 validation**. Interpolation reaches only **3.87% of missing bins**; global median replaces the fill rule at all missing bins. No material aggregate AUROC sensitivity to these tested choices, but no general imputation-robustness conclusion. |
 | [Days scaling](experiments/temporal_garmin/results/DAYS_SCALING_REPORT.md) | Same 3,848 participants and folds. Within the first-40-day window, random-k beats chronological first-k chiefly for MultiRocket (**+0.021** test at k=4, [+0.005, +0.037], MR-specific at k=4; the cheap arms also trend positive at larger k but ~3–6× smaller); the k=40 identity draw replays v2 bit-exactly (Δ=0.00e+00); an MR-arm bug that omitted B40Z in the first window runs was corrected and the buggy outputs archived. Sampling k adequate days from each user's **full history** (mean 425, min 80) instead of the first 40 lifts MultiRocket test AUROC **0.8361 → 0.8583** (k=40) → **0.8854** (k=80) → **0.9264** with all days — +0.070 over the best combined 40-day model, single arm, frozen α. The budget curve is concave: the endpoint sits between a 1/√k moment-precision extrapolation (asymptote ≈0.93, a lower bound) and a log-linear extrapolation (≈0.99); no fixed-k point above 80 was measured, so the ceiling is unobserved. Profile24 gains little (+0.06 across the same range) and matches the fsplit RF references within 0.001; summary RF gains +0.04. Endpoint CI is fold-split-only (single kernel draw) and α is untuned there, so 0.9264 is a floor; results are conditional on the ≥80-day cohort gate. |
 | [Tier 1c Garmin MultiRocket Relaxation](HEARTBEAT_LAB/README.md) | Expanded cohort to **4,410** single-source Garmin participants (+562 wear-fail delta users). 10-allocation OR-Tools balanced cross-validation: overall MultiRocket test AUROC **0.9094 ± 0.0058** (strict stratum **0.9235 ± 0.0069**, delta wear-fail stratum **0.8156 ± 0.0448**), versus summary baseline **0.7196 ± 0.0179** (+0.1898 paired gain). Demonstrates that relaxing longitudinal continuity gates does not degrade core discrimination. |
+| [Garmin Temporal Binning Benchmark](experiments/garmin_temporal_binning/README.md) | Single-source Garmin cohort ($N=1,000$, 5 allocations). Evaluated 1-min ($L=1,440$) vs. 5-min ($L=288$) vs. 15-min ($L=96$). Overall test AUROC: **5m: 0.8410**, **1m: 0.8350**, **15m: 0.8228**. Strict core favors 5m (**0.8647** vs. 0.8320), while fragmented wear-fail delta stratum favors 15m (**0.7687** vs. 0.6022, a **+16.7 pt lift**), proving that physical boxcar pooling rescues convolutions from median imputation poisoning. |
 | [Apple Watch MultiRocket Pilot](experiments/apple_pilot_multirocket/README.md) | Single-source Apple Watch cohort ($N=1,000$), 5-allocation OR-Tools CV. Despite episodic point-event sampling (~54% bin occupancy), MultiRocket 5-min test AUROC reaches **0.7554 ± 0.0594** (up to **0.8181**), outperforming 15-min downsampling (**0.7431**) and delivering a **+0.1526 (+15.3 pt)** paired gain over static diurnal summaries (**0.6029**). |
 
 The informative-recording and OR-Tools result summaries above were read from each experiment's local `output/report.md`. Those output directories are excluded from Git because they also contain participant-level artifacts; the links point to the published experiment documentation.
@@ -68,9 +69,9 @@ flowchart TD
         G_T0 --> G_T1C
         G_DELTA --> G_T1C
 
-        %% Garmin Planned
-        P_BIN["<b>PLANNED: Garmin Temporal Granularity Ablation</b><br/>1-min (L=1440) vs 2.5-min (L=576) vs 5-min (L=288)<br/>vs 10-min (L=144) vs 15-min (L=96)"]:::planned
-        G_T1C -.-> P_BIN
+        %% Garmin Granularity Benchmark
+        G_BIN["<b>Garmin Granularity Benchmark (Completed)</b><br/>N = 1,000 users, 5 OR-Tools allocations<br/>5-min: 0.8410 | 1-min: 0.8350 | 15-min: 0.8228<br/>↳ Strict Core: 5-min wins (0.8647 vs 0.8320)<br/>↳ Delta Stratum: 15-min rescues (+16.7 pt lift to 0.7687)"]:::completed
+        G_T1C --> G_BIN
 
         P_T2["<b>PLANNED: Tier 2 Primary Garmin Expansion</b><br/>N = 5,636 (includes multi-source switchers)<br/>Evaluate device transition artifacts"]:::planned
         G_T1C -.-> P_T2
@@ -94,6 +95,9 @@ flowchart TD
         A_ADAPT --> A_PILOT
 
         %% Apple Planned
+        P_WEAR["<b>PLANNED: Apple Wear Phenotypes & Imputation Ablation</b><br/>Decompose wear regimes & test boxcar pooling<br/>vs. flat-median poisoning"]:::planned
+        A_PILOT -.-> P_WEAR
+
         P_TRANS["<b>PLANNED: Cross-Device Transfer</b><br/>Evaluate frozen Garmin MR zero-shot on Apple<br/>Quantify vendor domain shift"]:::planned
         A_PILOT -.-> P_TRANS
 
@@ -109,6 +113,7 @@ flowchart TD
 ```
 
 Detailed summaries and documentation:
+- [`learnings/wear_phenotypes_and_missingness_synthesis.md`](learnings/wear_phenotypes_and_missingness_synthesis.md): cross-vendor analysis of wear phenotypes, missingness dynamics, and convolution poisoning.
 - [`learnings/experiment_lineage_worktree.md`](learnings/experiment_lineage_worktree.md): complete inventory and divergence analysis.
 - [`learnings/future_experiments_backlog.md`](learnings/future_experiments_backlog.md): prioritized follow-up designs (binning ablation, cross-device transfer).
 - [`learnings/multirocket_garmin_synthesis.md`](learnings/multirocket_garmin_synthesis.md): audit of the >0.90 AUROC MultiRocket model architecture.

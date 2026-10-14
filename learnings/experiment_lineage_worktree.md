@@ -42,9 +42,9 @@ flowchart TD
         G_T0 --> G_T1C
         G_DELTA --> G_T1C
 
-        %% Garmin Planned
-        P_BIN["<b>PLANNED: Garmin Temporal Granularity Ablation</b><br/>1-min (L=1440) vs 2.5-min (L=576) vs 5-min (L=288)<br/>vs 10-min (L=144) vs 15-min (L=96)"]:::planned
-        G_T1C -.-> P_BIN
+        %% Garmin Granularity Benchmark
+        G_BIN["<b>Garmin Granularity Benchmark (Completed)</b><br/>N = 1,000 users, 5 OR-Tools allocations<br/>5-min: 0.8410 | 1-min: 0.8350 | 15-min: 0.8228<br/>↳ Strict Core: 5-min wins (0.8647 vs 0.8320)<br/>↳ Delta Stratum: 15-min rescues (+16.7 pt lift to 0.7687)"]:::completed
+        G_T1C --> G_BIN
 
         P_T2["<b>PLANNED: Tier 2 Primary Garmin Expansion</b><br/>N = 5,636 (includes multi-source switchers)<br/>Evaluate device transition artifacts"]:::planned
         G_T1C -.-> P_T2
@@ -68,6 +68,9 @@ flowchart TD
         A_ADAPT --> A_PILOT
 
         %% Apple Planned
+        P_WEAR["<b>PLANNED: Apple Wear Phenotypes & Imputation Ablation</b><br/>Decompose wear regimes & test boxcar pooling<br/>vs. flat-median poisoning"]:::planned
+        A_PILOT -.-> P_WEAR
+
         P_TRANS["<b>PLANNED: Cross-Device Transfer</b><br/>Evaluate frozen Garmin MR zero-shot on Apple<br/>Quantify vendor domain shift"]:::planned
         A_PILOT -.-> P_TRANS
 
@@ -93,7 +96,7 @@ flowchart TD
 | **Ran** | Strict Tier 0 Baseline | $N = 3,848$ | MultiRocket (5m, clock-fill) + Ridge | AUROC $0.9100$ | [`learnings/multirocket_garmin_synthesis.md`](multirocket_garmin_synthesis.md) |
 | **Ran** | Delta Zero-Shot | $N = 562$ | Frozen Tier 0 MultiRocket on wear-fail | AUROC $0.7850$ | Short span retains 0.8559; intermittent wear drops to 0.7599. [`HEARTBEAT_LAB/artifacts/eval_delta_562/`](../HEARTBEAT_LAB/artifacts/eval_delta_562) |
 | **Ran** | **Tier 1c 10-Alloc CV (Milestone)** | $N = 4,410$ | MultiRocket + Ridge on 10 OR-Tools splits | **AUROC $0.9094 \pm 0.0058$** | Overall cohort firmly $>0.90$; strict stratum $= 0.9235$; retrained delta stratum $= 0.8156$. [`tier1c_10_alloc_results.csv`](../HEARTBEAT_LAB/artifacts/tier1c_cv_results/tier1c_10_alloc_results.csv) |
-| **Will Run** | Temporal Granularity Ablation | $N = 1,000$ / $3,848$ | MultiRocket across 1m, 2.5m, 5m, 10m, 15m | TBD | Tests micro-HRV vs. circadian smoothing. [`learnings/future_experiments_backlog.md`](future_experiments_backlog.md) |
+| **Ran** | **Garmin Granularity Benchmark** | $N = 1,000$ | MultiRocket 1m vs 5m vs 15m | **5m: $0.8410$ \| 1m: $0.8350$ \| 15m: $0.8228$** | Strict: 5m ($0.8647$) beats 15m ($0.8320$). Delta: 15m ($0.7687$) rescues 1m ($0.6022$) by **+0.1665 lift**. [`experiments/garmin_temporal_binning/README.md`](../experiments/garmin_temporal_binning/README.md) |
 | **Will Run** | Tier 2 Multi-Source Expansion | $N = 5,636$ | MultiRocket on primary Garmin + switchers | TBD | Tests device transition artifacts. |
 
 ---
@@ -103,6 +106,7 @@ flowchart TD
 | :---: | :--- | :--- | :--- | :---: | :--- |
 | **Ran** | Early Sidequest | $N = 4,367$ | Random Forest on Ch3002 resting hourly | AUROC $0.6814$ | Ch3000 was discarded because point-events failed the continuous interval coverage rule. |
 | **Ran** | **Apple Pilot Benchmark (Milestone)** | $N = 1,000$ | MultiRocket 5m vs 15m vs Summary | **MR 5m: $0.7554 \pm 0.0594$**<br/>MR 15m: $0.7431 \pm 0.0437$<br/>Summary: $0.6029 \pm 0.0631$ | MultiRocket yields a **+15.3 point paired gain** over static metrics. 5-minute resolution beats 15-minute. [`experiments/apple_pilot_multirocket/README.md`](../experiments/apple_pilot_multirocket/README.md) |
+| **Will Run** | Apple Wear Phenotypes & Imputation | $N = 1,000$ / $11,143$ | MultiRocket with boxcar pooling vs splines vs masks | TBD | Tests if flat median imputation poisons convolutions on episodic Apple data. |
 | **Will Run** | Cross-Device Transfer | $N = 1,000$ | Frozen Garmin MultiRocket zero-shot on Apple | TBD | Measures cross-hardware domain shift. |
 | **Will Run** | Channel 3002 Modeling | $N = 11,056$ | MultiRocket on 24-bin hourly resting HR | TBD | Tests watchOS resting algorithm vs. ambient HR. |
 | **Will Run** | Full Cohort Scaling | $N = 11,143$ | 10-allocation CV on complete Apple dataset | TBD | Evaluates asymptotic sample size scaling. |
