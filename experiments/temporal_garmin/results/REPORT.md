@@ -1,6 +1,12 @@
 # Temporal representations for recorded-salutation prediction — results
 
-Implements [`../PLAN.md`](../PLAN.md). 8 arms × 10 allocations; R1b cohort/folds/first-40-day window. Frozen plan at commit `dabab35`. CPU torch 2.14.0 + numba 0.67.0 (`workqueue` threading layer).
+This completed experiment compares participant summaries, clock-time profiles, and sequence representations on the same Garmin participants and input days.
+
+**Data:** Garmin source 3, channel 3000 HR; 3,848 strict-cohort participants; first 40 adequate days per participant. **Evaluation:** 8 arms across 10 repeated holdouts. Each allocation uses 2,696 / 579 / 573 training / validation / test participants. The study reuses the R1b cohort and assignments; test participants can recur across allocations.
+
+The report retains the original tables and run history. For current model definitions and evaluation qualifications, read the [results reference](../../../reports/results_reference.md#garmin-first-40-adequate-days). “Val” means validation; “post-hygiene” means after training-derived feature filtering; α is the ridge penalty. The [model notes](../../../learnings/multirocket_garmin_synthesis.md) describe the representation.
+
+Implements [`../PLAN.md`](../PLAN.md), frozen at commit `dabab35`. Recorded environment: CPU torch 2.14.0 + numba 0.67.0 (`workqueue` threading layer).
 
 **This is the v2 run (post-erratum).** v1 (commit `168b9d7`, as-run) carried the zero-sentinel contamination defect (erratum 1, quantified per arm in section 9). Defects 2-3 (verify dispatch, section 4 pairing) have no numeric effect on arm AUROCs.
 

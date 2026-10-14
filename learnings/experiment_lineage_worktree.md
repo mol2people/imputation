@@ -1,36 +1,27 @@
-# Experiment map
+# Experiment index
 
-This map follows the questions investigated in the repository. Arrows indicate development order, not identical cohorts or a causal sequence. The [results reference](../reports/results_reference.md) lists the main numbers. The [audit](../reports/results_audit_2026-10-14.md) records checks against saved predictions.
+Use this index to locate a completed experiment’s report, implementation, and saved outputs. The [front-page work tree](../README.md#experimental-work-tree) shows the development sequence with device sources and selected results. The [results reference](../reports/results_reference.md) defines the cohorts and model names; the [audit](../reports/results_audit_2026-10-14.md) records the earlier verification work.
 
-## Main branches
+## Reading an experiment
 
-```mermaid
-flowchart TD
-    P["Pooled summaries: v1 and v2"] --> S["Strict source-specific RF"]
-    P --> R["Recording features: ungated and gated cohorts"]
-    S --> F["RF tuning, feature selection, age and circadian features"]
-    F --> T["Garmin first-40-day temporal representations"]
-    T --> D["Garmin day budgets and full history"]
-    T --> C["Recording-only and filling controls"]
-    D --> H["Heartbeat Lab: saved models and inspection app"]
-    H --> G["Garmin: frozen evaluation on 562 added participants"]
-    G --> E["Garmin: retraining on 4,410 participants"]
-    E --> B["Garmin bin-size pilot: 1,000 participants"]
-    H --> A["Apple temporal pilot: 1,000 participants"]
-```
+Start with its report for the question, comparison, result, and limits. Read the plan for the intended design and the implementation for the executed procedure. A plan can precede a completed run and can retain proposals that were not implemented.
+
+Paths marked **local** refer to artifacts in the working checkout that may be absent from Git. A missing local artifact is not a reason to rerun an experiment merely to read its findings. Use the linked report and note the missing file if it is needed for further work.
+
+Device labels below mean Garmin source 3, Apple source 6, and Samsung source 7. The pooled studies include multiple sources. Each experiment specifies its split roles: training and test, with a separate validation set where used. Repeated allocations can reuse participants in different roles.
 
 ## Earlier summary and feature experiments
 
 All entries below have saved results. A report may contain historical interpretation that is qualified by the current audit.
 
-| Experiment | Cohort and evaluation | Implementation | Results |
+| Experiment | Cohort and evaluation | Implementation | Report or saved outputs |
 |---|---|---|---|
 | Pooled baseline | v1 N=20,485; one 80/10/10 split | [`src/`](../src/) | [`artifacts/model_report.md`](../experiments/artifacts/model_report.md) |
 | Pooled v2 | v2 N=20,423; new cohort and split | [`src/config.py`](../src/config.py) | [`artifacts_v2/model_report.md`](../experiments/artifacts_v2/model_report.md) |
 | Source-specific RF | Garmin 3,848; Apple 4,446; Samsung 541 | [`src/sidequest/`](../src/sidequest/) | [`sidequest_report.md`](../experiments/artifacts_sq/sidequest_report.md) |
-| RF regularization | Same source-specific test sets; tuning within train+validation | [`model_tune.py`](../src/sidequest/model_tune.py) | [`tuned_500_comparison.md`](../experiments/artifacts_sq/tuned_500_comparison.md) |
-| Feature selection | 30 repeated participant splits per source | [`feat_sel.py`](../src/sidequest/feat_sel.py) | [`feat_sel_report.md`](../experiments/artifacts_sq/fsplit/feat_sel_report.md) |
-| Feature engineering | Same 30 repeated splits | [`feat_eng.py`](../src/sidequest/feat_eng.py) | [`feat_eng_report.md`](../experiments/artifacts_sq/feng/feat_eng_report.md) |
+| RF regularization | Garmin, Apple, Samsung; same source-specific test sets; tuning within train+validation | [`model_tune.py`](../src/sidequest/model_tune.py) | [`tuned_500_comparison.md`](../experiments/artifacts_sq/tuned_500_comparison.md) |
+| Feature selection | Garmin, Apple, Samsung; 30 repeated participant splits per source | [`feat_sel.py`](../src/sidequest/feat_sel.py) | [`feat_sel_report.md`](../experiments/artifacts_sq/fsplit/feat_sel_report.md) |
+| Feature engineering | Garmin, Apple, Samsung; same 30 repeated splits | [`feat_eng.py`](../src/sidequest/feat_eng.py) | [`feat_eng_report.md`](../experiments/artifacts_sq/feng/feat_eng_report.md) |
 | Informative recording | Ungated N=25,784 and gated N=20,485; 30 repeated splits | [`informative recording experiment`](../experiments/2026-09-20_informative_recording_features/) | Local `output/report.md` and `output/paired_auroc_comparisons.csv` |
 | Continuous age | Strict Garmin; 30 repeated splits | [`age experiment`](../experiments/age_vs_agegroup_garmin_2026-09-20/) | [`REPORT.md`](../experiments/age_vs_agegroup_garmin_2026-09-20/results/REPORT.md) |
 | R1a circadian features | Strict Garmin; 30 repeated splits | [`run_r1a.py`](../experiments/r1a_circadian_garmin_2026-09-21/run_r1a.py) | [`R1a report`](../experiments/r1a_circadian_garmin_2026-09-21/results/REPORT.md) |
@@ -41,18 +32,18 @@ All entries below have saved results. A report may contain historical interpreta
 
 ## Temporal and expanded-cohort experiments
 
-| Experiment | Cohort and evaluation | Implementation | Results |
+| Experiment | Cohort and evaluation | Implementation | Report or saved outputs |
 |---|---|---|---|
 | Temporal representations | Strict Garmin N=3,848; first 40 adequate days; 10 allocations | [`run_temporal.py`](../experiments/temporal_garmin/run_temporal.py) | [`Temporal report`](../experiments/temporal_garmin/results/REPORT.md) |
-| Day budgets and sampling | Same cohort; first/random days, then full-history pool | [`temporal_garmin/`](../experiments/temporal_garmin/) | [`Days report`](../experiments/temporal_garmin/results/DAYS_SCALING_REPORT.md) |
-| Recording-only controls | Same strict cohort; three allocations | [`run_recording.py`](../experiments/recording_structure_garmin/run_recording.py) | [`Recording report`](../experiments/recording_structure_garmin/results/REPORT.md) |
-| Filling sensitivity | Same strict cohort; four fitted pipelines, three allocations | [`run_filling.py`](../experiments/filling_sensitivity_garmin/run_filling.py) | [`Filling report`](../experiments/filling_sensitivity_garmin/results/REPORT.md) |
-| Selective classification | Saved temporal predictions | [`selective_classification.csv`](../experiments/temporal_garmin/results/selective_classification.csv) | [`Selective classification report`](../experiments/temporal_garmin/results/selective_classification.md) |
+| Day budgets and sampling | Strict Garmin N=3,848; first/random days, then full-history pool | [`temporal_garmin/`](../experiments/temporal_garmin/) | [`Days report`](../experiments/temporal_garmin/results/DAYS_SCALING_REPORT.md) |
+| Recording-only controls | Strict Garmin; three allocations | [`run_recording.py`](../experiments/recording_structure_garmin/run_recording.py) | [`Recording report`](../experiments/recording_structure_garmin/results/REPORT.md) |
+| Filling sensitivity | Strict Garmin; four fitted pipelines, three allocations | [`run_filling.py`](../experiments/filling_sensitivity_garmin/run_filling.py) | [`Filling report`](../experiments/filling_sensitivity_garmin/results/REPORT.md) |
+| Selective classification | Strict Garmin; saved temporal predictions | [`selective_classification.csv`](../experiments/temporal_garmin/results/selective_classification.csv) | [`Selective classification report`](../experiments/temporal_garmin/results/selective_classification.md) |
 | Heartbeat Lab | Strict Garmin; all adequate days; additional small pilots | [`Heartbeat Lab`](../HEARTBEAT_LAB/README.md) | [`Lab audit`](../HEARTBEAT_LAB/AUDIT_REPORT.md), local `artifacts/models/` |
 | Frozen-model delta evaluation | 562 Garmin participants failing the strict gate | [`06_evaluate_delta_users.py`](../HEARTBEAT_LAB/scripts/06_evaluate_delta_users.py) | [`Delta results`](../HEARTBEAT_LAB/artifacts/eval_delta_562/delta_evaluation_report.json) |
-| Expanded Garmin cohort | N=4,410; all adequate days; 10 repeated holdouts | [`08_run_tier1c_cv.py`](../HEARTBEAT_LAB/scripts/08_run_tier1c_cv.py) | [`Tier1c metrics`](../HEARTBEAT_LAB/artifacts/tier1c_cv_results/tier1c_10_alloc_results.csv) |
-| Garmin bin-size pilot | N=1,000; all adequate days; 5 repeated holdouts | [`Garmin binning`](../experiments/garmin_temporal_binning/README.md) | [`Binning metrics`](../experiments/garmin_temporal_binning/artifacts/garmin_binning_benchmark_results.csv) |
-| Apple temporal pilot | N=1,000; all adequate days; 5 repeated holdouts | [`Apple pilot`](../experiments/apple_pilot_multirocket/README.md) | [`Pilot metrics`](../experiments/apple_pilot_multirocket/artifacts/pilot_benchmark_results.csv) |
+| Expanded Garmin cohort | Garmin N=4,410; all adequate days; 10 repeated holdouts | [`08_run_tier1c_cv.py`](../HEARTBEAT_LAB/scripts/08_run_tier1c_cv.py) | [`Tier1c metrics`](../HEARTBEAT_LAB/artifacts/tier1c_cv_results/tier1c_10_alloc_results.csv) |
+| Garmin bin-size pilot | Garmin N=1,000; all adequate days; 5 repeated holdouts | [`Garmin binning`](../experiments/garmin_temporal_binning/README.md) | [`Binning metrics`](../experiments/garmin_temporal_binning/artifacts/garmin_binning_benchmark_results.csv) |
+| Apple temporal pilot | Apple N=1,000; all adequate days; 5 repeated holdouts | [`Apple pilot`](../experiments/apple_pilot_multirocket/README.md) | [`Pilot metrics`](../experiments/apple_pilot_multirocket/artifacts/pilot_benchmark_results.csv) |
 
 The Garmin and Apple pilots each use 1,000 participants, but they are not matched populations. Their source cohorts, recording histories, and sampling procedures differ. The historical 0.9264 endpoint also has preprocessing exposure across allocations; it should not be treated as the reference against which all later scores are ranked.
 

@@ -4,6 +4,8 @@ This repository studies how well wearable heart-rate records predict recorded sa
 
 The work started with participant summaries and random forests, then moved to within-day sequences. Most temporal experiments use Garmin data. Later experiments expand the Garmin cohort, vary the time-bin size, and test MultiRocket on Apple records.
 
+Start with the [experimental work tree](#experimental-work-tree) below. Use the [results reference](reports/results_reference.md) for definitions and comparisons, or the [experiment index](learnings/experiment_lineage_worktree.md) to locate a study’s report and code.
+
 ## Device sources
 
 | Source in the data | Records used here | Experimental cohorts |
@@ -16,7 +18,7 @@ These labels identify the recorded data source, not a particular hardware model.
 
 ## Experimental work tree
 
-Numbers below are **test AUROCs**. Repeated-holdout results are means; the saved Lab model has one split. Arrows show how the work developed, not matched comparisons between every connected experiment. MR means MultiRocket, including the summary features used in that experiment.
+Numbers below are **test AUROCs**. Repeated-holdout results are means; the saved Lab model has one split. Arrows show how the work developed, not matched comparisons between every connected experiment. MR means MultiRocket, including the summary features used in that experiment. B40, R1a, and P40 name feature blocks; their definitions are in the [model and experiment names](reports/results_reference.md#model-and-experiment-names).
 
 ```mermaid
 flowchart TD
@@ -66,13 +68,27 @@ The [full experiment index](learnings/experiment_lineage_worktree.md) links the 
 
 ## What the experiments show
 
-**Within-day sequence features improve on the tested summary baselines.** In the first-40-day Garmin comparison, MultiRocket reaches **0.8361**, compared with **0.7157** for summary ridge. Combining B40, MultiRocket, and HYDRA gives **0.8565**. B40 is the 305-feature summary and observation-mask block. This comparison fits preprocessing within each allocation, but reuses regularization selected on allocation-0 validation; some later test participants belonged to that validation set.
+### Within-day sequences
 
-**Longer histories help in the fixed-budget Garmin experiments.** Sampling 40 and 80 adequate days across the available record gives **0.8583 ± 0.0115** and **0.8854 ± 0.0115**, respectively. These are different inputs from the first 40 adequate days. The historical all-days result, **0.9264 ± 0.0055**, reuses preprocessing fitted on allocation-0 training participants across later allocations. Later test participants therefore contributed to that preprocessing. Its effect on AUROC is unknown. The separate saved Lab model scores **0.9177** on one test split with training-participant preprocessing; it does not measure the bias in the historical endpoint.
+In the first-40-day Garmin comparison, MultiRocket reaches **0.8361**, compared with **0.7157** for summary ridge. Combining B40, MultiRocket, and HYDRA gives **0.8565**. B40 is the 305-feature summary and observation-mask block.
 
-**The expanded Garmin cohort retains a large gain over summary ridge.** Across ten repeated holdouts of 4,410 participants, MR scores **0.9094 ± 0.0058**, versus **0.7196 ± 0.0179** for summary ridge. The 562 added participants failed the earlier longitudinal gate. Their mean test AUROC after retraining is **0.8156 ± 0.0448**. The frozen-model result of **0.7850** uses all 562 and a different fitted model, so the difference does not isolate the benefit of retraining.
+This comparison fits preprocessing within each allocation, but reuses regularization selected on allocation-0 validation; some later test participants belonged to that validation set.
 
-**The Apple pilot also gains from sequence features; bin-size effects vary by cohort.** Each pilot uses 1,000 participants, five repeated holdouts, and all adequate days. Mean available history is 395.5 days for Garmin and 264.9 for Apple.
+### History length
+
+Sampling 40 and 80 adequate days across the available record gives **0.8583 ± 0.0115** and **0.8854 ± 0.0115**, respectively. These are different inputs from the first 40 adequate days.
+
+The historical all-days result, **0.9264 ± 0.0055**, reuses preprocessing fitted on allocation-0 training participants across later allocations. Later test participants therefore contributed to that preprocessing. Its effect on AUROC is unknown. The separate saved Lab model scores **0.9177** on one test split with training-participant preprocessing; it does not measure the bias in the historical endpoint.
+
+### Garmin cohort expansion
+
+Across ten repeated holdouts of 4,410 participants, MR scores **0.9094 ± 0.0058**, versus **0.7196 ± 0.0179** for summary ridge. The 562 added participants failed the earlier longitudinal gate. Their mean test AUROC after retraining is **0.8156 ± 0.0448**.
+
+The frozen-model result of **0.7850** uses all 562 and a different fitted model, so the difference does not isolate the benefit of retraining.
+
+### Garmin and Apple bin sizes
+
+Each pilot uses 1,000 participants, five repeated holdouts, and all adequate days. Mean available history is 395.5 days for Garmin and 264.9 for Apple.
 
 | Model | Garmin pilot AUROC, mean ± SD | Apple pilot AUROC, mean ± SD |
 |---|---:|---:|
@@ -93,6 +109,7 @@ Here, **± is sample SD across repeated holdouts**, not a confidence interval. T
 - [Model notes](learnings/multirocket_garmin_synthesis.md) and [recording-pattern notes](learnings/wear_phenotypes_and_missingness_synthesis.md): how the representations work and what the controls can establish.
 - [Heartbeat Lab](HEARTBEAT_LAB/README.md): saved models and the local prediction-inspection app.
 - [Follow-up experiments](learnings/future_experiments_backlog.md): proposed work, separate from the completed results above.
+- [Documentation guide](learnings/README.md): how to read the reports and maintain experiment summaries.
 
 ## Repository layout
 
@@ -103,7 +120,7 @@ Here, **± is sample SD across repeated holdouts**, not a confidence interval. T
 | `HEARTBEAT_LAB/` | Saved models, later cohort experiments, and the local inspection app |
 | `cohort_allocator/` | OR-Tools allocation package |
 | `reports/` | Results reference, audit, and historical meta-reports |
-| `learnings/` | Experiment map, method explanations, and proposed follow-ups |
+| `learnings/` | Experiment index, method explanations, and proposed follow-ups |
 | `plans/` | Earlier protocols |
 | `figs_ppt/` | Presentation figures and their source scripts |
 | `data/`, `out/` | Local input tables and participant epoch exports |

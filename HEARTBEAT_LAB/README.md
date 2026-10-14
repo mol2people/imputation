@@ -1,19 +1,22 @@
 # Heartbeat Lab
 
-A small Python case study: upload epoch heart rate, inspect data quality, and
-compare recorded-salutation scores across models and preprocessing choices.
-Start with [PLAN.md](PLAN.md), then inspect `src/heartbeat_lab/model.py`.
+A local app for inspecting Garmin heart-rate records, comparing saved model scores, and testing sensitivity to changes in the input. The target is recorded salutation: **10 (F), 20 (M)**. The app uses source 3, type 3000 HR; its CSV and model conventions are defined [below](#csv-and-model-semantics).
 
-**Current status:** running locally with study-trained summary, MultiRocket/clock
-and MultiRocket/global bundles. The app reads original customer files from the
-external directory reached through `../out`, or accepts uploaded customer CSVs.
-All 3,848 study customers are selectable, including training customers, whose
-predictions are labelled in-sample. Nothing is published remotely.
+The documented study setup contains summary, MultiRocket/clock-fill, and MultiRocket/global-fill bundles. It supports selection of all 3,848 study participants, including training participants whose predictions are labelled in-sample. The app reads original participant files through `../out` or accepts uploaded CSVs. These inputs and fitted bundles are local and may be absent from a fresh checkout.
 
-Open **http://127.0.0.1:8501** while the local server is running. Predictions appear
-automatically. Labels follow the original notebook: **10 (F), 20 (M)**; the display
-threshold is 50% estimated P(M). Charts use fixed 0–100% axes, explicit contrasting
-colors and line patterns. Stress plots separate models into panels.
+To inspect existing results, start with the next section. For the scientific comparisons, read the [results reference](../reports/results_reference.md#saved-heartbeat-lab-models). [PLAN.md](PLAN.md) is the original design record; [VALIDATION.md](VALIDATION.md) records the checks performed at the time.
+
+## Inspect existing models
+
+With the existing local environment and saved bundles available, run from `HEARTBEAT_LAB/`:
+
+```sh
+streamlit run app.py --server.address 127.0.0.1
+```
+
+Open **http://127.0.0.1:8501** while the server is running. For a new environment, use [Setup](#setup) first. Data preparation and model training are separate operations described [below](#train-comparable-model-bundles).
+
+Predictions appear automatically. The display threshold is 50% estimated P(M). Charts use fixed 0–100% axes, contrasting colors and line patterns. Stress plots separate models into panels. The score interpretation and calibration limits are described in [Scores and calibration](#scores-and-calibration).
 
 The model selector, predictions and charts use readable names: **HR summaries**,
 **MultiRocket · clock-time fill**, and **MultiRocket · global fill**. Names also
@@ -27,13 +30,38 @@ Open **Methods — from uploaded HR to predictions** near the top of the app for
 the implemented filtering, feature construction, validation, calibration, timeline
 and perturbation methods. This explanation is available before uploading a file.
 
-Each bundle has a `calibration.json`: a sigmoid fitted only to saved validation
-customer scores (logistic regression with fixed C=1e6). Training now creates this
-automatically. Existing bundles can be calibrated without retraining:
+### Participant selection and perturbations
 
-```bash
-python scripts/03_calibrate.py artifacts/models/*
-```
+Use **Study customer** to select an ID or **Upload CSV** for your own file.
+The local-file directory can be changed with `HEARTBEAT_EPOCH_DIR`; the default
+resolves this repository's `out` symlink. Both routes use the same CSV preparation.
+The previous 20 MB demo limit was removed; the installed Streamlit uploader's
+default 200 MB limit covers the study's files (largest approximately 94 MB).
+
+In **Stress tests**, choose dates, an intervention and 1–200 repetitions:
+
+- Shuffle raw readings within each day, with adjustable strength.
+- Shuffle observed five-minute means while preserving their multiset and mask.
+- Draw replacement values from each day's empirical distribution.
+- Randomly thin observations, rerunning the original adequacy gate.
+- Apply random circular clock shifts within each date.
+
+Unselected dates stay unchanged, and models remain fitted and fixed. All selected
+models receive the same random inputs. Plots show the baseline, median and 5th–95th
+percentile band, score-change distributions and adequate-day retention. Export all
+replicates and inspect an example generated day. Raw-event interventions can also
+export the first generated customer CSV; a bin-level intervention cannot produce
+an equivalent raw file in general. These bands describe sensitivity conditional
+on one customer/model, not population uncertainty.
+
+**Cohort diagnostics** shows saved validation/test score distributions by F/M,
+errors versus available history, and history-quartile performance. The model audit
+explains the limits of these descriptive checks.
+
+## Scores and calibration
+
+Each bundle has a `calibration.json`: a sigmoid fitted only to saved validation
+customer scores (logistic regression with fixed C=1e6). Training creates this automatically.
 
 Calibration uses one whole/budgeted history per customer. Daily, prefix and
 perturbed predictions reuse that mapping and are labelled **pseudo-probabilities**;
@@ -44,31 +72,10 @@ and log loss. Validation curves reuse sigmoid-fitting data; test results still
 belong to the previously explored study cohort. Small temporal pilots calibrate
 on only 33 customers and can give poor probability estimates.
 
-Read [AUDIT_REPORT.md](AUDIT_REPORT.md) for confirmed evaluation issues, new
+Read [AUDIT_REPORT.md](AUDIT_REPORT.md) for confirmed evaluation issues, saved
 results, interpretation of the stress tests, and prioritized bias checks.
 
-## What is here
-
-```text
-app.py                      Streamlit upload, preview, comparison and download
-src/heartbeat_lab/
-  data.py                   CSV -> local days, quality gate, 5-minute HR bins
-  splits.py                 customer allocation, split checks, customer CV
-  model.py                  summary ridge / MultiRocket, fill, fit, timeline
-scripts/
-  00_reference.py            prepare the pinned MultiRocket author code
-  01_prepare.py              labelled raw CSV manifest -> customer day files
-  01_from_repository.py     alternative: reuse this study's cached days
-  02_train.py                train/evaluate/save one complete model bundle
-  04_audit_project.py        aggregate split-exposure and nuisance-model checks
-notebooks/
-  01_csv_to_days.ipynb       inspect a synthetic upload and its missingness
-  02_models_and_splits.ipynb compare models, explain fitting and customer CV
-examples/synthetic_hr.csv    fabricated data, safe to share
-tests/test_lab.py            behavioural checks
-```
-
-## Run locally
+## Setup
 
 From `HEARTBEAT_LAB/`, using a Python environment compatible with numpy/numba:
 
@@ -77,7 +84,6 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[demo]'
 python scripts/00_reference.py
-streamlit run app.py --server.address 127.0.0.1
 ```
 
 The reference script copies the existing pinned checkout from this repository,
@@ -146,33 +152,15 @@ split hash, versions, settings and AUROC. The app discovers completed bundles
 under `artifacts/models/`; select up to three to compare. Only load bundles you
 created/trust: joblib is executable serialization, not a safe upload format.
 
-## Explore real customers and perturb their days
+### Calibrate an existing bundle
 
-Use **Study customer** to select an ID or **Upload CSV** for your own file.
-The local-file directory can be changed with `HEARTBEAT_EPOCH_DIR`; the default
-resolves this repository's `out` symlink. Both routes use the same CSV preparation.
-The previous 20 MB demo limit was removed; the installed Streamlit uploader's
-default 200 MB limit covers the study's files (largest approximately 94 MB).
+Training writes `calibration.json` automatically. To add calibration to existing bundles without retraining:
 
-In **Stress tests**, choose dates, an intervention and 1–200 repetitions:
+```bash
+python scripts/03_calibrate.py artifacts/models/*
+```
 
-- Shuffle raw readings within each day, with adjustable strength.
-- Shuffle observed five-minute means while preserving their multiset and mask.
-- Draw replacement values from each day's empirical distribution.
-- Randomly thin observations, rerunning the original adequacy gate.
-- Apply random circular clock shifts within each date.
-
-Unselected dates stay unchanged, and models remain fitted and fixed. All selected
-models receive the same random inputs. Plots show the baseline, median and 5th–95th
-percentile band, score-change distributions and adequate-day retention. Export all
-replicates and inspect an example generated day. Raw-event interventions can also
-export the first generated customer CSV; a bin-level intervention cannot produce
-an equivalent raw file in general. These bands describe sensitivity conditional
-on one customer/model, not population uncertainty.
-
-**Cohort diagnostics** shows saved validation/test score distributions by F/M,
-errors versus available history, and history-quartile performance. The model audit
-explains the limits of these descriptive checks.
+This command writes bundle calibration files. The [score definitions and limitations](#scores-and-calibration) also apply to these calibrations.
 
 ## Retrain from the app or command line
 
@@ -230,6 +218,27 @@ training medians; between-day MultiRocket SD is zero. This is deliberately
 labelled exploratory. Neither singleton nor short-history performance follows
 from the full-history result. For validated daily probabilities, train and
 calibrate a separate daily model with customer-disjoint evaluation.
+
+## Files and implementation
+
+```text
+app.py                      Streamlit upload, preview, comparison and download
+src/heartbeat_lab/
+  data.py                   CSV -> local days, quality gate, 5-minute HR bins
+  splits.py                 customer allocation, split checks, customer CV
+  model.py                  summary ridge / MultiRocket, fill, fit, timeline
+scripts/
+  00_reference.py            prepare the pinned MultiRocket author code
+  01_prepare.py              labelled raw CSV manifest -> customer day files
+  01_from_repository.py     alternative: reuse this study's cached days
+  02_train.py                train/evaluate/save one complete model bundle
+  04_audit_project.py        aggregate split-exposure and nuisance-model checks
+notebooks/
+  01_csv_to_days.ipynb       inspect a synthetic upload and its missingness
+  02_models_and_splits.ipynb compare models, explain fitting and customer CV
+examples/synthetic_hr.csv    fabricated data, safe to share
+tests/test_lab.py            behavioural checks
+```
 
 ## Reuse in future experiments
 

@@ -3,7 +3,9 @@
 > (numba `np.random.randint` inside njit uses numba internal RNG, not
 > numpy global state) - see the `_nb_seed` erratum in REPORT.md section 8
 > and `vendor_setup.py`. Kept as the historical pre-run record;
-> authoritative post-run documentation is REPORT.md + NEXT_STEPS.md.
+> the completed run is documented in [results/REPORT.md](results/REPORT.md).
+> [NEXT_STEPS.md](NEXT_STEPS.md) is a historical roadmap; current proposals are in
+> the [follow-up experiments](../../learnings/future_experiments_backlog.md).
 
 # TEMPORAL — execution context checkpoint (written pre-run, 2026-09-21)
 

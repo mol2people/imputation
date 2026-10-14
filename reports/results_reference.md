@@ -1,6 +1,6 @@
 # Saved results reference
 
-This reference lists the main saved results checked on 2026-10-14. Each comparison includes its cohort, input history, and evaluation design. Implementation and output paths are in the [experiment map](../learnings/experiment_lineage_worktree.md). Verification details are in the [results audit](results_audit_2026-10-14.md).
+This reference lists the main saved results checked on 2026-10-14. Each comparison includes its cohort, input history, and evaluation design. Implementation and output paths are in the [experiment index](../learnings/experiment_lineage_worktree.md). Verification details are in the [results audit](results_audit_2026-10-14.md).
 
 ## Terms and conventions
 
@@ -9,14 +9,39 @@ This reference lists the main saved results checked on 2026-10-14. Each comparis
 | Target | Recorded salutation: `10 → 0/F`, `20 → 1/M` |
 | Participant | The unit assigned to training, validation, or test |
 | Allocation | One saved assignment of participants to training, validation, and test |
+| Arm | One model or preprocessing condition evaluated within an experiment |
 | Repeated holdouts | Several allocations of the same cohort; their test participants can overlap |
 | Adequate HR day | At least eight observed local clock-hours, plus either eight hours of interval-union coverage or 60 valid readings |
-| All days | Every adequate day available for a participant; history lengths vary between participants |
+| First 40 days | The first 40 adequate days in date order; not necessarily consecutive calendar days |
+| Sampled days | A fixed number of adequate days drawn from the history specified by that experiment |
+| All days / full history | Every adequate day available for a participant; history lengths vary between participants |
+| Frozen model | A previously fitted model applied without retraining |
+| Clock-bin median fill | Missing HR bins filled with training-derived medians for the corresponding clock positions |
 | `±` | Sample SD across allocations, unless explicitly stated otherwise |
 
 AUROC uses participant scores unless a row says **day-level**. SD across repeated holdouts is not a confidence interval or variation across independent cohorts. Compare models within the same experiment. Absolute scores across different experiments need not estimate the same quantity.
 
+## Model and experiment names
+
+| Name in reports or code | Meaning |
+|---|---|
+| RF | Random forest |
+| MR / MultiRocket | Sequence transform; the reported temporal arms also include summary features |
+| B40 | The historical 305-feature participant summary and observation-mask block; later models apply the same recipe to other history lengths |
+| Profile24 / P24 | Hourly HR profile summaries appended to B40 |
+| Profile288 | Five-minute HR profile summaries appended to B40 |
+| R1a | Circadian-feature experiment; its feature block is evaluated alongside that study’s BASE model |
+| R1b / P40 | Date-aware experiment and its participant-level feature block; P40 is distinct from P24 and B40 |
+| BASE | The baseline defined by the named experiment; do not assume that BASE and B40 are interchangeable |
+| Combined | B40 + MultiRocket + HYDRA in the first-40-day temporal experiment |
+| `win` | The named default RF arm quoted in the source-specific summary |
+| `mr_clock` / `mr_global` | Saved Heartbeat Lab bundles using clock-bin / global median filling |
+
+For feature construction, see the [MultiRocket model notes](../learnings/multirocket_garmin_synthesis.md). For each study’s original naming, see its report in the [experiment index](../learnings/experiment_lineage_worktree.md).
+
 ## Cohorts
+
+Device provenance is recorded as Garmin **source 3**, Apple **source 6**, and Samsung **source 7**. Core channels are HR **3000**, resting HR **3001**, and hourly resting HR **3002**. The source identifies the recording origin; the channel identifies the exported quantity.
 
 Pooled v1 includes **20,485** participants; pooled v2 includes **20,423**. Base eligibility requires a retained daily source, valid epoch measurements, and recorded salutation 10/20. It also requires at least 14 adequate days in one core channel. Source-specific analyses then select participants with exactly one retained epoch source.
 
@@ -44,7 +69,7 @@ The adequate-day rule differs from the strict longitudinal gate. Forty adequate 
 
 **Cohort:** 3,848 strict Garmin participants. **History:** first 40 adequate days. **Evaluation:** ten repeated holdouts, each with 2,696/579/573 training/validation/test participants.
 
-| Model | Test AUROC |
+| Model | Mean test AUROC across allocations |
 |---|---:|
 | Summary ridge | 0.7157 |
 | Summary RF | 0.7031 |
@@ -138,4 +163,4 @@ Sources: [Garmin report](../experiments/garmin_temporal_binning/README.md), [App
 
 Pooled v1 and v2 change both cohort and predictors. The source-specific `win` scores describe one named arm, not the best arm for each source. R1b BASE contains longer-history features; BASE + P40 is not a 40-day-only model.
 
-The [experiment map](../learnings/experiment_lineage_worktree.md) also links RF tuning, feature selection, feature engineering, age, day-level aggregation, and the broader 50/50 source experiment.
+The [experiment index](../learnings/experiment_lineage_worktree.md) also links RF tuning, feature selection, feature engineering, age, day-level aggregation, and the broader 50/50 source experiment.

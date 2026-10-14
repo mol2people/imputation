@@ -1,5 +1,7 @@
 # Temporal ladder — open gaps and next steps
 
+**Historical roadmap.** This file retains intermediate status notes and later additions from the temporal study. It is not a current execution plan. For completed results, read the [temporal report](results/REPORT.md) and [current results reference](../../reports/results_reference.md); for proposed work, read the [current backlog](../../learnings/future_experiments_backlog.md).
+
 Written 2026-09-22, mid-run (5/10 allocations complete, `run_temporal.py run` executing;
 results below are the 5-alloc snapshot and will shift ±0.01 at 10/10). Companion to the
 frozen [`PLAN.md`](PLAN.md); this file is a working gap analysis and roadmap, not a frozen

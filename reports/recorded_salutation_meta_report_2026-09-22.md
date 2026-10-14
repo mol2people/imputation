@@ -1,6 +1,6 @@
 # Recorded-salutation prediction from wearable data: research synthesis
 
-Updated 22 September 2026 after the filling-sensitivity experiment. This is the current synthesis, superseding the earlier HTML/PDF reports and temporal roadmap. It distinguishes saved results from interpretation and proposed work. Review used text artifacts, selected logs and code; no experiments were rerun and no PDFs were opened.
+Historical synthesis updated 22 September 2026 after the filling-sensitivity experiment. It describes the conclusions and proposed work at that date and predates the later full-history models, expanded Garmin cohort, and Apple pilot. Use the [results reference](results_reference.md) for the current summary and the [follow-up experiments](../learnings/future_experiments_backlog.md) for current proposals. The original assessment below is retained as a research record.
 
 ## Assessment
 
@@ -12,7 +12,7 @@ The target throughout is **recorded salutation, 10 versus 20**, not validated bi
 
 ## What the campaign establishes
 
-The [README](../README.md) indexes all 16 stages. The principal findings are:
+The [experiment index](../learnings/experiment_lineage_worktree.md) links the studies. The principal findings considered in this September assessment are:
 
 | Evidence | Result | Scientific reading |
 |---|---|---|

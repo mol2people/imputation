@@ -1,5 +1,7 @@
 # Experiment report: predicting recorded SALUTATION from epoch data
 
+This is the completed **pooled v1 experiment report**. It covers the original summary-feature analysis, not the later source-specific and temporal studies. Use the [results reference](results_reference.md) for the current cross-experiment summary and the [experiment index](../learnings/experiment_lineage_worktree.md) for later work.
+
 Implementation of `plans/EXPERIMENT_PLAN.md` (protocol frozen 2026-09-18). Status: **complete**.
 All artifacts are under `experiments/artifacts/`; code under `src/`. Environment:
 `~/micromamba/envs/datenspende/bin/python` (Python 3.14.5, pandas 3.0.3,

@@ -1,6 +1,14 @@
 # Informative recording-feature experiment
 
-Standalone implementation of `plans/CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md`.
+This completed experiment asks whether recording-availability features add predictive information beyond HR values and context. It uses pooled device sources and compares the feature blocks within the same cohort and repeated participant splits.
+
+In the ungated cohort, recording + values gives test AUROC **0.7239**, with a mean paired gain of **+0.0167** over native-NaN values. These are the reported results summarized in the [results reference](../../reports/results_reference.md#earlier-summary-and-feature-experiments). They concern the tested feature blocks and evaluation population.
+
+The detailed report and paired comparisons are local files under `output/`: `report.md` and `paired_auroc_comparisons.csv`. The [experiment index](../../learnings/experiment_lineage_worktree.md) places this study among the earlier summary-feature experiments.
+
+## Implementation and execution
+
+Standalone implementation of [the experiment plan](../../plans/CODEX_INFORMATIVE_RECORDING_FEATURE_PLAN_2026-09-20.md).
 It reads only the frozen v1 aggregate parquet/CSV artifacts in `../artifacts/` and writes
 only under `output/` in this directory.  It does not import, edit, or regenerate the
 existing analysis code or artifacts.
