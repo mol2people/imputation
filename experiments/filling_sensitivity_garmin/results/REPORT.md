@@ -1,5 +1,11 @@
 # ch3000 filling sensitivity — results
 
+**Audit update, 2026-10-14.** Saved metrics were checked against saved predictions.
+The allocation-0 H_global/H_clock AUROCs are an exact ranking tie; a floating-point
+difference previously counted it as positive. Observed small differences are
+whole-pipeline sensitivity estimates, not equivalence bounds. See the
+[results audit](../../../reports/results_audit_2026-10-14.md).
+
 Implements [`../PLAN.md`](../PLAN.md). 4 fill arms × 3 allocations (0/1/2, chosen before results); cached 5-min bins; Garmin/source 3, ch3000 only; all arms `B40 + pooled MultiRocket(HR) + Ridge` with one shared seed stream per allocation (fit days `comp_seed(r,0)`, MR base `comp_seed(r,1)`, MR diff `comp_seed(r,2)` — the executed recording pilot's convention). Reference: recording pilot commit `f6123c9` (arm H).
 
 
@@ -28,7 +34,7 @@ Implements [`../PLAN.md`](../PLAN.md). 4 fill arms × 3 allocations (0/1/2, chos
 
 | comparison | alloc 0 | alloc 1 | alloc 2 | mean | range | direction |
 |---|---|---|---|---|---|---|
-| H_global − H_clock | +0.0000 | +0.0031 | +0.0032 | +0.0021 | [+0.0000, +0.0032] | all 3 + |
+| H_global − H_clock | 0.0000 | +0.0031 | +0.0032 | +0.0021 | [0.0000, +0.0032] | 2 +, 1 tie |
 | H_linear − H_clock | +0.0003 | +0.0010 | +0.0007 | +0.0007 | [+0.0003, +0.0010] | all 3 + |
 | H_pchip − H_clock | +0.0004 | +0.0012 | +0.0011 | +0.0009 | [+0.0004, +0.0012] | all 3 + |
 | H_pchip − H_linear | +0.0001 | +0.0002 | +0.0004 | +0.0002 | [+0.0001, +0.0004] | all 3 + |
@@ -109,17 +115,36 @@ Zero-denominator fractions (users with no missing bins, or no eligible bins for 
 
 ## 7. Interpretation
 
-**Pipeline validation is exact.** H_clock's saved scores are textually identical to the recording pilot's H arm across all 1,152 val+test users × 3 allocations (§4: max |Δscore| = 0.00e+00, α and AUROC equal), so the four arms differ only through the filled values at missing bins — the comparison is clean.
+**Pipeline validation is exact.** H_clock's saved scores are textually identical to the recording pilot's H arm across all 1,152 val+test users × 3 allocations (§4: max |Δscore| = 0.00e+00, α and AUROC equal), confirming alignment of the reference pipelines. Each fill arm also refits MR biases, feature hygiene and ridge, and selects its validation α; the comparison measures the fitted pipeline's response to the fill intervention.
 
-**Fill choice is not a material modeling decision at this exposure.** Mean test AUROC spans 0.8464–0.8485 across arms while each arm's cross-allocation SD is ≈ 0.016; the largest mean paired test delta is +0.0021 (H_global − H_clock, all 3 allocations positive) and the smallest +0.0002 (H_pchip − H_linear). No delta reaches a seventh of the cross-allocation SD. With R = 3 and reused splits there is no significance machinery (PLAN §"Readout"), but the bounded effect is itself the finding: the missing-bin fill rule shifts ch3000 test AUROC by at most ~0.003.
+**Observed AUROC differences are small in this pilot.** Mean test AUROC spans
+0.8464–0.8485 across the four fills, with cross-allocation SD ≈0.016. The largest
+mean paired test delta is +0.0021 (H_global − H_clock; two allocations positive,
+one exact tie). With three allocations and reused splits, this observed range
+is not an equivalence test or a bound on effects in other users or wear regimes.
 
-**The two interpolation arms are interchangeable.** Spearman ρ(H_pchip, H_linear) = 0.9993–0.9995 on paired test scores (§3); mean test delta +0.0002. Local linear vs PCHIP is a distinction without a difference here.
+**The two interpolation arms give very similar saved test rankings.** Spearman ρ(H_pchip, H_linear) = 0.9993–0.9995 on paired test scores (§3); mean test delta +0.0002. This pilot does not establish a useful predictive advantage for either method.
 
-**H_global is the largest and most distinct intervention, and it is fine.** H_global overwrites 100% of missing bins with one overall training median (≈ 70.2 bpm), far more input mass than the interpolation arms' 3.87% — and correspondingly the lowest ρ vs H_clock (0.894 on alloc 1, 0.982 elsewhere). It still lands within +0.0021 mean test AUROC of H_clock: the crudest fill is at least as good as the clock medians and the local interpolations. The T(HR) signal evidently lives in the 88.5% observed bins, not in how the holes are painted.
+**H_global changes the most input bins.** It fills every missing bin with one
+overall training median (≈70.2 bpm), compared with the interpolation arms' 3.87%
+of missing bins. Its mean test AUROC differs from H_clock by +0.0021, while its
+mean validation AUROC differs by −0.0044. Similar aggregate discrimination does
+not identify where the signal resides or exclude use of recording patterns.
 
-**The val/test sign asymmetry is an α-selection artefact, not a fill property.** Every alternative is slightly worse on validation (mean Δ −0.0004 to −0.0044) yet slightly better on test (+0.0007 to +0.0021). On allocation 1 H_clock selected α = 1e3 while all three alternatives selected α = 1e4; the less-regularised H_clock fit wins the validation maximum but generalises slightly worse. On allocations 0/2, where all arms selected the same α = 1e4, deltas are near zero. Post-hygiene dimensionality is arm-invariant (19,121 / 19,121 / 19,115), so the intervention never shifts feature selection.
+**Validation and test differences have opposite mean signs.** On allocation 1,
+H_clock selected α=1e3 and the alternatives α=1e4, which can contribute to score
+differences. This does not establish an α-selection mechanism: for example,
+allocation-0 H_global validation AUROC is 0.0070 below H_clock despite both
+selecting α=1e4. Fixed-α comparisons would be needed to separate this component.
+Post-hygiene widths are equal across arms (19,121 / 19,121 / 19,115), although
+this alone does not prove identical selected columns.
 
-**Conclusion.** For ch3000 MultiRocket(HR) input on this cohort, the recording pilot's result is robust to the missing-bin fill decision: all four fills sit within ~0.002 test AUROC of one another, well inside allocation-to-allocation variation. A null here means "no detectable effect at 3.87% exposure" for the interpolation arms — not that interpolation cannot matter — but the H_global arm, which touches every missing bin, bounds the whole family at +0.002.
+**Conclusion.** These four fitted pipelines have similar saved AUROCs on this
+strict-coverage cohort. The interpolation intervention reaches only 3.87% of
+missing bins; global filling reaches all missing bins. The observed mean test
+range is about 0.0021, with no established advantage for a replacement fill.
+This supports retaining H_clock for alignment with the recording pilot, while
+leaving broader population sensitivity unquantified.
 
 
 ## 8. Caveats
@@ -139,4 +164,4 @@ Zero-denominator fractions (users with no missing bins, or no eligible bins for 
 
 ## 9. Recommended next step
 
-Close the fill question and stop. Per PLAN §"Stop and decide": the answer is bounded — fill choice within this family shifts ch3000 test AUROC by ≤ 0.0021, well inside the 0.016 cross-allocation SD — so extending the allocations, adding methods, or starting density experiments on this axis is not expected to change the conclusion. In particular, *do not* change the fill convention used by the recording pilot (H_clock, training-only clock-bin medians): the small H_global test mean is within R = 3 noise, and H_clock keeps this experiment byte-identically aligned with the recording pilot's H arm. Use this report as a robustness audit of that convention; the next ch3000 question is the recording-structure axis already addressed by the recording pilot's other arms, not a further fill axis.
+Close the fill question and stop. Per PLAN §"Stop and decide": the observed mean test range is 0.0021 across these four fitted pipelines. This is sufficient for retaining the reference convention in this pilot, without claiming statistical equivalence or predicting what additional allocations would show. In particular, *do not* change the fill convention used by the recording pilot (H_clock, training-only clock-bin medians): the small H_global test increment does not establish an advantage, and H_clock keeps this experiment byte-identically aligned with the recording pilot's H arm. Use this report as a robustness audit of that convention; the next ch3000 question is the recording-structure axis already addressed by the recording pilot's other arms, not a further fill axis.

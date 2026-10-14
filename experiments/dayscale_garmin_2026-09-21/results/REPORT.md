@@ -83,9 +83,11 @@ Reference lines: participant-level AUROC 0.7445 (frozen A3_k50), 0.7470 (AGE_all
 
 **(a) A single adequate day carries real but bounded signal.** One day's
 summary stats as a user-score reach participant-unit AUROC 0.6653 (A); the
-day-unit pooled AUROC (§1) is 0.6669 — the two are equivalent by construction
-(one day = one score). The strongest single-day representation is
-deviation-from-own-baseline (arm B): 0.7045, +0.039 over raw day stats.
+day-unit pooled AUROC (§1) is 0.6669. These are different estimands: k=1
+samples one model day per participant with equal participant weight, whereas
+pooled-day AUROC includes every model day and weights day-rich participants
+more heavily. Given additional own-baseline history, arm B reaches 0.7045,
++0.039 over raw day stats.
 
 **(b) Per-user integration is the dominant effect; it saturates fast.**
 Averaging k days' logits lifts A from 0.6653 (k=1) to 0.7181 (k=8), 0.7269
@@ -104,11 +106,15 @@ level. Within-day time-of-day shape is absent from all arms here (PLAN §3
 limitation); part of the gap may live there.
 
 **(d) Arm B's advantage is front-loaded and self-eliminating.** B − A:
-+0.0392 (k=1) → +0.0138 (k=4) → +0.0032 (k=16) → +0.0010 (all). Knowing how
-a day deviates from the person's own baseline is the best short-history
-representation, but accumulated raw days recover the same user-level
-structure. Deployment read: use baseline-deviation features when <1 week of
-history exists; beyond a month they add nothing.
++0.0392 (k=1) → +0.0138 (k=4) → +0.0032 (k=16) → +0.0010 (all). Deviations
+from the person's own baseline improve low-k scores, while the observed
+contrast narrows as raw model days accumulate. This low-k advantage assumes
+additional baseline history: each
+participant's baseline uses a random min(60, n_days // 4) reserved days
+(20–60 days in the saved cohort), excluded from the model-day pool. It does
+not establish performance with less than one week of total history or with
+baseline days restricted to those available prospectively. The observed
+advantage is small once many model days are pooled.
 
 **(e) Demographics are front-loaded and subsumed the same way.** A+covs − A
 decays from +0.0087 (k=1, CI clear of zero) to ≈0 by k≥16. Age/bmi carry
@@ -120,7 +126,8 @@ the day level.
 95% CIs at 212k test days are ±0.033 wide (A [0.634, 0.699]) — driven by 578
 test participants. The 30-repeat SD (§1, ~0.013–0.016) quantifies split noise
 only and understates day-pooling uncertainty. Boot mean ≈ exact (|Δ| ≤ 0.002)
-confirms the pooled-day AUROC is cluster-bootstrap-unbiased.
+indicates small observed bootstrap bias in these runs; it does not establish
+unbiasedness of the pooled-day AUROC estimator.
 
 **(g) The day-level signal is mostly level, then variability.**
 `d_ch3000_mean` dominates (Gini 0.102, 4× the runner-up), followed by

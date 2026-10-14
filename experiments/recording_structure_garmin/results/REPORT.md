@@ -1,5 +1,10 @@
 # Recording structure in ch3000 — pilot results
 
+**Audit update, 2026-10-14.** Saved metrics agree with saved predictions. The
+shuffle comparisons jointly change local order and clock alignment; their AUROC
+differences do not partition physiological and recording-related information.
+See the [results audit](../../../reports/results_audit_2026-10-14.md).
+
 Implements [`../PLAN.md`](../PLAN.md). 8 arms × 3 allocations (0/1/2, chosen before results); cached 5-min bins; mask (M), log1p-count (C) and HR MultiRocket blocks with shuffle controls; Ridge with per-arm-per-alloc validation-alpha selection. R1b cohort/folds/first-40-adequate-days. Frozen plan commit `c970732`.
 
 
@@ -51,14 +56,14 @@ Implements [`../PLAN.md`](../PLAN.md). 8 arms × 3 allocations (0/1/2, chosen be
 
 ## 5. Interpretation and recommended next probe
 
-**Recording-only signal exists, and arrangement matters.** Even without HR values, the temporal MultiRocket block on mask (M) and log1p-count (C) sequences reaches val AUROC ~0.62 and test AUROC ~0.62–0.63 — well above chance and far above the static-only baseline (0.55–0.57). The signal comes from two layers:
+**Recording-only signal exists, and arrangement matters.** Even without HR values, the temporal MultiRocket block on mask (M) and log1p-count (C) sequences reaches val AUROC ~0.62 and test AUROC ~0.62–0.63 — well above chance and far above the static-only baseline (0.55–0.57). The following comparisons describe the representation increments:
 
-1. **MR width over per-day distributions** (M/C_temporal − M/C_static ≈ +0.07/+0.08 test, all-3-+): a nonlinear expansion of the average clock profile plus per-day value multisets.
-2. **Local arrangement beyond clock alignment and per-day multisets** (M/C_temporal − M/C_shuffled ≈ +0.031/+0.036 test, all-3-+, ≈44% of the temporal increment). The shuffled control preserves each day's count multiset and the static cross-day profile; the residual increment is what MR picks up from local stretch structure that within-day position permutation destroys. Shuffling breaks both local order *and* clock alignment together (PLAN §"Readout") — the +0.03 conflates the two and is not a causal mechanism.
+1. **MR width over per-day distributions** (M/C_temporal − M/C_static ≈ +0.07/+0.08 test, all-3-+): an increment from adding pooled nonlinear sequence features to the original static summaries.
+2. **Arrangement, jointly including local order and clock alignment** (M/C_temporal − M/C_shuffled ≈ +0.031/+0.036 test, all-3-+, ≈44% of the temporal increment). The shuffled control preserves each day's count multiset and the static cross-day profile; the residual increment describes the difference between these fitted representations after within-day position permutation. Shuffling breaks both local order *and* clock alignment together (PLAN §"Readout") — the +0.03 conflates the two and is not a causal mechanism.
 
 **Density adds weakly over presence.** C_temporal − M_temporal test mean +0.017, all-3-+; val mean +0.001, 2/3-+ (fragile). Log1p-count carries a marginal increment over binary mask on test, not enough to claim density is the driver at n=3.
 
-**H already contains recording texture; H_recording adds no complementarity.** H_recording − H is negative on val (all-3, mean −0.017) and on test (1/3 +, mean −0.011). The H block includes the cross-day mean mask inside B40, and the HR MultiRocket transform sees the same observed/missing pattern implicitly; the additional ~38k recording columns either duplicate that information or add shrinkage burden at the selected α. This is consistent with redundancy, not independence — recording-only models (C_temporal 0.63) sit ~0.22 below H (0.85) and likely track a weaker projection of the same source.
+**H contains recording information; H_recording did not improve mean AUROC.** H_recording − H is negative on val (all-3, mean −0.017) and on test (1/3 +, mean −0.011). The H block includes the cross-day mean mask inside B40, and the HR MultiRocket transform sees the same observed/missing pattern implicitly; the additional ~38k recording columns did not improve discrimination under the evaluated α-selection procedure. Redundancy and estimation burden are possible explanations, not identified mechanisms. The lower recording-only AUROC (C_temporal 0.63 versus H 0.85) does not quantify a recording-independent fraction of the HR signal.
 
 **Recommended next probe — HYDRA confirmation of the arrangement deltas.** The arrangement claim (+0.03 test, all-3, ≈44% of the temporal increment) rests on MultiRocket applied to binary/count sequences where the per-kernel bias quantiles are degenerate (over {0,1} for M; near-degenerate for low-count C bins). Plan option 3 (HYDRA confirmation) is the targeted test: re-run C_temporal − C_static and C_temporal − C_shuffled under HYDRA on the same three allocations (k=8, g=64, univariate, official SparseScaler). If the arrangement delta holds under a second transform on count sequences, the recording-structure finding is robust to transform choice; if it collapses, the MR-on-binary/count interaction is the likely explanation and the static+dynamic decomposition should not be over-interpreted. Extension of the C ladder to allocations 3–9 (precision rather than robustness) is the alternative for narrowing the confidence interval on C_temporal − C_shuffled; H_recording is not worth extending (no complementarity signal at the current α selection rule).
 

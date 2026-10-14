@@ -18,7 +18,7 @@ Any-core union **8,885**; model union (sources 3/6/7) **8,835**. Any-core member
 
 ## 2. Coverage semantics audit (frozen cov_s artifact semantics)
 
-| source | channel | day rows | days cov_s>24h | share | max cov_s (s) |
+| source | channel | day rows | days cov_s>24h | share | max cov_s among >24h days (s; 0 if none) |
 |---|---|---:|---:|---:|---:|
 | 3 | 3000 | 1,780,918 | 6,160 | 0.346% | 166245 |
 | 3 | 3001 | 1,550,523 | 12 | 0.001% | 121143 |

@@ -1,5 +1,12 @@
 # Days-scaling experiments on the Garmin strict-coverage cohort
 
+**Audit update, 2026-10-14.** Saved metric tables are retained. The all-days
+endpoint reused allocation-0 training fill values and MultiRocket biases across
+all allocations; later held-out users therefore entered transform fitting.
+The result is exploratory, and its effect on AUROC is unknown. Extrapolations
+below are descriptive rather than bounds on a performance ceiling. See the
+[results audit](../../../reports/results_audit_2026-10-14.md).
+
 ## Headline
 
 On the same 3,848 strict-coverage Garmin participants and the same ten
@@ -21,32 +28,30 @@ forms almost indistinguishably in-range:
 - LLN-style moment precision: AUROC = *L* − *C*/√*k*; test *L* = 0.9272,
   *C* = 0.4406, RMSE = 0.0060; val *L* = 0.9161, *C* = 0.4120, RMSE = 0.0070.
 
-Per-user extrapolation at the endpoint (mean budget 425, but each user uses
-their own pool size *k*ᵤ; prediction averages *L* − *C*/√*k*ᵤ over the 3,848
-users) gives 0.9046 (test) and 0.8949 (val). Observed endpoint is 0.9264 /
-0.9235 — **+0.022 / +0.029 above the per-user extrapolation**. The 1/√*k*
-fit's residuals at *k* = 60, 80 trend positive (test +0.005, +0.007; val
-+0.005, +0.009), meaning the true curve is less concave than 1/√*k* at the
-high-*k* end. So the moment-precision model is the right *shape* in-range
-but its *asymptote* L is a lower bound on the true ceiling; the log-linear
-extrapolation at *k* = 425 (0.99) is an upper bound. The endpoint sits
-between the two. No fixed-*k* point at *k* > 80 was measured, so the true
-ceiling is unobserved.
+The fits describe the measured fixed-budget means, but neither supplies a
+bound on the true ceiling. Averaging either fitted curve over users' own
+pool sizes is only a heuristic: AUROC depends on positive–negative pairs,
+so a fixed-budget AUROC curve does not determine AUROC under heterogeneous
+budgets. No fixed-*k* point above 80 was measured, and the all-days endpoint
+also changes transform fitting. The performance ceiling is unobserved.
 
-Three endpoint qualifiers matter for any use of the 0.9264 number:
+Four endpoint qualifiers matter for any use of the 0.9264 number:
 
 1. The endpoint is **one kernel draw** (comp seed 6) evaluated under ten
-   fold-splits. Its CI (0.0055) is fold-only; a fold-plus-kernel comparable
-   SD inferred from *k* = 80 is ~0.011–0.015. The +0.041 jump from *k* = 80
-   is far beyond either bound.
-2. α = 1e3 is frozen across the whole experiment; per-budget α tuning
-   remains a cheap next step on the saved endpoint features, and the
-   α = 3e3 − α = 1e3 gap **flips sign** at the endpoint (−0.0085), so the
-   reported 0.9264 is a floor on what ridge regression can extract.
+   fold-splits. Its SD (0.0055) measures variation across overlapping
+   allocations conditional on that draw, not population uncertainty.
+   Endpoint kernel-draw uncertainty was not measured.
+2. α = 1e3 is frozen across the whole experiment; the
+   α = 3e3 − α = 1e3 gap **flips sign** at the endpoint (−0.0085).
+   The optimal penalty and any benefit on unseen users remain unknown.
 3. "All days" is each user's own pool (80–979), not a fixed 425-day budget.
-   A static-feature confound control (Profile24 +0.005, summary RF +0.001
-   over the same 80 → all transition) shows the coverage/leakage channel
-   is small but does not eliminate it.
+   Profile24 (+0.005) and summary RF (+0.001) have smaller gains over the
+   same 80 → all transition; they do not bound recording-related
+   information in the MR features.
+4. Fill values and MR biases were fit on allocation-0 training users and
+   reused across all ten allocations. For allocations 1–9, 380–413 of 573
+   test users entered that transform-fitting set. Labels were not used in
+   transform fitting; the effect on AUROC was not quantified.
 
 ![days-scaling curves](days_scaling_curves.png)
 
@@ -65,7 +70,7 @@ verdict on this cohort.
 ## 1. Design
 
 Three experiments, all on the v2 cohort (3,848 R1b strict-coverage Garmin,
-≥ 80 adequate ch3000 days) and v2's ten allocator allocations (70/15/15
+observed minimum 80 adequate ch3000 days) and v2's ten allocator allocations (70/15/15
 train/val/test). MR kernels and all transforms are frozen at v2's protocol;
 no HYDRA, no multichannel, no per-*k* kernel refit. Per-arm tests are paired
 within allocation.
@@ -85,11 +90,11 @@ within allocation.
 
 **Within-experiment gates.**
 
-- E2 *k* = 40 (identity draw = all 40 designated days) replays v2's
-  MultiRocket arm exactly. `days_scaling_random_gate.csv` records
-  `auroc_mine == auroc_v2` to all 30 (alloc × arm) cells with
-  `max_abs_dtest = max_abs_dval = 0.0` — bit-identical to v2 (tighter than
-  v2's own 1–2 ULP verify).
+- E2 *k* = 40 (identity draw = all 40 designated days) matches v2's saved
+  AUROCs. `days_scaling_random_gate.csv` records `auroc_mine == auroc_v2`
+  for all 30 (allocation × arm) cells, with
+  `max_abs_dtest = max_abs_dval = 0.0`. The gate compares AUROC scalars;
+  it does not establish identical participant scores.
 - E3 reuses the v2 cohort and folds; `scan_users == users` and
   `dayall.user == repeat(users, days_per_user)` pass at load.
 - Scan: 183 s, 0 errors, 0 zero-mask days, p50 observed bins/day = 283/288.
@@ -156,7 +161,7 @@ report.
 
 ## 3. Findings
 
-### 3.1 Budget curve (E3): concave, ceiling at least 0.93, unobserved
+### 3.1 Budget curve (E3): diminishing observed gains, ceiling unobserved
 
 The MultiRocket α=1e3 marginal gain per day is strongly concave in *k*:
 
@@ -177,49 +182,40 @@ decline is the in-range signal that the curve is concave.
 | AUROC = *a* + *b* log₂*k* | *a* = 0.6450, *b* = 0.0395/doubling, R² = 0.987, SE(*b*) = 0.0019 | *a* = 0.6512, *b* = 0.0371/doubling, R² = 0.992, SE(*b*) = 0.0014 | 0.0064 | 0.0047 |
 | AUROC = *L* − *C*/√*k* | *L* = 0.9272, *C* = 0.4406 | *L* = 0.9161, *C* = 0.4120 | 0.0060 | 0.0070 |
 
-Both fits are statistically adequate on the 8 fixed-*k* points. They diverge
-on extrapolation. At each user's own pool size, the 1/√*k* per-user prediction
-averages *L* − *C*/√*k*ᵤ over the 3,848 users:
+Both fits have similar descriptive error on the 8 fixed-*k* means. The
+historical heuristic averaged each fitted curve over the 3,848 users'
+own pool sizes. The 1/√*k* average was:
 
-$$\widehat{\text{AUROC}}_{\text{endpoint}} \;=\; L \;-\; C\,\frac{1}{n}\sum_{u=1}^{n}\frac{1}{\sqrt{k_u}} \;=\; 0.9046 \text{ (test)}, \; 0.8949 \text{ (val)};$$
+$$L \;-\; C\,\frac{1}{n}\sum_{u=1}^{n}\frac{1}{\sqrt{k_u}} \;=\; 0.9046 \text{ (test)}, \; 0.8949 \text{ (val)};$$
 
-the log-linear per-user prediction averages *a* + *b* log₂ *k*ᵤ:
+the log-linear average was:
 
-$$\widehat{\text{AUROC}}_{\text{endpoint}} \;=\; a \;+\; b\,\frac{1}{n}\sum_{u=1}^{n}\log_2 k_u \;=\; 0.9860 \text{ (test)}, \; 0.9719 \text{ (val)}.$$
+$$a \;+\; b\,\frac{1}{n}\sum_{u=1}^{n}\log_2 k_u \;=\; 0.9860 \text{ (test)}, \; 0.9719 \text{ (val)}.$$
 
-The observed endpoint (0.9264 test, 0.9235 val) sits **0.022 / 0.029 above
-the 1/√*k* per-user prediction and 0.060 / 0.048 below the log-linear
-per-user prediction.** So the true curve flattens (log-linear is the wrong
-shape beyond *k* = 80) but flattens less than 1/√*k* predicts (the 1/√*k*
-ceiling L is a lower bound).
+The observed endpoint (0.9264 test, 0.9235 val) lies between these
+heuristics. This does not validate either endpoint prediction: AUROC is
+a pairwise ranking functional, not an average of participant-specific
+AUROCs. Variable budgets, a different kernel draw and cross-split
+transform exposure also prevent interpreting that comparison as the
+continuation of a controlled fixed-budget curve.
 
-A second piece of evidence: the 1/√*k* residuals at the top of the
-in-range segment trend positive — *k* = 60: +0.0049 / +0.0047;
-*k* = 80: +0.0074 / +0.0093 (test / val). A curve that is *less* concave
-than 1/√*k* at high *k* will have a higher true ceiling than the fitted L.
-Conversely, the log-linear fit's residuals trend negative at the same
-points (*k* = 60: −0.0031 / −0.0031; *k* = 80: −0.0093 / −0.0068),
-confirming that pure log-linear is too aggressive.
-
-**Honest summary.** On this cohort and folds, MultiRocket budget scaling
-fits a concave increasing curve whose in-range behavior is consistent with
-moment-pooling precision (1/√*k*) and whose extrapolation lies between
-*L* = 0.927 (test; lower bound on ceiling) and 0.99 (log-linear; upper
-bound). The endpoint at 0.9264 is consistent with the curve still rising
-or having just reached a plateau near 0.93. No fixed-*k* measurement
-above *k* = 80 was taken, so the true ceiling is unobserved.
+The 1/√*k* residuals at *k* = 60 and 80 are positive (test +0.0049,
++0.0074; val +0.0047, +0.0093); log-linear residuals there are negative
+(test −0.0031, −0.0093; val −0.0031, −0.0068). These describe local fit
+error, not bounds on the true curve or its ceiling. No fixed-*k*
+measurement above 80 was taken.
 
 For Profile24 and summary RF the per-day marginals are far smaller and the
 total gain from *k* = 4 to "all days" is +0.058 (P24: 0.6858 → 0.7442) and
 +0.041 (RF: 0.6692 → 0.7106) — about a quarter to a fifth of the
-MultiRocket gain in absolute terms. The cheap arms are already near their
-ceiling (the fsplit RF references, §3.7) at *k* = 4.
+MultiRocket gain in absolute terms. Similar endpoint performance to the
+fsplit references (§3.7) does not establish a ceiling for either model.
 
 ### 3.2 Pool effect at matched *k* (E3 − E2, paired, test)
 
 Days drawn from the full adequate history vs the first-40-day window, same
-allocation seeds, same folds. The arm-level deltas isolate whether *which
-days* are sampled matters at fixed budget:
+allocation seeds, same folds. The arm-level deltas compare two sampling
+and transform-fitting recipes at fixed participant day budgets:
 
 | arm | *k* = 4 | *k* = 7 | *k* = 14 | *k* = 21 | *k* = 30 | *k* = 40 |
 |---|---:|---:|---:|---:|---:|---:|
@@ -231,10 +227,9 @@ days* are sampled matters at fixed budget:
 MultiRocket is the only arm with a consistent positive pool effect at
 *k* ≥ 7 (~+0.02 on test, +0.02 on val). At *k* = 4 the test pool effect
 is essentially zero and the val pool effect is positive but the CI
-straddles zero — pool diversity only helps once enough days exist for the
-moments to use it. Profile24 trends slightly negative (small *k*): the
-hour-of-day profiles are roughly position-invariant, so swapping which
-days enter at the same *k* just adds noise. Summary_RF is flat.
+straddles zero. Profile24 trends slightly negative at small *k*, while
+Summary_RF changes little. These comparisons do not identify why the
+representations respond differently.
 
 **Protocol-difference caveat.** E3 and E2 also differ in the kernel-fit
 window: E2 fits MR on `fit_days` chosen from the first-40-day window
@@ -242,16 +237,17 @@ window: E2 fits MR on `fit_days` chosen from the first-40-day window
 `comp_seed(r, COMP_DAY_SELECT)` so the kernel draws are different but
 identically seeded. The +0.022 matched-*k* pool effect thus bundles two
 things: (a) sampling-day diversity, and (b) a kernel fit on a larger and
-more varied day set. The latter is a real methodological improvement, not
-a confound; the magnitude is not separately identified.
+more varied day set. Their separate contributions are not identified.
+The fill-fitting windows differ as well.
 
 ### 3.3 Position effect within the window (E2 − E1, paired)
 
 E1 (chronological first-*k*) vs E2 (uniform random *k* from the first-40
-window). **MR kernels are identical between E1 and E2 within allocation**:
-both scripts use `comp_seed(r, COMP_DAY_SELECT)` with the same fit window
-(verified in source). The only difference is which *k* days enter the
-pooling. This makes E2 − E1 a clean position effect.
+window). **The fitted transforms are not held identical:** E1 fits fill
+values and MR biases using its first-30-day window, whereas E2 uses the
+first-40-day window. Identical seed component IDs do not make fits on
+these different inputs identical. E2 − E1 therefore combines day selection
+with transform-fitting differences; it is not an isolated position effect.
 
 | *k* | MR α=1e3 test | MR α=1e3 val |
 |---:|---:|---:|
@@ -278,7 +274,7 @@ days beats drawing the first chronologically by ~+0.01–+0.02 for the
 transform and by ~+0.003 on average for the cheap arms — present in the
 same direction everywhere but ~3–6× larger for MR.
 
-### 3.4 α × budget: the optimal penalty flips at the endpoint
+### 3.4 α × budget: the ranking of two tested penalties flips
 
 α = 3e3 minus α = 1e3 (E3, paired):
 
@@ -288,13 +284,10 @@ same direction everywhere but ~3–6× larger for MR.
 | val  | +0.0202 | +0.0189 | +0.0173 | +0.0142 | +0.0109 | +0.0098 | +0.0066 | +0.0042 | **−0.0071** |
 
 The sign of the 3e3 − 1e3 gap changes between *k* = 80 and the endpoint.
-This is the standard bias-variance trade under Ridge regression: pooled
-features gain precision ∝ 1/√*k* (their sampling variance shrinks with the
-day budget), so the variance term in the prediction-error decomposition
-falls with *k* and the optimal α generally decreases. With α frozen at
-1e3 throughout (3e3 only as a sensitivity column), the endpoint 0.9264
-is a **floor** — a per-budget α sweep would shift the curve upward on
-both ends.
+This establishes a reversal between the two tested penalties. It does not
+locate the optimal α or show that further tuning would improve unseen-user
+AUROC. A sampling-precision explanation is plausible, but days are not
+known to be independent and the endpoint changes several protocol elements.
 
 ### 3.5 Representation gap widens monotonically with budget
 
@@ -305,27 +298,24 @@ MR α=1e3 − Profile24 (E3, test):
 | Δ | +0.0274 | +0.0656 | +0.0849 | +0.1018 | +0.1185 | +0.1275 | +0.1392 | +0.1458 | **+0.1822** |
 
 Grows monotonically from +0.027 at *k* = 4 to +0.182 at the endpoint
-(~6.7×). The CIs at *k* ≥ 7 are tight — the gap is not noise. Each new
-day contributes more independent convolution responses to the moment
-estimates for the transform arm than to the 48 P24 hour-profile columns,
-which saturate quickly.
+(~6.7×) in the saved allocation means. Greater stability of pooled MR
+features is one possible explanation; this analysis did not measure the
+effective number of independent days or identify the mechanism.
 
 ### 3.6 Endpoint design and confound controls
 
-The endpoint (k = −1) differs from the fixed-*k* points in three ways:
+The endpoint (k = −1) differs from the fixed-*k* points in several ways:
 
 1. **Variable budget.** Each user's own pool (80–979, mean 425; p10 225,
-   p50 476, p90 539) instead of a fixed *k*. Pool size correlates with
-   engagement and plausibly with the label, so a fraction of the +0.041
-   jump from *k* = 80 could ride on a coverage-frequency feature in the
-   B40 statics.
-2. **Single kernel draw.** One dedicated draw (comp seed 6), fit on 4
-   seeded days from alloc-0 train users' full pools; evaluated under all
-   ten fold-splits. Endpoint SD = 0.0055 fold-only; a fold-plus-kernel
-   comparable SD inferred from the *k* = 80 SD of 0.0115 would be ~0.011–
-   0.015. Either way the +0.041 jump is far beyond noise.
-3. **Static-feature confound control.** The 80 → all-days deltas, on arms
-   that share the same B40 statics:
+   p50 476, p90 539) replaces a fixed *k*. Engagement, recording patterns
+   and feature-estimation precision can all vary with pool size.
+2. **Single transform fit with cross-split exposure.** One dedicated
+   kernel draw (comp seed 6) and allocation-0 fill are reused under all
+   ten fold-splits. Endpoint SD = 0.0055 describes these overlapping
+   allocations conditional on that transform. Neither kernel-draw
+   uncertainty nor the effect of held-out-user exposure was measured.
+3. **Static-feature comparisons.** The 80 → all-days deltas, on arms
+   that share the same B40 statics, are:
 
    | arm | k=80 → all (test) | k=80 → all (val) |
    |---|---:|---:|
@@ -334,21 +324,15 @@ The endpoint (k = −1) differs from the fixed-*k* points in three ways:
    | Profile24 | +0.0046 [−0.001, +0.011] | +0.0062 [+0.001, +0.011] |
    | Summary_RF | +0.0008 [−0.011, +0.012] | +0.0132 [+0.002, +0.024] |
 
-   If the endpoint gain were driven by a coverage/leakage feature in B40
-   that depends on pool size, Profile24 and RF would gain too. They don't
-   (≤ +0.013 across both metrics, vs +0.041 / +0.044 for MultiRocket).
-   The bulk of the endpoint gain is transform-specific pooling precision.
+   Smaller Profile24/RF gains show that these particular models respond
+   less to the endpoint recipe. They do not bound recording-related
+   information in MR, transform-fitting exposure, or interactions between
+   budget and representation.
 
-The +0.022 / +0.029 gap between observed endpoint and the 1/√*k*
-per-user extrapolation (§3.1) is **not** bounded by this control and could
-plausibly include:
-(i) a kernel fit on more diverse full-pool days (different seed, not
-controlled by the P24/RF arms which have no kernels);
-(ii) per-user feature precision that is itself user-dependent — users with
-larger pools have more precisely estimated moments, and this heterogeneity
-interacts with whatever the classifier extracts;
-(iii) genuine model misfit of the 1/√*k* functional form at *k* > 80, as
-signalled by the trending-positive in-range residuals.
+The endpoint increase can combine day budget, kernel fitting, heterogeneous
+feature precision and recording-related information. These contributions
+are not separately identified. The heuristic curve averages in §3.1 do
+not provide a counterfactual endpoint against which to decompose the gain.
 
 ### 3.7 References on the same cohort
 
@@ -361,7 +345,8 @@ signalled by the trending-positive in-range residuals.
 Δ = 0.001 — fsplit's own conclusion that feature selection buys nothing on
 this cohort. Profile24 at the full-history endpoint (0.7442) sits between
 these two references (gap ≤ 0.0007 from each), so hour-profile ridge
-reaches the same ceiling as a default-config RF on the same feature matrix.
+has a similar saved AUROC to these RF references, despite different
+feature matrices and evaluation designs.
 
 **v2 frozen ladder** (same cohort, first-40-day window, 10 allocations):
 
@@ -380,51 +365,43 @@ E3 *k* = 40 already matches Combined v2 (0.8583 vs 0.8565); E3 endpoint
 
 ## 4. What this does and doesn't show
 
-**Established on this cohort and folds.** Sampling days from the user's
-full adequate history beats sampling from the first-40-day window for the
-transform arm; the budget curve for MultiRocket fits both log-linear and
-1/√*k* moment-precision models indistinguishably in-range (R² 0.987 and
-RMSE 0.006); the per-user extrapolation places the curve between the two
-models' predictions (above 1/√*k*, below log-linear) and is consistent with
-a ceiling at or above 0.93. The cheap arms (Profile24, summary RF) do not
-benefit materially from budget — they sit near the fsplit RF ceiling at
-every *k* ≥ 4. The +0.041 jump from *k* = 80 to the endpoint is
-transform-specific (P24 and RF gain ≤ +0.013 over the same range).
+**Observed on this cohort and allocations.** MultiRocket AUROC increases
+with the measured fixed day budgets. Sampling from full histories and
+fitting the transform on those windows produces higher mean AUROC than
+the early-window recipe at most matched budgets. Profile24 and summary RF
+show smaller gains. The all-days recipe reaches 0.9264, compared with
+0.8854 at *k* = 80, but changes budget, kernel draw and fitting exposure.
 
-**Not established.** Whether the true ceiling is 0.93 or higher — no
-fixed-*k* measurement above 80 was taken; both extrapolation models have
-~±0.01 model error on the in-range segment. Whether per-budget α tuning
-raises the curve uniformly. Whether the same gain reproduces on a less
-selected cohort (export median ≈ 40 adequate days is not covered here).
-
-**Endpoint design choices that move the number.** α (frozen at 1e3; the
-3e3 − 1e3 gap flips sign at the endpoint, so the reported 0.9264 is a
-floor); kernel set (single draw, fold-split-only CI; one of many possible
-draws); variable budget (engagement/pool-size signal not fully bounded by
-the P24/RF control); absence of fixed-*k* points above 80.
+**Not established.** A physiological mechanism, independent-day precision
+law, performance ceiling, optimal penalty or population-level uncertainty.
+The fitted log-linear and 1/√*k* curves are descriptive; neither bounds the
+ceiling, and averaging them over users' pool sizes does not identify
+heterogeneous-budget AUROC. No fixed-budget point above 80 was measured.
 
 **Specific qualifiers.**
-1. **Endpoint single kernel draw.** CI = 0.0055 fold-only; fold-plus-kernel
-   SD inferred from *k* = 80 is ~0.011–0.015. The +0.041 jump from *k* = 80
-   is far beyond either bound.
-2. **Endpoint budget heterogeneity.** Confound control (P24 +0.005, RF
-   +0.001) indicates the static-feature coverage channel is small but does
-   not eliminate it.
-3. **α frozen.** 0.9264 is a floor; per-budget α tuning on the saved
-   endpoint features is the cheapest open improvement.
-4. **Cohort gate.** ≥ 80 adequate days, mean 425. The curve speaks for the
-   long-history Garmin stratum; export median (~40 adequate days) is not
-   covered.
-5. **RSS deviation.** E3 peak RSS = 10.9 GiB exceeds the v2 8 GiB gate
-   (dayall table + pooled slabs in RAM; memmap keeps the 1.9 GB hr /
-   0.5 GB mask arrays out of RSS but the page cache plus the in-memory
-   slabs reach 10.9 GiB). No failure, no swap. E1 and E2 stayed within
-   gate.
-6. **Cross-split endpoint kernels.** The endpoint kernels are fit on
-   alloc-0 train users' full-pool days (comp seed 6) and evaluated under
-   all 10 fold-splits — mild unsupervised cross-split exposure of val/
-   test days to bias quantiles. Same class of exposure as the per-alloc
-   v2 fill/fit protocol; documented.
+
+1. **Endpoint single kernel draw.** SD = 0.0055 across overlapping
+   allocations conditional on that draw. Endpoint kernel-draw uncertainty
+   was not measured.
+2. **Budget heterogeneity.** The P24/RF comparisons do not eliminate or
+   quantify recording-related information in MR features.
+3. **α frozen.** The two tested penalties reverse ranking at the endpoint;
+   tuning gains on new users are unknown.
+4. **Cohort selection.** The existing strict-coverage cohort has an
+   observed minimum of 80 adequate days and mean 425. This is not a new
+   ≥80-day inclusion gate or evidence about shorter-history users.
+5. **RSS deviation.** E3 peak RSS = 10.9 GiB exceeds the v2 8 GiB gate;
+   E1 and E2 stayed within it.
+6. **Cross-split transform exposure.** Allocation-0 fill and MR biases
+   were reused across all ten allocations. In allocations 1–9, 380–413
+   of 573 test users entered transform fitting. This differs from v2's
+   per-allocation training-only fill/bias fitting. Labels were excluded
+   from transform fitting, but its AUROC effect is unknown.
+7. **Repeated development.** Allocation-0 validation labels selected α;
+   80–98 of those users occur in later test allocations. Participants and
+   splits were reused across experiments. Reported intervals describe
+   allocation variation conditional on this cohort and protocol, not
+   independent external confirmation.
 
 ---
 
@@ -434,7 +411,7 @@ the P24/RF control); absence of fixed-*k* points above 80.
 
 Same as v2: 3,848 R1b strict-coverage Garmin participants
 (`experiments/r1b_dateaware_garmin_2026-09-21/cache/dayall_table.parquet`),
-≥ 80 adequate ch3000 days per participant. Per day, 288 × 5-min local-clock
+an observed minimum of 80 adequate ch3000 days per participant. Per day, 288 × 5-min local-clock
 bins of event-mean HR, source = 3, ch = 3000, NaN-tz rejection, HR ∈
 [25, 230], `EXCLUDED_SOURCES` filtered. The same 10 allocator allocations
 (70/15/15 train/val/test) used for v2 are reused; per-arm tests are paired
@@ -444,13 +421,13 @@ p10 225, mean 425, p50 476, p90 539, max 979 (n = 3,848).
 ### 5.2 MultiRocket (vendored)
 
 84 fixed kernels: all C(9,3) = 84 weight patterns on the 9-point dilated
-kernel, weights −1 on one dilated tap and +3 on three others. Per kernel,
+kernel, with effective weights −1 at six taps and +2 at three taps. Per kernel,
 *b* = ⌊1250 / 84⌋ = 14 bias channels; biases are quantiles of the
 convolved training output, numba-internal RNG (`_nb_seed` shim before each
 `mr_fit` is mandatory for reproducibility — v2 REPORT §8 erratum).
-Dilations are base-2 log-spaced from 1 to ~128, folded into the 14 bias
-slots. Four feature types per (kernel, dilation, bias) channel: PPV
-(proportion above bias), LSPV (longest stretch below bias), MPV (mean of
+At input length 288, the 14 log-spaced slots give 11 distinct integer
+dilations {1, 2, 3, 5, 6, 9, 11, 15, 20, 27, 35}. Four feature types per (kernel, dilation, bias) channel: PPV
+(proportion above bias), LSPV (positive-stretch statistic in the reference implementation), MPV (mean of
 above-bias values), mean-activation index (mean index of above-bias
 activations, −1 if PPV = 0).
 
@@ -527,12 +504,14 @@ For each of the 10 allocations:
 ### 5.7 E1 / E2 (window)
 
 E2 mirrors E3 with `K_MAX = 40` and *k* ∈ {4, 7, 14, 21, 30, 40} over the
-first-40 adequate-day window; E1 uses chronological first-*k* without the
-permutation. E2 includes the *k* = 40 identity gate against v2.
+first-40 adequate-day window. E1 uses chronological first-*k* and fits fill
+values/biases using the first 30 days. E2 includes the *k* = 40 AUROC
+agreement gate against v2.
 
 ### 5.8 Component seeds
 
-`comp_seed(r, c) = SeedSequence([SEED_BASE = 20260921, r, c]).spawn(1)[0]`.
+`comp_seed(r, c)` is the first uint32 from
+`SeedSequence([20260921, 3, r, c]).generate_state(1, dtype=uint32)`.
 Existing v2 component IDs reused (`COMP_DAY_SELECT` = 0 etc.); COMP_PERM
 = 5 (nested per-user permutation, E3) and COMP_ENDPOINT = 6 (endpoint
 kernels, E3 Phase B) are new.

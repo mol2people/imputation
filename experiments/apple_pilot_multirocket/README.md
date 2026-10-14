@@ -1,39 +1,43 @@
-# Apple Watch MultiRocket Pilot Benchmark ($N = 1,000$)
+# Apple Watch MultiRocket pilot benchmark
 
-## Executive Summary
+MultiRocket plus summary features achieved mean test AUROC **0.7554** on a pilot of 1,000 selected single-source Apple participants, compared with **0.6029** for summary ridge. The target is recorded salutation: `10 → 0/F`, `20 → 1/M`.
 
-This pilot evaluated whether MultiRocket time-series convolutions can predict recorded salutation (female `10` vs. male `20`) on Apple Watch participants (Source 6) under sparse, event-driven heart rate sampling.
+The five saved allocations are complete. Results are exploratory within this selected cohort; the [results audit](../../reports/results_audit_2026-10-14.md) covers provenance and evaluation limits.
 
-Historically (`experiments/artifacts_sq`), Apple Watch was largely sidelined because the strict longitudinal coverage gate required $\ge 12.0$ hours of continuous interval union coverage ($\text{STRICT\_COV\_S} = 43,200\text{ s}$). Because Apple Watch emits **instantaneous point events** ($\Delta t = 0\text{ ms}$) rather than 1-minute continuous interval buckets (like Garmin), union coverage evaluated near zero, disqualifying 99.7% of Apple participants on Channel 3000.
+## Cohort and preprocessing
 
-When evaluated using **clock-hour distribution and event count** ($\ge 8\text{ clock hours} \land \ge 60\text{ readings}$), **100% of the 1,000 sampled single-source Apple users qualified** with an average of **264.9 adequate days** per participant (54.1% daily bin occupancy at 5-minute resolution; 68.3% at 15-minute resolution).
+The pilot was sampled from single-source Source 6 participants already marked eligible in `experiments/artifacts_v2/cohort_manifest.parquet`, with a valid target and an available raw CSV. Sampling was proportional to recorded salutation and age group. The pilot contains 346 class-0 and 654 class-1 participants.
 
----
+Source 6, type 3000 readings are retained at 25–230 bpm with finite timestamps and timezone offsets. A local day requires at least eight observed clock hours and 60 readings; participants require at least 14 such days. All 1,000 sampled participants passed this preparation, with mean **264.9 adequate days**. This 100% retention is conditional on the already eligible sampling pool, rather than an estimate for all Apple users.
 
-## Benchmark Results (5 OR-Tools Balanced 70/15/15 Allocations)
+Raw events are averaged independently within 5-minute or 15-minute bins before filling. Empty bins remain missing in the saved caches. Mean participant-level occupancy is **54.1%** at 5 minutes and **68.3%** at 15 minutes. Participant features use all cached adequate days; sampling up to four days per training participant applies only to fitting MultiRocket biases.
 
-All imputations, MultiRocket bias quantiles, scalers, and Ridge regressions were fitted strictly on training participants ($N_{\text{train}} = 700$, $N_{\text{val}} = 150$, $N_{\text{test}} = 150$) within each allocation.
+## Benchmark results
 
-| Allocation | MultiRocket 5-min (288 bins) | MultiRocket 15-min (96 bins) | Static HR Summary | Paired MR Gain (5m vs Summary) |
-| :---: | :---: | :---: | :---: | :---: |
-| **0** | **0.8022** | 0.7987 | 0.6847 | **+0.1175** |
-| **1** | **0.7704** | 0.7102 | 0.5599 | **+0.2105** |
-| **2** | **0.8181** | 0.7824 | 0.6489 | **+0.1692** |
-| **3** | 0.6949 | **0.7123** | 0.5895 | **+0.1054** |
-| **4** | 0.6915 | **0.7121** | 0.5314 | **+0.1601** |
-| **Mean $\pm$ SD** | **0.7554 $\pm$ 0.0594** | **0.7431 $\pm$ 0.0437** | **0.6029 $\pm$ 0.0631** | **+0.1526 $\pm$ 0.0412** |
+Each of five OR-Tools allocations has 700 training, 150 validation and 150 test participants. Clock-bin filling, MultiRocket bias quantiles, feature imputation, scaling and ridge fitting use training participants only. Ridge alpha is fixed at 1000. These are repeated holdouts with overlapping test sets, rather than five disjoint cross-validation folds; 560 distinct participants appear in test at least once.
 
----
+| Allocation | MultiRocket 5 min | MultiRocket 15 min | Summary ridge | Paired gain of 5 min over summary |
+|---|---:|---:|---:|---:|
+| 0 | 0.8022 | 0.7987 | 0.6847 | +0.1175 |
+| 1 | 0.7704 | 0.7102 | 0.5599 | +0.2106 |
+| 2 | 0.8181 | 0.7824 | 0.6489 | +0.1692 |
+| 3 | 0.6949 | 0.7123 | 0.5895 | +0.1054 |
+| 4 | 0.6915 | 0.7121 | 0.5314 | +0.1601 |
+| Mean ± sample SD | **0.7554 ± 0.0594** | **0.7431 ± 0.0437** | **0.6029 ± 0.0631** | **+0.1526 ± 0.0423** |
 
-## Key Scientific Findings
+Values come from [`pilot_benchmark_results.csv`](artifacts/pilot_benchmark_results.csv). The SD describes variation across allocations; it is not a confidence interval or an independent replication standard error. The script saves aggregate metrics, without participant predictions or fitted bundles for these arms, so the AUROCs cannot be independently reconstructed from saved scores.
 
-1. **MultiRocket Delivers Substantial Value on Apple Watch:**
-   Even with ~46% missing 5-minute bins filled with population clock-time medians, MultiRocket achieves a **mean Test AUROC of 0.7554** (ranging up to **0.8181**), representing a massive **+0.1526 (+15.3 points) paired gain** over static heart rate summaries ($0.6029$).
-2. **Temporal Resolution Tradeoff (5-min vs 15-min):**
-   - **5-minute bins (288 bins, 54.1% occupancy):** $\text{AUROC} = 0.7554 \pm 0.0594$.
-   - **15-minute bins (96 bins, 68.3% occupancy):** $\text{AUROC} = 0.7431 \pm 0.0437$.
-   - **Insight:** Finer temporal resolution with clock-median imputation outperforms coarser 15-minute averaging by **+0.0123 AUROC**, though the 15-minute representation exhibits slightly lower cross-fold variance ($\pm 0.0437$ vs $\pm 0.0594$) and runs $2.5\times$ faster.
-3. **Comparison with Garmin:**
-   - On Garmin ($N=1,000$ to $4,410$), MultiRocket reaches **~0.908 AUROC** due to continuous 1-minute PPG tracking (>90% bin occupancy).
-   - On Apple Watch ($N=1,000$), MultiRocket reaches **~0.755 AUROC** due to sparse, intermittent event sampling (~54% occupancy).
-   - Crucially, the **marginal contribution of time-series convolution** is large on both devices: **+0.192 on Garmin**, and **+0.153 on Apple Watch**.
+The summary baseline has **305 features**: means and sample SDs of eight daily statistics, a weekday–weekend mean contrast, and 288 observation-frequency features. MultiRocket adds participant means and SDs of daily transformed features. The comparison therefore measures the increment from adding MultiRocket to an HR-and-recording summary baseline.
+
+## Interpretation
+
+The 5-minute arm exceeded summary ridge in all five allocations. Its mean advantage over 15 minutes was **0.0123**, with allocation differences ranging from −0.0206 to +0.0602; this does not establish a stable resolution advantage. Mean elapsed arm times were 172.5 s and 70.4 s, respectively, including preprocessing, transformation of all splits, fitting and evaluation.
+
+The corresponding 1,000-participant Garmin pilot reached 0.8410 at 5 minutes; the larger 4,410-participant Garmin experiment reached 0.9094. These are different cohorts, with different histories and training sample sizes. Their difference from Apple performance does not identify a hardware or sampling mechanism. Missingness and clock-time arrangement may contribute, but charging behavior and physiological causes require separate evidence.
+
+## Scripts
+
+- [`01_sample_pilot_cohort.py`](scripts/01_sample_pilot_cohort.py): sample the selected eligible pool.
+- [`02_build_apple_cache.py`](scripts/02_build_apple_cache.py): prepare adequate days and both raw-event bin grids.
+- [`03_split_pilot_ortools.py`](scripts/03_split_pilot_ortools.py): generate five demographic-balanced repeated holdouts.
+- [`04_run_apple_pilot.py`](scripts/04_run_apple_pilot.py): fit the three arms within each allocation and save metrics.

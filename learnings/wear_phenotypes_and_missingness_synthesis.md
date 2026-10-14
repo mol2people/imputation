@@ -1,109 +1,61 @@
-# Wear Phenotypes, Missingness Architectures, and Convolutional Dynamics: Cross-Vendor Synthesis (Garmin vs. Apple Watch)
+# Recording coverage and temporal binning across Garmin and Apple
 
-This document synthesizes key discoveries regarding **behavioral wear phenotypes**, **sensor-level sampling physics**, and their interaction with **MultiRocket temporal convolutions and imputation strategies** across the German COVID-19 Data Donation (*Datenspende*) cohort.
+MultiRocket predicts recorded salutation in selected Garmin and Apple cohorts, with performance varying across cohort gates and bin resolutions. The saved benchmarks establish discrimination differences; they do not identify charging behavior, device physiology or the causal effect of imputation. Target codes retain their original meaning: `10 → 0/F`, `20 → 1/M`.
 
----
+See the [results audit](../reports/results_audit_2026-10-14.md) for the wider evaluation and provenance review.
 
-## 1. Executive Summary: The Missingness-Convolution Interaction
+## Garmin cohort expansion
 
-A central finding of this investigation is that missing wearable data is not missing at random (MCAR), nor does it behave as uniform white noise. Instead:
-1. **Behavioral Phenotypes Drive Missingness Structure:** Cohorts naturally partition into distinct physiological-use clusters: continuous wearers, chronic intermittent wearers (weeks off-wrist), and diurnal chargers (nightly bedside charging).
-2. **Convolutional Poisoning by Static Imputation:** In high-frequency grids (1-minute, 5-minute), filling multi-hour missingness gaps with a flat population clock-median poisons MultiRocket convolutional kernels. Kernels compute differences ($\Delta x_t = x_{t+d} - x_t$) that evaluate to exact zeros ($\Delta x_t = 0$) across imputed spans, bounded by artificial step-discontinuities at observed boundaries.
-3. **Temporal Boxcar Pooling as Physical Recovery:** Downsampling to 15-minute bins ($L=96$) acts as physical boxcar pooling. Any single valid sensor reading within a 900-second window populates the bin with true physiological signal, dramatically shrinking imputation reliance and lifting classification AUROC by up to **+16.7 to +23.4 points** on fragmented wearers.
+Tier 1c contains 4,410 selected single-source Garmin participants: 3,848 from the earlier strict cohort and 562 who failed that strict longitudinal gate. The strict gate concerns an eligible 13-week window; it does not establish continuous wear throughout each participant's full history. The later preparation uses a different adequate-day rule: at least eight observed clock hours and either 60 events or eight hours of interval-union coverage.
 
----
+The following summaries use **adequate dates in the saved delta cache**, rather than enrollment or all observed dates. Span includes both endpoint dates. Maximum separation is the difference between consecutive adequate dates, so it is one day larger than the number of intervening dates. Active clock hours describe adequate days only.
 
-## 2. Garmin Wear Phenotypes & Temporal Resolution Dynamics
+| Earlier strict-gate failure reason | Participants | Median adequate days | Median adequate-date span | Median adequate-day density | Median maximum date separation | Median participant mean active hours |
+|---|---:|---:|---:|---:|---:|---:|
+| Fewer than 11 adequate weeks in a qualifying 13-week window | 432 | 182.0 | 460.5 days | 0.413 | 82.5 days | 14.3 h |
+| Recorded span shorter than 13 weeks | 128 | 38.5 | 46.5 days | 1.000 | 1.0 day | 22.9 h |
+| Fewer than 65 strict days among week-qualifying windows | 2 | 202.0 | 402.0 days | 0.556 | 120.5 days | 14.8 h |
 
-### 2.1 Cohort Phenotype Decomposition ($N = 4,410$, Tier 1c)
-When relaxing the strict longitudinal continuity gate ($\ge 11$ adequate weeks out of 13), $N = 562$ "wear-fail" delta participants were admitted. Decomposing this intake revealed that failure to meet the continuous window is dominated by chronic intermittency:
+The two participants in the last row have 140 and 264 adequate days; describing them as empty non-wearers is incorrect. Longer gaps between adequate dates can reflect absent or inadequate recordings. They do not establish off-wrist duration, abandonment or why a participant stopped contributing.
 
-| Phenotype | Sample Size ($n$) | Share of Delta | Median Tenure | Median Wear Density | Median Max Gap | Active Hours / Day |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Strict Core (Tier 0)** | 3,848 | — | 435 days | $>0.95$ | $\le 7$ days | $23.2$ h/day |
-| **Phenotype A (Intermittent Wearers)** | **432** | **$76.9\%$** | **460 days** | **$0.41$** | **82.5 days** ($\approx 2.7$ mo) | **$14.3$ h/day** |
-| **Phenotype B (Short Tenure / Dropouts)** | **128** | **$22.8\%$** | **53.5 days** | **$1.00$** | **1.0 day** | **23.5 h/day** |
-| **Empty Non-Wearers** | 2 | $0.4\%$ | — | $0.00$ | — | $0.0$ h/day |
+## Frozen model evaluation on delta
 
-- **Phenotype B participants** are continuous wearers who simply stopped participating early. Because their daily recordings are complete, MultiRocket zero-shot performance remains high (**0.8559 AUROC**).
-- **Phenotype A participants** represent the primary challenge: users with long enrollment spans who wear the device intermittently for a few days, abandon it for 1–3 months, and wear it for only $\approx 14$ hours/day when active.
+All 562 delta participants are absent from the training, validation and test assignments of the saved strict-cohort Heartbeat Lab bundles. Frozen-model results from [`delta_predictions.csv`](../HEARTBEAT_LAB/artifacts/eval_delta_562/delta_predictions.csv) are:
 
----
+| Model | Delta AUROC | Stratified participant bootstrap 95% interval |
+|---|---:|---:|
+| Summary ridge | 0.6272 | 0.5751–0.6755 |
+| MultiRocket clock-bin fill | **0.7850** | 0.7464–0.8218 |
+| MultiRocket global fill | 0.7757 | 0.7398–0.8138 |
 
-### 2.2 Garmin Temporal Granularity Benchmark Results ($N = 1,000$, 5-Allocation CV)
+The intervals condition on these fitted models and sampled participants; they do not include training uncertainty. The clock-fill model scores 0.8559 among the 128 short-span cases and 0.7599 among the 432 week-count failures. Different history lengths and recording distributions prevent attributing that contrast to a single wear mechanism. The two remaining cases cannot support useful subgroup inference despite their empirical bootstrap interval of 1.0–1.0.
 
-We evaluated 1-minute ($L=1,440$), 5-minute ($L=288$), and 15-minute ($L=96$) binning across 5 demographic/label-balanced allocations on 8 CPU cores ([`garmin_binning_benchmark_results.csv`](../experiments/garmin_temporal_binning/artifacts/garmin_binning_benchmark_results.csv)):
+The subsequent Tier 1c experiment uses all cached adequate days and refits all preprocessing and models within ten overlapping repeated holdouts: mean test AUROC **0.9094 ± 0.0058** overall, **0.9235 ± 0.0069** in strict participants and **0.8156 ± 0.0448** in delta. These are allocation means ± sample SD, not confidence intervals. The difference between delta 0.8156 and frozen-model 0.7850 is not a controlled estimate of the benefit of adding delta training participants: training sets, models and evaluation memberships differ, and new per-participant predictions were not saved.
 
-| Model / Resolution | Grid Length ($L$) | Overall Test AUROC | Strict Stratum AUROC | Delta Stratum AUROC | Mean CPU Fit Time |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **MultiRocket 1-min** | 1,440 | $0.8350 \pm 0.0369$ | **0.8645** | $0.6022$ | 356.4 s |
-| **MultiRocket 5-min (Baseline)** | 288 | **$0.8410 \pm 0.0380$** | **0.8647** | $0.6753$ | 84.7 s |
-| **MultiRocket 15-min** | 96 | $0.8228 \pm 0.0411$ | 0.8320 | **0.7687** | **39.3 s** |
-| **Summary Ridge Baseline** | 8 statics | $0.7143 \pm 0.0360$ | 0.7289 | 0.6225 | 0.01 s |
+## Garmin temporal binning
 
-#### The Fundamental Resolution Tradeoff:
-1. **On Continuous Wearers (Strict Stratum):** Fine binning wins (**0.8647 at 5m vs. 0.8320 at 15m**, $+0.0327$). When real observations exist, 5-minute resolution captures autonomic transient slopes and post-exertional cardiac recovery dynamics that are smoothed out by 15-minute pooling.
-2. **On Intermittent Wearers (Delta Stratum):** Coarse binning rescues performance (**0.7687 at 15m vs. 0.6022 at 1m**, **+0.1665 lift**; and **+0.0934 over 5m**). At 1-minute resolution, flat median filling across 10-hour daily absences collapses AUROC to near chance. 15-minute pooling ensures that intermittent wearers are represented by genuine physiological measurements rather than synthetic flatlines.
+The [completed 1,000-participant pilot](../experiments/garmin_temporal_binning/README.md) uses 881 strict and 119 delta participants, with five overlapping 700/150/150 allocations.
 
----
+| Resolution | Overall AUROC | Strict AUROC | Delta AUROC |
+|---|---:|---:|---:|
+| 1 minute | 0.8350 ± 0.0369 | 0.8645 ± 0.0335 | 0.6022 ± 0.2150 |
+| 5 minutes | **0.8410 ± 0.0380** | **0.8647 ± 0.0319** | 0.6753 ± 0.1245 |
+| 15 minutes | 0.8228 ± 0.0411 | 0.8320 ± 0.0344 | **0.7687 ± 0.0753** |
 
-## 3. Apple Watch Missingness Patterns & Behavioral Phenotypes
+Delta test groups contain only 15–24 participants, including 4–12 class-0 participants. Fifteen minutes exceeds one minute in all five allocations, with mean paired difference +0.1665; the individual differences range from +0.0185 to +0.4615. This suggests a resolution sensitivity worth testing on larger independent samples, rather than a precise population gain.
 
-### 3.1 Sensor-Level Sampling Physics (watchOS Adaptive Triggering)
-Apple Watch (Source 6, Channel 3000) does **not** log periodic averages. It emits discrete instantaneous point events ($\Delta t = 0$) governed by battery-optimization algorithms:
-- **Sedentary / Rest:** Background checks occur every **$5\text{ to }8\text{ minutes}$** ($p_{50} = 32\text{ s}, p_{90} = 5.7\text{ min}, p_{95} = 7.9\text{ min}$).
-- **Active / Exertion:** High-frequency bursts occur every **$1\text{ to }3\text{ seconds}$** ($p_{10} = 1.0\text{ s}, p_{25} = 3.0\text{ s}$).
-- **Daily Reading Volume:** Median **280 events/day** (IQR: $[196, 605]$). Apple yields $\approx 5\times$ fewer discrete points per day than Garmin (1,440/day).
+Raw events are binned before filling. Coarser bins combine nearby observations but leave bins without readings missing. Mean participant-level delta occupancy changes from **64.7%** at one minute to **65.3%** at five minutes and **66.5%** at 15 minutes; multi-hour gaps therefore remain. Strict participants average **89.6%** occupancy at five minutes in this pilot.
 
----
+Resolution changes the physical time spanned by kernels, smoothing, mask-feature width and missingness together. Clock-bin median filling produces a time-varying diurnal template; it is not generally a flat line with zero differences throughout gaps. The benchmarks do not isolate which of these changes explains discrimination differences.
 
-### 3.2 Diurnal Missingness Curve Across 39,208 Participant-Days
+## Apple pilot
 
-Analysis of the 1,000 Apple pilot participants revealed that missingness is heavily structured by time-of-day:
+The [Apple pilot](../experiments/apple_pilot_multirocket/README.md) sampled 1,000 participants from an already eligible single-source pool. All passed its preparation gate of at least 14 days with eight observed clock hours and 60 events per day. Mean adequate history was 264.9 days; mean participant-level occupancy was 54.1% at five minutes and 68.3% at 15 minutes.
 
-| Clock Window | Hourly Presence ($\ge 1$ event/hr) | 5-min Bin Occupancy ($L=288$) | Dominant Missingness Driver |
-| :--- | :---: | :---: | :--- |
-| **Night (00:00 – 06:00)** | **$50.2\% \text{ -- } 56.5\%$** | **$43.0\% \text{ -- } 44.7\%$** | **Off-wrist bedside charging** + sleeping |
-| **Morning (07:00 – 09:00)** | $76.0\% \text{ -- } 88.6\%$ | $49.8\% \text{ -- } 60.3\%$ | Waking, putting watch on wrist |
-| **Daytime (10:00 – 17:00)** | **$93.2\% \text{ -- } 95.0\%$** | **$63.5\% \text{ -- } 66.8\%$** | **Episodic sedentary sampling** (1/3 bins empty) |
-| **Evening (18:00 – 23:00)** | $62.3\% \text{ -- } 92.7\%$ | $45.0\% \text{ -- } 61.7\%$ | Taking watch off before sleep |
+Across five overlapping repeated holdouts, MultiRocket plus summaries scored **0.7554 ± 0.0594** at five minutes and **0.7431 ± 0.0437** at 15 minutes. Summary ridge scored **0.6029 ± 0.0631**. The paired five-minute increment over summary ridge was **+0.1526 ± 0.0423**. The summary includes observation-frequency features, so the increment is over a combined HR-and-recording baseline.
 
-- **Wakefulness Paradox:** Even when compliant wearers wear the watch throughout the daytime ($95\%$ hourly presence), **$34\text{--}36\%$ of 5-minute bins remain empty** because sedentary background checks are spaced 6–8 minutes apart.
-- **Night Absence:** Across all user-days, **$35.0\%$ of days have zero readings between 00:00 and 06:00**.
+Nighttime absence of exported readings cannot identify charging, sleep tracking or actual wear. Earlier night-coverage percentages and behavioral group labels lack a reproducible saved analysis in this experiment and are not retained as cohort estimates. Likewise, structured missingness alone does not establish its statistical missingness mechanism relative to unobserved HR or salutation.
 
----
+## Implications for follow-up work
 
-### 3.3 Apple Behavioral Phenotypes: Chargers vs. Sleep Trackers
-The Apple population splits cleanly along night-wear habits:
-1. **"Night-Chargers" ($\approx 25.3\%$ of users):**
-   - Wear watch $<10\%$ of nights (median nocturnal hours = 0).
-   - The entire 6-hour nocturnal trajectory is 100% missing every single day, forcing flat-median imputation across 72 consecutive 5-minute bins.
-2. **"Sleep Trackers / Continuous Wearers" ($\approx 58.7\%$ of users):**
-   - Wear watch $>50\%$ of nights, averaging 4.8 active hours between 00:00 and 06:00.
-3. **Irregular Switchers ($\approx 16.0\%$):**
-   - Charge watch overnight 1–3 times per week.
-
----
-
-## 4. Cross-Vendor Comparative Matrix
-
-| Dimension | Garmin (Source 3) | Apple Watch (Source 6) |
-| :--- | :--- | :--- |
-| **Raw Sampling Architecture** | Continuous 1-minute periodic averages | Episodic instantaneous point events ($\Delta t = 0$) |
-| **Daily Data Volume** | Deterministic 1,440 readings/day | Variable: median 280 events/day ($p_{25}=196, p_{75}=605$) |
-| **5-min Bin Occupancy** | $\approx 95\%$ (in compliant wearers) | **$55.3\%$** across cohort ($65\%$ daytime, $43\%$ night) |
-| **Dominant Wear Failure Mode** | **Phenotype A:** Multi-month vacation/abandonment gaps (median 82.5d max gap) | **Night-Charging:** 25.3% of users charge bedside nightly (6h daily nocturnal gap) |
-| **MultiRocket Baseline AUROC** | **$0.9094 \pm 0.0058$** (Tier 1c, $N=4,410$) | **$0.7554 \pm 0.0594$** (Pilot, $N=1,000$) |
-| **Paired Gain over Statics** | **+0.1898** (vs. Summary 0.7196) | **+0.1526** (vs. Summary 0.6029) |
-| **Resolution Sensitivity** | Strict: 5m ($0.865$) $>$ 15m ($0.832$)<br/>Delta: 15m ($0.769$) $\gg$ 5m ($0.675$) $\gg$ 1m ($0.602$) | 5m ($0.755$) $\approx$ 15m ($0.743$)<br/>Ablation with splines/masks pending |
-
----
-
-## 5. Methodological & Architectural Recommendations
-
-1. **Mandatory Wear-Stratified Reporting:**
-   - Any wearable benchmark must report performance separately for **continuous wearers** vs. **intermittent / charging wearers**. Reporting a single pooled AUROC conceals large disparities (e.g., Garmin's 0.865 strict vs. 0.602 delta at 1-min).
-2. **Avoid High-Resolution Flat-Median Imputation on Fragmented Data:**
-   - When missingness exceeds 30%, flat median imputation degrades temporal convolution. For fragmented cohorts, **temporal boxcar binning (15m or 30m)** or **smooth diurnal splines** should be preferred to preserve kernel validity.
-3. **Dual-Channel MultiRocket for Episodic Wear:**
-   - Future Apple and relaxed Garmin models should feed a 2-channel input: Channel 0 as normalized heart rate, and Channel 1 as a binary observation indicator ($m_t \in \{0, 1\}$). This enables linear ridge heads to learn distinct weights for measured dynamics versus imputed baselines.
+Describe recording patterns using observed coverage, gap duration and night-reading frequency, with explicit denominators and adequate-day definitions. Compare filling rules and mask representations on the same participants, dates and allocations, fitting every learned step within training. Reserve causal claims about imputation and physiological or behavioral interpretations for designs that isolate those hypotheses. Cross-device comparisons also require attention to cohort selection, history lengths and training sample size.

@@ -1,85 +1,41 @@
-# Future Experiments Backlog
+# Future experiments backlog
 
-This document captures prioritized follow-up experiments and architectural ablations identified during the Garmin relaxed cohort evaluation and the Apple Watch pilot benchmark.
+The next experiments should distinguish recording coverage, temporal resolution and filling effects while preserving participant-level evaluation. The [results audit](../reports/results_audit_2026-10-14.md) identifies the limits of the saved benchmarks. All items below are proposals unless marked completed; none is a validated remedy for missing data.
 
----
+## Completed temporal binning benchmarks
 
-## 1. Garmin Temporal Bin Size & Granularity Ablation (In Progress / Benchmark Running)
+The [Garmin pilot](../experiments/garmin_temporal_binning/README.md) is complete across five allocations, rather than still running. Overall test AUROC was 0.8350 at one minute, 0.8410 at five minutes and 0.8228 at 15 minutes. Delta-stratum AUROC was 0.6022, 0.6753 and 0.7687, respectively. These delta estimates use only 15–24 test participants per allocation and overlapping test sets.
 
-**Motivation:**
-Discretizing continuous Garmin 1-minute HR epochs into 5-minute intervals ($L = 288$ bins/day) is standard, but does finer (1-min) or coarser (15-min) binning alter discriminative power across wear phenotypes?
+The [Apple pilot](../experiments/apple_pilot_multirocket/README.md) is also complete: five-minute MultiRocket plus summaries scored 0.7554, versus 0.7431 at 15 minutes and 0.6029 for summary ridge. Allocation SDs and full results appear in the experiment README. The earlier partial Garmin means and claims that binning proved an imputation mechanism are superseded by these completed results.
 
-### Initial Findings (from 1,000-user 5-allocation benchmark):
-- **Continuous Wearers (Strict Stratum):** Fine binning wins (5-min AUROC **0.8620** vs. 15-min **0.8254**).
-- **Intermittent Wearers (Delta Stratum):** Coarse binning prevents missingness collapse. Moving from 1-min ($0.5099$) or 5-min ($0.6054$) to 15-min ($0.7441$) delivers a **+0.1387 to +0.2342 AUROC lift**, proving that physical boxcar aggregation vastly outperforms flat median imputation across gaps.
+## Apple recording patterns and filling comparisons
 
----
+Describe observed nighttime reading frequency, bin occupancy, adequate-day density and gap lengths with reproducible saved outputs. Use neutral recording-pattern labels: absent exported readings do not establish charging or off-wrist behavior.
 
-## 2. Apple Watch: Wear Phenotypes, Missingness Artifacts, and Imputation/Resolution Ablation
+Compare clock-bin medians, justified interpolation rules and HR-plus-mask representations on the same participants, dates and allocations. Keep long gaps explicit and avoid interpreting interpolated values as recovered measurements. Fifteen-minute binning is already benchmarked; coarser grids and alternative fills remain proposed. Assess their interaction with recording density rather than assuming a performance benefit. The existing five-minute summary baseline already includes 288 observation-frequency features; adding mask channels tests a richer representation of missingness.
 
-**Motivation:**
-In Garmin, we discovered that 76.9% of relaxed-cohort users are chronic intermittent wearers (Phenotype A), and that flat population-median imputation poisons MultiRocket convolutions across multi-hour gaps (collapsing AUROC to $\approx 0.51$ at 1-min resolution), which 15-minute boxcar pooling rescues (+14 to +23 points).
+## Cross-device transfer
 
-Apple Watch (Source 6) features **intrinsically episodic point-event sampling** (only $\approx 54\%$ bin occupancy at 5-minute resolution even for compliant wearers, with large missing nocturnal stretches when watches are charged). It is highly probable that the Apple pilot benchmark ($0.7554$ AUROC) is partially suppressed by flat-median imputation artifacts over empty intervals.
+Evaluate a frozen Garmin bundle on the Apple pilot with compatible five-minute inputs and explicit device/channel parsing. Compare it with the Apple-trained benchmark on identical evaluation participants. The saved Garmin `mr_clock` model was fitted on 2,692 training participants within a 3,848-participant cohort, rather than on all 3,848.
 
-### Hypotheses & Dynamical Mechanisms
-1. **Wear Phenotype Heterogeneity in Apple:**
-   - Apple users likely exhibit distinct wear patterns: 24/7 continuous wearers, daytime-only wearers (nightly charging, $\approx 14\text{--}16\text{h}$ coverage), and episodic/intermittent wearers.
-   - Does MultiRocket achieve $>0.85$ AUROC on 24/7 Apple wearers while collapsing on daytime-only/intermittent wearers?
-2. **Convolutional Poisoning by Median Imputation:**
-   - MultiRocket differences ($\Delta x_t = x_{t+d} - x_t$) over flat median fills evaluate to exact zeros ($\Delta x_t = 0$), bounded by artificial step-discontinuities where real data resumes.
-   - For daytime-only wearers, 8 hours of imputed nocturnal flatlines force kernels to fit synthetic boundary steps rather than circadian dynamics.
-3. **Imputation & Resolution Remedies:**
-   - **Coarser Boxcar Pooling:** Test 15-min ($L=96$), 30-min ($L=48$), and 60-min ($L=24$) aggregations.
-   - **Smooth Inter-Day Diurnal Splines:** Replace flat clock medians with diurnal cubic spline interpolation or forward-fill with decay to eliminate step discontinuities.
-   - **Dual-Channel MultiRocket (Trajectory + Mask):** Input Channel 0 as HR trajectory and Channel 1 as a binary observation mask ($m_t \in \{0, 1\}$), allowing kernels to condition on whether a reading is observed or imputed.
+Any transfer difference combines cohort, recording and model differences. It does not isolate hardware effects. Keep the transferred calibration separate from discrimination: validation calibration from Garmin has no established probability guarantee for Apple.
 
-### Experimental Design
-- **Cohort:** 1,000-user balanced pilot allocation (or full $N = 11,143$ Apple cohort).
-- **Phenotyping:** Quantify longitudinal wear density, max gap length, active hours/day, and night-time wear fraction.
-- **Ablation Grid:**
-  - Imputation: Population Clock Median vs. Linear/Spline Interpolation vs. Masked Dual-Channel.
-  - Temporal Granularity: 5-min ($L=288$) vs. 15-min ($L=96$) vs. 30-min ($L=48$) vs. 60-min ($L=24$).
-- **Metrics:** Test AUROC overall and stratified by wear density tiers ($>80\%$, $50\text{--}80\%$, $<50\%$) and night wear presence.
+## Apple channel 3002
 
----
+Verify the exported channel definition, timestamp semantics, coverage and eligible participant pool before designing a daily representation. The earlier proposed count of 11,056 users requires reconciliation with the exact source/eligibility table and target restriction. A 24-bin representation and a comparison with channel 3000 remain proposals, without assuming that an exported resting-HR summary is physiologically cleaner or more predictive.
 
-## 3. Cross-Device Transfer (Garmin $\to$ Apple Watch)
+## Full Apple cohort scaling
 
-**Motivation:**
-Does a MultiRocket model trained purely on Garmin continuous 1-minute data transfer zero-shot to Apple Watch episodic point-event data, or does device-specific sampling impose a domain shift penalty?
+The sampling script identifies an upstream eligible single-source candidate pool of 11,143. Establish preparation retention for the full pool before treating that number as a final modeling cohort; 100% retention in the already eligible pilot does not prove full-pool retention.
 
-### Experimental Design
-- Take the frozen Garmin MultiRocket model (fitted on 3,848 Garmin participants in `HEARTBEAT_LAB/artifacts/models/`).
-- Evaluate zero-shot on the 1,000 Apple Watch pilot participants (`experiments/apple_pilot_multirocket/`).
-- Compare zero-shot AUROC against the within-Apple trained benchmark ($0.7554$).
+A learning curve with fixed evaluation participants and matched history budgets would address sample-size effects more directly than one larger fit. Fit all preprocessing within each allocation and save participant predictions, settings and input provenance. Keep development comparisons on validation data, with a prespecified final evaluation where possible.
 
----
+## Garmin Tier 2 expansion
 
-## 4. Apple Channel 3002 (Hourly Resting Heart Rate)
+The upstream source-specific allocation manifest contains **5,636** primary-Garmin participants. The current relaxed Garmin manifest marks **5,616** as Tier 2 because 20 upstream participants are absent from its `artifacts_v2` input universe. Reconcile these populations before preparing an expanded cohort; neither count is an established completed Tier 2 benchmark.
 
-**Motivation:**
-In Apple Watch exports, Channel 3000 represents ambient instantaneous HR point events, while Channel 3002 represents hourly resting heart rate computed by watchOS.
+Within the current manifest, Tier 2 contains all 4,410 Tier 1c participants and adds 1,206 others. Multi-source membership does not itself establish chronological device switching. Inspect source-specific dates before attributing effects to transitions, and preserve the target restriction, source filtering and participant-level split boundaries.
 
-### Experimental Design
-- Evaluate 24-bin daily curves ($L = 24$, 1 reading/hour) using MultiRocket and Ridge regression across the 11,056 eligible Apple users with Channel 3002.
-- Test whether vendor-filtered resting HR carries higher signal-to-noise than unconstrained ambient daytime readings.
+## Evaluation requirements for future runs
 
----
-
-## 5. Full Apple Cohort Scaling ($N = 11,143$)
-
-**Motivation:**
-The pilot benchmark demonstrated that MultiRocket achieves $0.7554 \pm 0.0594$ AUROC on $N = 1,000$ Apple users. Scaling to the full single-source cohort ($N = 11,143$, 2.5x larger than Garmin) will determine asymptotic sample-efficiency and whether a larger training set compensates for episodic sampling.
-
-### Execution Plan
-- Batch process all 11,143 Apple CSVs into 5-minute `.npz` caches using multi-process pool.
-- Generate 10-allocation OR-Tools balanced splits.
-- Run 10-allocation cross-validation with 7 CPU threads.
-
----
-
-## 6. Garmin Tier 2 Multi-Source Expansion ($N = 5,636$)
-
-**Motivation:**
-Evaluate the 1,226 participants who switched between Garmin and other wearable brands to test whether device transitions induce systematic artifact leakage or feature distortion.
+Use saved participant assignments for matched comparisons, fit every learned transformation on training participants, and distinguish overlapping repeated holdouts from disjoint folds. Save per-participant scores and model/configuration provenance so AUROCs, paired uncertainty and subgroup denominators can be checked independently. Larger delta test groups and an evaluation cohort separate from repeated model development would resolve more uncertainty than further interpretation of the existing five small pilot splits.

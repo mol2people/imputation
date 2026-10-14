@@ -1,5 +1,9 @@
 # Days scaling — full-history pool (all adequate days)
 
+**Audit update, 2026-10-14.** Saved metrics are retained. The all-days
+endpoint has cross-split transform exposure and cannot isolate the effect
+of day budget. See the [results audit](../../../reports/results_audit_2026-10-14.md).
+
 `day_scaling_all.py` · 2026-09-24 · upstream `cache/bins_all/` from `scan_bins_all.py`
 (1,635,698 adequate day-rows, 3,848 users, mean 425/user, min 80, p50 476, p90 539,
 max 979; obs bins/day p50 283/288, zero-mask days 0).
@@ -56,7 +60,7 @@ with budget: +0.127 (k=40) → +0.146 (k=80) → **+0.182** (all days).
 | 60→80 | 0.0005 |
 | 80→all (+345 d) | 0.0001 |
 
-Concave in raw days, roughly log-like through k=80 (~+0.02 per doubling), still
+Concave in raw days, roughly log-like through k=80 (~+0.04 per doubling on average), still
 strictly positive at the endpoint: +0.041 from k=80 to full history.
 
 ### Pool effect at matched k (full history vs first-40-day window, paired, 10 allocs, test)
@@ -68,46 +72,47 @@ strictly positive at the endpoint: +0.041 from k=80 to full history.
 | Profile24 | −0.005 | −0.010* | −0.008 | −0.002 | −0.006 |
 | Summary_RF | −0.007 | −0.012 | +0.001 | −0.002 | −0.001 |
 
-\* CI excludes 0 at p<0.05; \** p<0.01. **The position effect is MR-specific**:
-sampling across the full history beats the early window by ~+0.02 at matched k for
-the transform, while Profile24/RF are flat-to-negative (cheap arms don't care which
-days they get; the transform exploits the more varied later days).
+\* CI excludes 0 at p<0.05; \** p<0.01. **The observed pool-recipe gain is largest for MR**:
+the full-history recipe has ~+0.02 higher mean AUROC at matched k for
+the transform, while Profile24/RF are flat-to-negative. Fill and bias fitting
+windows also differ, so the sampling contribution is not separately identified.
 
 ### Shrinkage × budget (α flip)
 
 At k ≤ 21, α=3e3 > α=1e3 (+0.02 at k=4); at k=80 they converge (+0.004); at the
-endpoint **α=1e3 > α=3e3 (+0.009)** — more pooling needs less shrinkage. With α
-frozen at 1e3, the reported curve is a **floor**: the endpoint optimum is likely
-below 1e3, so the full-history ceiling is probably higher than 0.926.
+endpoint **α=1e3 > α=3e3 (+0.009)**. This reverses the ranking of the two
+penalties tested; it does not locate the optimum or show that tuning would
+improve AUROC on new users.
 
 ### Reference points
 
 - v2 frozen (day40 window): MR 0.836, Combined (MR⊕HYDRA) **0.857** test.
 - Full-history MR α=1e3 alone: **0.926** test — beats the entire v2 representation
   ladder by +0.070 without HYDRA or α tuning, using data already on disk.
-- Endpoint control for pool-size leakage: from k=80 → all-days, Profile24 gains
-  +0.005 and Summary_RF +0.001 (they use the same full-pool B40/hour statics),
-  while MR gains +0.041 — the endpoint gain is transform pooling, not a "how much
-  data does this user have" artifact carried by the static features.
+- Static comparisons: from k=80 → all-days, Profile24 gains +0.005 and
+  Summary_RF +0.001, while MR gains +0.041. These model-specific differences
+  do not bound recording-related information in MR or transform-fitting exposure.
 
 ## Caveats (recorded)
 
-1. **Endpoint single kernel draw**: SD 0.0055 (fold-only); a fold+kernel-comparable
-   SD is ~0.011–0.015 (cf. k=80: 0.0115). The k=80→endpoint gain (+0.041) is far
-   beyond both.
-2. **Endpoint budget heterogeneity**: "all days" = each user's own pool (80–979);
-   pool size correlates with engagement. The P24/RF control above argues the
-   confound is small, but the endpoint is "use everything", not a fixed 425-day
-   budget.
-3. **α frozen** (1e3/3e3 only): true per-k optima would shift the curve up at both
-   ends (less shrinkage at large k, more at small k).
-4. **Cohort**: long-history Garmin export (≥80 adequate days, mean 425) — generalizes
-   to long-history users, not the export median (~40 days).
+1. **Endpoint single kernel draw**: SD 0.0055 across overlapping allocations,
+   conditional on this transform. Endpoint kernel-draw uncertainty was not measured.
+2. **Endpoint budget heterogeneity**: "all days" = each user's own pool (80–979),
+   not a fixed 425-day budget. Recording patterns and feature precision can vary
+   with pool size; P24/RF controls do not eliminate these explanations.
+3. **α frozen** (1e3/3e3 only): the optimum and tuning benefit on new users are unknown.
+4. **Cohort**: the pre-existing strict-coverage Garmin cohort has an observed
+   minimum of 80 adequate days and mean 425; ≥80 was not a new eligibility gate.
+   Shorter-history populations were not evaluated here.
 5. **Peak RSS 10.9 GiB > 8 GiB v2 gate** (exploratory run; deviation recorded).
-6. Endpoint kernels fit on alloc-0 train users' full-pool days (comp seed 6) and
-   evaluated under all 10 fold-splits — mild unsupervised cross-split exposure of
-   val/test days to bias quantiles (same class of exposure as the v2 fill/fit
-   protocol; documented here).
+6. **Cross-split transform exposure**: allocation-0 training fill values and MR
+   biases are reused under all ten fold-splits. In allocations 1–9, 380–413 of
+   573 test users entered that fitting set. Labels were not used in transform
+   fitting, and its AUROC effect is unknown. V2 instead fits fill/biases on each
+   allocation's training users.
+7. **Repeated development**: allocation-0 validation labels selected α, and
+   80–98 of those users occur in each later test set. Reused participants and
+   allocations make these exploratory estimates, not independent confirmation.
 
 ## Files
 
