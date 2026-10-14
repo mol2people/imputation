@@ -18,6 +18,15 @@
 /experiments/artifacts_sq/**/split_manifest*.csv
 /experiments/artifacts_sq/**/bootstrap_resample_indices.csv
 
+# MultiRocket binary caches, models, and vendor repositories
+*.npz
+/HEARTBEAT_LAB/artifacts/prepared/
+/HEARTBEAT_LAB/artifacts/relaxed_cache/
+/HEARTBEAT_LAB/artifacts/models/
+/HEARTBEAT_LAB/vendor/
+/experiments/apple_pilot_multirocket/artifacts/cache_5min/
+/experiments/apple_pilot_multirocket/artifacts/cache_15min/
+
 # environment / OS / caches
 .venv/
 __pycache__/

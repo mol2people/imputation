@@ -1,0 +1,1001 @@
+customer_id,user_id,salutation,y,age_group,bmi_group,csv_path
+1168,1168,10,0,Middle Ager,normal,out/1168.csv
+3352,3352,20,1,Middle Ager,normal,out/3352.csv
+3791,3791,20,1,Middle Ager,overweight,out/3791.csv
+4464,4464,10,0,Middle Ager,normal,out/4464.csv
+4906,4906,20,1,Young Adults,overweight,out/4906.csv
+8279,8279,20,1,Middle Ager,normal,out/8279.csv
+9680,9680,20,1,Young Adults,overweight,out/9680.csv
+9681,9681,20,1,Young Adults,obese,out/9681.csv
+10468,10468,20,1,Middle Ager,overweight,out/10468.csv
+11014,11014,10,0,Middle Ager,obese,out/11014.csv
+12148,12148,10,0,Middle Ager,normal,out/12148.csv
+15676,15676,10,0,Middle Ager,obese,out/15676.csv
+18093,18093,20,1,Middle Ager,normal,out/18093.csv
+19811,19811,20,1,Young Adults,normal,out/19811.csv
+20612,20612,20,1,Middle Ager,normal,out/20612.csv
+21538,21538,20,1,Middle Ager,normal,out/21538.csv
+23590,23590,20,1,Middle Ager,normal,out/23590.csv
+23632,23632,20,1,Young Adults,overweight,out/23632.csv
+23933,23933,20,1,Middle Ager,obese,out/23933.csv
+24087,24087,20,1,Middle Ager,overweight,out/24087.csv
+25669,25669,20,1,Middle Ager,overweight,out/25669.csv
+26510,26510,20,1,Middle Ager,obese,out/26510.csv
+27317,27317,10,0,Elderly,normal,out/27317.csv
+28509,28509,10,0,Middle Ager,overweight,out/28509.csv
+29732,29732,20,1,Middle Ager,normal,out/29732.csv
+29938,29938,20,1,Young Adults,overweight,out/29938.csv
+30804,30804,20,1,Young Adults,obese,out/30804.csv
+31245,31245,20,1,Middle Ager,overweight,out/31245.csv
+31398,31398,20,1,Middle Ager,normal,out/31398.csv
+31511,31511,20,1,Middle Ager,overweight,out/31511.csv
+33326,33326,10,0,Middle Ager,obese,out/33326.csv
+35804,35804,20,1,Middle Ager,obese,out/35804.csv
+38494,38494,20,1,Middle Ager,obese,out/38494.csv
+39506,39506,20,1,Young Adults,normal,out/39506.csv
+39774,39774,20,1,Young Adults,overweight,out/39774.csv
+42011,42011,20,1,Young Adults,normal,out/42011.csv
+42323,42323,10,0,Middle Ager,overweight,out/42323.csv
+43025,43025,20,1,Middle Ager,overweight,out/43025.csv
+44264,44264,20,1,Middle Ager,overweight,out/44264.csv
+45646,45646,20,1,Middle Ager,normal,out/45646.csv
+47225,47225,20,1,Middle Ager,normal,out/47225.csv
+47418,47418,10,0,Middle Ager,obese,out/47418.csv
+49741,49741,20,1,Elderly,obese,out/49741.csv
+50914,50914,10,0,Middle Ager,overweight,out/50914.csv
+51537,51537,10,0,Young Adults,overweight,out/51537.csv
+51840,51840,20,1,Middle Ager,normal,out/51840.csv
+52666,52666,20,1,Middle Ager,normal,out/52666.csv
+53213,53213,20,1,Young Adults,normal,out/53213.csv
+53360,53360,20,1,Middle Ager,overweight,out/53360.csv
+53752,53752,20,1,Young Adults,normal,out/53752.csv
+54526,54526,10,0,Middle Ager,obese,out/54526.csv
+54649,54649,20,1,Middle Ager,overweight,out/54649.csv
+55077,55077,20,1,Young Adults,normal,out/55077.csv
+55533,55533,20,1,Middle Ager,overweight,out/55533.csv
+55713,55713,20,1,Middle Ager,obese,out/55713.csv
+56438,56438,20,1,Middle Ager,normal,out/56438.csv
+57359,57359,20,1,Middle Ager,normal,out/57359.csv
+59058,59058,20,1,Middle Ager,obese,out/59058.csv
+60783,60783,20,1,Middle Ager,obese,out/60783.csv
+62999,62999,20,1,Middle Ager,obese,out/62999.csv
+63922,63922,20,1,Young Adults,normal,out/63922.csv
+64678,64678,20,1,Middle Ager,overweight,out/64678.csv
+66591,66591,20,1,Middle Ager,normal,out/66591.csv
+66999,66999,20,1,Middle Ager,normal,out/66999.csv
+67143,67143,20,1,Young Adults,normal,out/67143.csv
+67391,67391,20,1,Middle Ager,normal,out/67391.csv
+67669,67669,20,1,Young Adults,overweight,out/67669.csv
+69229,69229,20,1,Middle Ager,normal,out/69229.csv
+72456,72456,20,1,Middle Ager,normal,out/72456.csv
+73694,73694,20,1,Young Adults,overweight,out/73694.csv
+74604,74604,20,1,Middle Ager,overweight,out/74604.csv
+74981,74981,20,1,Middle Ager,obese,out/74981.csv
+75761,75761,10,0,Middle Ager,overweight,out/75761.csv
+76589,76589,10,0,Middle Ager,normal,out/76589.csv
+77466,77466,10,0,Elderly,underweight,out/77466.csv
+77489,77489,10,0,Middle Ager,overweight,out/77489.csv
+78012,78012,20,1,Young Adults,normal,out/78012.csv
+78464,78464,20,1,Middle Ager,overweight,out/78464.csv
+79537,79537,20,1,Middle Ager,overweight,out/79537.csv
+81585,81585,20,1,Young Adults,normal,out/81585.csv
+81724,81724,20,1,Middle Ager,normal,out/81724.csv
+82130,82130,10,0,Young Adults,normal,out/82130.csv
+82544,82544,20,1,Young Adults,normal,out/82544.csv
+85555,85555,20,1,Young Adults,overweight,out/85555.csv
+88325,88325,10,0,Young Adults,normal,out/88325.csv
+89447,89447,20,1,Middle Ager,overweight,out/89447.csv
+91660,91660,10,0,Young Adults,normal,out/91660.csv
+91915,91915,20,1,Young Adults,normal,out/91915.csv
+92767,92767,20,1,Middle Ager,overweight,out/92767.csv
+94504,94504,20,1,Young Adults,normal,out/94504.csv
+95309,95309,20,1,Young Adults,overweight,out/95309.csv
+97352,97352,10,0,Middle Ager,overweight,out/97352.csv
+98147,98147,10,0,Middle Ager,overweight,out/98147.csv
+100043,100043,20,1,Middle Ager,overweight,out/100043.csv
+100536,100536,20,1,Young Adults,overweight,out/100536.csv
+103359,103359,20,1,Middle Ager,normal,out/103359.csv
+104985,104985,20,1,Elderly,normal,out/104985.csv
+105584,105584,20,1,Middle Ager,obese,out/105584.csv
+106237,106237,20,1,Middle Ager,overweight,out/106237.csv
+106751,106751,10,0,Young Adults,overweight,out/106751.csv
+108918,108918,10,0,Middle Ager,obese,out/108918.csv
+110177,110177,20,1,Young Adults,normal,out/110177.csv
+110238,110238,10,0,Young Adults,normal,out/110238.csv
+111055,111055,10,0,Middle Ager,obese,out/111055.csv
+111840,111840,20,1,Middle Ager,normal,out/111840.csv
+112486,112486,20,1,Middle Ager,overweight,out/112486.csv
+113390,113390,20,1,Young Adults,normal,out/113390.csv
+114786,114786,20,1,Middle Ager,overweight,out/114786.csv
+115151,115151,20,1,Young Adults,overweight,out/115151.csv
+115371,115371,10,0,Middle Ager,overweight,out/115371.csv
+120497,120497,20,1,Elderly,normal,out/120497.csv
+122750,122750,10,0,Middle Ager,overweight,out/122750.csv
+123704,123704,20,1,Middle Ager,overweight,out/123704.csv
+126097,126097,10,0,Elderly,obese,out/126097.csv
+126242,126242,20,1,Middle Ager,overweight,out/126242.csv
+128351,128351,10,0,Middle Ager,normal,out/128351.csv
+129143,129143,20,1,Middle Ager,overweight,out/129143.csv
+134056,134056,20,1,Middle Ager,overweight,out/134056.csv
+134870,134870,10,0,Middle Ager,overweight,out/134870.csv
+136653,136653,10,0,Middle Ager,overweight,out/136653.csv
+136728,136728,10,0,Elderly,obese,out/136728.csv
+139177,139177,10,0,Young Adults,normal,out/139177.csv
+142569,142569,20,1,Middle Ager,obese,out/142569.csv
+142994,142994,20,1,Middle Ager,normal,out/142994.csv
+143333,143333,20,1,Elderly,obese,out/143333.csv
+145635,145635,20,1,Elderly,normal,out/145635.csv
+147096,147096,20,1,Young Adults,overweight,out/147096.csv
+148578,148578,10,0,Middle Ager,normal,out/148578.csv
+148752,148752,10,0,Young Adults,underweight,out/148752.csv
+149313,149313,20,1,Elderly,overweight,out/149313.csv
+151157,151157,10,0,Young Adults,normal,out/151157.csv
+151772,151772,10,0,Middle Ager,normal,out/151772.csv
+152298,152298,10,0,Middle Ager,obese,out/152298.csv
+154856,154856,20,1,Middle Ager,normal,out/154856.csv
+155351,155351,10,0,Middle Ager,normal,out/155351.csv
+156603,156603,10,0,Middle Ager,obese,out/156603.csv
+156789,156789,20,1,Young Adults,overweight,out/156789.csv
+160438,160438,20,1,Middle Ager,obese,out/160438.csv
+165018,165018,20,1,Middle Ager,normal,out/165018.csv
+167532,167532,10,0,Middle Ager,overweight,out/167532.csv
+168170,168170,20,1,Young Adults,overweight,out/168170.csv
+168894,168894,20,1,Middle Ager,obese,out/168894.csv
+170530,170530,20,1,Middle Ager,obese,out/170530.csv
+170620,170620,10,0,Middle Ager,overweight,out/170620.csv
+170760,170760,20,1,Middle Ager,overweight,out/170760.csv
+171685,171685,20,1,Middle Ager,normal,out/171685.csv
+174369,174369,20,1,Elderly,overweight,out/174369.csv
+177558,177558,20,1,Middle Ager,normal,out/177558.csv
+179458,179458,20,1,Middle Ager,overweight,out/179458.csv
+183781,183781,20,1,Young Adults,normal,out/183781.csv
+184106,184106,20,1,Middle Ager,normal,out/184106.csv
+189546,189546,20,1,Middle Ager,normal,out/189546.csv
+192392,192392,20,1,Young Adults,normal,out/192392.csv
+194175,194175,20,1,Middle Ager,normal,out/194175.csv
+194920,194920,20,1,Middle Ager,overweight,out/194920.csv
+197875,197875,10,0,Middle Ager,overweight,out/197875.csv
+204829,204829,20,1,Middle Ager,obese,out/204829.csv
+204887,204887,10,0,Middle Ager,overweight,out/204887.csv
+206164,206164,10,0,Middle Ager,obese,out/206164.csv
+209037,209037,20,1,Middle Ager,obese,out/209037.csv
+214396,214396,10,0,Middle Ager,normal,out/214396.csv
+217466,217466,10,0,Middle Ager,normal,out/217466.csv
+219025,219025,10,0,Middle Ager,obese,out/219025.csv
+220427,220427,20,1,Middle Ager,overweight,out/220427.csv
+221272,221272,10,0,Young Adults,normal,out/221272.csv
+221597,221597,10,0,Middle Ager,obese,out/221597.csv
+222623,222623,20,1,Young Adults,normal,out/222623.csv
+222780,222780,20,1,Young Adults,underweight,out/222780.csv
+223378,223378,20,1,Middle Ager,obese,out/223378.csv
+223522,223522,20,1,Middle Ager,normal,out/223522.csv
+225254,225254,10,0,Middle Ager,normal,out/225254.csv
+225773,225773,20,1,Middle Ager,obese,out/225773.csv
+227065,227065,20,1,Elderly,obese,out/227065.csv
+232856,232856,10,0,Middle Ager,obese,out/232856.csv
+233533,233533,10,0,Middle Ager,overweight,out/233533.csv
+234342,234342,20,1,Elderly,obese,out/234342.csv
+239604,239604,10,0,Middle Ager,normal,out/239604.csv
+239683,239683,20,1,Middle Ager,normal,out/239683.csv
+240993,240993,20,1,Young Adults,overweight,out/240993.csv
+241707,241707,10,0,Middle Ager,normal,out/241707.csv
+246004,246004,20,1,Middle Ager,normal,out/246004.csv
+248013,248013,10,0,Middle Ager,normal,out/248013.csv
+249033,249033,20,1,Elderly,overweight,out/249033.csv
+249926,249926,20,1,Middle Ager,overweight,out/249926.csv
+252060,252060,20,1,Middle Ager,overweight,out/252060.csv
+253047,253047,20,1,Middle Ager,normal,out/253047.csv
+254431,254431,10,0,Middle Ager,normal,out/254431.csv
+254579,254579,10,0,Middle Ager,normal,out/254579.csv
+255392,255392,10,0,Middle Ager,normal,out/255392.csv
+258223,258223,20,1,Middle Ager,normal,out/258223.csv
+259570,259570,20,1,Elderly,obese,out/259570.csv
+268850,268850,20,1,Middle Ager,normal,out/268850.csv
+275495,275495,20,1,Middle Ager,obese,out/275495.csv
+276226,276226,20,1,Middle Ager,overweight,out/276226.csv
+280012,280012,10,0,Middle Ager,normal,out/280012.csv
+286975,286975,10,0,Young Adults,normal,out/286975.csv
+288021,288021,10,0,Young Adults,overweight,out/288021.csv
+289157,289157,20,1,Middle Ager,obese,out/289157.csv
+290404,290404,10,0,Young Adults,normal,out/290404.csv
+291072,291072,10,0,Middle Ager,overweight,out/291072.csv
+292810,292810,20,1,Middle Ager,overweight,out/292810.csv
+295799,295799,20,1,Young Adults,overweight,out/295799.csv
+297432,297432,20,1,Middle Ager,overweight,out/297432.csv
+297739,297739,10,0,Middle Ager,overweight,out/297739.csv
+299765,299765,20,1,Elderly,overweight,out/299765.csv
+301710,301710,10,0,Elderly,normal,out/301710.csv
+302374,302374,20,1,Elderly,overweight,out/302374.csv
+302931,302931,10,0,Middle Ager,normal,out/302931.csv
+307975,307975,20,1,Middle Ager,overweight,out/307975.csv
+313920,313920,20,1,Elderly,overweight,out/313920.csv
+316788,316788,20,1,Elderly,obese,out/316788.csv
+318926,318926,20,1,Elderly,normal,out/318926.csv
+320264,320264,10,0,Middle Ager,normal,out/320264.csv
+321013,321013,20,1,Middle Ager,normal,out/321013.csv
+321991,321991,10,0,Middle Ager,obese,out/321991.csv
+322373,322373,20,1,Middle Ager,normal,out/322373.csv
+322664,322664,10,0,Middle Ager,overweight,out/322664.csv
+329741,329741,10,0,Middle Ager,obese,out/329741.csv
+334741,334741,20,1,Middle Ager,normal,out/334741.csv
+335767,335767,20,1,Middle Ager,obese,out/335767.csv
+335847,335847,20,1,Young Adults,obese,out/335847.csv
+336474,336474,20,1,Middle Ager,normal,out/336474.csv
+338049,338049,20,1,Middle Ager,normal,out/338049.csv
+341774,341774,10,0,Young Adults,normal,out/341774.csv
+342159,342159,20,1,Young Adults,obese,out/342159.csv
+345607,345607,20,1,Middle Ager,overweight,out/345607.csv
+348085,348085,10,0,Elderly,normal,out/348085.csv
+350076,350076,10,0,Middle Ager,overweight,out/350076.csv
+352897,352897,10,0,Middle Ager,normal,out/352897.csv
+353170,353170,20,1,Young Adults,obese,out/353170.csv
+355863,355863,20,1,Young Adults,normal,out/355863.csv
+357750,357750,10,0,Middle Ager,normal,out/357750.csv
+358471,358471,20,1,Middle Ager,overweight,out/358471.csv
+361033,361033,20,1,Middle Ager,obese,out/361033.csv
+361085,361085,20,1,Middle Ager,overweight,out/361085.csv
+362423,362423,20,1,Young Adults,normal,out/362423.csv
+366460,366460,10,0,Middle Ager,normal,out/366460.csv
+367999,367999,20,1,Middle Ager,normal,out/367999.csv
+369117,369117,20,1,Middle Ager,normal,out/369117.csv
+370373,370373,20,1,Young Adults,overweight,out/370373.csv
+370987,370987,20,1,Young Adults,normal,out/370987.csv
+372780,372780,20,1,Middle Ager,overweight,out/372780.csv
+373783,373783,20,1,Middle Ager,overweight,out/373783.csv
+375364,375364,20,1,Elderly,normal,out/375364.csv
+375399,375399,10,0,Middle Ager,obese,out/375399.csv
+375941,375941,20,1,Middle Ager,obese,out/375941.csv
+378008,378008,10,0,Young Adults,normal,out/378008.csv
+378370,378370,20,1,Young Adults,normal,out/378370.csv
+383964,383964,20,1,Elderly,overweight,out/383964.csv
+394222,394222,20,1,Young Adults,overweight,out/394222.csv
+395234,395234,10,0,Middle Ager,normal,out/395234.csv
+402864,402864,10,0,Middle Ager,overweight,out/402864.csv
+403039,403039,20,1,Elderly,obese,out/403039.csv
+404224,404224,10,0,Elderly,normal,out/404224.csv
+408709,408709,20,1,Elderly,overweight,out/408709.csv
+409030,409030,20,1,Middle Ager,normal,out/409030.csv
+410407,410407,20,1,Middle Ager,normal,out/410407.csv
+413638,413638,10,0,Young Adults,overweight,out/413638.csv
+416979,416979,20,1,Middle Ager,normal,out/416979.csv
+417359,417359,20,1,Middle Ager,overweight,out/417359.csv
+417484,417484,20,1,Young Adults,overweight,out/417484.csv
+428381,428381,20,1,Middle Ager,normal,out/428381.csv
+431153,431153,10,0,Middle Ager,overweight,out/431153.csv
+431246,431246,20,1,Middle Ager,normal,out/431246.csv
+431679,431679,20,1,Middle Ager,overweight,out/431679.csv
+437564,437564,20,1,Middle Ager,normal,out/437564.csv
+438711,438711,10,0,Middle Ager,normal,out/438711.csv
+439021,439021,20,1,Middle Ager,normal,out/439021.csv
+439881,439881,20,1,Middle Ager,obese,out/439881.csv
+441520,441520,20,1,Elderly,overweight,out/441520.csv
+443740,443740,20,1,Middle Ager,normal,out/443740.csv
+443782,443782,20,1,Middle Ager,overweight,out/443782.csv
+444130,444130,20,1,Elderly,obese,out/444130.csv
+444655,444655,20,1,Elderly,normal,out/444655.csv
+445044,445044,20,1,Young Adults,obese,out/445044.csv
+449485,449485,10,0,Middle Ager,normal,out/449485.csv
+452877,452877,20,1,Middle Ager,obese,out/452877.csv
+455406,455406,20,1,Middle Ager,overweight,out/455406.csv
+456340,456340,10,0,Middle Ager,overweight,out/456340.csv
+457711,457711,20,1,Middle Ager,normal,out/457711.csv
+458377,458377,20,1,Middle Ager,overweight,out/458377.csv
+460007,460007,20,1,Middle Ager,normal,out/460007.csv
+462152,462152,20,1,Middle Ager,overweight,out/462152.csv
+462377,462377,20,1,Elderly,normal,out/462377.csv
+464318,464318,10,0,Middle Ager,obese,out/464318.csv
+466005,466005,20,1,Young Adults,normal,out/466005.csv
+466731,466731,20,1,Middle Ager,overweight,out/466731.csv
+467137,467137,20,1,Elderly,obese,out/467137.csv
+468018,468018,20,1,Middle Ager,overweight,out/468018.csv
+471276,471276,20,1,Middle Ager,obese,out/471276.csv
+474098,474098,20,1,Young Adults,obese,out/474098.csv
+475425,475425,10,0,Middle Ager,overweight,out/475425.csv
+479227,479227,10,0,Middle Ager,overweight,out/479227.csv
+480360,480360,10,0,Middle Ager,overweight,out/480360.csv
+480808,480808,10,0,Middle Ager,normal,out/480808.csv
+481262,481262,20,1,Middle Ager,overweight,out/481262.csv
+481399,481399,20,1,Middle Ager,overweight,out/481399.csv
+482151,482151,20,1,Middle Ager,normal,out/482151.csv
+482276,482276,20,1,Middle Ager,overweight,out/482276.csv
+482278,482278,20,1,Middle Ager,obese,out/482278.csv
+484157,484157,20,1,Middle Ager,overweight,out/484157.csv
+485423,485423,20,1,Middle Ager,overweight,out/485423.csv
+485992,485992,10,0,Middle Ager,normal,out/485992.csv
+487339,487339,20,1,Elderly,overweight,out/487339.csv
+487835,487835,10,0,Middle Ager,normal,out/487835.csv
+488553,488553,10,0,Middle Ager,normal,out/488553.csv
+490047,490047,10,0,Young Adults,obese,out/490047.csv
+490614,490614,20,1,Young Adults,overweight,out/490614.csv
+490713,490713,20,1,Elderly,overweight,out/490713.csv
+490866,490866,20,1,Middle Ager,overweight,out/490866.csv
+492673,492673,10,0,Middle Ager,normal,out/492673.csv
+497269,497269,20,1,Middle Ager,overweight,out/497269.csv
+498279,498279,20,1,Middle Ager,overweight,out/498279.csv
+500444,500444,20,1,Young Adults,overweight,out/500444.csv
+502116,502116,20,1,Elderly,overweight,out/502116.csv
+505846,505846,20,1,Middle Ager,overweight,out/505846.csv
+506217,506217,20,1,Middle Ager,overweight,out/506217.csv
+507578,507578,10,0,Middle Ager,normal,out/507578.csv
+508035,508035,10,0,Middle Ager,overweight,out/508035.csv
+509252,509252,10,0,Middle Ager,obese,out/509252.csv
+520447,520447,20,1,Young Adults,overweight,out/520447.csv
+521255,521255,10,0,Middle Ager,overweight,out/521255.csv
+522888,522888,20,1,Middle Ager,overweight,out/522888.csv
+523696,523696,10,0,Middle Ager,normal,out/523696.csv
+526879,526879,10,0,Middle Ager,overweight,out/526879.csv
+527703,527703,20,1,Middle Ager,obese,out/527703.csv
+530859,530859,10,0,Middle Ager,normal,out/530859.csv
+530876,530876,20,1,Middle Ager,normal,out/530876.csv
+530929,530929,10,0,Young Adults,normal,out/530929.csv
+537234,537234,20,1,Middle Ager,normal,out/537234.csv
+538689,538689,20,1,Middle Ager,overweight,out/538689.csv
+538988,538988,20,1,Middle Ager,overweight,out/538988.csv
+545220,545220,10,0,Middle Ager,overweight,out/545220.csv
+546177,546177,20,1,Middle Ager,overweight,out/546177.csv
+549525,549525,20,1,Young Adults,normal,out/549525.csv
+550253,550253,10,0,Middle Ager,obese,out/550253.csv
+551249,551249,20,1,Elderly,overweight,out/551249.csv
+553175,553175,10,0,Middle Ager,normal,out/553175.csv
+553274,553274,20,1,Young Adults,normal,out/553274.csv
+555166,555166,20,1,Elderly,obese,out/555166.csv
+560223,560223,10,0,Middle Ager,normal,out/560223.csv
+560921,560921,20,1,Middle Ager,normal,out/560921.csv
+561342,561342,10,0,Middle Ager,normal,out/561342.csv
+571484,571484,10,0,Middle Ager,overweight,out/571484.csv
+574447,574447,10,0,Middle Ager,normal,out/574447.csv
+574912,574912,20,1,Middle Ager,normal,out/574912.csv
+581349,581349,10,0,Middle Ager,overweight,out/581349.csv
+588595,588595,20,1,Middle Ager,obese,out/588595.csv
+589825,589825,20,1,Young Adults,obese,out/589825.csv
+592950,592950,10,0,Young Adults,normal,out/592950.csv
+594694,594694,20,1,Middle Ager,obese,out/594694.csv
+602969,602969,10,0,Middle Ager,obese,out/602969.csv
+603119,603119,10,0,Middle Ager,normal,out/603119.csv
+605718,605718,10,0,Middle Ager,normal,out/605718.csv
+607034,607034,10,0,Elderly,normal,out/607034.csv
+608779,608779,10,0,Elderly,normal,out/608779.csv
+611078,611078,10,0,Elderly,underweight,out/611078.csv
+612044,612044,20,1,Middle Ager,obese,out/612044.csv
+613965,613965,10,0,Middle Ager,obese,out/613965.csv
+621771,621771,20,1,Young Adults,normal,out/621771.csv
+625899,625899,20,1,Elderly,overweight,out/625899.csv
+626012,626012,20,1,Middle Ager,obese,out/626012.csv
+627662,627662,20,1,Middle Ager,normal,out/627662.csv
+641379,641379,10,0,Middle Ager,obese,out/641379.csv
+650187,650187,20,1,Middle Ager,overweight,out/650187.csv
+650765,650765,10,0,Middle Ager,normal,out/650765.csv
+653240,653240,20,1,Middle Ager,overweight,out/653240.csv
+654690,654690,20,1,Middle Ager,overweight,out/654690.csv
+655200,655200,20,1,Middle Ager,obese,out/655200.csv
+656526,656526,10,0,Middle Ager,normal,out/656526.csv
+656623,656623,20,1,Elderly,overweight,out/656623.csv
+658283,658283,10,0,Middle Ager,normal,out/658283.csv
+664165,664165,20,1,Middle Ager,obese,out/664165.csv
+666805,666805,20,1,Middle Ager,overweight,out/666805.csv
+668174,668174,20,1,Middle Ager,normal,out/668174.csv
+670082,670082,20,1,Elderly,overweight,out/670082.csv
+672492,672492,10,0,Middle Ager,obese,out/672492.csv
+673122,673122,20,1,Middle Ager,normal,out/673122.csv
+674236,674236,10,0,Young Adults,overweight,out/674236.csv
+674904,674904,10,0,Middle Ager,overweight,out/674904.csv
+677009,677009,10,0,Middle Ager,normal,out/677009.csv
+677219,677219,20,1,Middle Ager,obese,out/677219.csv
+677327,677327,20,1,Middle Ager,normal,out/677327.csv
+679316,679316,20,1,Middle Ager,overweight,out/679316.csv
+680173,680173,10,0,Young Adults,overweight,out/680173.csv
+681078,681078,10,0,Middle Ager,obese,out/681078.csv
+682010,682010,10,0,Middle Ager,normal,out/682010.csv
+682738,682738,20,1,Middle Ager,obese,out/682738.csv
+684040,684040,20,1,Middle Ager,obese,out/684040.csv
+685008,685008,10,0,Middle Ager,overweight,out/685008.csv
+688093,688093,10,0,Middle Ager,normal,out/688093.csv
+689371,689371,10,0,Middle Ager,overweight,out/689371.csv
+693042,693042,10,0,Young Adults,normal,out/693042.csv
+694527,694527,10,0,Middle Ager,obese,out/694527.csv
+696415,696415,10,0,Middle Ager,normal,out/696415.csv
+700626,700626,10,0,Middle Ager,normal,out/700626.csv
+704301,704301,10,0,Middle Ager,obese,out/704301.csv
+713973,713973,10,0,Elderly,normal,out/713973.csv
+714416,714416,10,0,Middle Ager,normal,out/714416.csv
+715042,715042,10,0,Middle Ager,normal,out/715042.csv
+717478,717478,10,0,Young Adults,overweight,out/717478.csv
+720062,720062,20,1,Middle Ager,overweight,out/720062.csv
+721693,721693,20,1,Young Adults,normal,out/721693.csv
+723295,723295,20,1,Middle Ager,overweight,out/723295.csv
+723538,723538,10,0,Middle Ager,overweight,out/723538.csv
+724157,724157,20,1,Middle Ager,normal,out/724157.csv
+726054,726054,20,1,Young Adults,obese,out/726054.csv
+728108,728108,10,0,Middle Ager,overweight,out/728108.csv
+729302,729302,20,1,Elderly,obese,out/729302.csv
+729874,729874,20,1,Middle Ager,normal,out/729874.csv
+730263,730263,20,1,Young Adults,overweight,out/730263.csv
+731104,731104,20,1,Young Adults,normal,out/731104.csv
+734854,734854,10,0,Middle Ager,normal,out/734854.csv
+735011,735011,20,1,Young Adults,overweight,out/735011.csv
+736346,736346,10,0,Young Adults,normal,out/736346.csv
+741137,741137,10,0,Middle Ager,normal,out/741137.csv
+743582,743582,20,1,Middle Ager,overweight,out/743582.csv
+743872,743872,10,0,Middle Ager,obese,out/743872.csv
+744384,744384,20,1,Middle Ager,overweight,out/744384.csv
+745174,745174,20,1,Elderly,overweight,out/745174.csv
+746688,746688,20,1,Middle Ager,normal,out/746688.csv
+748884,748884,10,0,Young Adults,overweight,out/748884.csv
+749438,749438,10,0,Elderly,normal,out/749438.csv
+751323,751323,20,1,Elderly,overweight,out/751323.csv
+751484,751484,10,0,Middle Ager,normal,out/751484.csv
+753381,753381,20,1,Middle Ager,overweight,out/753381.csv
+753651,753651,20,1,Middle Ager,normal,out/753651.csv
+756051,756051,10,0,Elderly,overweight,out/756051.csv
+758092,758092,20,1,Middle Ager,overweight,out/758092.csv
+761385,761385,20,1,Middle Ager,overweight,out/761385.csv
+761881,761881,20,1,Middle Ager,normal,out/761881.csv
+764456,764456,10,0,Middle Ager,obese,out/764456.csv
+765201,765201,20,1,Middle Ager,overweight,out/765201.csv
+767981,767981,20,1,Young Adults,overweight,out/767981.csv
+771621,771621,20,1,Middle Ager,normal,out/771621.csv
+775295,775295,20,1,Young Adults,obese,out/775295.csv
+778123,778123,20,1,Middle Ager,obese,out/778123.csv
+786438,786438,20,1,Middle Ager,normal,out/786438.csv
+787071,787071,20,1,Elderly,overweight,out/787071.csv
+797030,797030,20,1,Middle Ager,obese,out/797030.csv
+797738,797738,20,1,Middle Ager,obese,out/797738.csv
+800146,800146,20,1,Middle Ager,normal,out/800146.csv
+800574,800574,10,0,Middle Ager,overweight,out/800574.csv
+811517,811517,20,1,Middle Ager,overweight,out/811517.csv
+812374,812374,10,0,Middle Ager,overweight,out/812374.csv
+813424,813424,20,1,Young Adults,overweight,out/813424.csv
+814014,814014,10,0,Middle Ager,obese,out/814014.csv
+815639,815639,20,1,Middle Ager,normal,out/815639.csv
+816571,816571,10,0,Middle Ager,overweight,out/816571.csv
+817243,817243,10,0,Middle Ager,overweight,out/817243.csv
+822693,822693,20,1,Middle Ager,obese,out/822693.csv
+822963,822963,20,1,Elderly,normal,out/822963.csv
+823703,823703,20,1,Middle Ager,normal,out/823703.csv
+824793,824793,10,0,Middle Ager,normal,out/824793.csv
+832664,832664,10,0,Elderly,normal,out/832664.csv
+832999,832999,10,0,Young Adults,normal,out/832999.csv
+838458,838458,10,0,Middle Ager,normal,out/838458.csv
+846924,846924,10,0,Elderly,normal,out/846924.csv
+847453,847453,20,1,Young Adults,overweight,out/847453.csv
+849318,849318,20,1,Middle Ager,obese,out/849318.csv
+851221,851221,20,1,Middle Ager,normal,out/851221.csv
+851926,851926,20,1,Middle Ager,obese,out/851926.csv
+857499,857499,20,1,Middle Ager,overweight,out/857499.csv
+859881,859881,10,0,Middle Ager,overweight,out/859881.csv
+874404,874404,20,1,Elderly,overweight,out/874404.csv
+877432,877432,20,1,Young Adults,normal,out/877432.csv
+881883,881883,20,1,Elderly,overweight,out/881883.csv
+883619,883619,20,1,Middle Ager,normal,out/883619.csv
+886296,886296,10,0,Elderly,overweight,out/886296.csv
+894796,894796,20,1,Middle Ager,normal,out/894796.csv
+899163,899163,20,1,Middle Ager,normal,out/899163.csv
+901839,901839,10,0,Young Adults,overweight,out/901839.csv
+904564,904564,10,0,Middle Ager,obese,out/904564.csv
+915476,915476,20,1,Middle Ager,normal,out/915476.csv
+927634,927634,20,1,Middle Ager,overweight,out/927634.csv
+932940,932940,10,0,Young Adults,normal,out/932940.csv
+948211,948211,10,0,Young Adults,normal,out/948211.csv
+952380,952380,10,0,Young Adults,normal,out/952380.csv
+952975,952975,10,0,Middle Ager,normal,out/952975.csv
+954454,954454,10,0,Middle Ager,overweight,out/954454.csv
+960168,960168,20,1,Young Adults,overweight,out/960168.csv
+960192,960192,20,1,Elderly,normal,out/960192.csv
+961249,961249,10,0,Middle Ager,normal,out/961249.csv
+963297,963297,20,1,Middle Ager,normal,out/963297.csv
+963674,963674,20,1,Young Adults,obese,out/963674.csv
+964074,964074,20,1,Elderly,overweight,out/964074.csv
+968190,968190,20,1,Middle Ager,overweight,out/968190.csv
+975037,975037,10,0,Young Adults,overweight,out/975037.csv
+979852,979852,20,1,Elderly,overweight,out/979852.csv
+981889,981889,10,0,Middle Ager,normal,out/981889.csv
+982095,982095,20,1,Young Adults,obese,out/982095.csv
+982311,982311,20,1,Middle Ager,normal,out/982311.csv
+985214,985214,20,1,Middle Ager,normal,out/985214.csv
+990212,990212,20,1,Middle Ager,obese,out/990212.csv
+992231,992231,20,1,Middle Ager,normal,out/992231.csv
+995809,995809,20,1,Elderly,overweight,out/995809.csv
+996931,996931,10,0,Middle Ager,normal,out/996931.csv
+1003567,1003567,10,0,Elderly,obese,out/1003567.csv
+1012919,1012919,20,1,Young Adults,overweight,out/1012919.csv
+1012941,1012941,20,1,Elderly,normal,out/1012941.csv
+1018151,1018151,20,1,Middle Ager,obese,out/1018151.csv
+1030113,1030113,10,0,Middle Ager,normal,out/1030113.csv
+1032029,1032029,20,1,Elderly,overweight,out/1032029.csv
+1033619,1033619,20,1,Middle Ager,normal,out/1033619.csv
+1034320,1034320,20,1,Young Adults,normal,out/1034320.csv
+1038715,1038715,20,1,Young Adults,obese,out/1038715.csv
+1047848,1047848,20,1,Young Adults,normal,out/1047848.csv
+1056124,1056124,20,1,Middle Ager,obese,out/1056124.csv
+1056231,1056231,10,0,Middle Ager,normal,out/1056231.csv
+1059602,1059602,20,1,Young Adults,overweight,out/1059602.csv
+1060216,1060216,10,0,Middle Ager,obese,out/1060216.csv
+1060768,1060768,20,1,Middle Ager,normal,out/1060768.csv
+1063749,1063749,20,1,Middle Ager,normal,out/1063749.csv
+1064125,1064125,20,1,Middle Ager,overweight,out/1064125.csv
+1065886,1065886,20,1,Elderly,overweight,out/1065886.csv
+1068556,1068556,10,0,Middle Ager,overweight,out/1068556.csv
+1069349,1069349,10,0,Young Adults,normal,out/1069349.csv
+1071357,1071357,20,1,Middle Ager,obese,out/1071357.csv
+1072170,1072170,10,0,Young Adults,overweight,out/1072170.csv
+1072861,1072861,10,0,Young Adults,normal,out/1072861.csv
+1073991,1073991,20,1,Young Adults,normal,out/1073991.csv
+1074028,1074028,10,0,Middle Ager,normal,out/1074028.csv
+1074574,1074574,20,1,Elderly,normal,out/1074574.csv
+1074793,1074793,10,0,Middle Ager,normal,out/1074793.csv
+1074903,1074903,20,1,Middle Ager,normal,out/1074903.csv
+1075042,1075042,20,1,Middle Ager,overweight,out/1075042.csv
+1076862,1076862,20,1,Middle Ager,overweight,out/1076862.csv
+1077725,1077725,10,0,Middle Ager,normal,out/1077725.csv
+1078127,1078127,20,1,Middle Ager,obese,out/1078127.csv
+1081771,1081771,20,1,Middle Ager,obese,out/1081771.csv
+1082203,1082203,10,0,Middle Ager,normal,out/1082203.csv
+1084015,1084015,10,0,Middle Ager,normal,out/1084015.csv
+1085237,1085237,20,1,Young Adults,overweight,out/1085237.csv
+1087657,1087657,10,0,Young Adults,overweight,out/1087657.csv
+1088492,1088492,20,1,Young Adults,normal,out/1088492.csv
+1089121,1089121,20,1,Young Adults,underweight,out/1089121.csv
+1092147,1092147,20,1,Middle Ager,overweight,out/1092147.csv
+1093119,1093119,20,1,Elderly,overweight,out/1093119.csv
+1093772,1093772,20,1,Middle Ager,overweight,out/1093772.csv
+1093841,1093841,20,1,Middle Ager,overweight,out/1093841.csv
+1094182,1094182,20,1,Middle Ager,overweight,out/1094182.csv
+1094195,1094195,20,1,Middle Ager,obese,out/1094195.csv
+1094874,1094874,20,1,Young Adults,obese,out/1094874.csv
+1095839,1095839,20,1,Middle Ager,normal,out/1095839.csv
+1095909,1095909,20,1,Middle Ager,obese,out/1095909.csv
+1097884,1097884,20,1,Middle Ager,obese,out/1097884.csv
+1098546,1098546,20,1,Middle Ager,obese,out/1098546.csv
+1098623,1098623,10,0,Middle Ager,normal,out/1098623.csv
+1099136,1099136,20,1,Young Adults,overweight,out/1099136.csv
+1099288,1099288,10,0,Middle Ager,normal,out/1099288.csv
+1099490,1099490,20,1,Elderly,overweight,out/1099490.csv
+1100338,1100338,20,1,Middle Ager,normal,out/1100338.csv
+1101659,1101659,20,1,Middle Ager,obese,out/1101659.csv
+1102206,1102206,20,1,Elderly,normal,out/1102206.csv
+1102629,1102629,20,1,Young Adults,overweight,out/1102629.csv
+1102655,1102655,20,1,Middle Ager,overweight,out/1102655.csv
+1102684,1102684,20,1,Young Adults,normal,out/1102684.csv
+1102954,1102954,10,0,Middle Ager,overweight,out/1102954.csv
+1103104,1103104,10,0,Middle Ager,obese,out/1103104.csv
+1103185,1103185,20,1,Middle Ager,obese,out/1103185.csv
+1103964,1103964,20,1,Middle Ager,overweight,out/1103964.csv
+1104064,1104064,20,1,Young Adults,obese,out/1104064.csv
+1104423,1104423,20,1,Elderly,normal,out/1104423.csv
+1105391,1105391,10,0,Middle Ager,normal,out/1105391.csv
+1105479,1105479,20,1,Middle Ager,obese,out/1105479.csv
+1105567,1105567,20,1,Middle Ager,overweight,out/1105567.csv
+1107073,1107073,20,1,Middle Ager,normal,out/1107073.csv
+1109027,1109027,20,1,Young Adults,normal,out/1109027.csv
+1109359,1109359,10,0,Middle Ager,overweight,out/1109359.csv
+1109540,1109540,10,0,Middle Ager,overweight,out/1109540.csv
+1110318,1110318,10,0,Middle Ager,overweight,out/1110318.csv
+1110465,1110465,20,1,Young Adults,normal,out/1110465.csv
+1110744,1110744,20,1,Young Adults,underweight,out/1110744.csv
+1111676,1111676,10,0,Young Adults,obese,out/1111676.csv
+1112225,1112225,10,0,Middle Ager,normal,out/1112225.csv
+1113028,1113028,20,1,Young Adults,normal,out/1113028.csv
+1113089,1113089,10,0,Middle Ager,normal,out/1113089.csv
+1113799,1113799,20,1,Elderly,obese,out/1113799.csv
+1114057,1114057,20,1,Middle Ager,overweight,out/1114057.csv
+1114134,1114134,20,1,Middle Ager,obese,out/1114134.csv
+1114365,1114365,10,0,Middle Ager,overweight,out/1114365.csv
+1114921,1114921,10,0,Elderly,obese,out/1114921.csv
+1118069,1118069,20,1,Young Adults,overweight,out/1118069.csv
+1118300,1118300,20,1,Middle Ager,overweight,out/1118300.csv
+1119399,1119399,20,1,Young Adults,normal,out/1119399.csv
+1120990,1120990,20,1,Elderly,overweight,out/1120990.csv
+1121504,1121504,20,1,Middle Ager,normal,out/1121504.csv
+1121614,1121614,20,1,Elderly,overweight,out/1121614.csv
+1122699,1122699,20,1,Middle Ager,normal,out/1122699.csv
+1122802,1122802,10,0,Elderly,normal,out/1122802.csv
+1123001,1123001,20,1,Young Adults,obese,out/1123001.csv
+1123449,1123449,20,1,Middle Ager,obese,out/1123449.csv
+1123823,1123823,20,1,Middle Ager,normal,out/1123823.csv
+1123875,1123875,10,0,Young Adults,normal,out/1123875.csv
+1124538,1124538,20,1,Middle Ager,obese,out/1124538.csv
+1124776,1124776,20,1,Young Adults,normal,out/1124776.csv
+1125398,1125398,20,1,Middle Ager,obese,out/1125398.csv
+1126994,1126994,20,1,Middle Ager,normal,out/1126994.csv
+1127125,1127125,20,1,Elderly,obese,out/1127125.csv
+1127160,1127160,20,1,Young Adults,overweight,out/1127160.csv
+1127277,1127277,20,1,Middle Ager,overweight,out/1127277.csv
+1128404,1128404,20,1,Young Adults,normal,out/1128404.csv
+1128986,1128986,20,1,Middle Ager,overweight,out/1128986.csv
+1131915,1131915,20,1,Middle Ager,normal,out/1131915.csv
+1132047,1132047,20,1,Middle Ager,normal,out/1132047.csv
+1132327,1132327,20,1,Young Adults,overweight,out/1132327.csv
+1132669,1132669,20,1,Middle Ager,normal,out/1132669.csv
+1133759,1133759,20,1,Middle Ager,normal,out/1133759.csv
+1135765,1135765,20,1,Middle Ager,overweight,out/1135765.csv
+1136019,1136019,20,1,Middle Ager,obese,out/1136019.csv
+1136321,1136321,10,0,Middle Ager,normal,out/1136321.csv
+1138020,1138020,20,1,Middle Ager,normal,out/1138020.csv
+1139811,1139811,10,0,Middle Ager,normal,out/1139811.csv
+1142065,1142065,20,1,Young Adults,normal,out/1142065.csv
+1142071,1142071,10,0,Elderly,normal,out/1142071.csv
+1142927,1142927,10,0,Middle Ager,normal,out/1142927.csv
+1143327,1143327,20,1,Middle Ager,overweight,out/1143327.csv
+1145883,1145883,20,1,Middle Ager,overweight,out/1145883.csv
+1146277,1146277,20,1,Middle Ager,normal,out/1146277.csv
+1147320,1147320,20,1,Middle Ager,overweight,out/1147320.csv
+1151019,1151019,20,1,Middle Ager,overweight,out/1151019.csv
+1151704,1151704,20,1,Middle Ager,normal,out/1151704.csv
+1153749,1153749,20,1,Middle Ager,overweight,out/1153749.csv
+1154942,1154942,20,1,Young Adults,normal,out/1154942.csv
+1156069,1156069,10,0,Middle Ager,obese,out/1156069.csv
+1156754,1156754,20,1,Young Adults,normal,out/1156754.csv
+1156825,1156825,20,1,Middle Ager,normal,out/1156825.csv
+1157427,1157427,20,1,Middle Ager,overweight,out/1157427.csv
+1206438,1206438,20,1,Young Adults,underweight,out/1206438.csv
+1206569,1206569,10,0,Middle Ager,normal,out/1206569.csv
+1206610,1206610,20,1,Young Adults,normal,out/1206610.csv
+1206640,1206640,20,1,Middle Ager,overweight,out/1206640.csv
+1206704,1206704,20,1,Middle Ager,overweight,out/1206704.csv
+1206775,1206775,20,1,Middle Ager,normal,out/1206775.csv
+1206802,1206802,20,1,Middle Ager,obese,out/1206802.csv
+1206817,1206817,20,1,Middle Ager,overweight,out/1206817.csv
+1207004,1207004,10,0,Young Adults,normal,out/1207004.csv
+1207148,1207148,20,1,Middle Ager,overweight,out/1207148.csv
+1207315,1207315,20,1,Young Adults,normal,out/1207315.csv
+1207354,1207354,20,1,Elderly,overweight,out/1207354.csv
+1207443,1207443,20,1,Middle Ager,normal,out/1207443.csv
+1207447,1207447,10,0,Middle Ager,overweight,out/1207447.csv
+1207580,1207580,20,1,Middle Ager,normal,out/1207580.csv
+1207768,1207768,20,1,Young Adults,obese,out/1207768.csv
+1207790,1207790,20,1,Young Adults,overweight,out/1207790.csv
+1207829,1207829,20,1,Middle Ager,overweight,out/1207829.csv
+1207854,1207854,20,1,Middle Ager,normal,out/1207854.csv
+1207906,1207906,20,1,Middle Ager,obese,out/1207906.csv
+1207957,1207957,20,1,Middle Ager,normal,out/1207957.csv
+1208059,1208059,20,1,Middle Ager,obese,out/1208059.csv
+1208215,1208215,10,0,Middle Ager,overweight,out/1208215.csv
+1208239,1208239,20,1,Young Adults,overweight,out/1208239.csv
+1208463,1208463,20,1,Middle Ager,obese,out/1208463.csv
+1208631,1208631,20,1,Middle Ager,overweight,out/1208631.csv
+1208841,1208841,20,1,Middle Ager,normal,out/1208841.csv
+1208862,1208862,20,1,Middle Ager,normal,out/1208862.csv
+1209076,1209076,20,1,Middle Ager,overweight,out/1209076.csv
+1209098,1209098,20,1,Middle Ager,overweight,out/1209098.csv
+1209476,1209476,20,1,Middle Ager,normal,out/1209476.csv
+1209509,1209509,20,1,Middle Ager,normal,out/1209509.csv
+1209591,1209591,20,1,Middle Ager,overweight,out/1209591.csv
+1209703,1209703,20,1,Elderly,overweight,out/1209703.csv
+1209754,1209754,20,1,Middle Ager,overweight,out/1209754.csv
+1209970,1209970,20,1,Young Adults,normal,out/1209970.csv
+1209985,1209985,10,0,Young Adults,underweight,out/1209985.csv
+1210067,1210067,20,1,Middle Ager,overweight,out/1210067.csv
+1210102,1210102,20,1,Middle Ager,overweight,out/1210102.csv
+1210122,1210122,10,0,Elderly,overweight,out/1210122.csv
+1210159,1210159,20,1,Middle Ager,overweight,out/1210159.csv
+1210188,1210188,20,1,Middle Ager,overweight,out/1210188.csv
+1210327,1210327,20,1,Middle Ager,normal,out/1210327.csv
+1210499,1210499,20,1,Young Adults,obese,out/1210499.csv
+1210606,1210606,20,1,Middle Ager,normal,out/1210606.csv
+1210698,1210698,20,1,Young Adults,obese,out/1210698.csv
+1210837,1210837,20,1,Middle Ager,normal,out/1210837.csv
+1210953,1210953,20,1,Middle Ager,obese,out/1210953.csv
+1210983,1210983,20,1,Young Adults,normal,out/1210983.csv
+1211095,1211095,10,0,Middle Ager,overweight,out/1211095.csv
+1211166,1211166,20,1,Middle Ager,normal,out/1211166.csv
+1211444,1211444,20,1,Middle Ager,obese,out/1211444.csv
+1211699,1211699,10,0,Middle Ager,normal,out/1211699.csv
+1211911,1211911,10,0,Young Adults,obese,out/1211911.csv
+1211950,1211950,10,0,Middle Ager,normal,out/1211950.csv
+1212061,1212061,20,1,Middle Ager,obese,out/1212061.csv
+1212499,1212499,20,1,Young Adults,overweight,out/1212499.csv
+1212522,1212522,10,0,Elderly,normal,out/1212522.csv
+1212576,1212576,10,0,Middle Ager,obese,out/1212576.csv
+1212621,1212621,20,1,Middle Ager,obese,out/1212621.csv
+1212914,1212914,10,0,Middle Ager,obese,out/1212914.csv
+1213167,1213167,20,1,Middle Ager,overweight,out/1213167.csv
+1213183,1213183,10,0,Elderly,normal,out/1213183.csv
+1213237,1213237,20,1,Middle Ager,normal,out/1213237.csv
+1213271,1213271,10,0,Middle Ager,overweight,out/1213271.csv
+1213399,1213399,20,1,Middle Ager,obese,out/1213399.csv
+1213401,1213401,20,1,Middle Ager,obese,out/1213401.csv
+1213674,1213674,20,1,Young Adults,normal,out/1213674.csv
+1213718,1213718,20,1,Middle Ager,normal,out/1213718.csv
+1213825,1213825,20,1,Elderly,overweight,out/1213825.csv
+1213853,1213853,20,1,Middle Ager,overweight,out/1213853.csv
+1213921,1213921,20,1,Middle Ager,overweight,out/1213921.csv
+1214016,1214016,20,1,Middle Ager,overweight,out/1214016.csv
+1214059,1214059,10,0,Middle Ager,overweight,out/1214059.csv
+1214220,1214220,20,1,Young Adults,normal,out/1214220.csv
+1214334,1214334,20,1,Elderly,overweight,out/1214334.csv
+1214369,1214369,20,1,Elderly,obese,out/1214369.csv
+1214413,1214413,20,1,Middle Ager,overweight,out/1214413.csv
+1214460,1214460,10,0,Middle Ager,normal,out/1214460.csv
+1214472,1214472,10,0,Middle Ager,normal,out/1214472.csv
+1214673,1214673,20,1,Middle Ager,obese,out/1214673.csv
+1214675,1214675,10,0,Elderly,normal,out/1214675.csv
+1214735,1214735,20,1,Middle Ager,overweight,out/1214735.csv
+1214760,1214760,10,0,Middle Ager,normal,out/1214760.csv
+1214805,1214805,10,0,Young Adults,obese,out/1214805.csv
+1214873,1214873,20,1,Young Adults,normal,out/1214873.csv
+1215079,1215079,20,1,Middle Ager,obese,out/1215079.csv
+1215208,1215208,20,1,Middle Ager,obese,out/1215208.csv
+1215314,1215314,20,1,Middle Ager,overweight,out/1215314.csv
+1215517,1215517,10,0,Middle Ager,normal,out/1215517.csv
+1215599,1215599,20,1,Middle Ager,overweight,out/1215599.csv
+1215738,1215738,20,1,Middle Ager,obese,out/1215738.csv
+1215740,1215740,20,1,Middle Ager,obese,out/1215740.csv
+1216380,1216380,20,1,Middle Ager,normal,out/1216380.csv
+1216392,1216392,20,1,Middle Ager,normal,out/1216392.csv
+1216794,1216794,20,1,Middle Ager,normal,out/1216794.csv
+1216849,1216849,20,1,Elderly,normal,out/1216849.csv
+1216856,1216856,10,0,Elderly,normal,out/1216856.csv
+1216938,1216938,20,1,Middle Ager,normal,out/1216938.csv
+1217283,1217283,10,0,Middle Ager,overweight,out/1217283.csv
+1217540,1217540,10,0,Young Adults,normal,out/1217540.csv
+1217643,1217643,10,0,Middle Ager,normal,out/1217643.csv
+1217701,1217701,10,0,Middle Ager,normal,out/1217701.csv
+1217885,1217885,20,1,Middle Ager,normal,out/1217885.csv
+1217941,1217941,10,0,Middle Ager,normal,out/1217941.csv
+1217947,1217947,20,1,Middle Ager,normal,out/1217947.csv
+1217997,1217997,10,0,Middle Ager,normal,out/1217997.csv
+1218006,1218006,20,1,Middle Ager,obese,out/1218006.csv
+1218125,1218125,10,0,Middle Ager,normal,out/1218125.csv
+1218220,1218220,10,0,Elderly,normal,out/1218220.csv
+1218236,1218236,20,1,Middle Ager,normal,out/1218236.csv
+1218241,1218241,10,0,Middle Ager,obese,out/1218241.csv
+1218267,1218267,20,1,Young Adults,obese,out/1218267.csv
+1218347,1218347,20,1,Middle Ager,overweight,out/1218347.csv
+1218369,1218369,10,0,Elderly,normal,out/1218369.csv
+1218550,1218550,20,1,Middle Ager,normal,out/1218550.csv
+1218584,1218584,20,1,Elderly,overweight,out/1218584.csv
+1218598,1218598,20,1,Middle Ager,overweight,out/1218598.csv
+1218747,1218747,20,1,Middle Ager,normal,out/1218747.csv
+1218894,1218894,20,1,Middle Ager,normal,out/1218894.csv
+1218903,1218903,20,1,Middle Ager,normal,out/1218903.csv
+1219228,1219228,10,0,Young Adults,overweight,out/1219228.csv
+1219537,1219537,20,1,Young Adults,normal,out/1219537.csv
+1219842,1219842,10,0,Middle Ager,normal,out/1219842.csv
+1219941,1219941,20,1,Middle Ager,overweight,out/1219941.csv
+1220134,1220134,10,0,Middle Ager,normal,out/1220134.csv
+1220271,1220271,10,0,Middle Ager,overweight,out/1220271.csv
+1220343,1220343,20,1,Middle Ager,normal,out/1220343.csv
+1220397,1220397,20,1,Young Adults,normal,out/1220397.csv
+1220417,1220417,20,1,Middle Ager,normal,out/1220417.csv
+1220547,1220547,20,1,Young Adults,normal,out/1220547.csv
+1220633,1220633,10,0,Middle Ager,overweight,out/1220633.csv
+1220689,1220689,20,1,Middle Ager,normal,out/1220689.csv
+1220706,1220706,20,1,Middle Ager,overweight,out/1220706.csv
+1220736,1220736,20,1,Elderly,overweight,out/1220736.csv
+1220999,1220999,20,1,Middle Ager,overweight,out/1220999.csv
+1221025,1221025,10,0,Middle Ager,underweight,out/1221025.csv
+1221055,1221055,10,0,Middle Ager,overweight,out/1221055.csv
+1221097,1221097,20,1,Middle Ager,obese,out/1221097.csv
+1221116,1221116,10,0,Middle Ager,normal,out/1221116.csv
+1221306,1221306,20,1,Middle Ager,obese,out/1221306.csv
+1221402,1221402,10,0,Elderly,overweight,out/1221402.csv
+1221413,1221413,10,0,Middle Ager,overweight,out/1221413.csv
+1221521,1221521,20,1,Middle Ager,overweight,out/1221521.csv
+1221694,1221694,20,1,Young Adults,overweight,out/1221694.csv
+1221887,1221887,20,1,Elderly,normal,out/1221887.csv
+1221996,1221996,20,1,Middle Ager,obese,out/1221996.csv
+1222072,1222072,20,1,Middle Ager,obese,out/1222072.csv
+1222188,1222188,20,1,Middle Ager,overweight,out/1222188.csv
+1222595,1222595,10,0,Middle Ager,normal,out/1222595.csv
+1222818,1222818,20,1,Young Adults,obese,out/1222818.csv
+1222929,1222929,20,1,Young Adults,overweight,out/1222929.csv
+1222960,1222960,10,0,Middle Ager,obese,out/1222960.csv
+1223215,1223215,10,0,Middle Ager,overweight,out/1223215.csv
+1223243,1223243,10,0,Elderly,normal,out/1223243.csv
+1223454,1223454,20,1,Middle Ager,overweight,out/1223454.csv
+1223556,1223556,20,1,Middle Ager,obese,out/1223556.csv
+1223595,1223595,20,1,Middle Ager,obese,out/1223595.csv
+1223666,1223666,10,0,Middle Ager,obese,out/1223666.csv
+1223851,1223851,20,1,Middle Ager,overweight,out/1223851.csv
+1223878,1223878,10,0,Middle Ager,obese,out/1223878.csv
+1223957,1223957,20,1,Middle Ager,overweight,out/1223957.csv
+1223987,1223987,20,1,Middle Ager,overweight,out/1223987.csv
+1224060,1224060,20,1,Young Adults,obese,out/1224060.csv
+1224149,1224149,20,1,Middle Ager,normal,out/1224149.csv
+1224225,1224225,20,1,Middle Ager,overweight,out/1224225.csv
+1224294,1224294,20,1,Middle Ager,normal,out/1224294.csv
+1224663,1224663,10,0,Elderly,obese,out/1224663.csv
+1224704,1224704,20,1,Elderly,normal,out/1224704.csv
+1224785,1224785,20,1,Young Adults,overweight,out/1224785.csv
+1224810,1224810,10,0,Young Adults,normal,out/1224810.csv
+1224963,1224963,20,1,Middle Ager,obese,out/1224963.csv
+1224996,1224996,10,0,Young Adults,normal,out/1224996.csv
+1225039,1225039,10,0,Middle Ager,obese,out/1225039.csv
+1225070,1225070,20,1,Middle Ager,obese,out/1225070.csv
+1225105,1225105,20,1,Young Adults,normal,out/1225105.csv
+1225123,1225123,20,1,Young Adults,normal,out/1225123.csv
+1225440,1225440,20,1,Elderly,obese,out/1225440.csv
+1225495,1225495,20,1,Young Adults,normal,out/1225495.csv
+1225528,1225528,10,0,Middle Ager,overweight,out/1225528.csv
+1225545,1225545,20,1,Middle Ager,overweight,out/1225545.csv
+1225549,1225549,20,1,Middle Ager,normal,out/1225549.csv
+1225734,1225734,20,1,Young Adults,overweight,out/1225734.csv
+1225796,1225796,20,1,Elderly,normal,out/1225796.csv
+1225798,1225798,10,0,Middle Ager,overweight,out/1225798.csv
+1225833,1225833,10,0,Young Adults,overweight,out/1225833.csv
+1225862,1225862,10,0,Middle Ager,normal,out/1225862.csv
+1225870,1225870,20,1,Middle Ager,normal,out/1225870.csv
+1225954,1225954,10,0,Middle Ager,normal,out/1225954.csv
+1226000,1226000,20,1,Middle Ager,overweight,out/1226000.csv
+1226033,1226033,10,0,Middle Ager,overweight,out/1226033.csv
+1226070,1226070,20,1,Middle Ager,obese,out/1226070.csv
+1226084,1226084,20,1,Middle Ager,normal,out/1226084.csv
+1226102,1226102,20,1,Young Adults,overweight,out/1226102.csv
+1226167,1226167,20,1,Middle Ager,overweight,out/1226167.csv
+1226173,1226173,20,1,Middle Ager,overweight,out/1226173.csv
+1226402,1226402,20,1,Middle Ager,obese,out/1226402.csv
+1226573,1226573,10,0,Middle Ager,overweight,out/1226573.csv
+1226744,1226744,10,0,Young Adults,normal,out/1226744.csv
+1226829,1226829,10,0,Middle Ager,overweight,out/1226829.csv
+1227187,1227187,10,0,Middle Ager,overweight,out/1227187.csv
+1227230,1227230,10,0,Middle Ager,normal,out/1227230.csv
+1227284,1227284,20,1,Middle Ager,obese,out/1227284.csv
+1227362,1227362,10,0,Middle Ager,normal,out/1227362.csv
+1227395,1227395,20,1,Young Adults,overweight,out/1227395.csv
+1227418,1227418,20,1,Middle Ager,normal,out/1227418.csv
+1227550,1227550,20,1,Middle Ager,overweight,out/1227550.csv
+1227745,1227745,10,0,Middle Ager,overweight,out/1227745.csv
+1227783,1227783,10,0,Middle Ager,underweight,out/1227783.csv
+1227924,1227924,20,1,Middle Ager,normal,out/1227924.csv
+1228099,1228099,10,0,Middle Ager,normal,out/1228099.csv
+1228118,1228118,20,1,Middle Ager,overweight,out/1228118.csv
+1228135,1228135,20,1,Elderly,obese,out/1228135.csv
+1228312,1228312,10,0,Young Adults,normal,out/1228312.csv
+1228643,1228643,20,1,Middle Ager,overweight,out/1228643.csv
+1228841,1228841,20,1,Young Adults,obese,out/1228841.csv
+1229266,1229266,10,0,Middle Ager,overweight,out/1229266.csv
+1229446,1229446,20,1,Middle Ager,normal,out/1229446.csv
+1229477,1229477,20,1,Middle Ager,obese,out/1229477.csv
+1229497,1229497,10,0,Middle Ager,overweight,out/1229497.csv
+1229552,1229552,20,1,Elderly,normal,out/1229552.csv
+1229708,1229708,10,0,Middle Ager,normal,out/1229708.csv
+1229769,1229769,20,1,Elderly,normal,out/1229769.csv
+1229846,1229846,20,1,Middle Ager,overweight,out/1229846.csv
+1229917,1229917,10,0,Elderly,normal,out/1229917.csv
+1230053,1230053,20,1,Young Adults,normal,out/1230053.csv
+1230113,1230113,10,0,Middle Ager,overweight,out/1230113.csv
+1230450,1230450,10,0,Young Adults,normal,out/1230450.csv
+1230503,1230503,10,0,Middle Ager,overweight,out/1230503.csv
+1230599,1230599,10,0,Young Adults,normal,out/1230599.csv
+1230638,1230638,20,1,Middle Ager,obese,out/1230638.csv
+1230655,1230655,20,1,Young Adults,normal,out/1230655.csv
+1230665,1230665,20,1,Middle Ager,normal,out/1230665.csv
+1230707,1230707,20,1,Elderly,normal,out/1230707.csv
+1230773,1230773,10,0,Middle Ager,normal,out/1230773.csv
+1230834,1230834,20,1,Middle Ager,obese,out/1230834.csv
+1231050,1231050,20,1,Middle Ager,normal,out/1231050.csv
+1231642,1231642,20,1,Elderly,obese,out/1231642.csv
+1231752,1231752,20,1,Middle Ager,overweight,out/1231752.csv
+1232091,1232091,20,1,Middle Ager,normal,out/1232091.csv
+1232093,1232093,20,1,Middle Ager,normal,out/1232093.csv
+1232157,1232157,10,0,Young Adults,normal,out/1232157.csv
+1232245,1232245,10,0,Young Adults,overweight,out/1232245.csv
+1232618,1232618,20,1,Young Adults,overweight,out/1232618.csv
+1232682,1232682,10,0,Middle Ager,obese,out/1232682.csv
+1232685,1232685,10,0,Middle Ager,overweight,out/1232685.csv
+1233030,1233030,10,0,Middle Ager,normal,out/1233030.csv
+1233128,1233128,20,1,Elderly,obese,out/1233128.csv
+1233180,1233180,20,1,Young Adults,normal,out/1233180.csv
+1233211,1233211,10,0,Young Adults,normal,out/1233211.csv
+1233617,1233617,10,0,Middle Ager,normal,out/1233617.csv
+1233860,1233860,20,1,Elderly,obese,out/1233860.csv
+1234181,1234181,20,1,Middle Ager,normal,out/1234181.csv
+1234237,1234237,20,1,Young Adults,obese,out/1234237.csv
+1234247,1234247,10,0,Middle Ager,normal,out/1234247.csv
+1234489,1234489,20,1,Young Adults,normal,out/1234489.csv
+1234587,1234587,10,0,Young Adults,normal,out/1234587.csv
+1234624,1234624,20,1,Elderly,obese,out/1234624.csv
+1234704,1234704,10,0,Elderly,normal,out/1234704.csv
+1234945,1234945,10,0,Middle Ager,obese,out/1234945.csv
+1234969,1234969,20,1,Middle Ager,obese,out/1234969.csv
+1235069,1235069,20,1,Middle Ager,obese,out/1235069.csv
+1235084,1235084,10,0,Elderly,normal,out/1235084.csv
+1235162,1235162,20,1,Middle Ager,overweight,out/1235162.csv
+1235268,1235268,20,1,Middle Ager,obese,out/1235268.csv
+1235603,1235603,10,0,Middle Ager,normal,out/1235603.csv
+1235689,1235689,20,1,Middle Ager,overweight,out/1235689.csv
+1235719,1235719,20,1,Middle Ager,normal,out/1235719.csv
+1235720,1235720,20,1,Young Adults,overweight,out/1235720.csv
+1235773,1235773,20,1,Middle Ager,obese,out/1235773.csv
+1235868,1235868,20,1,Elderly,overweight,out/1235868.csv
+1235919,1235919,20,1,Middle Ager,obese,out/1235919.csv
+1235942,1235942,10,0,Middle Ager,normal,out/1235942.csv
+1235952,1235952,20,1,Middle Ager,normal,out/1235952.csv
+1235967,1235967,10,0,Middle Ager,overweight,out/1235967.csv
+1236127,1236127,20,1,Young Adults,normal,out/1236127.csv
+1236201,1236201,20,1,Young Adults,overweight,out/1236201.csv
+1236308,1236308,20,1,Elderly,overweight,out/1236308.csv
+1236374,1236374,10,0,Middle Ager,overweight,out/1236374.csv
+1236476,1236476,20,1,Elderly,normal,out/1236476.csv
+1236567,1236567,20,1,Middle Ager,obese,out/1236567.csv
+1236616,1236616,20,1,Young Adults,normal,out/1236616.csv
+1236793,1236793,20,1,Middle Ager,overweight,out/1236793.csv
+1237007,1237007,10,0,Young Adults,normal,out/1237007.csv
+1237012,1237012,20,1,Young Adults,overweight,out/1237012.csv
+1237346,1237346,20,1,Middle Ager,normal,out/1237346.csv
+1237412,1237412,10,0,Middle Ager,normal,out/1237412.csv
+1237627,1237627,10,0,Young Adults,obese,out/1237627.csv
+1237761,1237761,20,1,Young Adults,overweight,out/1237761.csv
+1237767,1237767,10,0,Middle Ager,overweight,out/1237767.csv
+1237823,1237823,20,1,Middle Ager,normal,out/1237823.csv
+1237980,1237980,20,1,Elderly,overweight,out/1237980.csv
+1238062,1238062,20,1,Young Adults,normal,out/1238062.csv
+1238209,1238209,20,1,Middle Ager,overweight,out/1238209.csv
+1238212,1238212,20,1,Middle Ager,normal,out/1238212.csv
+1238266,1238266,20,1,Middle Ager,overweight,out/1238266.csv
+1238275,1238275,10,0,Young Adults,underweight,out/1238275.csv
+1238335,1238335,20,1,Middle Ager,normal,out/1238335.csv
+1238494,1238494,20,1,Elderly,normal,out/1238494.csv
+1238532,1238532,20,1,Middle Ager,normal,out/1238532.csv
+1238565,1238565,10,0,Middle Ager,normal,out/1238565.csv
+1238709,1238709,20,1,Middle Ager,overweight,out/1238709.csv
+1238852,1238852,10,0,Middle Ager,normal,out/1238852.csv
+1238901,1238901,10,0,Middle Ager,normal,out/1238901.csv
+1238924,1238924,20,1,Middle Ager,obese,out/1238924.csv
+1238978,1238978,10,0,Middle Ager,normal,out/1238978.csv
+1239244,1239244,20,1,Young Adults,obese,out/1239244.csv
+1239421,1239421,10,0,Middle Ager,overweight,out/1239421.csv
+1239423,1239423,20,1,Middle Ager,overweight,out/1239423.csv
+1239485,1239485,10,0,Middle Ager,overweight,out/1239485.csv
+1239648,1239648,10,0,Middle Ager,overweight,out/1239648.csv
+1239732,1239732,10,0,Young Adults,normal,out/1239732.csv
+1239971,1239971,20,1,Elderly,overweight,out/1239971.csv
+1240359,1240359,10,0,Young Adults,normal,out/1240359.csv
+1240550,1240550,20,1,Middle Ager,normal,out/1240550.csv
+1241335,1241335,10,0,Middle Ager,overweight,out/1241335.csv
+1241438,1241438,20,1,Elderly,overweight,out/1241438.csv
+1241690,1241690,10,0,Middle Ager,overweight,out/1241690.csv
+1242297,1242297,10,0,Middle Ager,normal,out/1242297.csv
+1242401,1242401,10,0,Middle Ager,overweight,out/1242401.csv
+1242480,1242480,20,1,Elderly,obese,out/1242480.csv
+1242590,1242590,20,1,Middle Ager,overweight,out/1242590.csv
+1242637,1242637,10,0,Middle Ager,normal,out/1242637.csv
+1242699,1242699,20,1,Middle Ager,overweight,out/1242699.csv
+1243077,1243077,20,1,Middle Ager,obese,out/1243077.csv
+1243662,1243662,20,1,Young Adults,overweight,out/1243662.csv
+1243940,1243940,10,0,Young Adults,overweight,out/1243940.csv
+1244174,1244174,20,1,Young Adults,obese,out/1244174.csv
+1244526,1244526,10,0,Middle Ager,normal,out/1244526.csv
+1244591,1244591,10,0,Middle Ager,overweight,out/1244591.csv
+1244621,1244621,10,0,Middle Ager,normal,out/1244621.csv
+1244817,1244817,10,0,Middle Ager,overweight,out/1244817.csv
+1245310,1245310,20,1,Middle Ager,overweight,out/1245310.csv
+1245341,1245341,20,1,Elderly,obese,out/1245341.csv
+1245359,1245359,10,0,Middle Ager,obese,out/1245359.csv
+1245371,1245371,20,1,Middle Ager,normal,out/1245371.csv
+1245418,1245418,20,1,Middle Ager,overweight,out/1245418.csv
+1245419,1245419,10,0,Middle Ager,overweight,out/1245419.csv
+1245424,1245424,20,1,Middle Ager,overweight,out/1245424.csv
+1245505,1245505,10,0,Middle Ager,normal,out/1245505.csv
+1245583,1245583,20,1,Middle Ager,overweight,out/1245583.csv
+1245694,1245694,20,1,Middle Ager,overweight,out/1245694.csv
+1245798,1245798,20,1,Middle Ager,obese,out/1245798.csv
+1245820,1245820,10,0,Middle Ager,overweight,out/1245820.csv
+1245945,1245945,10,0,Elderly,overweight,out/1245945.csv
+1246055,1246055,10,0,Middle Ager,overweight,out/1246055.csv
+1246128,1246128,20,1,Middle Ager,normal,out/1246128.csv
+1246170,1246170,20,1,Middle Ager,normal,out/1246170.csv
+1246733,1246733,20,1,Middle Ager,overweight,out/1246733.csv
+1246811,1246811,20,1,Middle Ager,obese,out/1246811.csv
+1246859,1246859,20,1,Middle Ager,normal,out/1246859.csv
+1246999,1246999,20,1,Middle Ager,obese,out/1246999.csv
+1247077,1247077,10,0,Young Adults,overweight,out/1247077.csv
+1247082,1247082,20,1,Middle Ager,normal,out/1247082.csv
+1247138,1247138,20,1,Middle Ager,normal,out/1247138.csv
+1247415,1247415,20,1,Middle Ager,overweight,out/1247415.csv
+1247505,1247505,10,0,Middle Ager,obese,out/1247505.csv
+1247514,1247514,10,0,Middle Ager,normal,out/1247514.csv
+1248290,1248290,20,1,Middle Ager,normal,out/1248290.csv
+1248690,1248690,10,0,Middle Ager,obese,out/1248690.csv
+1248825,1248825,20,1,Middle Ager,normal,out/1248825.csv
+1248895,1248895,20,1,Middle Ager,obese,out/1248895.csv
+1248899,1248899,20,1,Middle Ager,overweight,out/1248899.csv
+1249046,1249046,10,0,Young Adults,normal,out/1249046.csv
+1249086,1249086,20,1,Middle Ager,overweight,out/1249086.csv
+1249516,1249516,10,0,Middle Ager,obese,out/1249516.csv
+1249652,1249652,10,0,Middle Ager,normal,out/1249652.csv
+1249699,1249699,20,1,Elderly,obese,out/1249699.csv
+1249701,1249701,20,1,Young Adults,obese,out/1249701.csv
+1250106,1250106,10,0,Middle Ager,normal,out/1250106.csv
+1250133,1250133,20,1,Elderly,overweight,out/1250133.csv
+1250196,1250196,10,0,Young Adults,normal,out/1250196.csv
