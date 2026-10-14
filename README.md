@@ -109,11 +109,18 @@ flowchart TD
     G_T0 -.->|"Zero-shot weights transfer"| P_TRANS
 ```
 
-Detailed summaries and documentation:
-- [`learnings/wear_phenotypes_and_missingness_synthesis.md`](learnings/wear_phenotypes_and_missingness_synthesis.md): cross-vendor analysis of wear phenotypes, missingness dynamics, and convolution poisoning.
-- [`learnings/experiment_lineage_worktree.md`](learnings/experiment_lineage_worktree.md): complete inventory and divergence analysis.
-- [`learnings/future_experiments_backlog.md`](learnings/future_experiments_backlog.md): prioritized follow-up designs (binning ablation, cross-device transfer).
-- [`learnings/multirocket_garmin_synthesis.md`](learnings/multirocket_garmin_synthesis.md): audit of the >0.90 AUROC MultiRocket model architecture.
+### Key Synthesis Documents & Provenance
+
+The [`learnings/`](learnings/) directory captures architectural syntheses, lineage diagrams, and future designs derived from the milestone experiments:
+
+- [`learnings/wear_phenotypes_and_missingness_synthesis.md`](learnings/wear_phenotypes_and_missingness_synthesis.md)  
+  *Derived from:* **Tier 1c Garmin Full Cohort Relaxation** ($N=4,410$), **Apple Watch Pilot Benchmark** ($N=1,000$), and **Garmin Temporal Binning Benchmark** ($N=1,000$). Decomposes why 76.9% of relaxed-cohort users are intermittent wearers, analyzes watchOS adaptive sampling physics, and explains why 15-minute boxcar pooling rescues MultiRocket from flat-median convolution poisoning (+16.7 pt lift).
+- [`learnings/future_experiments_backlog.md`](learnings/future_experiments_backlog.md)  
+  *Derived from:* Findings in the **Apple Watch Pilot** and **Garmin Binning** experiments. Specifies prioritized follow-up designs: Apple wear phenotype decomposition, smooth spline vs. mask imputation, and cross-hardware zero-shot transfer.
+- [`learnings/experiment_lineage_worktree.md`](learnings/experiment_lineage_worktree.md)  
+  *Derived from:* Repository-wide audit mapping all 21 completed and planned experiments across hardware sampling physics and longitudinal gating divergences.
+- [`learnings/multirocket_garmin_synthesis.md`](learnings/multirocket_garmin_synthesis.md)  
+  *Derived from:* The **HEARTBEAT_LAB Tier 0** strict continuous wear deployment model ($N=3,848$, AUROC $0.9100$).
 
 ---
 
@@ -122,7 +129,7 @@ Detailed summaries and documentation:
 | Experiment | Scope & Design | Model / Features | Test AUROC | Key Finding / Artifact |
 | :--- | :--- | :--- | :---: | :--- |
 | **--- Primary Sequence Milestones (MultiRocket & Scaling) ---** | | | | |
-| [Days scaling](experiments/temporal_garmin/results/DAYS_SCALING_REPORT.md) | $N = 3,848$ Garmin, 10 allocations | MultiRocket sampled across full history ($k \to \text{all}$) | **0.9264** | Strongest single lever measured (+0.070 over 40-day window); concave precision curve. |
+| [Days scaling](experiments/temporal_garmin/results/DAYS_SCALING_REPORT.md) | $N = 3,848$ Garmin, 10 allocations | MultiRocket sampled across full history ($k \to \text{all}$) | **0.9264** | Strongest single lever measured (+0.090 vs. 40-day MR, +0.070 over 40-day ensemble); concave precision curve. |
 | [Tier 0 Canonical Model](HEARTBEAT_LAB/README.md) | $N = 3,848$ Garmin Strict, $\ge 11$/13 wks | MultiRocket 5m + Ridge ($\alpha=1000$) | **0.9100** | Canonical continuous-wear baseline; established $\approx 0.91$ floor. |
 | [Tier 1c Full Cohort Relaxation](HEARTBEAT_LAB/README.md) | $N = 4,410$ Garmin (+562 wear-fail), 10 allocs | MultiRocket 5m on full cohort | **0.9094 ± 0.0058** | Core remains 0.9235; delta wear-fail stratum recovered to 0.8156 (+0.1898 over summary 0.7196). |
 | [Garmin Temporal Binning](experiments/garmin_temporal_binning/README.md) | $N = 1,000$ Garmin, 5 allocations | MultiRocket 1m vs. 5m vs. 15m | **5m: 0.8410**<br/>1m: 0.8350<br/>15m: 0.8228 | Strict favors 5m (0.8647 vs. 0.8320); Delta favors 15m (0.7687 vs. 0.6022, +16.7 pt lift). |
@@ -156,7 +163,7 @@ The informative-recording and OR-Tools result summaries above reflect published 
 
 The primary methodological finding is that **representing within-day heart rate sequences substantially outperforms scalar summaries**. On matched data, temporal sequence models reach 0.8565 test AUROC versus 0.7157 for summary ridge regressions (+0.14 paired increment). Hourly and circadian features yield smaller positive increments. These results demonstrate empirical predictability in the evaluated cohorts without establishing the physiological origin of the signal.
 
-**Expanding the per-participant day budget is the largest single lever identified.** Sampling days from each participant's full adequate history instead of the initial 40-day window lifts single-arm MultiRocket test AUROC from 0.8361 to 0.9264 (**+0.070 over the 40-day model**). The empirical budget curve is concave, bounded at the endpoint between a $1/\sqrt{k}$ moment-precision extrapolation (asymptote $\approx 0.93$) and a log-linear trajectory ($\approx 0.99$); because no fixed point above $k=80$ was directly measured, the theoretical ceiling remains unobserved. This gain is transform-specific: hourly profile features gain +0.06 and summary RF gains +0.04 across the same horizon. Day sampling strategy matters primarily for sequence transforms: random-$k$ sampling outperforms chronological first-$k$ within windowed data (+0.021 test at $k=4$), and full-history sampling adds $\approx +0.02$ at matched $k$.
+**Expanding the per-participant day budget is the largest single lever identified.** Sampling days from each participant's full adequate history instead of the initial 40-day window lifts single-arm MultiRocket test AUROC from 0.8361 to 0.9264 (**+0.090 over the 40-day single-arm baseline, and +0.070 over the best 40-day combined ensemble of 0.8565**). The empirical budget curve is concave, bounded at the endpoint between a $1/\sqrt{k}$ moment-precision extrapolation (asymptote $\approx 0.93$) and a log-linear trajectory ($\approx 0.99$); because no fixed point above $k=80$ was directly measured, the theoretical ceiling remains unobserved. This gain is transform-specific: hourly profile features gain +0.06 and summary RF gains +0.04 across the same horizon. Day sampling strategy matters primarily for sequence transforms: random-$k$ sampling outperforms chronological first-$k$ within windowed data (+0.021 test at $k=4$), and full-history sampling adds $\approx +0.02$ at matched $k$.
 
 **Recording structure carries predictive signal in its own right.** Binary mask and event-count sequences achieve approximately 0.62–0.63 test AUROC. Shuffling controls implicate temporal arrangement while jointly disrupting local sequence order and diurnal clock alignment. The heart-rate value shuffle preserves observation masks while randomizing value order and value-to-time alignment, which does not isolate interactions between heart rate, sampling frequency, and participant recording habits. These AUROC differences do not identify physiological information fractions.
 
