@@ -51,7 +51,7 @@ flowchart TD
     %% Left Branch: Garmin
     subgraph GARMIN_BRANCH ["Garmin Cohort (Source 3) — Continuous 1-Min Averages"]
         G_RAW["Garmin Single-Source Universe<br/>N = 4,410 eligible (34.6% F / 65.4% M)"]
-        D1 -->|Continuous ~95% bin occupancy| G_RAW
+        D1 -->|"Continuous ~95% bin occupancy"| G_RAW
 
         G_RF["<b>Historical RF Baseline (artifacts_sq)</b><br/>Tabular 91-day window summaries<br/>AUROC = 0.6918"]:::completed
         G_RAW --> G_RF
@@ -60,17 +60,17 @@ flowchart TD
         G_RAW --> D2
 
         G_T0["<b>Tier 0 Strict MultiRocket (HEARTBEAT_LAB)</b><br/>N = 3,848 (>=11 adequate wks / 13 wks)<br/>Clock-fill Ridge (alpha=1000)<br/>AUROC = 0.9100"]:::completed
-        D2 -->|Strict Window Pass (87.3%)| G_T0
+        D2 -->|"Strict Window Pass (87.3%)"| G_T0
 
-        G_DELTA["<b>Stage 1: Delta Wear-Fail Zero-Shot</b><br/>N = 562 wear-fail users<br/>Frozen Tier 0 MR on Delta<br/>AUROC = 0.7850<br/>(Short span: 0.8559 | Intermittent: 0.7599)"]:::completed
-        D2 -->|Wear-Fail Delta (12.7%)| G_DELTA
+        G_DELTA["<b>Stage 1: Delta Wear-Fail Zero-Shot</b><br/>N = 562 wear-fail users<br/>Frozen Tier 0 MR on Delta<br/>AUROC = 0.7850<br/>(Short span: 0.8559, Intermittent: 0.7599)"]:::completed
+        D2 -->|"Wear-Fail Delta (12.7%)"| G_DELTA
 
         G_T1C["<b>Stage 2: Tier 1c 10-Alloc CV (Milestone)</b><br/>N = 4,410 full cohort (OR-Tools 70/15/15)<br/><b>Overall AUROC = 0.9094 +/- 0.0058</b><br/>↳ Strict Stratum: 0.9235 +/- 0.0069<br/>↳ Delta Stratum: 0.8156 +/- 0.0448<br/>↳ Summary Baseline: 0.7196 +/- 0.0179"]:::milestone
         G_T0 --> G_T1C
         G_DELTA --> G_T1C
 
         %% Garmin Granularity Benchmark
-        G_BIN["<b>Garmin Granularity Benchmark (Completed)</b><br/>N = 1,000 users, 5 OR-Tools allocations<br/>5-min: 0.8410 | 1-min: 0.8350 | 15-min: 0.8228<br/>↳ Strict Core: 5-min wins (0.8647 vs 0.8320)<br/>↳ Delta Stratum: 15-min rescues (+16.7 pt lift to 0.7687)"]:::completed
+        G_BIN["<b>Garmin Granularity Benchmark (Completed)</b><br/>N = 1,000 users, 5 OR-Tools allocations<br/>5-min: 0.8410 / 1-min: 0.8350 / 15-min: 0.8228<br/>↳ Strict Core: 5-min wins (0.8647 vs 0.8320)<br/>↳ Delta Stratum: 15-min rescues (+16.7 pt lift to 0.7687)"]:::completed
         G_T1C --> G_BIN
 
         P_T2["<b>PLANNED: Tier 2 Primary Garmin Expansion</b><br/>N = 5,636 (includes multi-source switchers)<br/>Evaluate device transition artifacts"]:::planned
@@ -80,16 +80,16 @@ flowchart TD
     %% Right Branch: Apple Watch
     subgraph APPLE_BRANCH ["Apple Watch Cohort (Source 6) — Episodic Point Events"]
         A_RAW["Apple Single-Source Universe<br/>N = 11,143 eligible (34.6% F / 65.4% M)"]
-        D1 -->|Episodic ~54% bin occupancy| A_RAW
+        D1 -->|"Episodic ~54% bin occupancy"| A_RAW
 
         D3{"<b>DIVERGENCE 3: Gate Definition Conflict</b><br/>Interval Union (cov_s) vs. Clock-Hour Count"}:::divergence
         A_RAW --> D3
 
         A_HIST["<b>Historical Sidelining (artifacts_sq)</b><br/>12h union rule (cov_s >= 43.2ks) failed for dt=0<br/>99.7% dropped on Ch3000 (only 28 passed)<br/>Only Ch3002 hourly resting modeled (RF=0.6814)"]:::completed
-        D3 -->|Interval Union cov_s >= 12h| A_HIST
+        D3 -->|"Interval Union cov_s >= 12h"| A_HIST
 
-        A_ADAPT["<b>Day Adequacy Rediscovery</b><br/>Replaced interval rule with >=8h & >=60 events<br/>100% of users qualify (mean 265 days/user)"]:::completed
-        D3 -->|Clock-Hour & Event Rule| A_ADAPT
+        A_ADAPT["<b>Day Adequacy Rediscovery</b><br/>Replaced interval rule with >=8h and >=60 events<br/>100% of users qualify (mean 265 days/user)"]:::completed
+        D3 -->|"Clock-Hour and Event Rule"| A_ADAPT
 
         A_PILOT["<b>Apple Pilot Benchmark (Milestone)</b><br/>N = 1,000 users, 5 OR-Tools allocations<br/><b>MR 5-min (L=288): 0.7554 +/- 0.0594</b><br/>MR 15-min (L=96): 0.7431 +/- 0.0437<br/>Summary Baseline: 0.6029 +/- 0.0631<br/>Paired MR Gain: +0.1526"]:::milestone
         A_ADAPT --> A_PILOT
@@ -109,7 +109,7 @@ flowchart TD
     end
 
     %% Cross-device transfer connection
-    G_T0 -.->|Zero-shot weights transfer| P_TRANS
+    G_T0 -.->|"Zero-shot weights transfer"| P_TRANS
 ```
 
 Detailed summaries and documentation:
