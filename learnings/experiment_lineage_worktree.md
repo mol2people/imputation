@@ -44,6 +44,8 @@ All entries below have saved results. A report may contain historical interpreta
 | Expanded Garmin cohort | Garmin N=4,410; all adequate days; 10 repeated holdouts | [`08_run_tier1c_cv.py`](../HEARTBEAT_LAB/scripts/08_run_tier1c_cv.py) | [`Tier1c metrics`](../HEARTBEAT_LAB/artifacts/tier1c_cv_results/tier1c_10_alloc_results.csv) |
 | Garmin bin-size pilot | Garmin N=1,000; all adequate days; 5 repeated holdouts | [`Garmin binning`](../experiments/garmin_temporal_binning/README.md) | [`Binning metrics`](../experiments/garmin_temporal_binning/artifacts/garmin_binning_benchmark_results.csv) |
 | Apple temporal pilot | Apple N=1,000; all adequate days; 5 repeated holdouts | [`Apple pilot`](../experiments/apple_pilot_multirocket/README.md) | [`Pilot metrics`](../experiments/apple_pilot_multirocket/artifacts/pilot_benchmark_results.csv) |
+| Full Apple cohort | Apple N=11,139; all days / first up to 40; 5 / 15 min; 10 repeated holdouts | [`04_run_apple_benchmark.py`](../experiments/apple_cohort_scaling/scripts/04_run_apple_benchmark.py) | [`Report`](../experiments/apple_cohort_scaling/REPORT.md), [`metrics`](../experiments/apple_cohort_scaling/artifacts/apple_benchmark_metrics.csv) |
+| Apple bin size by recording pattern | Same Apple cohort; existing test scores grouped by history, occupancy, and adequate-day continuity; no refitting | [`06_summarize_binning_by_recording.py`](../experiments/apple_cohort_scaling/scripts/06_summarize_binning_by_recording.py) | [`Findings`](../experiments/apple_cohort_scaling/BINNING_BY_RECORDING.md), [`aggregate results`](../experiments/apple_cohort_scaling/artifacts/binning_by_recording/summary.csv) |
 
 The Garmin and Apple pilots each use 1,000 participants, but they are not matched populations. Their source cohorts, recording histories, and sampling procedures differ. The historical 0.9264 endpoint also has preprocessing exposure across allocations; it should not be treated as the reference against which all later scores are ranked.
 
@@ -53,6 +55,6 @@ The Garmin and Apple pilots each use 1,000 participants, but they are not matche
 - **Tier 0** is the 3,848-person strict Garmin cohort. **Delta** is the 562 added participants who failed that gate. **Tier 1c** is their union, N=4,410. These are repository labels for eligibility groups, not validated behavioral phenotypes.
 - The ten or five allocations are **repeated holdouts**, not disjoint K-fold test sets. Participants may be tested repeatedly or never tested.
 - Unversioned temporal result files contain the corrected run. `temporal_*_v1` archives the zero-sentinel problem; `*_v1mrbug` archives the day-scaling implementation that omitted B40.
-- The Garmin binning benchmark is complete. Full Apple scaling, cross-device transfer, additional filling controls, and broader Garmin inclusion are [proposed follow-ups](future_experiments_backlog.md).
+- The Garmin binning and full Apple benchmarks are complete, including an Apple recording-pattern analysis of saved scores. Cross-device transfer, additional filling controls, and broader Garmin inclusion remain [proposed follow-ups](future_experiments_backlog.md).
 
 Saved reports establish that an analysis produced results. Plans and script names alone do not. Local caches and participant-level files may be absent from a fresh checkout.

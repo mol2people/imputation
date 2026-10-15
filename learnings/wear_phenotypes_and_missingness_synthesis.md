@@ -1,6 +1,6 @@
 # Recording coverage and temporal binning across Garmin and Apple
 
-MultiRocket predicts recorded salutation in selected Garmin and Apple cohorts, with performance varying across cohort gates and bin resolutions. The saved benchmarks establish discrimination differences; they do not identify charging behavior, device physiology or the causal effect of imputation. Target codes retain their original meaning: `10 → 0/F`, `20 → 1/M`.
+The useful question is whether the preferred bin size changes with the recording pattern. Garmin's added-participant group benefits from fifteen-minute bins; in the full Apple cohort, five minutes leads across broad history and coverage groups, with near ties in some combined profiles. History length, within-day occupancy, and continuity across dates provide separate views of missingness. Target codes retain their original meaning: `10 → 0/F`, `20 → 1/M`.
 
 See the [results audit](../reports/results_audit_2026-10-14.md) for the wider evaluation and provenance review.
 
@@ -42,11 +42,32 @@ The [completed 1,000-participant pilot](../experiments/garmin_temporal_binning/R
 | 5 minutes | **0.8410 ± 0.0380** | **0.8647 ± 0.0319** | 0.6753 ± 0.1245 |
 | 15 minutes | 0.8228 ± 0.0411 | 0.8320 ± 0.0344 | **0.7687 ± 0.0753** |
 
-Delta test groups contain only 15–24 participants, including 4–12 class-0 participants. Fifteen minutes exceeds one minute in all five allocations, with mean paired difference +0.1665; the individual differences range from +0.0185 to +0.4615. This suggests a resolution sensitivity worth testing on larger independent samples, rather than a precise population gain.
+Fifteen minutes exceeds five minutes in four of five delta allocations, with paired gain **+0.0934 ± 0.0761**, and exceeds one minute in all five, with gain **+0.1665 ± 0.1743**. In strict participants, five minutes exceeds fifteen minutes in all five allocations: **+0.0326 ± 0.0081**. Delta test groups contain 15–24 participants. These saved scores combine the short dense histories and intermittent records described above; a separate bin-size advantage for either pattern was not saved.
 
 Raw events are binned before filling. Coarser bins combine nearby observations but leave bins without readings missing. Mean participant-level delta occupancy changes from **64.7%** at one minute to **65.3%** at five minutes and **66.5%** at 15 minutes; multi-hour gaps therefore remain. Strict participants average **89.6%** occupancy at five minutes in this pilot.
 
 Resolution changes the physical time spanned by kernels, smoothing, mask-feature width and missingness together. Clock-bin median filling produces a time-varying diurnal template; it is not generally a flat line with zero differences throughout gaps. The benchmarks do not isolate which of these changes explains discrimination differences.
+
+## Full Apple cohort: bin size within recording patterns
+
+The [full Apple benchmark](../experiments/apple_cohort_scaling/README.md) includes 11,139 participants. Five-minute MultiRocket plus summaries scores **0.8561 ± 0.0111** at fixed alpha, versus **0.8348 ± 0.0079** at fifteen minutes. Mean occupancy rises from **54.0% to 68.3%** with coarsening, but discrimination decreases. More populated bins alone therefore do not explain the preferred resolution.
+
+The [saved-prediction exploration](../experiments/apple_cohort_scaling/BINNING_BY_RECORDING.md) defines low/middle/high groups using training-derived terciles of full-history adequate-day count, five-minute occupancy, and adequate-day continuity. Continuity is the fraction of dates between the first and last adequate day that are themselves adequate. Approximate tercile boundaries are 154/357 adequate days, 45%/63% occupancy, and 54%/96% continuity. The same groups are used for all-days and capped-history comparisons.
+
+Five minutes has higher mean AUROC in all nine broad groups under both fixed and validation-selected alpha. The combinations are more informative:
+
+| Full-history recording profile | Mean test N | 5-min AUROC | 15-min AUROC | Paired 5 − 15 min, mean ± SD |
+|---|---:|---:|---:|---:|
+| Low continuity + low occupancy | 192.8 | 0.8228 | 0.8170 | +0.0058 ± 0.0211 |
+| High continuity + low occupancy | 127.9 | 0.8700 | 0.8454 | +0.0246 ± 0.0291 |
+| Low history + high occupancy | 193.1 | 0.8130 | 0.8073 | +0.0056 ± 0.0209 |
+| Middle history + high occupancy | 173.8 | 0.8950 | 0.8596 | +0.0354 ± 0.0161 |
+
+These are all-days models with validation-selected alpha. The low-history/high-occupancy group has about 65 adequate days at its median and 98% median continuity, so it captures the short, consistently populated pattern of interest. Yet its two resolutions are close, and essentially tied at 0.8000 when inputs are capped at 40 adequate days. The larger five-minute advantage occurs in the middle-history/high-occupancy group.
+
+For records sparse both within and across days, fifteen minutes is competitive: the capped models slightly favor fifteen minutes (+0.0042), whereas all-days models slightly favor five minutes (+0.0058). Sparse within-day recording with high continuity retains a larger five-minute advantage. The current working hypothesis is that the combination of continuity and within-day information changes the value of temporal detail; sparse bins alone are insufficient to choose a grid.
+
+One targeted follow-up is to compare filling and explicit mask channels within these same groups, retaining the saved participants, dates, and allocations. This would test whether the near ties reflect missing-data handling or loss of temporal detail through coarsening. The new analysis reads existing caches and predictions only; complete cross-tables are saved alongside the linked report.
 
 ## Apple pilot
 

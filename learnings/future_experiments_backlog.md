@@ -8,13 +8,15 @@ The [Garmin pilot](../experiments/garmin_temporal_binning/README.md) is complete
 
 The [Apple pilot](../experiments/apple_pilot_multirocket/README.md) is also complete: five-minute MultiRocket plus summaries scored 0.7554, versus 0.7431 at 15 minutes and 0.6029 for summary ridge. Allocation SDs and full results appear in the experiment README. These results motivate the proposed comparisons below; binning alone does not isolate a filling mechanism.
 
+The [full Apple cohort benchmark](../experiments/apple_cohort_scaling/README.md) and its [recording-pattern follow-up](../experiments/apple_cohort_scaling/BINNING_BY_RECORDING.md) are also complete. Full-history five-minute MR + summaries reaches **0.8561 ± 0.0111** in 11,139 participants. See [completed Apple findings](#full-apple-cohort-scaling) below.
+
 ## Apple recording patterns and filling comparisons
 
 Does the effect of the filling rule depend on observed recording density?
 
-Describe observed nighttime reading frequency, bin occupancy, adequate-day density and gap lengths with reproducible saved outputs. Use neutral recording-pattern labels: absent exported readings do not establish charging or off-wrist behavior.
+History, bin occupancy, adequate-day continuity, gap length, and daily occupancy variability are now summarized from the full Apple cohort's saved caches. Five-minute bins lead across broad groups. Under selected alpha, the all-day grids are near a tie in low-continuity/low-occupancy participants (five-minute advantage +0.0058), but five minutes retains +0.0246 among high-continuity/low-occupancy participants. Short-history/high-occupancy participants are also near a tie (+0.0056 all days; +0.0001 capped). These contrasting groups are useful targets for the next comparison.
 
-Compare clock-bin medians, justified interpolation rules and HR-plus-mask representations on the same participants, dates and allocations. Keep long gaps explicit and avoid interpreting interpolated values as recovered measurements. Fifteen-minute binning is already benchmarked; coarser grids and alternative fills remain proposed. Assess their interaction with recording density rather than assuming a performance benefit. The existing five-minute summary baseline already includes 288 observation-frequency features; adding mask channels tests a richer representation of missingness.
+Compare clock-bin medians and HR-plus-mask representations at five and fifteen minutes on the same participants, dates and allocations. Examine the continuity × occupancy groups already defined in the saved-score analysis. The existing five-minute summary baseline already includes 288 observation-frequency features; mask channels would preserve the daily arrangement of missingness. Additional grids and interpolation rules remain possible follow-ups; no new model fits have been run for the recording-pattern analysis.
 
 ## Cross-device transfer
 
@@ -31,12 +33,11 @@ What comparison with channel 3000 is supported by the exported channel definitio
 Verify the exported channel definition, timestamp semantics, coverage and eligible participant pool before designing a daily representation. The earlier proposed count of 11,056 users requires reconciliation with the exact source/eligibility table and target restriction. A 24-bin representation and a comparison with channel 3000 remain proposals, without assuming that an exported resting-HR summary is physiologically cleaner or more predictive.
 
 ## Full Apple cohort scaling
+Completed on October 14, 2026 across ten balanced holdouts (N=11,139). See the [experiment overview](../experiments/apple_cohort_scaling/README.md) and [detailed report](../experiments/apple_cohort_scaling/REPORT.md).
 
-How does performance change with training sample size at a fixed evaluation population and history budget?
+Full-history five-minute AUROC is **0.8561 ± 0.0111**, compared with the pilot mean of **0.7554**. The earlier 0.8022 figure is pilot allocation 0, not a separate pilot benchmark. The summary baseline reaches 0.6474; adding MR gains **+0.2087 ± 0.0193**. Full history exceeds first-up-to-40-day inputs by **+0.0643 ± 0.0144** at fixed alpha and **+0.0442 ± 0.0122** when both select alpha. Capped inputs benefit from stronger shrinkage: +0.0193 at five minutes and +0.0350 at fifteen minutes.
 
-The sampling script identifies an upstream eligible single-source candidate pool of 11,143. Establish preparation retention for the full pool before treating that number as a final modeling cohort; 100% retention in the already eligible pilot does not prove full-pool retention.
-
-A learning curve with fixed evaluation participants and matched history budgets would address sample-size effects more directly than one larger fit. Fit all preprocessing within each allocation and save participant predictions, settings and input provenance. Keep development comparisons on validation data, with a prespecified final evaluation where possible.
+The October 15 saved-score follow-up separates history length from occupancy and continuity. It finds no Garmin-sized fifteen-minute gain in Apple; coarser bins become competitive in some combined profiles. The full-history five-minute fixed-alpha model scores 0.8043 in the lowest history tercile and 0.8942 in the highest. The [complete subgroup results](../experiments/apple_cohort_scaling/BINNING_BY_RECORDING.md) also compare resolutions and alpha rules. A controlled sample-size learning curve remains a possible extension.
 
 ## Garmin Tier 2 expansion
 

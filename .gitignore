@@ -26,6 +26,11 @@
 /HEARTBEAT_LAB/vendor/
 /experiments/apple_pilot_multirocket/artifacts/cache_5min/
 /experiments/apple_pilot_multirocket/artifacts/cache_15min/
+/experiments/apple_cohort_scaling/artifacts/cache_5min/
+/experiments/apple_cohort_scaling/artifacts/cache_15min/
+/experiments/apple_cohort_scaling/artifacts/apple_full_manifest.csv
+/experiments/apple_cohort_scaling/artifacts/apple_10_allocations.parquet
+/experiments/apple_cohort_scaling/artifacts/scaling_predictions_test.parquet
 
 # environment / OS / caches
 .venv/

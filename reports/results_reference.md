@@ -1,6 +1,6 @@
 # Saved results reference
 
-This reference lists the main saved results checked on 2026-10-14. Each comparison includes its cohort, input history, and evaluation design. Implementation and output paths are in the [experiment index](../learnings/experiment_lineage_worktree.md). Verification details are in the [results audit](results_audit_2026-10-14.md).
+This reference lists the main saved results, updated on 2026-10-15 with the full Apple benchmark and recording-pattern comparisons. Each comparison includes its cohort, input history, and evaluation design. Implementation and output paths are in the [experiment index](../learnings/experiment_lineage_worktree.md). The [results audit](results_audit_2026-10-14.md) covers the earlier experiments.
 
 ## Terms and conventions
 
@@ -13,6 +13,7 @@ This reference lists the main saved results checked on 2026-10-14. Each comparis
 | Repeated holdouts | Several allocations of the same cohort; their test participants can overlap |
 | Adequate HR day | At least eight observed local clock-hours, plus either eight hours of interval-union coverage or 60 valid readings |
 | First 40 days | The first 40 adequate days in date order; not necessarily consecutive calendar days |
+| First up to 40 days | The first `min(n_adequate, 40)` days; the Apple cohort retains participants with only 14–39 adequate days |
 | Sampled days | A fixed number of adequate days drawn from the history specified by that experiment |
 | All days / full history | Every adequate day available for a participant; history lengths vary between participants |
 | Frozen model | A previously fitted model applied without retraining |
@@ -147,6 +148,37 @@ The Apple five-minute minus summary difference is **+0.1526 ± 0.0423 SD**. All 
 Tier1c and both pilots save allocation metrics without participant predictions. Their reported means and SDs can be checked, but their AUROCs cannot be reconstructed independently from saved scores.
 
 Sources: [Garmin report](../experiments/garmin_temporal_binning/README.md), [Apple report](../experiments/apple_pilot_multirocket/README.md). See [recording-pattern notes](../learnings/wear_phenotypes_and_missingness_synthesis.md) for interpretation.
+
+## Full Apple cohort benchmark
+
+**Cohort:** 11,139 qualified single-source Apple participants from 11,143 upstream candidates. **History:** all adequate days or first up to 40. **Evaluation:** ten repeated 7,797/1,671/1,671 train/validation/test holdouts. **Target:** recorded salutation. Apple days require eight observed clock hours and 60 valid type-3000 readings; participants require at least 14 adequate days.
+
+Mean history is 266.4 adequate days (median 261, range 14–902). The 925 participants (8.30%) with 14–39 days contribute identical input histories to the two budget arms. Mean participant-level occupied-bin fractions are 54.0% at five minutes and 68.3% at fifteen minutes.
+
+| Representation | History | Bins | Fixed α = 1000 test AUROC | Validation-selected α test AUROC |
+|---|---|---|---:|---:|
+| MultiRocket + summaries | All days | 5 min | 0.8561 ± 0.0111 | 0.8553 ± 0.0123 |
+| MultiRocket + summaries | All days | 15 min | 0.8348 ± 0.0079 | 0.8378 ± 0.0106 |
+| MultiRocket + summaries | First up to 40 | 5 min | 0.7918 ± 0.0148 | 0.8110 ± 0.0131 |
+| MultiRocket + summaries | First up to 40 | 15 min | 0.7636 ± 0.0113 | 0.7985 ± 0.0097 |
+| Summary ridge | All days | 5 min | 0.6474 ± 0.0180 | 0.6468 ± 0.0151 |
+| Summary ridge | First up to 40 | 5 min | 0.6298 ± 0.0164 | 0.6340 ± 0.0143 |
+
+The executed alpha candidates are `{100, 500, 1000, 5000, 10000}`. Training participants determine all learned preprocessing and model fits; validation selects alpha and a balanced-accuracy threshold. The separate summary baseline has 305 five-minute features. MultiRocket includes analogous summaries at its own grid, with 305 features at five minutes and 113 at fifteen minutes, plus pooled sequence features.
+
+| Paired comparison | Mean test AUROC difference ± SD |
+|---|---:|
+| MR + summaries minus summaries; 5 min, all days, fixed α | +0.2087 ± 0.0193 |
+| All days minus capped; 5 min, fixed α | +0.0643 ± 0.0144 |
+| All days minus capped; 5 min, selected α | +0.0442 ± 0.0122 |
+| 5 min minus 15 min; all days, fixed α | +0.0213 ± 0.0068 |
+| 5 min minus 15 min; all days, selected α | +0.0175 ± 0.0082 |
+| Selected minus fixed α; capped, 5 min | +0.0193 ± 0.0055 |
+| Selected minus fixed α; capped, 15 min | +0.0350 ± 0.0072 |
+
+The follow-up on saved predictions finds a positive mean five-minute advantage in each low/middle/high history, occupancy, and continuity group. Selected-alpha full-history differences are +0.0058 in the low-continuity/low-occupancy group, +0.0246 in high-continuity/low-occupancy, and +0.0056 in low-history/high-occupancy. Exact subgroup definitions, counts, paired SDs, and capped-history results appear in [binning by recording pattern](../experiments/apple_cohort_scaling/BINNING_BY_RECORDING.md).
+
+Sources: [benchmark report](../experiments/apple_cohort_scaling/REPORT.md), [metrics](../experiments/apple_cohort_scaling/artifacts/apple_benchmark_metrics.csv), [recording-pattern summary](../experiments/apple_cohort_scaling/artifacts/binning_by_recording/summary.csv). The full benchmark saves 120 metric rows, 300 alpha-candidate rows, and 200,520 participant test prediction rows; the follow-up uses these existing predictions without model refitting.
 
 ## Earlier summary and feature experiments
 
