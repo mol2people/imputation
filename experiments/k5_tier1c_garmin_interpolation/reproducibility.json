@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-10-15T15:50:24",
+  "cohort": "tier_1c",
+  "cohort_size": 4410,
+  "strict_size": 3848,
+  "delta_size": 562,
+  "total_participant_days": 174990,
+  "seed_base": 20261015,
+  "alpha_grid": [
+    100.0,
+    500.0,
+    1000.0,
+    5000.0,
+    10000.0
+  ],
+  "selected_alpha": {
+    "median": 5000.0,
+    "three_tier": 5000.0
+  },
+  "elapsed_seconds": 550.05,
+  "peak_rss_mb": 6830.97,
+  "metrics": {
+    "median_overall_auroc": 0.8375069953376297,
+    "three_tier_overall_auroc": 0.8381800181076765,
+    "paired_delta": 0.0006730227700467717,
+    "paired_bootstrap_95_ci": [
+      -0.002340369291448019,
+      0.0036599539644405843
+    ],
+    "median_strict_stratum": 0.8464390107724646,
+    "three_tier_strict_stratum": 0.8468504264882517,
+    "median_delta_stratum": 0.7693587662337662,
+    "three_tier_delta_stratum": 0.773444264069264
+  }
+}

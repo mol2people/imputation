@@ -1,0 +1,14 @@
+{
+  "total_missing_bins": 5089133,
+  "tier1_linear_bins": 27008,
+  "tier1_linear_pct": 0.5306994334791408,
+  "tier2_pchip_bins": 301479,
+  "tier2_pchip_pct": 5.9239756555782686,
+  "tier2_fallback_bins": 43144,
+  "tier2_fallback_pct": 0.8477671933510089,
+  "tier3_median_bins": 4717502,
+  "tier3_median_pct": 92.69755771759158,
+  "total_missing_runs": 189241,
+  "interior_runs": 130678,
+  "boundary_runs": 58563
+}

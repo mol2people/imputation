@@ -49,12 +49,34 @@ All entries below have saved results. A report may contain historical interpreta
 
 The Garmin and Apple pilots each use 1,000 participants, but they are not matched populations. Their source cohorts, recording histories, and sampling procedures differ. The historical 0.9264 endpoint also has preprocessing exposure across allocations; it should not be treated as the reference against which all later scores are ranked.
 
+## October 2026 infradian, regularization, and replication experiments
+
+All entries below have completed, verified results and technical reference reports adhering to Diátaxis and ASD-STE100 principles.
+
+| Experiment | Cohort and evaluation | Implementation | Report or saved outputs |
+|---|---|---|---|
+| Exploratory infradian discovery | Apple Watch N=11,139 (3,855 F / 7,284 M); screened N=8,425 (>=60 adeq. days); Cosinor & Lomb-Scargle across 25–35d | [`01_extract_and_detect_infradian.py`](../experiments/female_infradian_cycles/scripts/01_extract_and_detect_infradian.py) | [`REPORT.md`](../experiments/female_infradian_cycles/results/REPORT.md), [`contrasts.csv`](../experiments/female_infradian_cycles/results/group_contrasts_age_and_sex.csv) |
+| Standardized infradian v2 | Apple Watch standardized 180d window (k=15, N_obs=90, N=4,630; k=10, N_obs=60, N=5,516); AR(1) & 2-component continuous REML nulls; HC3 Wald tests | [`01_extract_and_calibrate_infradian.py`](../experiments/female_infradian_cycles_v2/scripts/01_extract_and_calibrate_infradian.py) | [`REPORT.md`](../experiments/female_infradian_cycles_v2/results/REPORT.md), [`contrasts.csv`](../experiments/female_infradian_cycles_v2/results/calibrated_group_contrasts.csv) |
+| Infradian multi-year & metabolic extensions | Apple Watch >=365d longitudinal tracking (N=1,323); calendar acrophase Rayleigh uniformity (N=1,711); WHO BMI ANCOVA invariance (N=502) | [`01_sliding_window_stability.py`](../experiments/female_infradian_extensions/scripts/01_sliding_window_stability.py) | [`REPORT.md`](../experiments/female_infradian_extensions/results/REPORT.md), [`stability.csv`](../experiments/female_infradian_extensions/results/sliding_window_stability.csv), [`figures/`](../experiments/female_infradian_extensions/figures/) |
+| Downstream monthly prediction | Apple Watch Allocation 0 (N=4,631; 3,211 train / 695 val / 725 test); MultiRocket + Q + 3 monthly descriptors (A, S, T); Ridge validation tuning | [`01_run_downstream_benchmark.py`](../experiments/monthly_periodicity_downstream/scripts/01_run_downstream_benchmark.py) | [`REPORT.md`](../experiments/monthly_periodicity_downstream/results/REPORT.md), [`metrics.csv`](../experiments/monthly_periodicity_downstream/results/downstream_benchmark_metrics.csv) |
+| Apple fill & mask by recording | Apple Watch Allocation 0 (N=11,139); 8 imputation/mask arms; 5m & 15m; all_days vs up_to_40d; continuity x occupancy terciles | [`02_run_fill_and_mask_benchmark.py`](../experiments/apple_fill_and_mask_by_recording/scripts/02_run_fill_and_mask_benchmark.py) | [`REPORT.md`](../experiments/apple_fill_and_mask_by_recording/results/REPORT.md), [`STAGE0_AUDIT.md`](../experiments/apple_fill_and_mask_by_recording/results/STAGE0_AUDIT.md), [`metrics.csv`](../experiments/apple_fill_and_mask_by_recording/results/benchmark_metrics.csv) |
+| Circular diurnal regularization | Apple Watch Allocation 0; 1D circular Gaussian template smoothing (sigma in {1, 2, 4} bins); 11,900 injected gaps (N=200); downstream test (N=1,671) | [`01_evaluate_imputation_error.py`](../experiments/apple_circular_diurnal_regularization/scripts/01_evaluate_imputation_error.py) | [`REPORT.md`](../experiments/apple_circular_diurnal_regularization/results/REPORT.md), [`metrics.csv`](../experiments/apple_circular_diurnal_regularization/results/imputation_benchmark_metrics.csv), [`figures/`](../experiments/apple_circular_diurnal_regularization/figures/) |
+| Garmin cross-device replication | Garmin Tier 1c single-source (N=4,410 manifest, N=3,760 qualified under k=15); 3–60d continuous periodograms; 3–120d male red-noise resolution | [`02_run_infradian_pipeline.py`](../experiments/garmin_infradian_replication/scripts/02_run_infradian_pipeline.py) | [`REPORT.md`](../experiments/garmin_infradian_replication/REPORT.md), [`contrasts.csv`](../experiments/garmin_infradian_replication/results/garmin_k15/contrasts.csv), [`figures/`](../experiments/garmin_infradian_replication/figures/) |
+
+## Implementation handoff and pending protocols
+
+The entry below represents a finalized experimental design ready for execution. Per Diátaxis reference standards, unexecuted protocols are maintained separately from completed empirical findings.
+
+| Experiment | Cohort and evaluation | Implementation | Report or saved outputs |
+|---|---|---|---|
+| Infradian age dependency | Apple (source 6), Garmin (source 3), Samsung (source 7); unpenalized quadratic age OLS ($a = (\text{age}-45)/10$); `expanded90` primary protocol ($N_{\text{obs}}=90$, $\ge 10$/block); HC3 Wald tests | Protocol finalized ([`PLAN.md`](../experiments/infradian_age_dependency/PLAN.md)) | Implementation handoff (unexecuted; see [backlog note](future_experiments_backlog.md#research-note-age-dependency-of-monthly-heart-rate-periodograms-infradian-cessation-protocol)) |
+
 ## Naming and status
 
 - **B40** is the historical 305-feature participant summary and mask block. **P24** adds hourly profile summaries. **P40** belongs to the earlier date-aware study and is a different feature block.
 - **Tier 0** is the 3,848-person strict Garmin cohort. **Delta** is the 562 added participants who failed that gate. **Tier 1c** is their union, N=4,410. These are repository labels for eligibility groups, not validated behavioral phenotypes.
 - The ten or five allocations are **repeated holdouts**, not disjoint K-fold test sets. Participants may be tested repeatedly or never tested.
 - Unversioned temporal result files contain the corrected run. `temporal_*_v1` archives the zero-sentinel problem; `*_v1mrbug` archives the day-scaling implementation that omitted B40.
-- The Garmin binning and full Apple benchmarks are complete, including an Apple recording-pattern analysis of saved scores. Cross-device transfer, additional filling controls, and broader Garmin inclusion remain [proposed follow-ups](future_experiments_backlog.md).
+- The Garmin binning, full Apple cohort benchmarks, recording-pattern filling/masking comparisons, circular diurnal regularization, and cross-device infradian replication on Garmin Tier 1c are complete. Broader Garmin Tier 2 inclusion remains a proposed follow-up, while the age-resolved cessation sweep protocol is finalized in [infradian_age_dependency/PLAN.md](../experiments/infradian_age_dependency/PLAN.md) (see [backlog](future_experiments_backlog.md)).
 
 Saved reports establish that an analysis produced results. Plans and script names alone do not. Local caches and participant-level files may be absent from a fresh checkout.

@@ -1,0 +1,7 @@
+device,split,n,class_1,class_0
+Apple,test,1530,988,542
+Apple,train,7169,4668,2501
+Apple,val,1515,993,522
+Garmin,test,148,94,54
+Garmin,train,684,436,248
+Garmin,val,147,93,54

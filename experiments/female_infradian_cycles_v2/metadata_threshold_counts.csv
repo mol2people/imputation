@@ -1,0 +1,97 @@
+min_adequate_days,min_cached_span_days,age_group,y,n
+60,120,Elderly,0,273
+60,120,Elderly,1,647
+60,120,Middle Ager,0,1973
+60,120,Middle Ager,1,3391
+60,120,Young Adults,0,475
+60,120,Young Adults,1,1152
+60,180,Elderly,0,256
+60,180,Elderly,1,598
+60,180,Middle Ager,0,1869
+60,180,Middle Ager,1,3206
+60,180,Young Adults,0,441
+60,180,Young Adults,1,1073
+60,270,Elderly,0,233
+60,270,Elderly,1,531
+60,270,Middle Ager,0,1663
+60,270,Middle Ager,1,2873
+60,270,Young Adults,0,389
+60,270,Young Adults,1,965
+60,365,Elderly,0,180
+60,365,Elderly,1,453
+60,365,Middle Ager,0,1363
+60,365,Middle Ager,1,2453
+60,365,Young Adults,0,324
+60,365,Young Adults,1,819
+90,120,Elderly,0,246
+90,120,Elderly,1,589
+90,120,Middle Ager,0,1806
+90,120,Middle Ager,1,3149
+90,120,Young Adults,0,424
+90,120,Young Adults,1,1033
+90,180,Elderly,0,233
+90,180,Elderly,1,557
+90,180,Middle Ager,0,1731
+90,180,Middle Ager,1,3001
+90,180,Young Adults,0,398
+90,180,Young Adults,1,979
+90,270,Elderly,0,216
+90,270,Elderly,1,499
+90,270,Middle Ager,0,1552
+90,270,Middle Ager,1,2707
+90,270,Young Adults,0,357
+90,270,Young Adults,1,884
+90,365,Elderly,0,169
+90,365,Elderly,1,424
+90,365,Middle Ager,0,1280
+90,365,Middle Ager,1,2315
+90,365,Young Adults,0,299
+90,365,Young Adults,1,750
+120,120,Elderly,0,225
+120,120,Elderly,1,543
+120,120,Middle Ager,0,1610
+120,120,Middle Ager,1,2857
+120,120,Young Adults,0,370
+120,120,Young Adults,1,935
+120,180,Elderly,0,217
+120,180,Elderly,1,517
+120,180,Middle Ager,0,1565
+120,180,Middle Ager,1,2765
+120,180,Young Adults,0,351
+120,180,Young Adults,1,900
+120,270,Elderly,0,200
+120,270,Elderly,1,464
+120,270,Middle Ager,0,1415
+120,270,Middle Ager,1,2518
+120,270,Young Adults,0,316
+120,270,Young Adults,1,817
+120,365,Elderly,0,156
+120,365,Elderly,1,396
+120,365,Middle Ager,0,1181
+120,365,Middle Ager,1,2162
+120,365,Young Adults,0,271
+120,365,Young Adults,1,700
+180,120,Elderly,0,188
+180,120,Elderly,1,429
+180,120,Middle Ager,0,1231
+180,120,Middle Ager,1,2279
+180,120,Young Adults,0,271
+180,120,Young Adults,1,725
+180,180,Elderly,0,188
+180,180,Elderly,1,429
+180,180,Middle Ager,0,1231
+180,180,Middle Ager,1,2279
+180,180,Young Adults,0,271
+180,180,Young Adults,1,725
+180,270,Elderly,0,175
+180,270,Elderly,1,393
+180,270,Middle Ager,0,1145
+180,270,Middle Ager,1,2122
+180,270,Young Adults,0,250
+180,270,Young Adults,1,675
+180,365,Elderly,0,136
+180,365,Elderly,1,336
+180,365,Middle Ager,0,975
+180,365,Middle Ager,1,1846
+180,365,Young Adults,0,220
+180,365,Young Adults,1,588

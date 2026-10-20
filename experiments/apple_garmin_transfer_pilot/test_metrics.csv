@@ -1,0 +1,97 @@
+mode,source_device,target_device,block,age_group,n_test,n_class_0,n_class_1,test_auc
+full,Apple,Apple,HR,all,1530,542,988,0.5947047223508672
+full,Garmin,Apple,HR,all,1530,542,988,0.5405362505042054
+full,Apple,Apple,HR,Elderly,184,54,130,0.647008547008547
+full,Garmin,Apple,HR,Elderly,184,54,130,0.6138176638176638
+full,Apple,Apple,HR,Middle Ager,1029,390,639,0.5785361743108223
+full,Garmin,Apple,HR,Middle Ager,1029,390,639,0.5334456883752658
+full,Apple,Apple,HR,Young Adults,317,98,219,0.6082844096542727
+full,Garmin,Apple,HR,Young Adults,317,98,219,0.5314509365389991
+full,Apple,Apple,combined,all,1530,542,988,0.6595996982237029
+full,Garmin,Apple,combined,all,1530,542,988,0.5583178959319958
+full,Apple,Apple,combined,Elderly,184,54,130,0.6641025641025641
+full,Garmin,Apple,combined,Elderly,184,54,130,0.5733618233618234
+full,Apple,Apple,combined,Middle Ager,1029,390,639,0.6624533525941978
+full,Garmin,Apple,combined,Middle Ager,1029,390,639,0.5576943140323423
+full,Apple,Apple,combined,Young Adults,317,98,219,0.6451868418600316
+full,Garmin,Apple,combined,Young Adults,317,98,219,0.5485509272202032
+full,Apple,Apple,recording,all,1530,542,988,0.6328282564202161
+full,Garmin,Apple,recording,all,1530,542,988,0.4935069543003122
+full,Apple,Apple,recording,Elderly,184,54,130,0.6025641025641025
+full,Garmin,Apple,recording,Elderly,184,54,130,0.425071225071225
+full,Apple,Apple,recording,Middle Ager,1029,390,639,0.6449941816139
+full,Garmin,Apple,recording,Middle Ager,1029,390,639,0.5050880783275149
+full,Apple,Apple,recording,Young Adults,317,98,219,0.612804025719877
+full,Garmin,Apple,recording,Young Adults,317,98,219,0.4908675799086757
+full,Apple,Garmin,HR,all,148,54,94,0.7113869188337273
+full,Garmin,Garmin,HR,all,148,54,94,0.7811268715524035
+full,Apple,Garmin,HR,Elderly,17,4,13,0.5769230769230769
+full,Garmin,Garmin,HR,Elderly,17,4,13,0.75
+full,Apple,Garmin,HR,Middle Ager,100,37,63,0.7224367224367223
+full,Garmin,Garmin,HR,Middle Ager,100,37,63,0.782067782067782
+full,Apple,Garmin,HR,Young Adults,31,13,18,0.7777777777777778
+full,Garmin,Garmin,HR,Young Adults,31,13,18,0.8162393162393162
+full,Apple,Garmin,combined,all,148,54,94,0.6617415287628053
+full,Garmin,Garmin,combined,all,148,54,94,0.7594562647754136
+full,Apple,Garmin,combined,Elderly,17,4,13,0.6730769230769231
+full,Garmin,Garmin,combined,Elderly,17,4,13,0.6730769230769231
+full,Apple,Garmin,combined,Middle Ager,100,37,63,0.6846846846846846
+full,Garmin,Garmin,combined,Middle Ager,100,37,63,0.7700557700557701
+full,Apple,Garmin,combined,Young Adults,31,13,18,0.6623931623931624
+full,Garmin,Garmin,combined,Young Adults,31,13,18,0.811965811965812
+full,Apple,Garmin,recording,all,148,54,94,0.47675334909377465
+full,Garmin,Garmin,recording,all,148,54,94,0.5161544523246651
+full,Apple,Garmin,recording,Elderly,17,4,13,0.4423076923076923
+full,Garmin,Garmin,recording,Elderly,17,4,13,0.40384615384615385
+full,Apple,Garmin,recording,Middle Ager,100,37,63,0.5113685113685114
+full,Garmin,Garmin,recording,Middle Ager,100,37,63,0.48133848133848134
+full,Apple,Garmin,recording,Young Adults,31,13,18,0.3888888888888889
+full,Garmin,Garmin,recording,Young Adults,31,13,18,0.6282051282051282
+size_matched,Apple,Apple,HR,all,1530,542,988,0.5653730373336122
+size_matched,Garmin,Apple,HR,all,1530,542,988,0.5405362505042054
+size_matched,Apple,Apple,HR,Elderly,184,54,130,0.6123931623931624
+size_matched,Garmin,Apple,HR,Elderly,184,54,130,0.6138176638176638
+size_matched,Apple,Apple,HR,Middle Ager,1029,390,639,0.5484129850327033
+size_matched,Garmin,Apple,HR,Middle Ager,1029,390,639,0.5334456883752658
+size_matched,Apple,Apple,HR,Young Adults,317,98,219,0.5781381045568912
+size_matched,Garmin,Apple,HR,Young Adults,317,98,219,0.5314509365389991
+size_matched,Apple,Apple,combined,all,1530,542,988,0.6249626514483768
+size_matched,Garmin,Apple,combined,all,1530,542,988,0.5583178959319958
+size_matched,Apple,Apple,combined,Elderly,184,54,130,0.6364672364672365
+size_matched,Garmin,Apple,combined,Elderly,184,54,130,0.5733618233618234
+size_matched,Apple,Apple,combined,Middle Ager,1029,390,639,0.6303037598812248
+size_matched,Garmin,Apple,combined,Middle Ager,1029,390,639,0.5576943140323423
+size_matched,Apple,Apple,combined,Young Adults,317,98,219,0.5983598919019664
+size_matched,Garmin,Apple,combined,Young Adults,317,98,219,0.5485509272202032
+size_matched,Apple,Apple,recording,all,1530,542,988,0.6006860928933176
+size_matched,Garmin,Apple,recording,all,1530,542,988,0.4935069543003122
+size_matched,Apple,Apple,recording,Elderly,184,54,130,0.5783475783475783
+size_matched,Garmin,Apple,recording,Elderly,184,54,130,0.425071225071225
+size_matched,Apple,Apple,recording,Middle Ager,1029,390,639,0.6142891537257734
+size_matched,Garmin,Apple,recording,Middle Ager,1029,390,639,0.5050880783275149
+size_matched,Apple,Apple,recording,Young Adults,317,98,219,0.5659770757618116
+size_matched,Garmin,Apple,recording,Young Adults,317,98,219,0.4908675799086757
+size_matched,Apple,Garmin,HR,all,148,54,94,0.6952324665090623
+size_matched,Garmin,Garmin,HR,all,148,54,94,0.7811268715524035
+size_matched,Apple,Garmin,HR,Elderly,17,4,13,0.6538461538461539
+size_matched,Garmin,Garmin,HR,Elderly,17,4,13,0.75
+size_matched,Apple,Garmin,HR,Middle Ager,100,37,63,0.6996996996996997
+size_matched,Garmin,Garmin,HR,Middle Ager,100,37,63,0.782067782067782
+size_matched,Apple,Garmin,HR,Young Adults,31,13,18,0.7948717948717948
+size_matched,Garmin,Garmin,HR,Young Adults,31,13,18,0.8162393162393162
+size_matched,Apple,Garmin,combined,all,148,54,94,0.5575256107171
+size_matched,Garmin,Garmin,combined,all,148,54,94,0.7594562647754136
+size_matched,Apple,Garmin,combined,Elderly,17,4,13,0.3846153846153847
+size_matched,Garmin,Garmin,combined,Elderly,17,4,13,0.6730769230769231
+size_matched,Apple,Garmin,combined,Middle Ager,100,37,63,0.5855855855855856
+size_matched,Garmin,Garmin,combined,Middle Ager,100,37,63,0.7700557700557701
+size_matched,Apple,Garmin,combined,Young Adults,31,13,18,0.6752136752136753
+size_matched,Garmin,Garmin,combined,Young Adults,31,13,18,0.811965811965812
+size_matched,Apple,Garmin,recording,all,148,54,94,0.4438534278959811
+size_matched,Garmin,Garmin,recording,all,148,54,94,0.5161544523246651
+size_matched,Apple,Garmin,recording,Elderly,17,4,13,0.19230769230769232
+size_matched,Garmin,Garmin,recording,Elderly,17,4,13,0.40384615384615385
+size_matched,Apple,Garmin,recording,Middle Ager,100,37,63,0.4796224796224796
+size_matched,Garmin,Garmin,recording,Middle Ager,100,37,63,0.48133848133848134
+size_matched,Apple,Garmin,recording,Young Adults,31,13,18,0.4316239316239316
+size_matched,Garmin,Garmin,recording,Young Adults,31,13,18,0.6282051282051282

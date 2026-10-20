@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-10-15T15:30:21",
+  "track": "40days",
+  "cohort_size": 3848,
+  "n_bins": 288,
+  "days": 40,
+  "total_participant_days": 153920,
+  "seed_base": 20261015,
+  "alpha_grid": [
+    100.0,
+    500.0,
+    1000.0,
+    5000.0,
+    10000.0
+  ],
+  "selected_alpha": {
+    "median": 5000.0,
+    "three_tier": 5000.0
+  },
+  "elapsed_seconds": 494.57,
+  "peak_rss_mb": 7321.22,
+  "metrics": {
+    "median_oof_auroc": 0.8484406669919675,
+    "three_tier_oof_auroc": 0.8477169506793785,
+    "paired_delta": -0.0007237163125890511,
+    "paired_bootstrap_95_ci": [
+      -0.004013619824900535,
+      0.0024621163247880947
+    ]
+  }
+}

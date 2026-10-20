@@ -1,0 +1,13 @@
+age_group,bmi_group,n_y0,n_y1,maximum_balanced_pairs
+Elderly,normal,141,263,141
+Elderly,obese,50,145,50
+Elderly,overweight,93,293,93
+Elderly,underweight,5,2,2
+Middle Ager,normal,977,1378,977
+Middle Ager,obese,436,838,436
+Middle Ager,overweight,645,1409,645
+Middle Ager,underweight,30,9,9
+Young Adults,normal,296,664,296
+Young Adults,obese,64,170,64
+Young Adults,overweight,123,335,123
+Young Adults,underweight,19,40,19

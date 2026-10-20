@@ -1,0 +1,13 @@
+cohort,signal,phase_type,n_participants,mean_resultant_R_bar,circular_mean_deg,circular_var,rayleigh_Z,p_value,uniformity_rejected_p05,uniformity_rejected_p01,biological_interpretation
+Reproductive Females,hr_p10,calendar_epoch,502,0.01665,-4.54,0.98335,0.1391,0.8702652470551937,False,False,Circular uniformity confirmed (p > 0.05): consistent with autonomous endogenous biological rhythmicity desynchronized across population
+Reproductive Females,hr_p10,month_28day,502,0.08506,123.46,0.91494,3.6324,0.0263743538064033,True,False,Significant phase clustering detected in female heart rate
+Reproductive Females,night_hr,calendar_epoch,408,0.04899,-70.41,0.95101,0.9791,0.37586361338001256,False,False,Circular uniformity confirmed (p > 0.05): consistent with autonomous endogenous biological rhythmicity desynchronized across population
+Reproductive Females,night_hr,month_28day,408,0.03769,75.03,0.96231,0.5796,0.5603985921084038,False,False,Circular uniformity confirmed (p > 0.05): consistent with autonomous endogenous biological rhythmicity desynchronized across population
+Reproductive Females,occ_daily,calendar_epoch,502,0.01012,-88.78,0.98988,0.0514,0.9499712631866395,False,False,Uniform wear compliance phase distribution
+Reproductive Females,occ_daily,month_28day,502,0.04461,104.44,0.95539,0.999,0.36842819176523767,False,False,Uniform wear compliance phase distribution
+Young Males,hr_p10,calendar_epoch,1209,0.04079,59.03,0.95921,2.0117,0.13376332811218758,False,False,Circular uniformity in male control heart rate (no population alignment)
+Young Males,hr_p10,month_28day,1209,0.03755,116.64,0.96245,1.7049,0.18181304732625939,False,False,Circular uniformity in male control heart rate (no population alignment)
+Young Males,night_hr,calendar_epoch,1074,0.02273,7.4,0.97727,0.555,0.5741869126147222,False,False,Circular uniformity in male control heart rate (no population alignment)
+Young Males,night_hr,month_28day,1074,0.01714,107.51,0.98286,0.3154,0.7295516728322726,False,False,Circular uniformity in male control heart rate (no population alignment)
+Young Males,occ_daily,calendar_epoch,1209,0.02056,137.21,0.97944,0.5108,0.6000855510540648,False,False,Uniform wear compliance phase distribution
+Young Males,occ_daily,month_28day,1209,0.03244,-63.55,0.96756,1.2724,0.2802004932812148,False,False,Uniform wear compliance phase distribution

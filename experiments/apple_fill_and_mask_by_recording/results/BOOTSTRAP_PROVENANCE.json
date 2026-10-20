@@ -1,0 +1,15 @@
+{
+  "script": "10_bootstrap_saved_contrasts.py",
+  "output": "conditional_bootstrap_contrasts.csv",
+  "allocations": [
+    0
+  ],
+  "n_bootstrap": 1000,
+  "seed": 20261019,
+  "method": "Within each group, resample each class with replacement at its observed fixed count. Use identical resampled participant indices across every compared score. Reset RNG seed per group; all contrasts within group share draws. Percentile .025/.975 intervals.",
+  "scope": "Exploratory conditional saved-predictor AUROC differences; no fitting, selection, subgroup-discovery uncertainty or multiplicity adjustment.",
+  "input_sha256": {
+    "test_predictions.parquet": "eac625095b70aa19cd66adb9f5e92316e1f5b46a8ff059bcc367575271ad82ec",
+    "reconciled_test_recording_descriptors.csv": "59cef31282a4659edd907b172ad582de4b2024504af497121199cba8cc373c09"
+  }
+}

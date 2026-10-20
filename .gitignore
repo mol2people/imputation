@@ -36,4 +36,6 @@
 .venv/
 __pycache__/
 *.pyc
+*.joblib
 .DS_Store
+.agents/
