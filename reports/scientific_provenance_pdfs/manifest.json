@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T18:29:53.686761",
+  "generated_at": "2026-10-20T18:41:40.343900",
   "reports_count": 10,
   "manifest": [
     {
@@ -173,7 +173,7 @@
       "source_md": "experiments/infradian_age_dependency/REPORT.md",
       "output_pdf": "reports/scientific_provenance_pdfs/03_confirmatory_mechanisms/2026-10-20_infradian-age-dependency_rcs-age-trajectory.pdf",
       "absolute_path": "/Users/bulat/Documents/datenspende_IMPUTE_sex/reports/scientific_provenance_pdfs/03_confirmatory_mechanisms/2026-10-20_infradian-age-dependency_rcs-age-trajectory.pdf",
-      "file_size_bytes": 4766990,
+      "file_size_bytes": 4784608,
       "page_count": 24,
       "cohort": "Apple Watch (expanded90 N = 5,162) and Garmin Tier 1c (expanded90 N = 3,754); Samsung non-estimable (N = 8)",
       "target_estimand": "Female-minus-male contrast in band-integrated 25\u201335d excess power as a continuous function of age (Harrell RCS, knots 25/42/52/65)",
