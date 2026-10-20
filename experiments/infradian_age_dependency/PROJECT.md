@@ -121,3 +121,10 @@ All implementation code, scripts, artifacts, and figures reside strictly under:
   - `fig3_delta_curve_transitions.png`
   - `fig4_source_and_protocol_comparisons.png`
 - `REPORT.md`: Primary Diátaxis scientific reference report.
+
+## Methodological Caveats & Open Research Items
+
+1. **Empirical Benchmarking of RHR Autocorrelation Timescales**:
+   - *Current formulation*: Daily resting heart rate serial correlation is governed by fast autonomic rebound ($t_{1/2} \approx 1.5\ \text{days}, \phi_1 \approx 0.25$) and slow environmental/physiological drift ($t_{1/2} \approx 35\text{--}140\ \text{days}, \phi_2 \approx 0.98\text{--}0.995$).
+   - *Epistemic status*: The two-component REML covariance kernel is mathematically validated by suppressing male false-positive infradian detection from 18% down to 0% ($Q_{\text{male}} \approx 0.001$). However, the mechanistic attribution of these timescales (parasympathetic recovery vs. seasonal/plasma volume drift) is a working hypothesis that requires formal literature sourcing and empirical validation against controlled perturbation datasets (e.g., alcohol ingestion, standardized exercise training blocks, seasonal climate chambers).
+
