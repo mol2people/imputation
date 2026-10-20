@@ -28,6 +28,7 @@ This catalog indexes all recent experimental investigations in the Robert Koch I
 | **06 Cross-Cohort and Scaling** | `2026-10-19` | Apple Watch to Garmin Cross-Cohort Transferability Pilot Benchmark | Cross-device domain transfer performance of diurnal and circadian representation features | 4 | 0 | 100.6 KB | [2026-10-19_apple-garmin-transfer-pilot_device-generalization.pdf](file:///Users/bulat/Documents/datenspende_IMPUTE_sex/reports/scientific_provenance_pdfs/06_cross_cohort_and_scaling/2026-10-19_apple-garmin-transfer-pilot_device-generalization.pdf) |
 | **06 Cross-Cohort and Scaling** | `2026-10-14` | Full Single-Source Apple Watch Cohort Scaling Benchmark Report | MultiRocket sequence classification scaling, history budget allocation (40-day vs unconstrained), and 5-min vs 15-min resolution | 4 | 1 | 243.5 KB | [2026-10-14_apple-cohort-scaling_full-cohort-benchmark.pdf](file:///Users/bulat/Documents/datenspende_IMPUTE_sex/reports/scientific_provenance_pdfs/06_cross_cohort_and_scaling/2026-10-14_apple-cohort-scaling_full-cohort-benchmark.pdf) |
 | **06 Cross-Cohort and Scaling** | `2026-10-20` | Cross-Device Garmin Replication, Sample Scaling, and Spectral Diagnostics of Infradian Heart-Rate Cycles | Cross-device external validity of 25–35d excess infradian power, period persistence, and 3–120d spectral diagnostics | 13 | 7 | 1.73 MB | [2026-10-20_garmin-infradian-replication_cross-device-and-spectral.pdf](file:///Users/bulat/Documents/datenspende_IMPUTE_sex/reports/scientific_provenance_pdfs/06_cross_cohort_and_scaling/2026-10-20_garmin-infradian-replication_cross-device-and-spectral.pdf) |
+| **03 Confirmatory Mechanisms** | `2026-10-20` | Continuous-Age Dependence of Monthly Resting Heart-Rate Rhythmicity: Restricted Cubic Spline Sex-by-Age Analysis | Female-minus-male contrast in band-integrated 25–35d excess power as a continuous function of age (Harrell RCS, knots 25/42/52/65) | 19 | 4 | 4.41 MB | [2026-10-20_infradian-age-dependency_rcs-age-trajectory.pdf](file:///Users/bulat/Documents/datenspende_IMPUTE_sex/reports/scientific_provenance_pdfs/03_confirmatory_mechanisms/2026-10-20_infradian-age-dependency_rcs-age-trajectory.pdf) |
 
 ---
 
@@ -71,6 +72,17 @@ This catalog indexes all recent experimental investigations in the Robert Koch I
 - **Epistemic Classification**: Confirmatory Mechanisms: Longitudinal persistence, circular uniformity, and biological covariate invariance
 - **Validation Protocol**: Sliding 90-day window tracking, Rayleigh test of circular uniformity, multivariable OLS ANCOVA with HC3 errors
 - **Key Empirical Findings**: Period stability confirmed over >= 365 days (mean drift < 1.2 days). Acrophase distribution is circular uniform (Rayleigh p = 0.870), ruling out calendar/lunar artifact (wear showed p = 2.25e-11). Amplitude invariant to BMI (p = 0.609).
+
+#### [EXP-03B-INFRADIAN-AGE-DEPENDENCY] Continuous-Age Dependence of Monthly Resting Heart-Rate Rhythmicity: Restricted Cubic Spline Sex-by-Age Analysis
+
+- **PDF Artifact**: [`2026-10-20_infradian-age-dependency_rcs-age-trajectory.pdf`](file:///Users/bulat/Documents/datenspende_IMPUTE_sex/reports/scientific_provenance_pdfs/03_confirmatory_mechanisms/2026-10-20_infradian-age-dependency_rcs-age-trajectory.pdf) (19 pages, 4 figures, 4514.7 KB)
+- **Source Markdown**: [`experiments/infradian_age_dependency/REPORT.md`](file:///Users/bulat/Documents/datenspende_IMPUTE_sex/experiments/infradian_age_dependency/REPORT.md)
+- **Date**: `2026-10-20`
+- **Cohort**: Apple Watch (expanded90 N = 5,162) and Garmin Tier 1c (expanded90 N = 3,754); Samsung non-estimable (N = 8)
+- **Target Estimand**: Female-minus-male contrast in band-integrated 25–35d excess power as a continuous function of age (Harrell RCS, knots 25/42/52/65)
+- **Epistemic Classification**: Confirmatory Mechanism: Pre-specified RCS model with stratified bootstrap inference; cross-sectional, associational
+- **Validation Protocol**: Stone-Koo RCS, chunk Wald tests (HC3), 2,000 stratified participant bootstraps, simultaneous bands, two-component REML nulls, second-window repeatability
+- **Key Empirical Findings**: Steepest decline of the female-male contrast at 46.65y (Apple, CI 45.40-47.40) and 47.25y (Garmin, CI 44.45-48.50). Nominal zero-crossing 56.18y (Apple) and 70.20y (Garmin); simultaneous-band cessation not reached for Q_i. Second-window repeatability present in females <55y, absent in females >=55y and males.
 
 ### Category: 04 Predictive Utility Benchmarks
 

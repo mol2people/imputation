@@ -318,6 +318,42 @@ REPORTS_CONFIG: list[ReportConfig] = [
             ),
         ],
     ),
+    ReportConfig(
+        report_id="EXP-03B-INFRADIAN-AGE-DEPENDENCY",
+        provenance_category="03_confirmatory_mechanisms",
+        category_label="03 Confirmatory Mechanisms",
+        source_md=REPO_ROOT / "experiments" / "infradian_age_dependency" / "REPORT.md",
+        output_pdf_name="2026-10-20_infradian-age-dependency_rcs-age-trajectory.pdf",
+        date="2026-10-20",
+        title="Continuous-Age Dependence of Monthly Resting Heart-Rate Rhythmicity: Restricted Cubic Spline Sex-by-Age Analysis",
+        cohort="Apple Watch (expanded90 N = 5,162) and Garmin Tier 1c (expanded90 N = 3,754); Samsung non-estimable (N = 8)",
+        target_estimand="Female-minus-male contrast in band-integrated 25–35d excess power as a continuous function of age (Harrell RCS, knots 25/42/52/65)",
+        epistemic_classification="Confirmatory Mechanism: Pre-specified RCS model with stratified bootstrap inference; cross-sectional, associational",
+        validation_protocol="Stone-Koo RCS, chunk Wald tests (HC3), 2,000 stratified participant bootstraps, simultaneous bands, two-component REML nulls, second-window repeatability",
+        key_findings_summary=(
+            "Steepest decline of the female-male contrast at 46.65y (Apple, CI 45.40-47.40) and 47.25y (Garmin, CI 44.45-48.50). "
+            "Nominal zero-crossing 56.18y (Apple) and 70.20y (Garmin); simultaneous-band cessation not reached for Q_i. "
+            "Second-window repeatability present in females <55y, absent in females >=55y and males."
+        ),
+        figures=[
+            (
+                REPO_ROOT / "experiments" / "infradian_age_dependency" / "figures" / "fig1_rcs_continuous_partial_effects.png",
+                "Continuous RCS curves by sex with pointwise 95% CIs and simultaneous bands.",
+            ),
+            (
+                REPO_ROOT / "experiments" / "infradian_age_dependency" / "figures" / "fig2_excess_heatmaps_and_fwhm.png",
+                "Female age-by-period excess heatmaps, spectral slices and FWHM.",
+            ),
+            (
+                REPO_ROOT / "experiments" / "infradian_age_dependency" / "figures" / "fig3_delta_curve_transitions.png",
+                "Female-minus-male delta curves with transition landmarks.",
+            ),
+            (
+                REPO_ROOT / "experiments" / "infradian_age_dependency" / "figures" / "fig4_source_and_protocol_comparisons.png",
+                "Cross-device, protocol and second-window repeatability comparisons.",
+            ),
+        ],
+    ),
 ]
 
 

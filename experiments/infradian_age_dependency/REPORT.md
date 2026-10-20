@@ -19,7 +19,7 @@ Following Frank Harrell's *Regression Modeling Strategies* (RMS) principles, con
 2. **Fundamental Sex-Divergence via Nonlinear Sex $\times$ Age Interaction (2 d.f.)**:
    - The 2 d.f. nonlinear interaction test demonstrates that the female trajectory is fundamentally non-parallel to the male negative control: Apple Watch $F_{\mathrm{HC3}} = 11.64, p_{\mathrm{boot}} = 0.0005$ ($p_{\mathrm{asymp}} = 8.83 \times 10^{-6}$); Garmin Tier 1c $F_{\mathrm{HC3}} = 3.48, p_{\mathrm{boot}} = 0.0335$ ($p_{\mathrm{asymp}} = 0.0307$). This establishes localized perimenopausal acceleration of rhythm decay that is absent in age-matched male autonomic aging.
 3. **Cross-Device Agreement of Physiological Transition Metrics**:
-   - **Steepest decline inflection point** ($rg\min d\Delta/da$): Occurs at **46.65 years** (95% bootstrap CI: $[45.40, 47.40]$) in Apple Watch and **47.25 years** (95% CI: $[44.45, 48.50]$) in Garmin Tier 1c.
+   - **Steepest decline inflection point** ($\arg\min d\Delta/da$): Occurs at **46.65 years** (95% bootstrap CI: $[45.40, 47.40]$) in Apple Watch and **47.25 years** (95% CI: $[44.45, 48.50]$) in Garmin Tier 1c.
    - **Nominal zero-crossing** ($\Delta(a) = 0$): Reached at **56.18 years** (95% CI: $[52.93, 61.90]$) in Apple Watch and **70.20 years** (95% CI: $[59.62, 73.81]$) in Garmin Tier 1c.
    - **Conservative statistical cessation boundary**: Upper 95% simultaneous uniform band remains slightly above zero ($+0.0021$ Apple, $+0.0058$ Garmin), indicating that under strict familywise uniform coverage across all ages $[40, 80]$, residual power remains detectable.
 4. **Biological Specificity and Invariance of Background Variability**:
@@ -118,7 +118,7 @@ with constraints $v_1, v_2 > 0$, $0 < \phi_1 < 0.95$, and $\phi_2 \in \{0.98, 0.
 
 ### Table 3: Chunk Wald Hypothesis Tests on Shared Age Support $[25, 75)$ (`expanded90` Primary)
 
-| Source Device | Endpoint | Test # | Hypothesis Name | d.f. (num, den) | $F_{\mathrm{HC3}}$ | Asymptotic $p$ (HC3 $F$) | Bootstrap Empirical $p$ ($B=2,000$) | Statistical Decision ($lpha=0.05$) |
+| Source Device | Endpoint | Test # | Hypothesis Name | d.f. (num, den) | $F_{\mathrm{HC3}}$ | Asymptotic $p$ (HC3 $F$) | Bootstrap Empirical $p$ ($B=2,000$) | Statistical Decision ($\alpha=0.05$) |
 |---|---|---:|---|---:|---:|---:|---:|---|
 | Apple Watch | `Q_i` | 1 | total_female_age | (3, 5154) | 48.94 | < 1.00e-12 | 5.00e-04 | Reject H0 (Significant) |
 | Apple Watch | `Q_i` | 2 | nonlinear_female_curvature | (2, 5154) | 14.06 | 8.10e-07 | 5.00e-04 | Reject H0 (Significant) |

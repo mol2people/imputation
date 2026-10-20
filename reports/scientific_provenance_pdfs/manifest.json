@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-20T13:31:04.570800",
-  "reports_count": 9,
+  "generated_at": "2026-10-20T17:39:00.936060",
+  "reports_count": 10,
   "manifest": [
     {
       "report_id": "EXP-01-EXPLORATORY-DISCOVERY",
@@ -163,6 +163,24 @@
       "validation_protocol": "Independent Garmin cohort evaluation; B=199 two-component null bootstrap; 3\u2013120d harmonic sweeps; nonoverlapping second-window persistence",
       "key_findings": "Garmin cohort independently confirms young female infradian excess (contrast +0.0474, Wald chi^2 = 81.1, p < 1e-17). Spectral diagnostics (3\u2013120d) resolve long-period male rise as red-noise continuum and polynomial drift rather than harmonic resonance.",
       "figures_count": 7
+    },
+    {
+      "report_id": "EXP-03B-INFRADIAN-AGE-DEPENDENCY",
+      "provenance_category": "03_confirmatory_mechanisms",
+      "category_label": "03 Confirmatory Mechanisms",
+      "date": "2026-10-20",
+      "title": "Continuous-Age Dependence of Monthly Resting Heart-Rate Rhythmicity: Restricted Cubic Spline Sex-by-Age Analysis",
+      "source_md": "experiments/infradian_age_dependency/REPORT.md",
+      "output_pdf": "reports/scientific_provenance_pdfs/03_confirmatory_mechanisms/2026-10-20_infradian-age-dependency_rcs-age-trajectory.pdf",
+      "absolute_path": "/Users/bulat/Documents/datenspende_IMPUTE_sex/reports/scientific_provenance_pdfs/03_confirmatory_mechanisms/2026-10-20_infradian-age-dependency_rcs-age-trajectory.pdf",
+      "file_size_bytes": 4623040,
+      "page_count": 19,
+      "cohort": "Apple Watch (expanded90 N = 5,162) and Garmin Tier 1c (expanded90 N = 3,754); Samsung non-estimable (N = 8)",
+      "target_estimand": "Female-minus-male contrast in band-integrated 25\u201335d excess power as a continuous function of age (Harrell RCS, knots 25/42/52/65)",
+      "epistemic_classification": "Confirmatory Mechanism: Pre-specified RCS model with stratified bootstrap inference; cross-sectional, associational",
+      "validation_protocol": "Stone-Koo RCS, chunk Wald tests (HC3), 2,000 stratified participant bootstraps, simultaneous bands, two-component REML nulls, second-window repeatability",
+      "key_findings": "Steepest decline of the female-male contrast at 46.65y (Apple, CI 45.40-47.40) and 47.25y (Garmin, CI 44.45-48.50). Nominal zero-crossing 56.18y (Apple) and 70.20y (Garmin); simultaneous-band cessation not reached for Q_i. Second-window repeatability present in females <55y, absent in females >=55y and males.",
+      "figures_count": 4
     }
   ]
 }
