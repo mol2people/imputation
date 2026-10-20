@@ -333,7 +333,7 @@ REPORTS_CONFIG: list[ReportConfig] = [
         key_findings_summary=(
             "Steepest decline of the female-male contrast at 46.65y (Apple, CI 45.40-47.40) and 47.25y (Garmin, CI 44.45-48.50). "
             "Nominal zero-crossing 56.18y (Apple) and 70.20y (Garmin); simultaneous-band cessation not reached for Q_i. "
-            "Second-window repeatability present in females <55y, absent in females >=55y and males."
+            "Within-subject velocity (-0.0108/yr at 42-47y) reconciled with cross-sectional derivative (-0.0018/yr) via onset-dispersion mixture model."
         ),
         figures=[
             (
