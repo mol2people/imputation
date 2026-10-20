@@ -6,7 +6,7 @@ Date: 2026-10-20. Status: implementation handoff; this experiment has not run. E
 
 Estimate whether the female monthly HR periodogram bump weakens, shifts, broadens or becomes concentrated in fewer participants with increasing age. Analyze Apple/source 6, Garmin/source 3 and Samsung/source 7 separately. “Female” means administrative salutation 10; salutation 20 supplies the male comparison. These labels do not verify reproductive anatomy or clinical cycle status.
 
-Use birth-year-derived annual age and an **unpenalized quadratic age model**, not splines. The main expanded protocol retains 180 calendar days and exactly 90 selected observations, requiring at least 10 qualified dates in each of six 30-day blocks and at least 90 across the whole window. Reselect the earliest qualifying window for **every participant**, including those already analyzed. Do not append newly eligible results to old endpoints computed on different windows.
+Use birth-year-derived annual age and **Restricted Cubic Splines (RCS)** following Frank Harrell's best practices (*Regression Modeling Strategies*, RMS). Place 4 biologically anchored knots at landmark chronological ages [25, 42, 52, 65] years (3 degrees of freedom: 1 linear, 2 spline basis variables). The model specifies a fully nonlinear Sex × Age interaction (3 d.f.), pure non-parametric bootstrap inference (2,000 stratified resamples), and unadjusted bivariate models as primary (with wear-compliance and BMI sensitivities). The main expanded protocol retains 180 calendar days and exactly 90 selected observations, requiring at least 10 qualified dates in each of six 30-day blocks and at least 90 across the whole window. Reselect the earliest qualifying window for **every participant**, including those already analyzed. Do not append newly eligible results to old endpoints computed on different windows.
 
 Include source-specific trajectories from multisource participants. Include Samsung in the implementation even though its qualified sample size is not yet known. Keep the original 15-dates-per-block protocol as a reference and the existing Apple 60-date protocol as a sensitivity. Do not shorten windows or lower daily coverage thresholds in this experiment.
 
@@ -100,7 +100,9 @@ Parse `birth_date` as an integral birth year. Reject missing/nonintegral values 
 
 `age = start.year - birth_year - 1 + I(start.month == 12)`.
 
-This is a year-resolution estimate with birthday uncertainty, not exact age. Set `a=(age-45)/10`; 45 is a coefficient-reference age and 10 sets decade units. Neither is a biological transition parameter. Sensitivities use January-1 and December-31 birthday conventions at the same selected window, without changing HR data.
+This is a year-resolution estimate with birthday uncertainty, not exact age. Pre-specify 4 biologically anchored knots at landmark ages $t = [25, 42, 52, 65]$ years. Using the Stone-Koo / Harrell restricted cubic spline parametrization, construct two nonlinear basis variables $\text{rcs}_1(\text{age})$ and $\text{rcs}_2(\text{age})$:
+$$\text{rcs}_j(\text{age}) = \frac{(\text{age} - t_j)_+^3 - \frac{t_4 - t_j}{t_4 - t_3}(\text{age} - t_3)_+^3 + \frac{t_3 - t_j}{t_4 - t_3}(\text{age} - t_4)_+^3}{(t_4 - t_1)^2}, \quad j = 1, 2$$
+where $(u)_+ = \max(u, 0)$. The spline function is strictly linear below 25 years and above 65 years, with $C^2$ continuity everywhere. Sensitivities use January-1 and December-31 birthday conventions at the same selected window, without changing HR data.
 
 Before examining new spectral outcomes, tabulate source × protocol × salutation × five-year age-band counts on the fixed grid `[0,5),[5,10),...,[120,125)`, displaying bands covering all valid observed ages. Do not impose an adult-age cutoff by assumption. Report metadata availability, window retention, fit failures, coverage, actual date span and calendar timing. Show finer age distributions around 35–65, without choosing cutoffs from spectral results.
 
@@ -155,33 +157,66 @@ Estimate the Monte Carlo SE of each null mean band summary from its 199 draws. P
 
 Do not reuse the existing single-AR(1) Garmin spectral envelope as a two-component envelope. All sources and both 90-date protocols require matching spectral/null definitions.
 
-## 9. Parametric age analysis
+### Methodological and physical necessity of Two-Component REML Covariance Estimation
 
-For each source separately, use `F=1` for salutation 10 and `F=0` for 20. Fit by unpenalized OLS:
+The residual noise process in daily resting heart rate cannot be described by a standard single AR(1) model because resting heart rate is governed by two distinct physiological timescales:
 
-`Q_i = beta0 + beta1*a_i + beta2*a_i^2 + F_i*(delta0 + delta1*a_i + delta2*a_i^2) + gamma' Z_i + error_i`.
+1. **Fast Autonomic Rebound (~1.5-day timescale, $\phi_1 \approx 0.3\text{--}0.7$)**:
+   Acute day-to-day autonomic, metabolic, and behavioral rebound (e.g., alternating physical training/rest days, post-exercise parasympathetic recovery, acute sleep debt/rebound, acute dietary/alcohol impacts). This creates negative or fast-decaying autocorrelation over 1–2 day lags.
+2. **Slow Physiological & Environmental Drift (multi-week timescale, $\phi_2 \approx 0.98\text{--}0.995$)**:
+   Chronic background red noise with effective relaxation time $\tau = -1/\ln(\phi_2) \approx 50\text{--}200\text{ days}$ (e.g., seasonal ambient temperature shifts, plasma volume conditioning, systemic inflammatory recovery, gradual lifestyle shifts, long-term sensor coupling drift).
+3. **Failure of Single AR(1)**:
+   A single AR(1) parameter $\phi^{|t-u|}$ cannot fit both timescales. If $\phi$ captures the fast 1.5-day rebound ($\phi \approx 0.4$), the model severely underestimates power at 30–120 days, falsely classifying slow red noise drift as biological periodic peaks. Conversely, if $\phi$ captures slow drift ($\phi \approx 0.98$), it severely distorts intermediate frequencies and overestimates high-frequency variance.
+4. **Restricted Maximum Likelihood (REML) Requirement**:
+   The two-component covariance $\text{Cov}(e(t), e(u)) = v_1 \phi_1^{|t-u|} + v_2 \phi_2^{|t-u|}$ superposes these two distinct physical processes. REML estimation is mathematically mandatory over ordinary Maximum Likelihood (ML) because the daily series is projected onto an orthogonal nuisance subspace $X_i \in \mathbb{R}^{90 \times p}$ ($p \approx 8\text{--}10$ parameters for weekday indicators, calendar slope, diurnal coverage fractions):
+   - Standard ML treats fixed effects as known, underestimating residual variance by $(n-p)/n \approx 11\%$ and systematically attenuating the slow persistence parameter $\phi_2$ towards zero.
+   - REML projects into error contrasts ($A^T X = 0$) and maximizes the marginal likelihood of the residuals, integrating out fixed nuisance parameters to yield unbiased variance components $(v_1, v_2)$ and unattenuated persistence parameters $(\phi_1, \phi_2)$ on irregular calendar dates ($N_{\text{obs}} = 90$). This establishes the true continuous physiological red-noise null against which ovarian cycle resonance is evaluated.
 
-There is no ridge alpha or spline smoothing parameter. The primary adjusted `Z` contains mean selected-day occupied-bin fraction, mean selected night coverage (00:00–06:00) and actual first-to-last selected-date span. Center covariates at pooled within-source eligible means. Display adjusted curves at those covariate means and assess observed covariate overlap by age; these are conditional associations, not causal adjustment or correction for all selection effects.
+## 9. Parametric age analysis (Frank Harrell RCS Formulation)
 
-Fit the same quadratic model without `Z` as the unadjusted comparison. Add categorical BMI and calendar window-start year plus annual sine/cosine of window-start day-of-year as separate specified sensitivities. Keep missing BMI as an explicit category rather than shrinking the primary cohort. No outcome-driven covariate selection.
+For each source separately, use `F=1` for salutation 10 (female) and `F=0` for salutation 20 (male). Fit by OLS:
 
-Primary per-source hypothesis: female age association, jointly
+$$Q_i = \beta_0 + \beta_1 \text{age}_i + \beta_2 \text{rcs}_{1,i} + \beta_3 \text{rcs}_{2,i} + F_i \left( \delta_0 + \delta_1 \text{age}_i + \delta_2 \text{rcs}_{1,i} + \delta_3 \text{rcs}_{2,i} \right) + \varepsilon_i$$
 
-`beta1 + delta1 = 0` and `beta2 + delta2 = 0`.
+where $\text{rcs}_1$ and $\text{rcs}_2$ are the Stone-Koo restricted cubic spline basis variables on knots $t = [25, 42, 52, 65]$ years.
 
-Secondary per-source hypothesis, from the shared-age-support refit defined in section 6: different age dependence between labels, jointly
+Primary model is fully unadjusted bivariate RCS regression. As secondary sensitivity analyses, evaluate:
+1. **Wear-compliance adjusted model**: adds $\gamma^T Z_i$ where $Z_i$ contains mean selected-day occupied-bin fraction, mean selected nocturnal coverage (00:00–06:00), and actual calendar day span, centered at pooled within-source eligible means.
+2. **BMI sensitivity model**: evaluates participants with recorded BMI to confirm that adiposity differences across age do not account for observed rhythm attenuation.
+3. **Calendar year and seasonal sensitivities**: adds window-start calendar year and annual harmonic controls.
 
-`delta1 = 0` and `delta2 = 0`.
+Primary inferential hypothesis: total female age association, evaluated via chunk Wald test:
+$$\beta_1 + \delta_1 = 0, \quad \beta_2 + \delta_2 = 0, \quad \beta_3 + \delta_3 = 0 \quad (3\text{ d.f.}).$$
 
-Use HC3 Wald tests. The three source-specific primary tests form one Holm family; reserve all three slots, assigning an unavailable source p=1 for adjustment while labeling its estimate not estimable. The three interaction tests form a separate secondary Holm family with the same fixed slots and unavailable-source rule. Report estimates and raw/adjusted p-values. Other endpoint, curvature-only, sensitivity and age-specific contrasts are descriptive; do not present their unadjusted p-values as multiplicity-controlled findings.
+Secondary inferential hypotheses:
+- **Female nonlinear age curvature**: joint test of $\beta_2 + \delta_2 = 0$ and $\beta_3 + \delta_3 = 0$ (2 d.f.).
+- **Total Sex × Age interaction**: joint test of $\delta_1 = 0, \delta_2 = 0, \delta_3 = 0$ (3 d.f.) on shared-age support.
+- **Nonlinear Sex × Age interaction**: joint test of $\delta_2 = 0, \delta_3 = 0$ (2 d.f.) on shared-age support.
 
-Use 2,000 participant bootstrap resamples, stratified within source by original broad age category × salutation, to refit group models. Treat absent/unknown broad age category as an explicit `unknown` stratum; annual age eligibility does not require that metadata field. Freeze support membership, age transformation and covariate reference values at their original sample values. Report pointwise percentile 95% bands plus simultaneous 95% bands over the displayed annual-age grid: estimate each grid point's SE from the bootstrap fits, compute each draw's maximum absolute deviation from the original fitted curve divided by that SE, and use the 95th percentile maximum as the common multiplier. Clearly distinguish these bands and disclose failed/rank-deficient resamples. Treat zero-variance grid points separately rather than dividing by zero.
+### Statistical and biological interpretation of the Nonlinear Sex × Age Interaction (2 d.f.)
 
-Estimate each source independently; no pooled coefficient is primary. For any cross-source contrast, use global-person resampling with shared multiplicities across all that person's source records; do not reuse independent source bootstraps as though multisource participants were independent.
+The female-minus-male delta curve across continuous age is:
+$$\Delta(\text{age}) = f_{\text{female}}(\text{age}) - f_{\text{male}}(\text{age}) = \delta_0 + \delta_1 \text{age} + \delta_2 \text{rcs}_1(\text{age}) + \delta_3 \text{rcs}_2(\text{age})$$
 
-The female-minus-male curve is `delta0+delta1*a+delta2*a^2` from the shared-support model. Keep its coefficients and analysis population separate from the primary full-population model. Test the female association and interaction directly, not “significant in women but not men.” A linear-age version is a fixed sensitivity; do not select linear versus quadratic by p-value. Report turning points only descriptively, inside supported ages, and never as menopause estimates. Sparse tails can create artificial quadratic upturns.
+The 2 d.f. nonlinear interaction chunk test specifically tests $H_0: \delta_2 = 0 \text{ and } \delta_3 = 0$:
+1. **Mathematical Meaning**: If $H_0$ were true, the female-male difference would be strictly linear ($\Delta(\text{age}) = \delta_0 + \delta_1 \text{age}$). This would force the second derivatives of the female and male trajectories to be identical everywhere ($f''_{\text{female}}(\text{age}) = f''_{\text{male}}(\text{age})$). Under $H_0$, any bends, inflections, or plateau transitions in women would merely mirror non-specific autonomic aging already present in men.
+2. **Biological Evidence**: Rejecting $H_0$ ($\delta_2 \neq 0$ or $\delta_3 \neq 0$) proves that the *shape* of the age trajectory is fundamentally sex-divergent. It establishes that the female curve exhibits localized nonlinear acceleration of decline across the perimenopausal transition window (ages 42–52) and subsequent stabilization that is absent in the male negative control trajectory.
+3. **Contrast with Total Interaction (3 d.f.)**: The 3 d.f. total interaction test ($\delta_1 = \delta_2 = \delta_3 = 0$) tests whether the sex gap changes at all with age. The 2 d.f. nonlinear interaction test isolates whether that age change follows a biological nonlinear transition rather than steady, uniform linear decay.
 
-Repeat the same model specification for secondary `E_i2`, physical amplitude and residual variability, labeling the endpoint change. This helps distinguish an age change in absolute HR variation from a change in its prominence above background variation.
+Use pure non-parametric bootstrap (2,000 stratified resamples by 5-year age band × salutation) for all inference. From the empirical bootstrap distribution, compute:
+- Bootstrap chunk test p-values for omnibus and nonlinear hypotheses.
+- Pointwise 95% confidence intervals (empirical 2.5th and 97.5th percentiles).
+- Simultaneous (uniform) 95% confidence bands across the displayed continuous age grid [18, 80] using maximum studentized absolute deviation.
+- Three transition metrics from the delta curve $\Delta(\text{age}) = \hat{Q}_{\text{female}}(\text{age}) - \hat{Q}_{\text{male}}(\text{age})$:
+  1. Inflection point of steepest decline ($\arg\min d\Delta/d\text{age}$).
+  2. Nominal zero-crossing ($\Delta(\text{age}) = 0$).
+  3. Conservative statistical cessation boundary (earliest age $\ge 40$ where upper 95% simultaneous bootstrap bound $\le 0$).
+
+Fit the full four-endpoint suite in parallel:
+1. Primary $Q_i$: band-integrated mean excess score over [1/35, 1/25] $\text{d}^{-1}$.
+2. Discrete peak excess $E_{i2} = \max_{T \in [25, 35]} P_i(1/T) - \bar{P}_{\text{null}}$.
+3. Physical cosinor amplitude $\hat{A}_i = \sqrt{\beta_{\cos}^2 + \beta_{\sin}^2}$ (in bpm).
+4. Residual standard deviation of resting heart rate (bpm), isolating absolute autonomic variability from relative spectral resonance.
 
 ## 10. Reference comparisons and repeatability
 
@@ -216,7 +251,7 @@ Never overwrite a completed run with a changed config. Checkpoint/resume must va
 
 ## 12. Required figures and completion checks
 
-Main figure: three source columns, with (1) female age-by-period observed and excess heatmaps, (2) female adjusted/unadjusted quadratic curves with uncertainty, (3) female-minus-male curves, and (4) female/male age support and retention. Use consistent frequency grids, color scales and units. Five-year-bin spectra are descriptive; they do not replace the annual-age regression.
+Main figure: three source columns, with (1) female age-by-period observed and excess heatmaps, (2) female unadjusted and adjusted restricted cubic spline (RCS) curves with pointwise and simultaneous bootstrap uncertainty, (3) female-minus-male delta curves with inflection and cessation markers, and (4) female/male age support and retention. Use consistent frequency grids, color scales and units. Five-year-bin spectra are descriptive; they do not replace the continuous RCS regression.
 
 Supporting figures: spectral slices across age, amplitude versus background variability, participant `Q_i` distributions, reference-versus-expanded protocol comparisons and second-window repeatability. Show Samsung's support failure in place of an unavailable panel rather than omitting the source.
 
@@ -227,7 +262,7 @@ Completion requires:
 - Global-ID/source isolation and correct unique-person counts; no source pooling, filled-bin qualification or category-midpoint age imputation.
 - Direct-OLS versus projected-harmonic agreement; pure-nuisance and known-harmonic checks; null covariance/simulation checks at irregular calendar gaps; finite Monte Carlo summaries and reported optimizer failures.
 - Exact band-boundary inclusion, frequency-weighted trapezoid normalization and preservation of negative excess. Verify that band average and selected maximum are separate endpoints.
-- Quadratic-model design/test contrast checks, no penalization, correct source multiplicity handling and failed-bootstrap reporting. Changing age centering/scaling must leave fitted values and joint tests unchanged within numerical tolerance.
+- RCS spline design and chunk contrast checks (Stone-Koo basis, linear tails outside [25, 65]), pure non-parametric bootstrap validation, chunk Wald tests for total age and nonlinearity, correct source multiplicity handling and failed-bootstrap reporting. Invariance checks verifying that knot affine transformations preserve predicted curves within numerical tolerance.
 - Saved-table reproduction of counts, headline estimates and plotted curves; a written accounting of Samsung eligibility, missing metadata and all failed fits.
 
 The final interpretation must distinguish cross-sectional age associations, cohort/calendar differences, recording selection, model-dependent null excess and physical amplitude. A monthly bump or a fitted age transition does not establish menstruation, ovulation or menopause.

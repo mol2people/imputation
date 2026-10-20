@@ -32,6 +32,12 @@
 /experiments/apple_cohort_scaling/artifacts/apple_10_allocations.parquet
 /experiments/apple_cohort_scaling/artifacts/scaling_predictions_test.parquet
 
+# infradian_age_dependency bulky artifacts
+/experiments/infradian_age_dependency/artifacts/cache_5min/
+/experiments/infradian_age_dependency/artifacts/spectra/
+/experiments/infradian_age_dependency/artifacts/bootstrap/bootstrap_curves.parquet
+/experiments/infradian_age_dependency/artifacts/windows/selected_dates.parquet
+
 # environment / OS / caches
 .venv/
 __pycache__/

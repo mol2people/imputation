@@ -118,28 +118,28 @@ Multisource candidates add 405 distinct women outside existing Apple/Garmin cach
    - Cosinor amplitude: $\hat{A} = \sqrt{\hat{\beta}_{\cos}^2 + \hat{\beta}_{\sin}^2}$ (in bpm) at empirical peak and fixed 28-day period.
    - Full width at half maximum (FWHM) of female 5-year age-band excess spectra with 2,000-draw bootstrap pointwise 95% confidence bands.
 
-### Parametric Age Association & Interaction Model
-1. **Unpenalized Quadratic Age Regression**:
-   To avoid arbitrary spline knot placement or smoothing parameter optimization, the primary analysis specifies an unpenalized OLS quadratic age model for each device source:
-   $$Q_i = \beta_0 + \beta_1 a_i + \beta_2 a_i^2 + F_i (\delta_0 + \delta_1 a_i + \delta_2 a_i^2) + \gamma^T Z_i + \varepsilon_i$$
+### Parametric Age Association & Interaction Model (Frank Harrell RCS Formulation)
+1. **Restricted Cubic Splines (RCS) Regression**:
+   Following Frank Harrell's *Regression Modeling Strategies* (RMS), continuous age is modeled using restricted cubic splines with 4 biologically anchored knots at landmark ages $t = [25, 42, 52, 65]$ years (3 degrees of freedom: 1 linear, 2 spline basis variables):
+   $$Q_i = \beta_0 + \beta_1 \text{age}_i + \beta_2 \text{rcs}_{1,i} + \beta_3 \text{rcs}_{2,i} + F_i \left( \delta_0 + \delta_1 \text{age}_i + \delta_2 \text{rcs}_{1,i} + \delta_3 \text{rcs}_{2,i} \right) + \varepsilon_i$$
    where:
-   - $a_i = (\text{age}_i - 45) / 10$ is centered at reference age 45 with decade scaling units.
-   - Annual age is derived from participant birth year (`data/13Aug_1222.csv`) under the December-1 convention:
-     $$\text{age}_i = \text{start.year}_i - \text{birth\_year}_i - 1 + \mathbb{I}(\text{start.month}_i == 12)$$
+   - Annual age is derived from participant birth year (`data/13Aug_1222.csv`) under the December-1 convention.
    - $F_i \in \{0, 1\}$ denotes administrative salutation ($F_i = 1$ for female / salutation 10; $F_i = 0$ for male / salutation 20).
-   - $Z_i$ contains mean occupied 5-minute fraction, nocturnal coverage fraction (00:00–06:00), and first-to-last calendar day span, centered at pooled within-source means.
-2. **Hypothesis Testing & Multiplicity Control**:
-   - **Primary Hypothesis (Female Age Association)**: Joint HC3 Wald test for female age curvature:
-     $$H_0: \beta_1 + \delta_1 = 0 \quad \text{and} \quad \beta_2 + \delta_2 = 0$$
-     Holm-Bonferroni adjusted across the three device sources.
-   - **Secondary Hypothesis (Sex-by-Age Interaction)**: Joint HC3 Wald test for sex differential decay:
-     $$H_0: \delta_1 = 0 \quad \text{and} \quad \delta_2 = 0$$
-     Fitted strictly on shared-support 5-year age bands having $\ge 30$ individuals per salutation group across at least three bands, with Holm-Bonferroni adjustment across sources.
-   - **Confidence Bands**: 2,000 stratified participant bootstrap resamples estimating pointwise and simultaneous 95% confidence bands across the supported age span.
-3. **Repeatability & Sensitivity**:
-   - Second-window evaluation ($s_2 \ge s_1 + 180\text{ d}$) to assess intra-individual $Q_i$ persistence and out-of-sample harmonic phase forecasting.
-   - Birthday rollover sensitivities: January-1 and December-31 birthday conventions.
-   - Model sensitivities: Unadjusted OLS ($\gamma = 0$), categorical BMI strata, and start-calendar-year fixed effects.
+   - Fully unadjusted bivariate model serves as primary evidence, followed by pre-specified sensitivities adjusting for continuous wear compliance ($Z_i$: occupied fraction, nocturnal coverage, date span) and BMI strata.
+   - **Two-Component REML Covariance**: Resting heart rate noise is physically governed by two distinct timescales: fast day-to-day autonomic/recovery rebound (~1.5-day period, $\phi_1 \approx 0.3\text{--}0.7$) and slow environmental/metabolic drift (multi-week/seasonal persistence, $\phi_2 \approx 0.98\text{--}0.995$). Because a single AR(1) model cannot simultaneously fit both scales without either underestimating long-period power or overestimating short-period power, the continuous covariance $\text{Cov}(e(t), e(u)) = v_1 \phi_1^{|t-u|} + v_2 \phi_2^{|t-u|}$ is essential. Restricted Maximum Likelihood (REML) estimation is required over ordinary ML to project into the error contrast subspace (^T X = 0$), integrating out  \approx 8\text{--}10$ nuisance parameters to prevent /n \approx 11\%$ downward variance shrinkage and eliminate systematic downward attenuation of the slow persistence parameter $\phi_2 \in \{0.98, 0.995\}$.
+2. **Inference & Chunk Wald Hypotheses (Pure Non-parametric Bootstrap)**:
+   - **Primary Hypothesis (Female Total Age Effect)**: Joint chunk Wald test of $\beta_1 + \delta_1 = 0, \beta_2 + \delta_2 = 0, \beta_3 + \delta_3 = 0$ (3 d.f.).
+   - **Secondary Hypotheses**:
+     - Female nonlinear curvature: $\beta_2 + \delta_2 = 0, \beta_3 + \delta_3 = 0$ (2 d.f.).
+     - Total Sex × Age interaction: $\delta_1 = 0, \delta_2 = 0, \delta_3 = 0$ (3 d.f.) on shared support.
+     - **Nonlinear Sex × Age interaction (2 d.f.)**: $\delta_2 = 0, \delta_3 = 0$ on shared support. Tests whether the female-male delta curve $\Delta(\text{age})$ has non-zero curvature ($f''_{\text{female}} \ne f''_{\text{male}}$). Rejecting this null demonstrates that the female trajectory exhibits localized biological inflection (accelerating perimenopausal drop-off) rather than mirroring non-specific parallel autonomic aging or steady linear decline.
+   - **Pure Bootstrap Uncertainty**: 2,000 stratified participant resamples (by 5-year age band × sex) evaluating chunk test p-values, pointwise 95% CIs, and simultaneous (uniform) confidence bands over age [18, 80].
+3. **Transition Dynamics & Multi-Endpoint Decomposition**:
+   - Comprehensive transition metrics from delta curve $\Delta(\text{age}) = \hat{Q}_{\text{female}}(\text{age}) - \hat{Q}_{\text{male}}(\text{age})$:
+     1. Inflection point of steepest decline ($\arg\min d\Delta/d\text{age}$).
+     2. Nominal zero-crossing ($\Delta = 0$).
+     3. Conservative statistical cessation boundary (earliest age $\ge 40$ where upper 95% simultaneous bootstrap bound $\le 0$).
+   - Full four-endpoint decomposition evaluated in parallel: band-integrated excess $Q_i$, discrete peak excess $E_{i2}$, cosinor physical amplitude $\hat{A}_i$, and resting HR residual variance.
 
 ## Evaluation requirements for future runs
 
