@@ -6,6 +6,7 @@ The [repository README](../README.md) gives the experimental work tree, device s
 |---|---|
 | Look up a result, cohort, or model name | [Results reference](../reports/results_reference.md) |
 | Locate a study’s report, code, and outputs | [Experiment index](experiment_lineage_worktree.md) |
+| Inspect compiled publication PDF reports | [Scientific PDF catalog](../reports/scientific_provenance_pdfs/CATALOG.md) |
 | Understand the MultiRocket inputs and feature construction | [Model notes](multirocket_garmin_synthesis.md) |
 | Interpret recording coverage and bin-size comparisons | [Recording-pattern notes](wear_phenotypes_and_missingness_synthesis.md) |
 | Inspect a saved model or use the local app | [Heartbeat Lab](../HEARTBEAT_LAB/README.md) |
