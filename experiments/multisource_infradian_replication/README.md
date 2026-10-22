@@ -180,7 +180,8 @@ dedicated run namespace and do not start it in an interactive foreground shell.
 
 ## Full-run figures
 
-Full primary-window run (`B=199`, `n_boot=1000`; `balanced90` reference):
+Full primary-window run (`B=199`, `n_boot=1000`). Figures 1–3 use the
+`balanced90` reference; Figure 4 covers both protocols.
 
 ![Female and male Q_i age curves](figures/fig1_q_i_age_curves_balanced90.png)
 
@@ -188,8 +189,10 @@ Full primary-window run (`B=199`, `n_boot=1000`; `balanced90` reference):
 
 ![Female-male divergence forest](figures/fig3_sex_divergence_forest.png)
 
-Definitions, source coverage, and interpretation limits are in
-[`figures/README.md`](figures/README.md).
+![Full arm and model inventory](figures/fig4_arm_model_inventory.png)
+
+Definitions, source coverage, arm/model coverage, and interpretation limits are
+in [`figures/README.md`](figures/README.md).
 
 ## Tests
 

@@ -9,6 +9,20 @@ The full run produced 65,449 endpoint rows, of which 65,443 converged. Six
 rows are `rss0_degenerate`; see
 `artifacts/runs/full_b199_boot1000_20261022/RUN_NOTES.md`.
 
+## Arm and model inventory
+
+![Arm and model inventory](fig4_arm_model_inventory.png)
+
+All 24 endpoint arms with data. `F` = female-only RCS model; `F+S` = both
+female-only and sex-interaction RCS models. The matrix shows model availability
+for each metric; `endpoint rows` is the number of full-run endpoint rows.
+Machine-readable table: [`arm_model_inventory.csv`](arm_model_inventory.csv).
+
+Summary: 12 arms have both models (`96` models), source 9 RHR has female-only
+models only (`8` models), and 10 arms have no age model. The latter comprise the
+sparse Samsung HRp10 arms (6 and 8 rows) and the support-threshold failures for
+Nokia HRp10, Google Fit RHR/HRp10, and Oura HR_during_sleep.
+
 ## Female and male `Q_i` age curves
 
 ![Female and male Q_i age curves](fig1_q_i_age_curves_balanced90.png)

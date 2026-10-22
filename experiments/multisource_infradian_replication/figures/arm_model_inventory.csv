@@ -1,0 +1,25 @@
+source,source_name,endpoint,protocol,endpoint_rows,finite_Q_i,model_Q_i,finite_E_i2,model_E_i2,finite_A_hat,model_A_hat,finite_sigma_resid,model_sigma_resid,models_fitted,model_age_min,model_age_max,model_n_obs_max,note
+2,Fitbit,RHR,balanced90,3976,3975,F+S,3975,F+S,3975,F+S,3975,F+S,8,25.0,74.0,3836.0,both models
+2,Fitbit,RHR,expanded90,4088,4087,F+S,4087,F+S,4087,F+S,4087,F+S,8,25.0,74.0,3939.0,both models
+3,Garmin,HRp10,balanced90,4594,4594,F+S,4594,F+S,4594,F+S,4594,F+S,8,25.0,74.0,4503.0,both models
+3,Garmin,HRp10,expanded90,4691,4691,F+S,4691,F+S,4691,F+S,4691,F+S,8,25.0,74.0,4598.0,both models
+3,Garmin,RHR,balanced90,5349,5349,F+S,5349,F+S,5349,F+S,5349,F+S,8,25.0,69.0,5117.0,both models
+3,Garmin,RHR,expanded90,5418,5418,F+S,5418,F+S,5418,F+S,5418,F+S,8,20.0,69.0,5264.0,both models
+6,Apple,HRp10,balanced90,5480,5479,F+S,5479,F+S,5479,F+S,5479,F+S,8,25.0,74.0,5267.0,both models
+6,Apple,HRp10,expanded90,6392,6391,F+S,6391,F+S,6391,F+S,6391,F+S,8,25.0,74.0,6139.0,both models
+6,Apple,RHR,balanced90,10324,10323,F+S,10323,F+S,10323,F+S,10323,F+S,8,20.0,74.0,10107.0,both models
+6,Apple,RHR,expanded90,10579,10578,F+S,10578,F+S,10578,F+S,10578,F+S,8,20.0,74.0,10356.0,both models
+7,Samsung,HRp10,balanced90,6,6,—,6,—,6,—,6,—,0,,,,no age model; sparse
+7,Samsung,HRp10,expanded90,8,8,—,8,—,8,—,8,—,0,,,,no age model; sparse
+7,Samsung,RHR,balanced90,912,912,F+S,912,F+S,912,F+S,912,F+S,8,40.0,64.0,644.0,both models
+7,Samsung,RHR,expanded90,999,999,F+S,999,F+S,999,F+S,999,F+S,8,35.0,64.0,770.0,both models
+9,Nokia,HRp10,balanced90,107,107,—,107,—,107,—,107,—,0,,,,no age model; support threshold
+9,Nokia,HRp10,expanded90,179,179,—,179,—,179,—,179,—,0,,,,no age model; support threshold
+9,Nokia,RHR,balanced90,780,780,F,780,F,780,F,780,F,4,20.0,85.0,180.0,female-only; no shared sex support
+9,Nokia,RHR,expanded90,878,878,F,878,F,878,F,878,F,4,20.0,85.0,192.0,female-only; no shared sex support
+13,Google Fit,HRp10,balanced90,52,52,—,52,—,52,—,52,—,0,,,,no age model; support threshold
+13,Google Fit,HRp10,expanded90,85,85,—,85,—,85,—,85,—,0,,,,no age model; support threshold
+13,Google Fit,RHR,balanced90,136,136,—,136,—,136,—,136,—,0,,,,no age model; support threshold
+13,Google Fit,RHR,expanded90,217,217,—,217,—,217,—,217,—,0,,,,no age model; support threshold
+19,Oura,HR_during_sleep,balanced90,98,98,—,98,—,98,—,98,—,0,,,,no age model; support threshold
+19,Oura,HR_during_sleep,expanded90,101,101,—,101,—,101,—,101,—,0,,,,no age model; support threshold
