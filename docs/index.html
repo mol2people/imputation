@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Imputation · Research Atlas</title>
+<style>
+:root{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17283d;background:#f6f8fc;--ink:#17283d;--muted:#63748a;--line:#dce4ef;--primary:#286dd3;--white:#fff;--header:85px;--dock:204px}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid #96bfff;outline-offset:3px}
+header{position:sticky;top:0;z-index:20;min-height:var(--header);padding:16px clamp(18px,3vw,42px);background:#ffffffed;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:13px}
+.mark{width:40px;height:40px;border:1px solid #c4d8f5;border-radius:12px;background:#edf4fe;display:grid;place-items:center;color:var(--primary);font-size:23px;font-weight:700;flex-shrink:0}
+.eyebrow{color:#4775ae;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+h1{margin:3px 0 2px;font-size:22px;letter-spacing:-.5px;line-height:1.1}
+.sub{font-size:11px;color:var(--muted);line-height:1.5}
+.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+input[type=search]{width:205px;background:#f8fbff;color:var(--ink);border:1px solid #d6e1ed;border-radius:9px;padding:10px 13px;font-size:12px}
+.action{background:white;color:#3b526d;border:1px solid #d5dfeb;border-radius:9px;padding:9px 12px;font-size:12px;font-weight:650;white-space:nowrap}
+.action:hover{background:#eef5fe;border-color:#adcaee}
+.action.primary{background:#eef5ff;color:#1d62bf;border-color:#b9d2f1}
+.pcount{color:#4a6583;font-size:12px;font-weight:700;background:#eef3fa;border-radius:50px;padding:8px 11px}
+#canvas{height:calc(100dvh - var(--header) - var(--dock));min-height:240px;overflow:auto;scrollbar-color:#b9cadc #f6f8fc;background-color:#f8fafd;background-image:radial-gradient(#d8e1ed 0.7px,transparent .8px);background-size:22px 22px;position:relative;scroll-behavior:auto;touch-action:none;overscroll-behavior:contain;cursor:grab;-webkit-user-select:none;user-select:none}
+#forest{display:flex;width:max-content;min-width:100%;justify-content:center;align-items:flex-start;padding:45px 110px 120px;gap:38px;transform-origin:top left}
+
+#canvas.dragging{cursor:grabbing}
+#canvas .node{touch-action:none;user-select:none;-webkit-user-select:none}
+#zoom-controls{position:fixed;z-index:22;right:18px;bottom:calc(var(--dock) + 20px);display:flex;align-items:center;gap:5px;padding:6px;border:1px solid #d4e0ef;border-radius:12px;background:#fffffff2;box-shadow:0 8px 22px #142c461a;backdrop-filter:blur(9px)}
+.zoom-btn{border:1px solid #d7e2ef;border-radius:8px;background:#f9fbfe;color:#295476;font-weight:760;height:36px;min-width:36px;padding:0 9px;font-size:16px;touch-action:manipulation}
+.zoom-btn:hover{background:#e7f1ff}
+.zoom-btn:disabled{opacity:.35;cursor:default}
+#zoom-value{min-width:45px;text-align:center;font-size:12px;font-weight:750;color:#365878;font-variant-numeric:tabular-nums}
+.zoom-help{position:absolute;right:6px;bottom:calc(100% + 7px);white-space:nowrap;padding:5px 9px;background:#ffffffea;color:#55718f;border:1px solid #e1e8f2;border-radius:7px;font-size:10px;pointer-events:none}
+@media(max-width:780px){#zoom-controls{right:9px;bottom:calc(var(--dock) + 11px);padding:4px;gap:3px}.zoom-btn{height:34px;min-width:34px;padding:0 7px}.zoom-help{font-size:10px}}
+.branch{display:flex;flex-direction:column;align-items:center;position:relative;animation:emerge .27s ease both}
+@keyframes emerge{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.children{display:flex;gap:24px;align-items:flex-start;position:relative;padding-top:43px}
+.children:before{content:"";position:absolute;top:0;height:23px;left:50%;border-left:2px solid #b3c7dc}
+.children:after{content:"";position:absolute;top:22px;left:var(--first,0px);right:var(--last,0px);border-top:2px solid #b3c7dc}
+.child{position:relative;display:flex;justify-content:center}
+.child:before{content:"";position:absolute;top:-21px;height:21px;left:50%;border-left:2px solid #b3c7dc}
+.node{width:228px;min-height:117px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;background:white;border:1px solid #d7e2ee;border-top:3px solid var(--accent,#7798bd);border-radius:12px;padding:13px 14px;box-shadow:0 5px 15px #1d466511;transition:box-shadow .18s,border-color .18s,transform .18s;position:relative;color:var(--ink)}
+.node:hover{transform:translateY(-3px);box-shadow:0 11px 26px #1b46601c;border-color:#a5c2e1}
+.node.active{outline:3px solid #7ca8ed;outline-offset:3px;box-shadow:0 12px 30px #2972d32a}
+.node.planned .metric{color:#977322}.node.planned{border-top-style:dashed;border-right-style:dashed;border-left-style:dashed;border-bottom-style:dashed;background:#fffcf3}
+.node .top{display:flex;justify-content:space-between;gap:6px;width:100%;align-items:center}
+.family{font-size:10px;font-weight:750;color:var(--accent,#54779b)}
+.index{color:#a2afbe;font-size:10px;font-weight:650;font-variant-numeric:tabular-nums}
+.title{font-size:13px;font-weight:780;line-height:1.38;margin-top:6px;letter-spacing:-.12px}
+.metric{font-size:12px;font-weight:650;line-height:1.4;color:#0f766b;margin-top:9px}
+.meta{color:#8290a3;font-size:10px;margin-top:auto;padding-top:10px}
+.pill{color:#3e6497;font-size:10px;background:#edf4fc;border-radius:6px;padding:3px 6px;margin-top:8px}
+.empty{background:white;border:1px solid var(--line);border-radius:12px;padding:24px;color:var(--muted)}
+#legend{position:absolute;top:16px;left:19px;z-index:2;display:flex;gap:8px;flex-wrap:wrap;pointer-events:none}
+.legend-pill{background:#ffffffd9;border:1px solid #e0e8f1;color:#668098;border-radius:18px;padding:5px 9px;font-size:10px}
+#dock{position:fixed;left:0;right:0;bottom:0;z-index:25;min-height:var(--dock);background:#fff;border-top:1px solid #d9e2ec;box-shadow:0 -12px 40px #1d466010;padding:18px max(22px,calc((100vw - 1220px)/2));display:flex;flex-direction:column;gap:12px}
+.docktop{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.docktitle{font-size:13px;font-weight:800;letter-spacing:-.15px}
+.tiny{font-size:10px;color:#73859b}
+.switch{display:flex;gap:3px;background:#eef3f8;border-radius:10px;padding:3px}
+.switch button{border:0;border-radius:7px;background:transparent;color:#536a85;font-size:12px;font-weight:700;padding:8px 12px}
+.switch button.selected{background:white;color:#165dbc;box-shadow:0 1px 5px #31486624}
+.scrub-row{display:flex;align-items:center;gap:12px}
+.nav{background:#f8fafd;border:1px solid #d9e2ed;color:#365878;border-radius:10px;width:37px;height:37px;display:grid;place-items:center;flex:0 0 37px;font-size:17px}
+.nav:hover{background:#eaf2ff}
+.nav.playing{background:#e8f2ff;color:#185db6;border-color:#b7d2f3}
+.range-area{flex:1;min-width:0;position:relative}
+#scrubber{display:block;width:100%;height:20px;margin:0;cursor:ew-resize;appearance:none;background:transparent;position:relative;z-index:2}
+#scrubber::-webkit-slider-runnable-track{height:7px;border-radius:10px;background:linear-gradient(to right,#3978da 0%,#3978da var(--pct,0%),#e0e8f2 var(--pct,0%),#e0e8f2 100%)}
+#scrubber::-moz-range-track{height:7px;border-radius:10px;background:#e0e8f2}
+#scrubber::-moz-range-progress{height:7px;border-radius:10px;background:#3978da}
+#scrubber::-webkit-slider-thumb{appearance:none;width:19px;height:19px;background:#fff;border:5px solid #286dd3;border-radius:50%;margin-top:-6px;box-shadow:0 2px 5px #224f8b55}
+#scrubber::-moz-range-thumb{width:11px;height:11px;background:white;border:5px solid #286dd3;border-radius:50%;box-shadow:0 2px 5px #224f8b55}
+.ticks{height:12px;position:relative;margin:0 9px;pointer-events:none}
+.tick{height:8px;position:absolute;top:0;width:1px;background:#c6d3e1;transform:translateX(-50%)}
+.tick.major{height:11px;background:#84a6d6;width:2px}
+.scale{display:flex;justify-content:space-between;gap:10px;color:#8797ac;font-size:10px;margin:0 5px;font-variant-numeric:tabular-nums}
+.now{display:flex;gap:15px;align-items:center;justify-content:space-between;min-height:28px}
+.now-info{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;min-width:0}
+#stamp{font-size:12px;font-weight:800;color:#2865b6;font-variant-numeric:tabular-nums;white-space:nowrap}
+#current-title{font-size:12px;font-weight:650;color:#394d64;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:min(56vw,570px)}
+#progress{color:#526c88;font-size:11px;font-weight:750;white-space:nowrap}
+#timeline{background:#fff;border-top:1px solid var(--line);padding:18px 30px;max-height:280px;overflow:auto}
+#timeline[hidden],aside[hidden]{display:none}
+.event{display:flex;gap:16px;padding:10px 8px;border-bottom:1px solid #edf0f5;cursor:pointer;color:#3a516a}
+.event:hover{background:#eef5ff}
+.event .date{width:112px;flex:0 0 112px;color:#6884a6;font-size:11px}
+aside{position:fixed;right:0;top:85px;bottom:var(--dock);width:min(385px,100vw);background:#fff;border-left:1px solid #d5e0ed;padding:24px 25px;overflow:auto;z-index:24;box-shadow:-13px 0 40px #1d466016}
+aside h2{font-size:21px;line-height:1.3;letter-spacing:-.4px}
+aside h3{font-size:14px;color:#0f766b}
+aside p{font-size:13px;color:#475e78;line-height:1.7}
+aside a{color:#1d69cc;font-weight:700;text-decoration:none}
+aside a:hover{text-decoration:underline}
+#close{float:right}
+@media(max-width:780px){:root{--header:121px;--dock:235px}header{padding:13px 15px;align-items:flex-start}.brand{width:100%}h1{font-size:19px}.actions{gap:6px}input[type=search]{max-width:35vw;padding:8px}.action{padding:8px}.pcount{display:none}#forest{padding:95px 65px 95px}#dock{padding:13px 13px 15px}.scrub-row{gap:6px}.nav{width:33px;height:33px;flex-basis:33px}.now{align-items:flex-start}.now-info{gap:5px;flex-direction:column}#current-title{max-width:66vw}aside{top:0;bottom:0;z-index:35}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+</style></head><body>
+<header>
+  <div class="brand"><div class="mark" aria-hidden="true">↳</div><div><div class="eyebrow">mol2people / imputation</div><h1>Research Atlas</h1><div class="sub">An interactive history of analytical decisions</div></div></div>
+  <div class="actions">
+    <input id="search" type="search" placeholder="Search visible experiments…" aria-label="Search experiments"/>
+    <button class="action" id="expand">Expand all</button>
+    <button class="action" id="collapse">Collapse all</button>
+    <button class="action primary" id="latest">Latest ↗</button>
+    <button class="action" id="timelineButton">Git log</button>
+    <span class="pcount" id="count"></span>
+  </div>
+</header>
+<main id="canvas" aria-label="Experiment decision tree">
+  <div id="legend"><span class="legend-pill">Drag to pan · pinch to zoom</span><span class="legend-pill">Click a card for evidence &amp; GitHub source</span></div>
+  <div id="forest"></div>
+</main>
+<div id="zoom-controls" role="group" aria-label="Zoom and pan controls">
+  <span class="zoom-help">Drag to move · pinch to zoom</span>
+  <button id="zoom-out" class="zoom-btn" aria-label="Zoom out" title="Zoom out">−</button>
+  <span id="zoom-value" aria-live="polite">100%</span>
+  <button id="zoom-in" class="zoom-btn" aria-label="Zoom in" title="Zoom in">+</button>
+  <button id="zoom-fit" class="zoom-btn" aria-label="Fit visible tree to screen" title="Fit visible tree">Fit</button>
+  <button id="zoom-reset" class="zoom-btn" aria-label="Reset to 100%" title="Reset to 100%">1:1</button>
+</div>
+<section id="timeline" hidden aria-label="Git commit milestones"></section>
+<aside id="detail" hidden aria-label="Experiment details"><button class="action" id="close" aria-label="Close details">Close ×</button><div id="detailBody"></div></aside>
+<div id="dock">
+  <div class="docktop"><div><div class="docktitle">Grow the experiment tree</div><div class="tiny">Scrub through documented milestones; dates are not necessarily run dates</div></div>
+    <div class="switch" role="group" aria-label="Scroller mode"><button id="mode-date" class="selected" aria-pressed="true">By date</button><button id="mode-count" aria-pressed="false">By experiment</button></div>
+  </div>
+  <div class="scrub-row">
+    <button class="nav" id="prev" aria-label="Previous step" title="Previous step">‹</button>
+    <button class="nav" id="play" aria-label="Play timeline" title="Play / pause">▶</button>
+    <div class="range-area"><input type="range" id="scrubber" aria-label="Research history scroller" min="0" max="1" step="1" value="0"/><div id="ticks" class="ticks"></div><div class="scale"><span id="scale-left">First milestone</span><span id="scale-right">Latest</span></div></div>
+    <button class="nav" id="next" aria-label="Next step" title="Next step">›</button>
+  </div>
+  <div class="now"><div class="now-info"><span id="stamp"></span><span id="current-title"></span></div><span id="progress" aria-live="polite"></span></div>
+</div>
+<script>
+const DATA={"repository":"mol2people/imputation","nodes":[{"id":"pooled","title":"Pooled RF baseline","family":"Baseline","date":"2026-08-14","status":"completed","metric":"AUROC 0.7132 (v1)","details":"Pooled participant summaries and random-forest classifier; subsequent revisions have different cohort and split definitions.","parent_ids":[],"source":"https://github.com/mol2people/imputation/blob/main/README.md","note":"The 0.6833 v2 AUROC is not a matched comparison with v1."},{"id":"garmin_rf","title":"Garmin source RF","family":"Garmin","date":"2026-09-20","status":"completed","metric":"N=3,848 | AUROC 0.6918","details":"Strict Garmin source-specific participant summary classification.","parent_ids":["pooled"],"source":"https://github.com/mol2people/imputation/blob/main/reports/results_reference.md"},{"id":"garmin_features","title":"Summary and circadian features","family":"Garmin","date":"2026-09-21","status":"completed","metric":"BASE+P40 AUROC 0.7513","details":"RF tuning, age, circadian curves, balanced fold allocation, and date-aware features.","parent_ids":["garmin_rf"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/r1b_dateaware_garmin_2026-09-21/results/REPORT.md","note":"Feature blocks named BASE, B40 and P40 refer to different studies and are not interchangeable."},{"id":"garmin_temporal","title":"Temporal MultiRocket / HYDRA","family":"Garmin","date":"2026-09-21","status":"completed","metric":"MR 0.8361 | Combined 0.8565","details":"First 40 adequate days; MultiRocket and HYDRA add daily sequence information to summary features.","parent_ids":["garmin_features"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/temporal_garmin/results/REPORT.md","note":"Regularization was selected on allocation-0 validation and reused across later repeated holdouts."},{"id":"garmin_recording","title":"Recording-only controls","family":"Garmin","date":"2026-09-22","status":"completed","metric":"Mask 0.6166 | Counts 0.6332","details":"Control experiments with observation-mask/count sequences to isolate recording topology.","parent_ids":["garmin_temporal"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/recording_structure_garmin/results/REPORT.md"},{"id":"garmin_filling","title":"Filling sensitivity","family":"Garmin","date":"2026-09-22","status":"completed","metric":"AUROC 0.8464 to 0.8485","details":"Four missing-data fill pipelines evaluated on common allocations.","parent_ids":["garmin_temporal"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/filling_sensitivity_garmin/results/REPORT.md","note":"Differences are small relative to cross-allocation dispersion in the reported pilot."},{"id":"garmin_days","title":"History budget and sampling","family":"Garmin","date":"2026-09-24","status":"qualified","metric":"40d 0.8583 | 80d 0.8854 | All 0.9264","details":"Random sampling from complete adequate-day history compared with an all-history endpoint.","parent_ids":["garmin_temporal"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/temporal_garmin/results/DAYS_SCALING_REPORT.md","note":"The historical all-days endpoint had preprocessing fitted partly using later test participants; causal attribution of score changes is invalid."},{"id":"garmin_expanded","title":"Expanded Garmin cohort","family":"Garmin","date":"2026-10-14","status":"completed","metric":"N=4,410 | MR 0.9094","details":"Tier 1c expands strict cohort with 562 additional participants and retrains models on full histories.","parent_ids":["garmin_days"],"source":"https://github.com/mol2people/imputation/blob/main/HEARTBEAT_LAB/README.md","note":"Different histories and models: do not compare directly against the contaminated historical all-days endpoint."},{"id":"garmin_bins","title":"Garmin temporal binning","family":"Garmin","date":"2026-10-14","status":"completed","metric":"N=1,000 | 5m AUROC 0.8410","details":"Within-source pilot compares 1-, 5-, and 15-minute bins over available history.","parent_ids":["garmin_expanded"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/garmin_temporal_binning/README.md"},{"id":"apple_rf","title":"Apple source RF","family":"Apple","date":"2026-09-20","status":"completed","metric":"N=4,446 | AUROC 0.6814","details":"Strict Apple source-specific random forest classifier on summary features.","parent_ids":["pooled"],"source":"https://github.com/mol2people/imputation/blob/main/reports/results_reference.md"},{"id":"apple_pilot","title":"Apple MultiRocket pilot","family":"Apple","date":"2026-10-14","status":"completed","metric":"N=1,000 | 5m AUROC 0.7554","details":"Temporal pilot comparing MultiRocket at five and fifteen minute bins.","parent_ids":["apple_rf","garmin_temporal"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/apple_pilot_multirocket/README.md"},{"id":"apple_full","title":"Full Apple benchmark","family":"Apple","date":"2026-10-15","status":"completed","metric":"N=11,139 | 5m AUROC 0.8561","details":"Ten repeated holdouts; all-days and up-to-40-days, 5- and 15-minute bins.","parent_ids":["apple_pilot"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/apple_cohort_scaling/REPORT.md"},{"id":"apple_patterns","title":"Binning by recording pattern","family":"Apple","date":"2026-10-15","status":"completed","metric":"Sparse groups approach a tie","details":"Saved-prediction exploration of occupancy, adequate-day continuity, and history length; no refitting.","parent_ids":["apple_full"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/apple_cohort_scaling/BINNING_BY_RECORDING.md"},{"id":"apple_masks","title":"Apple mask and fill arms","family":"Apple","date":"2026-10-20","status":"completed","metric":"H+M stack AUROC 0.8749","details":"Eight missingness/feature architectures; temporal mask-only model scores 0.7459.","parent_ids":["apple_patterns"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/apple_fill_and_mask_by_recording/results/REPORT.md"},{"id":"apple_smooth","title":"Circular diurnal smoothing","family":"Apple","date":"2026-10-20","status":"completed","metric":"Delta AUROC +0.0004","details":"Wrapped Gaussian smoothing to regularize diurnal fill templates; marginal full-cohort classification improvement.","parent_ids":["apple_masks"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/apple_circular_diurnal_regularization/results/REPORT.md","note":"Small overall downstream increment; not evidence for a meaningful global classification gain."},{"id":"samsung_rf","title":"Samsung source RF","family":"Samsung","date":"2026-09-20","status":"completed","metric":"N=541 | AUROC 0.6609","details":"Historical strict Samsung source-specific RF baseline.","parent_ids":["pooled"],"source":"https://github.com/mol2people/imputation/blob/main/reports/results_reference.md"},{"id":"apple_infradian","title":"Apple infradian discovery","family":"Infradian","date":"2026-10-20","status":"completed","metric":"25-35d candidate periodicity","details":"Lomb-Scargle and cosinor evaluation of monthly HR rhythm with age- and salutation-stratified exploration.","parent_ids":["apple_full"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/female_infradian_cycles/results/REPORT.md"},{"id":"apple_calibrated","title":"Standardized Apple infradian","family":"Infradian","date":"2026-10-20","status":"completed","metric":"N=4,630 | Young delta E +0.0642","details":"180-day standardized exposure, nuisance projection, null simulations and age-specific contrasts.","parent_ids":["apple_infradian"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/female_infradian_cycles_v2/results/REPORT.md"},{"id":"infradian_extension","title":"Longitudinal / BMI extensions","family":"Infradian","date":"2026-10-20","status":"completed","metric":"Longitudinal N=1,323","details":"Sliding-window stability, calendar-acrophase uniformity, and BMI stratification.","parent_ids":["apple_calibrated"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/female_infradian_extensions/results/REPORT.md"},{"id":"monthly_predict","title":"Monthly descriptors downstream","family":"Infradian","date":"2026-10-20","status":"completed","metric":"Delta AUROC +0.0109","details":"Test incremental classification value of infradian descriptors beyond high-dimensional baseline.","parent_ids":["apple_calibrated"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/monthly_periodicity_downstream/results/REPORT.md"},{"id":"garmin_infradian","title":"Garmin infradian replication","family":"Infradian","date":"2026-10-20","status":"completed","metric":"N=3,760 | Young delta E +0.0474","details":"Independent source replication with a two-component continuous REML red-noise null.","parent_ids":["garmin_expanded","apple_calibrated"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/garmin_infradian_replication/REPORT.md"},{"id":"age_spline","title":"Continuous age RCS study","family":"Infradian","date":"2026-10-20","status":"completed","metric":"Inflection Apple 46.65y | Garmin 47.25y","details":"Spline age interaction and bootstrap bands across 17,638 Apple, Garmin and Samsung participants.","parent_ids":["apple_calibrated","garmin_infradian"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/infradian_age_dependency/REPORT.md","note":"Existing older experiment index incorrectly labels this study as unexecuted."},{"id":"multisource","title":"Seven-source replication","family":"Infradian","date":"2026-10-22","status":"completed","metric":"65,449 endpoint tasks | B=199","details":"Three separate endpoint estimands across Fitbit, Garmin, Apple, Samsung, Nokia, Google Fit and Oura; primary window complete.","parent_ids":["age_spline"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/multisource_infradian_replication/README.md","note":"Full run used n_boot=1,000 rather than prespecified 2,000. Different endpoint arms are not pooled into one estimate."},{"id":"repeat_window","title":"Repeat-window analysis","family":"Infradian","date":"2026-10-22","status":"completed","metric":"45,279 paired participant-arm observations","details":"16,571 unique source-participants; two-window within-person change summaries across 20 estimable arms.","parent_ids":["multisource"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/multisource_infradian_replication/README.md","note":"Participant-arm records are not independent people; repeated windows do not identify causal aging."},{"id":"deepdive","title":"40-50y longitudinal deep dive","family":"Planned","date":"2026-10-22","status":"planned","metric":"Planned - not executed","details":"Extend to successive nonoverlapping 180-day windows and analyze within-person spectral Q, drift and broadening across middle age.","parent_ids":["repeat_window"],"source":"https://github.com/mol2people/imputation/blob/main/experiments/multisource_infradian_replication/LONGITUDINAL_DEEPDIVE_PLAN.md","note":"Age and calendar period are collinear within individuals over two windows; additional controls are needed before interpreting age-specific changes."}],"timeline":[{"date":"2026-08-13","sha":"7e5744b9ee183f3c84882d2f909ec817004c2d9a","message":"First commit","node_id":"pooled"},{"date":"2026-09-20","sha":"04e4e4840d99fe4222031b7615fc82d10b1f50d4","message":"Salutation experiment record","node_id":"garmin_rf"},{"date":"2026-09-21","sha":"48684828898fee0dd915f469742dbdbd1e252900","message":"R1a circadian features","node_id":"garmin_features"},{"date":"2026-09-21","sha":"168b9d7d493160c9abeae66774dc8c5f742af53","message":"Temporal MultiRocket/HYDRA v1","node_id":"garmin_temporal"},{"date":"2026-09-22","sha":"c1c3cf1111c2f1fb53c4f749d4ad87352f240519","message":"Corrected temporal v2 results","node_id":"garmin_temporal"},{"date":"2026-09-22","sha":"f6123c906c0b8e1ddbc8d324f6a41b949f8d06f9","message":"Recording topology pilot","node_id":"garmin_recording"},{"date":"2026-09-22","sha":"c0001912c5c81cdff4152ff8c916d06ab3c9001f","message":"Filling sensitivity pilot","node_id":"garmin_filling"},{"date":"2026-09-24","sha":"70409a0fcdb17017855ac781626d0a9937d2b2ae","message":"Historical days-scaling results","node_id":"garmin_days"},{"date":"2026-10-14","sha":"07dd5f8443f3c6c2ece98c1a3b36052fb19eb760","message":"Garmin expansion, Apple pilot, lineage tree","node_id":"garmin_expanded"},{"date":"2026-10-15","sha":"2d61a45e2cbe1f61a09dedb1b3797bee42ce6e5e","message":"Full Apple benchmark","node_id":"apple_full"},{"date":"2026-10-20","sha":"9faa259c13bb48e9ccd0f165a6549fc779d35518","message":"Infradian and regularization benchmarks","node_id":"apple_infradian"},{"date":"2026-10-20","sha":"f606fd4ba7c79b270fd4a3f11a207cef27cbe114","message":"Age RCS study completed","node_id":"age_spline"},{"date":"2026-10-22","sha":"11b320ef0416c6ae59bd277d7edc58856da543d2","message":"Multisource pipeline and sensitivity studies","node_id":"multisource"},{"date":"2026-10-22","sha":"ffefcd5d4f8ff6338fbae19fbbc9dfced9fdecfb","message":"Full B=199 multisource run documented","node_id":"multisource"},{"date":"2026-10-22","sha":"4cfaff34f84f1af0e26f955b1aa210e0b5636f99","message":"Repeat-window longitudinal summaries","node_id":"repeat_window"},{"date":"2026-10-22","sha":"4dadf1011c4a545583b63cf60ac9b3d2a4e79b63","message":"Longitudinal deep-dive plan","node_id":"deepdive"}],"notes":["Curated first-pass reconstruction from public README, reports, index, and selected Git commits.","Edges encode methodological development, not controlled metric comparisons.","Timeline events show commit dates, not guaranteed experiment-execution dates.","No analysis was rerun."]};
+const nodes=DATA.nodes;
+const byId=Object.fromEntries(nodes.map(n=>[n.id,n]));
+const originalOrder=Object.fromEntries(nodes.map((n,i)=>[n.id,i]));
+const timelineOrder=[...nodes].sort((a,b)=>a.date.localeCompare(b.date)||originalOrder[a.id]-originalOrder[b.id]);
+const indexById=Object.fromEntries(timelineOrder.map((n,i)=>[n.id,i]));
+const dates=[...new Set(timelineOrder.map(n=>n.date))].sort();
+const firstDay=Math.floor(Date.parse(dates[0]+'T00:00:00Z')/86400000);
+const lastDay=Math.floor(Date.parse(dates.at(-1)+'T00:00:00Z')/86400000);
+const children=Object.fromEntries(nodes.map(n=>[n.id,[]]));
+const roots=[];
+for(const n of nodes){const firstParent=n.parent_ids.find(id=>byId[id]);if(firstParent)children[firstParent].push(n.id);else roots.push(n.id)}
+const opened=new Set();
+let mode='date', position=0, selected=null, playing=null, showFuture=false;
+const canvas=document.getElementById('canvas'),forest=document.getElementById('forest');
+const el=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const formatDate=d=>new Date(d+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
+const palette={Garmin:'#2f76ba',Apple:'#be8045',Infradian:'#7959aa',Samsung:'#9b64bb',Baseline:'#637992',Planned:'#ad8b38'};
+function dateAt(pos){return new Date((firstDay+pos)*86400000).toISOString().slice(0,10)}
+function currentDate(){return mode==='date'?dateAt(position):timelineOrder[position].date}
+function visibleList(){return mode==='date'?timelineOrder.filter(n=>n.date<=currentDate()):timelineOrder.slice(0,position+1)}
+function currentExperiment(){const v=visibleList();return v[v.length-1]||null}
+function reopenVisible(){const ids=new Set(visibleList().map(n=>n.id));opened.clear();for(const id of ids){let x=byId[id],seen=new Set();while(x&&!seen.has(x.id)){seen.add(x.id);opened.add(x.id);x=byId[x.parent_ids.find(p=>byId[p])]}}}
+function make(id,visible,ancestors=new Set()){
+  const n=byId[id];if(!visible.has(id))return null;
+  const wrap=document.createElement('div');wrap.className='branch';
+  const btn=document.createElement('button');btn.className='node '+(n.status==='planned'?'planned ':'')+(selected===id?'active':'');btn.dataset.id=id;btn.style.setProperty('--accent',palette[n.family]||'#3b739f');
+  const kids=children[id].filter(k=>visible.has(k));
+  btn.innerHTML=`<div class="top"><span class="family">${esc(n.family)}</span><span class="index">${String(indexById[id]+1).padStart(2,'0')}</span></div><span class="title">${esc(n.title)}</span><span class="metric">${esc(n.metric)}</span><span class="meta">${formatDate(n.date)}</span>${kids.length?`<span class="pill">${opened.has(id)?'−':'+'} ${kids.length} branch${kids.length===1?'':'es'}</span>`:''}`;
+  btn.setAttribute('aria-label',n.title+', '+n.metric+(kids.length?', '+(opened.has(id)?'expanded':'collapsed'):''));
+  btn.onclick=()=>{pause();selected=id;if(kids.length){if(opened.has(id))opened.delete(id);else opened.add(id)}show(n);render();focusNode(id,true)};
+  wrap.append(btn);
+  if(kids.length&&opened.has(id)){
+    const row=document.createElement('div');row.className='children';
+    for(const cid of kids){if(!ancestors.has(cid)){const child=document.createElement('div');child.className='child';const subtree=make(cid,visible,new Set([...ancestors,id]));if(subtree){child.append(subtree);row.append(child)}}}
+    if(row.childElementCount){wrap.append(row);requestAnimationFrame(()=>{if(!row.isConnected)return;const a=row.firstElementChild,b=row.lastElementChild;if(a&&b){row.style.setProperty('--first',(a.offsetLeft+a.offsetWidth/2)+'px');row.style.setProperty('--last',(row.offsetWidth-(b.offsetLeft+b.offsetWidth/2))+'px')}})}
+  }
+  return wrap;
+}
+function render(){
+  const list=visibleList(),visible=new Set(list.map(n=>n.id));
+  const q=el('search').value.trim().toLowerCase();
+  if(q){const hits=list.filter(n=>[n.title,n.metric,n.details,n.family,n.note].some(x=>String(x||'').toLowerCase().includes(q)));
+    const retained=new Set();for(const n of hits){let x=n,seen=new Set();while(x&&!seen.has(x.id)){retained.add(x.id);seen.add(x.id);x=byId[x.parent_ids.find(p=>byId[p])]}}
+    for(const key of [...visible])if(!retained.has(key))visible.delete(key);
+    for(const id of retained)opened.add(id);
+  }
+  const trees=roots.map(id=>make(id,visible)).filter(Boolean);
+  forest.replaceChildren(...trees);
+  if(!trees.length){const msg=document.createElement('div');msg.className='empty';msg.textContent='No experiments match the search in the current time range.';forest.append(msg)}
+  el('count').textContent=`${list.length} / ${nodes.length} revealed`;
+}
+function focusNode(id,animate=false){
+  requestAnimationFrame(()=>{const target=[...forest.querySelectorAll('.node')].find(x=>x.dataset.id===id);if(!target)return;
+    const rect=target.getBoundingClientRect(),base=canvas.getBoundingClientRect();
+    const desiredX=canvas.scrollLeft+rect.left-base.left-(base.width-rect.width)/2;
+    const desiredY=canvas.scrollTop+rect.top-base.top-Math.min(90,base.height*.24);
+    canvas.scrollTo({left:Math.max(0,desiredX),top:Math.max(0,desiredY),behavior:animate?'smooth':'instant'});
+  });
+}
+function show(n){el('detail').hidden=false;el('detailBody').innerHTML=`<div class="eyebrow">${esc(n.family)} · ${formatDate(n.date)} · ${esc(n.status)}</div><h2>${esc(n.title)}</h2><h3>${esc(n.metric)}</h3><p>${esc(n.details)}</p>${n.note?`<p><strong>Interpretation / caveat</strong><br>${esc(n.note)}</p>`:''}<p><a href="${esc(n.source)}" target="_blank" rel="noopener noreferrer">Open source in GitHub ↗</a></p>${n.parent_ids.length?`<p class="sub">Related decisions: ${n.parent_ids.map(x=>esc(byId[x]?.title||x)).join(', ')}</p>`:''}<p class="sub">The edge here indicates research lineage, not necessarily a matched model comparison.</p>`}
+function setPosition(newPos,animate=false){
+  const max=mode==='date'?lastDay-firstDay:nodes.length-1;
+  position=Math.max(0,Math.min(max,Math.round(newPos)));
+  const exp=currentExperiment();selected=exp?.id||null;
+  el('search').value='';reopenVisible();render();
+  el('scrubber').max=max;el('scrubber').value=position;
+  el('scrubber').style.setProperty('--pct',max?`${(position/max)*100}%`:'0%');
+  const list=visibleList();el('stamp').textContent=mode==='date'?formatDate(currentDate()):`Experiment ${position+1} · ${formatDate(exp.date)}`;
+  el('current-title').textContent=exp?.title||'Before first experiment';
+  el('progress').textContent=`${list.length} of ${nodes.length} revealed`;
+  if(exp)focusNode(exp.id,animate);
+  if(!el('detail').hidden&&exp)show(exp);
+}
+function makeTicks(){
+  const max=mode==='date'?lastDay-firstDay:nodes.length-1;
+  el('ticks').replaceChildren();
+  const milestones=mode==='date'?dates.map(d=>Math.floor(Date.parse(d+'T00:00:00Z')/86400000)-firstDay):timelineOrder.map((n,i)=>i);
+  for(let i=0;i<milestones.length;i++){
+    const t=document.createElement('span');t.className='tick'+((i===0||i===milestones.length-1||i%4===0)?' major':'');t.style.left=((milestones[i]/max)*100)+'%';el('ticks').append(t)
+  }
+  el('scale-left').textContent=mode==='date'?formatDate(dates[0]):'Experiment 1';
+  el('scale-right').textContent=mode==='date'?formatDate(dates.at(-1)):`Experiment ${nodes.length}`;
+}
+function setMode(to){if(mode===to)return;pause();const prevDate=currentDate();const prev=currentExperiment();mode=to;
+  el('mode-date').classList.toggle('selected',mode==='date');el('mode-count').classList.toggle('selected',mode==='count');
+  el('mode-date').setAttribute('aria-pressed',mode==='date');el('mode-count').setAttribute('aria-pressed',mode==='count');
+  el('scrubber').setAttribute('aria-label',mode==='date'?'Browse calendar dates':'Browse numbered experiments');
+  makeTicks();
+  const next=mode==='date'?Math.floor(Date.parse(prevDate+'T00:00:00Z')/86400000)-firstDay:indexById[prev?.id]??0;
+  setPosition(next,true)
+}
+function pause(){if(playing!==null){clearInterval(playing);playing=null}el('play').textContent='▶';el('play').classList.remove('playing');el('play').setAttribute('aria-label','Play timeline')}
+function jumpNext(){const max=mode==='date'?lastDay-firstDay:nodes.length-1;
+  if(position>=max){pause();return}
+  if(mode==='date'){
+    const day=dates.map(d=>Math.floor(Date.parse(d+'T00:00:00Z')/86400000)-firstDay).find(x=>x>position);
+    setPosition(day??max,true)
+  }else setPosition(position+1,true)
+}
+function jumpPrev(){if(position<=0)return;
+  if(mode==='date'){
+    const nums=dates.map(d=>Math.floor(Date.parse(d+'T00:00:00Z')/86400000)-firstDay).filter(x=>x<position);
+    setPosition(nums.at(-1)??0,true)
+  }else setPosition(position-1,true)
+}
+el('mode-date').onclick=()=>setMode('date');el('mode-count').onclick=()=>setMode('count');
+el('scrubber').oninput=e=>{pause();setPosition(Number(e.target.value))};
+el('next').onclick=()=>{pause();jumpNext()};el('prev').onclick=()=>{pause();jumpPrev()};
+el('play').onclick=()=>{if(playing!==null){pause();return}if(position===(mode==='date'?lastDay-firstDay:nodes.length-1))setPosition(0);el('play').textContent='Ⅱ';el('play').classList.add('playing');el('play').setAttribute('aria-label','Pause timeline');playing=setInterval(jumpNext,1000)};
+el('expand').onclick=()=>{pause();for(const n of visibleList())opened.add(n.id);render()};
+el('collapse').onclick=()=>{pause();opened.clear();render()};
+el('latest').onclick=()=>{pause();setPosition(mode==='date'?lastDay-firstDay:nodes.length-1,true)};
+el('search').oninput=()=>render();
+el('close').onclick=()=>{el('detail').hidden=true};
+const timeline=el('timeline');
+el('timelineButton').onclick=()=>{timeline.hidden=!timeline.hidden;if(!timeline.hidden)timeline.scrollIntoView({behavior:'smooth',block:'nearest'})};
+for(const e of DATA.timeline){const row=document.createElement('div');row.className='event';row.innerHTML=`<span class="date">${formatDate(e.date)}</span><span><strong>${esc(e.message)}</strong><br><span class="sub">${esc(e.sha.slice(0,9))}</span></span>`;
+  row.onclick=()=>{pause();setMode('count');setPosition(indexById[e.node_id]??0,true);const n=byId[e.node_id];if(n)show(n)};timeline.append(row)}
+document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea,select'))return;if(e.key==='ArrowRight'){pause();jumpNext()}else if(e.key==='ArrowLeft'){pause();jumpPrev()}else if(e.key==='Escape'){el('detail').hidden=true}});
+
+// A layout zoom keeps the tree's scrollable area in sync with its rendered size.
+const MIN_ZOOM=.045, MAX_ZOOM=2.5;
+let treeZoom=1;
+const pointers=new Map();
+let drag=null,pinch=null,suppressGestureClick=false;
+function boundZoom(v){return Math.min(MAX_ZOOM,Math.max(MIN_ZOOM,v))}
+function applyZoom(value,clientX=null,clientY=null){
+  const next=boundZoom(value);
+  if(Math.abs(next-treeZoom)<.001)return;
+  const box=canvas.getBoundingClientRect();
+  const ax=(clientX??(box.left+box.width/2))-box.left;
+  const ay=(clientY??(box.top+box.height/2))-box.top;
+  const x=(canvas.scrollLeft+ax)/treeZoom;
+  const y=(canvas.scrollTop+ay)/treeZoom;
+  treeZoom=next;
+  forest.style.zoom=String(treeZoom);
+  canvas.scrollLeft=x*treeZoom-ax;
+  canvas.scrollTop=y*treeZoom-ay;
+  el('zoom-value').textContent=Math.round(treeZoom*100)+'%';
+  el('zoom-out').disabled=treeZoom<=MIN_ZOOM+.001;
+  el('zoom-in').disabled=treeZoom>=MAX_ZOOM-.001;
+}
+function fitTree(){
+  const previous=treeZoom;
+  const baseWidth=forest.scrollWidth; // current zoom does not affect scrollWidth of the element itself
+  const desired=Math.min(1,Math.max(MIN_ZOOM,(canvas.clientWidth-24)/baseWidth));
+  applyZoom(desired,canvas.getBoundingClientRect().left,canvas.getBoundingClientRect().top);
+  canvas.scrollLeft=0;canvas.scrollTop=0;
+}
+function pointMid(a,b){return {x:(a.x+b.x)/2,y:(a.y+b.y)/2,d:Math.hypot(a.x-b.x,a.y-b.y)||1}}
+function startPinch(){
+  const [a,b]=[...pointers.values()];if(!a||!b)return;
+  const mid=pointMid(a,b),rect=canvas.getBoundingClientRect();
+  pinch={d:mid.d,z:treeZoom,worldX:(canvas.scrollLeft+mid.x-rect.left)/treeZoom,worldY:(canvas.scrollTop+mid.y-rect.top)/treeZoom};
+  drag=null;suppressGestureClick=true;
+}
+canvas.addEventListener('pointerdown',e=>{
+  suppressGestureClick=false;
+  if(e.pointerType==='mouse' && (e.button!==0 || e.target.closest('.node')))return;
+  if(e.pointerType==='pen' && e.target.closest('.node'))return;
+  suppressGestureClick=false;
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pointers.size===1)drag={id:e.pointerId,x:e.clientX,y:e.clientY,scrollX:canvas.scrollLeft,scrollY:canvas.scrollTop,moved:false};
+  else if(pointers.size===2)startPinch();
+});
+canvas.addEventListener('pointermove',e=>{
+  if(!pointers.has(e.pointerId))return;
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pointers.size>=2){
+    if(!pinch)startPinch();
+    const [a,b]=[...pointers.values()],mid=pointMid(a,b),rect=canvas.getBoundingClientRect();
+    const desired=boundZoom(pinch.z*mid.d/pinch.d);
+    treeZoom=desired;forest.style.zoom=String(treeZoom);
+    canvas.scrollLeft=pinch.worldX*treeZoom-(mid.x-rect.left);
+    canvas.scrollTop=pinch.worldY*treeZoom-(mid.y-rect.top);
+    el('zoom-value').textContent=Math.round(treeZoom*100)+'%';
+    el('zoom-out').disabled=treeZoom<=MIN_ZOOM+.001;
+    el('zoom-in').disabled=treeZoom>=MAX_ZOOM-.001;
+    suppressGestureClick=true;e.preventDefault();return;
+  }
+  if(drag&&drag.id===e.pointerId){
+    const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+    if(!drag.moved&&Math.hypot(dx,dy)>=7){
+      drag.moved=true;canvas.classList.add('dragging');
+      try{canvas.setPointerCapture(e.pointerId)}catch(_e){}
+    }
+    if(drag.moved){canvas.scrollLeft=drag.scrollX-dx;canvas.scrollTop=drag.scrollY-dy;suppressGestureClick=true;e.preventDefault()}
+  }
+});
+function stopPointer(e){
+  if(!pointers.has(e.pointerId))return;
+  pointers.delete(e.pointerId);
+  if(pinch){pinch=null;suppressGestureClick=true}
+  canvas.classList.remove('dragging');
+  drag=null;
+  if(pointers.size===1){const [id,p]=[...pointers.entries()][0];drag={id,x:p.x,y:p.y,scrollX:canvas.scrollLeft,scrollY:canvas.scrollTop,moved:false}}
+  else if(pointers.size>=2)startPinch();
+}
+canvas.addEventListener('pointerup',stopPointer);
+canvas.addEventListener('pointercancel',stopPointer);
+canvas.addEventListener('lostpointercapture',e=>{if(pointers.has(e.pointerId))stopPointer(e)});
+canvas.addEventListener('click',e=>{if(suppressGestureClick){e.preventDefault();e.stopImmediatePropagation();suppressGestureClick=false}},true);
+canvas.addEventListener('wheel',e=>{
+  if(e.ctrlKey||e.metaKey){e.preventDefault();applyZoom(treeZoom*Math.exp(-e.deltaY*.008),e.clientX,e.clientY)}
+},{passive:false});
+el('zoom-in').onclick=()=>applyZoom(treeZoom*1.25);
+el('zoom-out').onclick=()=>applyZoom(treeZoom/1.25);
+el('zoom-reset').onclick=()=>applyZoom(1);
+el('zoom-fit').onclick=fitTree;
+
+makeTicks();setPosition(0);
+</script></body></html>

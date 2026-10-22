@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 464" role="img" aria-label="Research Atlas experimental lineage tree preview">
+<rect width="1120" height="464" rx="24" fill="#f7f9fd"/><rect x="1" y="1" width="1118" height="462" rx="23" fill="none" stroke="#dce5f0"/>
+<g font-family="Inter,Segoe UI,sans-serif">
+<text x="48" y="52" font-size="14" font-weight="800" fill="#2b73cf" letter-spacing="2">RESEARCH ATLAS</text>
+<text x="48" y="88" font-size="29" font-weight="750" fill="#17283d">Interactive experiment tree</text>
+<text x="48" y="115" font-size="15" fill="#708198">25 curated nodes · date and experiment scroller · interactive mobile navigation</text>
+<g fill="none" stroke="#b5c8df" stroke-width="3" stroke-linecap="round"><path d="M560 215 V240 H192 V267"/><path d="M560 215 V267"/><path d="M560 240 H928 V267"/></g>
+<rect x="420" y="143" width="280" height="72" rx="13" fill="white" stroke="#94b2db" stroke-width="2"/>
+<text x="441" y="175" font-size="19" font-weight="700" fill="#17283d">Pooled RF baseline</text>
+<text x="441" y="198" font-size="14" fill="#4e6682">Initial analytical branch</text>
+<rect x="44" y="267" width="300" height="82" rx="14" fill="#eef5fd" stroke="#84b4e2" stroke-width="2"/>
+<text x="63" y="300" font-size="19" font-weight="700" fill="#17283d">Garmin trajectory</text>
+<text x="63" y="324" font-size="14" fill="#4e6682">MR + HYDRA · AUROC 0.8565</text>
+<rect x="410" y="267" width="300" height="82" rx="14" fill="#fff3e8" stroke="#e3b48b" stroke-width="2"/>
+<text x="429" y="300" font-size="19" font-weight="700" fill="#17283d">Apple trajectory</text>
+<text x="429" y="324" font-size="14" fill="#4e6682">All-days MR · AUROC 0.8561</text>
+<rect x="776" y="267" width="300" height="82" rx="14" fill="#f3eefb" stroke="#baace3" stroke-width="2"/>
+<text x="795" y="300" font-size="19" font-weight="700" fill="#17283d">Infradian trajectory</text>
+<text x="795" y="324" font-size="14" fill="#4e6682">Lifespan &amp; cross-device analysis</text>
+<rect x="44" y="381" width="1032" height="55" rx="12" fill="#e8f1ff"/>
+<text x="65" y="416" font-size="15" font-weight="700" fill="#265eaf">Open interactive view →</text>
+<text x="330" y="416" font-size="14" fill="#56718c">Drag · Pinch to zoom · Expand branches · Scrub experiments</text>
+</g></svg>

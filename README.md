@@ -20,70 +20,15 @@ These labels identify the recorded data source, not a particular hardware model.
 
 Numbers below are **test AUROCs**. Repeated-holdout results are means; the saved Lab model has one split. Arrows show how the work developed, not matched comparisons between every connected experiment. MR means MultiRocket, including the summary features used in that experiment. B40, R1a, and P40 name feature blocks; their definitions are in the [model and experiment names](reports/results_reference.md#model-and-experiment-names).
 
-```mermaid
-flowchart TD
-    P["Pooled participant summaries · RF<br/>v1: N=20,485 · 0.7132<br/>v2: N=20,423 · 0.6833"]
+[![Research Atlas — interactive experiment tree preview](docs/experiment-tree-preview.svg)](https://mol2people.github.io/imputation/)
 
-    subgraph GARMIN["Garmin · source 3"]
-        G["Strict source-specific RF<br/>N=3,848 · default win arm: 0.6918"]
-        F["Summary-feature experiments<br/>RF tuning, age, circadian and date-aware features<br/>BASE + R1a: 0.7509 · BASE + P40: 0.7513"]
-        T["First 40 adequate days · N=3,848<br/>Summary ridge: 0.7157 · MR: 0.8361<br/>B40 + MR + HYDRA: 0.8565"]
-        C["Recording and filling controls<br/>Mask-only: 0.6166 · count-only: 0.6332<br/>Four fill pipelines: 0.8464–0.8485"]
-        D["Days sampled across available history · N=3,848<br/>40 days: 0.8583 · 80 days: 0.8854<br/>All days: 0.9264 — preprocessing exposure"]
-        L["Heartbeat Lab · saved full-history model<br/>N=3,848 · one split<br/>Clock-fill MR: 0.9177"]
-        X["Frozen model on 562 added participants<br/>Failed the earlier strict gate<br/>Clock-fill MR: 0.7850"]
-        E["Expanded cohort · N=4,410 · all adequate days<br/>MR: 0.9094 · summary ridge: 0.7196<br/>Strict subgroup: 0.9235 · added subgroup: 0.8156"]
-        B["Bin-size pilot · N=1,000 · all adequate days<br/>MR at 1 / 5 / 15 minutes<br/>0.8350 / 0.8410 / 0.8228"]
-        GR["Infradian replication · N=3,760<br/>k=15 standardized 180d · Omnibus p=1.8e-11<br/>Young excess: +0.0474 · 30–120d red-noise resolution"]
-        G --> F --> T
-        T --> C
-        T --> D --> L --> X --> E --> B
-        E --> GR
-    end
+**[Open the interactive experiment tree](https://mol2people.github.io/imputation/)** · [View HTML source](docs/index.html)
 
-    subgraph APPLE["Apple · source 6"]
-        A["Strict source-specific RF<br/>N=4,446 · default win arm: 0.6814"]
-        AP["Temporal pilot · N=1,000 · all adequate days<br/>MR 5 minutes: 0.7554 · 15 minutes: 0.7431<br/>Summary ridge: 0.6029"]
-        AF["Full cohort · N=11,139 · 10 allocations<br/>All days, fixed alpha: 5 min 0.8561 · 15 min 0.8348<br/>Up to 40 days, selected alpha: 5 min 0.8110 · 15 min 0.7985"]
-        AR["Bin size by recording pattern · saved scores<br/>5 min leads across broad recording groups<br/>Sparse within and across days: near tie"]
-        AM["Fill and mask by recording · N=11,139<br/>8 arms · H+M stack AUROC: 0.8749<br/>Temporal mask alone M_temporal: 0.7459"]
-        AC["Circular diurnal regularization · Allocation 0<br/>1D circular Gaussian template smoothing<br/>Optimal bandwidth: sigma* = 1 bin (5 min)"]
-        IF["Infradian discovery & v2 · N=4,630<br/>k=15 standardized 180d · 2-comp REML null<br/>Young: +0.0642, p<1e-16 · Elderly: cessation"]
-        IX["Infradian multi-year & BMI extensions<br/>Longitudinal >=365d · Rayleigh p=0.8703<br/>Autonomous desynchrony · BMI invariant"]
-        ID["Downstream monthly prediction · Allocation 0<br/>MultiRocket + Q + 3 descriptors (A, S, T*)<br/>Statistically significant AUROC lift: +0.0109"]
-        A --> AP --> AF --> AR
-        AR --> AM --> AC
-        AF --> IF --> IX
-        IF --> ID
-    end
+Explore experiments by opening branches, selecting results, and scrubbing through **dates or experiment numbers**. The viewer supports touch dragging, pinch-to-zoom, and automatic branch expansion.
 
-    subgraph SAMSUNG["Samsung · source 7"]
-        S["Strict source-specific RF<br/>N=541 · default win arm: 0.6609"]
-    end
+The preview is static because GitHub READMEs cannot run interactive JavaScript. The interactive viewer is served through GitHub Pages. Tree edges describe methodological development, not necessarily matched comparisons.
 
-    GT["Apple-Garmin transfer pilot · N=1,000<br/>Device generalization & cross-evaluation"]
-    IA["Age-dependency protocol · Implementation handoff<br/>Unpenalized quadratic age OLS · expanded90<br/>Apple, Garmin, Samsung source-specific"]
-
-    P --> G
-    P --> A
-    P --> S
-    L -.->|"Adapt temporal pipeline"| AP
-    L -.-> GT
-    AP -.-> GT
-    IF -.-> IA
-    GR -.-> IA
-
-    classDef garmin fill:#e8f1fb,stroke:#31688e,color:#172b3a;
-    classDef apple fill:#fff0df,stroke:#a65e18,color:#442800;
-    classDef samsung fill:#eee8f5,stroke:#75549b,color:#30223f;
-    classDef issue fill:#fff3cd,stroke:#856404,color:#222;
-    classDef handoff fill:#f4f4f4,stroke:#666,stroke-dasharray: 4 4,color:#222;
-    class G,F,T,C,L,X,E,B,GR garmin;
-    class A,AP,AF,AR,AM,AC,IF,IX,ID apple;
-    class S samsung;
-    class D issue;
-    class GT,IA handoff;
-```
+*If the interactive link is not yet live, enable GitHub Pages in repository Settings → Pages → Deploy from a branch → `main` / `docs`.*
 
 The [full experiment index](learnings/experiment_lineage_worktree.md) links the code and outputs, including feature selection, informative recording, day-level aggregation, and the broader 50/50 source experiments. The [results reference](reports/results_reference.md) gives the split designs and numerical tables.
 
