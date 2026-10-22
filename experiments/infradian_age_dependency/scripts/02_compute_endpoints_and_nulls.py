@@ -55,6 +55,7 @@ import numpy as np
 import pandas as pd
 import scipy.linalg
 import scipy.optimize
+from scipy.special import expit
 from numpy.random import Generator, PCG64
 
 # Canonical repository and experiment paths
@@ -97,6 +98,7 @@ def extract_features_for_selected_dates(
     hr_arr: np.ndarray,
     date_to_row: Dict[int, int],
     selected_dates: np.ndarray,
+    percentile: float = 10.0,
 ) -> Tuple[np.ndarray, np.ndarray, float, float, int]:
     """
     Extracts HRp10 (10th percentile linear interpolation of observed 5m bin means)
@@ -120,7 +122,7 @@ def extract_features_for_selected_dates(
             clock_fracs[i, :] = 0.0
         else:
             # Linear quantile interpolation (NumPy default)
-            hr_p10[i] = float(np.percentile(row_bins[mask], 10))
+            hr_p10[i] = float(np.percentile(row_bins[mask], percentile))
             clock_fracs[i, 0] = float(np.sum(mask[0:72]) / 72.0)
             clock_fracs[i, 1] = float(np.sum(mask[72:144]) / 72.0)
             clock_fracs[i, 2] = float(np.sum(mask[144:216]) / 72.0)
@@ -249,7 +251,7 @@ def fit_two_component_reml(
 
             def nll(th: np.ndarray) -> float:
                 s1 = np.exp(th[0])
-                p1 = 0.95 / (1.0 + np.exp(-th[1]))
+                p1 = 0.95 * expit(th[1])
                 s2 = np.exp(th[2])
                 p1_powers = p1 ** powers_idx
                 C1 = p1_powers[dt_abs]
@@ -272,7 +274,7 @@ def fit_two_component_reml(
                 num_converged += 1
                 if best_result is None or opt.fun < best_result["nll"]:
                     v1 = float(np.exp(opt.x[0]))
-                    phi1 = float(0.95 / (1.0 + np.exp(-opt.x[1])))
+                    phi1 = float(0.95 * expit(opt.x[1]))
                     v2 = float(np.exp(opt.x[2]))
                     best_result = {
                         "nll": float(opt.fun),
@@ -391,6 +393,8 @@ def process_participant_task(task: Dict[str, Any]) -> List[Dict[str, Any]]:
     cache_path_str = task["cache_path"]
     demographics = task["demographics"]
     windows = task["windows"]
+    percentile = float(task.get("percentile", 10.0))
+    b_null_replicates = int(task.get("null_replicates", B_NULL_REPLICATES))
 
     out_records = []
     cache_path = Path(cache_path_str)
@@ -449,12 +453,23 @@ def process_participant_task(task: Dict[str, Any]) -> List[Dict[str, Any]]:
             "weight": demographics["weight"],
             "height": demographics["height"],
             "bmi": demographics["bmi"],
+            "arm": str(task.get("arm", f"HRp{int(percentile)}")),
+            "n_selected_dates": int(len(selected_dates)),
         }
 
         # 1. Daily signal extraction
         hr_p10, clock_fracs, mean_occ, mean_night_cov, date_span = extract_features_for_selected_dates(
-            hr_arr, date_to_row, selected_dates
+            hr_arr, date_to_row, selected_dates, percentile
         )
+        record["n_qualified_dates"] = int(np.sum(
+            np.isfinite(hr_arr[[date_to_row[int(d)] for d in selected_dates]]).sum(axis=1) >= 120
+        ))
+        # Supplier values can replace the endpoint while preserving channel-3000 coverage covariates.
+        if task.get("daily_values") is not None:
+            daily_values = task["daily_values"]
+            hr_p10 = np.asarray([daily_values.get(int(d), np.nan) for d in selected_dates], dtype=np.float64)
+        if task.get("save_daily_values", False):
+            record["daily_values"] = hr_p10.astype(float).tolist()
         record["mean_occ"] = mean_occ
         record["mean_night_cov"] = mean_night_cov
         record["date_span"] = date_span
@@ -492,7 +507,10 @@ def process_participant_task(task: Dict[str, Any]) -> List[Dict[str, Any]]:
         phi_init = profile_ar1_mle(e_0, selected_dates)
 
         # 4. Two-component covariance null calibration (REML)
-        null_status, diag = fit_two_component_reml(
+        # A caller may inject an alternative fitter (the multisource pipeline
+        # uses this to opt into the analytical-gradient L-BFGS-B path).
+        reml_fitter = task.get("reml_fitter", fit_two_component_reml)
+        null_status, diag = reml_fitter(
             z, Q_sub, selected_dates, rss_0, r_rank, phi_init
         )
         record["null_status"] = null_status
@@ -532,14 +550,13 @@ def process_participant_task(task: Dict[str, Any]) -> List[Dict[str, Any]]:
         seed_str = f"20261020|infradian_age|{source}|{user_id}|{start_day}|null_two_component|{selected_dates_hash}"
         seed_u64 = int.from_bytes(hashlib.sha256(seed_str.encode("utf-8")).digest()[:8], byteorder="little")
         rng = Generator(PCG64(seed_u64))
-
-        sim_noise = simulate_two_component_ar1(selected_dates, v1, phi1, v2, phi2, B_NULL_REPLICATES, rng)
+        sim_noise = simulate_two_component_ar1(selected_dates, v1, phi1, v2, phi2, b_null_replicates, rng)
         sim_e = sim_noise @ P_0
         sim_rss0 = np.maximum(np.sum(sim_e ** 2, axis=1), 1e-12)
 
         # Broad null spectra
         beta_broad_null = sim_e @ M_broad  # Shape (B, 2*K)
-        P_broad_null = np.empty((B_NULL_REPLICATES, len(BROAD_FREQS)), dtype=np.float64)
+        P_broad_null = np.empty((b_null_replicates, len(BROAD_FREQS)), dtype=np.float64)
         for i in range(len(BROAD_FREQS)):
             bc = beta_broad_null[:, 2 * i]
             bs = beta_broad_null[:, 2 * i + 1]
@@ -549,7 +566,7 @@ def process_participant_task(task: Dict[str, Any]) -> List[Dict[str, Any]]:
 
         # Narrow null spectra
         beta_narrow_null = sim_e @ M_narrow
-        P_narrow_null = np.empty((B_NULL_REPLICATES, len(NARROW_FREQS)), dtype=np.float64)
+        P_narrow_null = np.empty((b_null_replicates, len(NARROW_FREQS)), dtype=np.float64)
         for i in range(len(NARROW_FREQS)):
             bc = beta_narrow_null[:, 2 * i]
             bs = beta_narrow_null[:, 2 * i + 1]
@@ -588,9 +605,9 @@ def process_participant_task(task: Dict[str, Any]) -> List[Dict[str, Any]]:
         # Null Q distribution and Monte Carlo SE
         Q_null = np.array([
             np.trapezoid(P_broad_null[b, IN_BAND_MASK], F_BAND) / DELTA_F
-            for b in range(B_NULL_REPLICATES)
+            for b in range(b_null_replicates)
         ])
-        Q_i_mc_se = float(np.std(Q_null, ddof=1) / np.sqrt(B_NULL_REPLICATES))
+        Q_i_mc_se = float(np.std(Q_null, ddof=1) / np.sqrt(b_null_replicates))
         record["Q_i_mc_se"] = Q_i_mc_se
         diag["Q_i_mc_se"] = Q_i_mc_se
 
@@ -599,7 +616,7 @@ def process_participant_task(task: Dict[str, Any]) -> List[Dict[str, Any]]:
         S_null = np.max(P_narrow_null, axis=1)
         mean_S_null = float(np.mean(S_null))
         E_i2 = float(S_obs - mean_S_null)
-        p_val_discrete = float((1.0 + np.sum(S_null >= S_obs)) / (B_NULL_REPLICATES + 1.0))
+        p_val_discrete = float((1.0 + np.sum(S_null >= S_obs)) / (b_null_replicates + 1.0))
         record["S_obs"] = S_obs
         record["mean_S_null"] = mean_S_null
         record["E_i2"] = E_i2

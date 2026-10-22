@@ -45,3 +45,12 @@ __pycache__/
 *.joblib
 .DS_Store
 .agents/
+
+# Local infradian sensitivity and multisource run outputs
+/experiments/infradian_age_dependency/artifacts/disambiguation/
+/experiments/infradian_age_dependency/artifacts/rhr_sensitivity/
+/experiments/infradian_age_dependency/rhr_sensitivity/rhr_sensitivity_*/
+/experiments/infradian_age_dependency/rhr_sensitivity/rhr_supplier_test/
+/experiments/infradian_age_dependency/rhr_sensitivity/supplier_daily_normalized.parquet
+/experiments/multisource_infradian_replication/artifacts/
+/experiments/multisource_infradian_replication/logs/

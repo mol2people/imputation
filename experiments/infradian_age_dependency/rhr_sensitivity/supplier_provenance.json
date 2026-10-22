@@ -1,0 +1,7 @@
+{
+  "status": "verified",
+  "participant_source_linkage": "user_id is the Datenspende participant ID (int64), identical to the user_id used in the experiment manifests; source is the supplier source ID (int64) from the Datenspende daily export (device/app source: 2,3,6,7,9,13,19,46,48); endpoint RHR corresponds to daily type 65 and endpoint HR_during_sleep corresponds to daily type 66 in the supplier's daily export schema",
+  "date_semantics": "date is epoch-day integers (days since 1970-01-01, UTC), matching the experiment's selected-dates artifact convention; the supplier's timezone_offset column was checked and for the dominant offsets {0, 60, 120} and null (treated as Berlin time, CET/CEST), the calendar date is unchanged when the offset is applied to midnight; rows with extreme/rare offsets were excluded per the TIMEZONE_OFFSET_NOTE.md decision",
+  "daily_value_definition": "daily resting heart rate (RHR) from supplier daily type 65; the value is the supplier's reported daily RHR value with one row per user/source/endpoint/date; no aggregation rule was applied and no values were imputed",
+  "units": "bpm (beats per minute)"
+}

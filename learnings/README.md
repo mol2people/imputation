@@ -9,6 +9,7 @@ The [repository README](../README.md) gives the experimental work tree, device s
 | Inspect compiled publication PDF reports | [Scientific PDF catalog](../reports/scientific_provenance_pdfs/CATALOG.md) |
 | Understand the MultiRocket inputs and feature construction | [Model notes](multirocket_garmin_synthesis.md) |
 | Interpret recording coverage and bin-size comparisons | [Recording-pattern notes](wear_phenotypes_and_missingness_synthesis.md) |
+| Inspect RHR-definition sensitivity | [RHR definition sensitivity](rhr_definition_sensitivity.md) |
 | Inspect a saved model or use the local app | [Heartbeat Lab](../HEARTBEAT_LAB/README.md) |
 | Read the completed verification record | [Results audit](../reports/results_audit_2026-10-14.md) |
 | Review proposed experiments | [Follow-up experiments](future_experiments_backlog.md) |
