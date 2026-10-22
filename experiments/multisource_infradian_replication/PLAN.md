@@ -238,6 +238,16 @@ not causal aging effects; see `figures/README.md` for the figure and
 
 Interpret age associations as observational and source-specific. Do not infer menopause onset, individual cycle status, vendor algorithm accuracy, endpoint equivalence, or causal within-person decline from these analyses. Any single-period decline versus noise analysis remains secondary and noncausal. Existing Apple/Garmin results and their interpretation remain historical context; this plan does not revise or replace them.
 
+## Planned longitudinal spectral deep dive (2026-10-22)
+
+A separate design-only plan is recorded in
+[`LONGITUDINAL_DEEPDIVE_PLAN.md`](LONGITUDINAL_DEEPDIVE_PLAN.md). It targets
+within-person age change in spectral properties in the 40–50 age band across
+all devices, with exact elapsed-time denominators, age midpoints, and explicit
+sensitivity to the year-resolution age convention. Tier 1 reuses the current
+two-window repeat cohort; Tier 2 is a gated all-non-overlapping-window
+extension. No implementation or results exist yet.
+
 ## Deferred design exploration (2026-10-22)
 
 - **Unwindowed endpoint estimation using all available data.** The user wants

@@ -180,6 +180,13 @@ paired set and reported in `longitudinal/availability.csv`. `Q_i` retains
 finite-null Monte Carlo error; the paired table carries `Q_i_mc_se_w1/w2` and
 the summary reports their means.
 
+A design-only follow-up for a proper within-person spectral deep dive in the
+40–50 age band is in
+[`LONGITUDINAL_DEEPDIVE_PLAN.md`](LONGITUDINAL_DEEPDIVE_PLAN.md). It treats age
+change between windows as exact elapsed time, not integer age difference, and
+proposes a gated all-non-overlapping-window extension beyond the current
+two-window cohort.
+
 ## Outputs
 
 Run artifacts are written under `artifacts/runs/<name>/`:
