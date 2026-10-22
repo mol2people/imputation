@@ -74,6 +74,9 @@ def run_stage6(run_dir: Path) -> Path:
     chunk = _read_csv(run_dir / "models/chunk_tests.csv")
     boot_tests = _read_csv(run_dir / "bootstrap/bootstrap_chunk_summary.csv")
     boot_metrics = _read_csv(run_dir / "bootstrap/transition_metrics.csv")
+    long_avail = _read_csv(run_dir / "longitudinal/availability.csv")
+    long_head = _read_csv(run_dir / "longitudinal/headline.csv")
+    long_meta = _read_json(run_dir / "longitudinal/summary.json")
     matched_req = pd.DataFrame(s6.get("comparisons", []))
     arm_rows = []
     for path in sorted((run_dir / "matched").glob("**/arm_status.csv")):
@@ -89,6 +92,24 @@ def run_stage6(run_dir: Path) -> Path:
             frame["path"] = str(path.relative_to(run_dir))
             paired_rows.append(frame)
     paired = pd.concat(paired_rows, ignore_index=True) if paired_rows else pd.DataFrame()
+    long_avail_view = long_avail.copy()
+    if not long_avail_view.empty:
+        avail_cols = [
+            "source_name", "endpoint", "protocol", "window1_converged_Q",
+            "window2_converged_Q", "paired_converged_Q", "paired_fraction",
+            "selection_smd_Q", "median_gap_days",
+        ]
+        long_avail_view = long_avail_view[[c for c in avail_cols if c in long_avail_view.columns]]
+    long_view = long_head.copy()
+    if not long_view.empty:
+        long_cols = [
+            "source_name", "endpoint", "protocol", "subgroup", "group", "n",
+            "mean_gap_years", "mean_Q_change", "Q_change_ci_low",
+            "Q_change_ci_high", "mean_Q_annualized_rate", "Q_rate_ci_low",
+            "Q_rate_ci_high", "pearson_Q_i", "pearson_Q_i_ci_low",
+            "pearson_Q_i_ci_high", "stable",
+        ]
+        long_view = long_view[[c for c in long_cols if c in long_view.columns]]
 
     lines = [
         "# Multisource infradian replication — implementation report",
@@ -158,6 +179,41 @@ def run_stage6(run_dir: Path) -> Path:
         "### Transition metrics",
         "",
         _md_table(boot_metrics, max_rows=40),
+        "## Longitudinal repeat windows",
+        "",
+    ]
+    if long_meta:
+        lines += [
+            f"Paired participants: **{long_meta.get('n_pairs', 0)}**; arms: "
+            f"**{long_meta.get('n_arms', 0)}**; participant bootstrap resamples: "
+            f"**{long_meta.get('n_boot', 'NA')}**.",
+            "",
+            "These are paired within-participant summaries for participants with two "
+            "eligible, converged, non-overlapping windows under the same source, "
+            "endpoint, and protocol. Age is first-window age. Intervals are pointwise "
+            "participant-bootstrap percentile intervals stratified by five-year age "
+            "band and sex. They are not causal aging effects and are not longitudinal "
+            "replications of the cross-sectional age curves. The availability table "
+            "reports the paired fraction and the standardized difference in "
+            "first-window `Q_i` between paired and all eligible participants; a large "
+            "value indicates selection by two-window availability. `Q_i` retains "
+            "finite-null Monte Carlo error; the paired table carries `Q_i_mc_se_w1/w2` "
+            "and the summary reports their means.",
+            "",
+            "### Repeat-window availability",
+            "",
+            _md_table(long_avail_view, max_rows=40),
+            "### Paired change and repeatability (all and sex strata)",
+            "",
+            _md_table(long_view, max_rows=80),
+        ]
+    else:
+        lines += [
+            "_No repeat-window artifacts in this run namespace. The primary-window "
+            "analysis does not estimate within-participant change._",
+            "",
+        ]
+    lines += [
         "## Matched comparisons",
         "",
         _md_table(matched_req, max_rows=40),
@@ -172,6 +228,9 @@ def run_stage6(run_dir: Path) -> Path:
         "- Arms A (channel-3000 HRp10), B (type 65 RHR), and C (type 66 sleep HR) have different ascertainment and must not be pooled.",
         "- Daily summaries have no within-day mask; their nuisance design omits clock-coverage fractions.",
         "- Cross-sectional age associations do not identify within-person decline or menopause onset.",
+        "- Repeat-window change is a short-interval within-participant association, not a "
+        "causal aging effect; two-window eligibility is a selected subset and intervals "
+        "are not adjusted for multiple comparisons.",
         "- Supplier labels and units are accepted only under the recorded provenance gate.",
         "- No endpoint is imputed and no conflicting daily value is averaged.",
         "",

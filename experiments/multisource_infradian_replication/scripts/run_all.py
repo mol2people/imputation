@@ -20,7 +20,7 @@ configure_single_threaded_blas()
 
 import pandas as pd
 
-from multisource import bootstrap, channel3000, common, daily, manifests, matched, models, provenance, report
+from multisource import bootstrap, channel3000, common, daily, longitudinal, manifests, matched, models, provenance, report
 
 
 def main() -> None:
@@ -106,15 +106,22 @@ def main() -> None:
         window_indices=window_indices,
     )
 
+    if args.include_repeat_windows:
+        print("[8/9] longitudinal repeat-window summaries")
+        longitudinal.run_stage(
+            run_dir, n_boot=args.n_boot, seed=args.seed,
+        )
+
+    matched_label = "[9/9]" if args.include_repeat_windows else "[7/7]"
     if not args.skip_matched and not args.skip_channel:
-        print("[7/7] matched comparisons")
+        print(f"{matched_label} matched comparisons")
         matched.run_stage5(
             run_dir, run_dir / "cache_5min", sources=args.sources,
             protocols=args.protocols, null_replicates=args.null_replicates,
             n_boot=args.n_boot, seed=args.seed, workers=args.workers,
         )
     else:
-        print("[7/7] matched comparisons skipped")
+        print(f"{matched_label} matched comparisons skipped")
 
     print("report")
     out = report.run_stage6(run_dir)

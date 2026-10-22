@@ -10,7 +10,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from multisource import bootstrap, channel3000, common, daily, endpoints, matched, models, provenance, reml
+from multisource import bootstrap, channel3000, common, daily, endpoints, longitudinal, matched, models, provenance, reml
 
 
 def test_source_namespace_is_pg_daily():
@@ -589,6 +589,51 @@ def test_transition_bases_are_precomputed_exactly():
         bootstrap.DELTA_DESIGN_ZGRID,
         bootstrap._delta_design(bootstrap.TRANSITION_ZGRID),
     )
+
+
+def test_longitudinal_pairing_and_summary():
+    n = 12
+    rows = []
+    for window, start, offset in ((1, 0, 0.0), (2, 200, 0.02)):
+        for i in range(n):
+            rows.append({
+                "user_id": i + 1,
+                "source": 3,
+                "endpoint": "RHR",
+                "protocol": "balanced90",
+                "window_index": window,
+                "start_day": start,
+                "selected_dates_hash": f"w{window}-{i}",
+                "age": 25.0 + i,
+                "sex": i % 2,
+                "null_status": "converged",
+                "status": "ok",
+                "Q_i": 0.01 + 0.0002 * i + offset,
+                "Q_i_mc_se": 0.001,
+                "E_i2": 0.02 + 0.0001 * i + offset,
+                "A_hat": 1.0 + 0.01 * i + offset,
+                "sigma_resid": 2.0 + 0.01 * i,
+                "peak_period": 28.0 + 0.1 * (i % 3),
+            })
+    endpoints_table = pd.DataFrame(rows)
+    paired = longitudinal.build_paired_windows(endpoints_table)
+    assert len(paired) == n
+    assert np.allclose(
+        paired["Q_i_change"].to_numpy(),
+        paired["Q_i_w2"].to_numpy() - paired["Q_i_w1"].to_numpy(),
+    )
+    assert np.allclose(
+        paired["Q_i_annualized_rate"].to_numpy(),
+        paired["Q_i_change"].to_numpy() / (200.0 / 365.25),
+    )
+    availability = longitudinal.availability_table(endpoints_table, paired)
+    assert int(availability.loc[0, "paired_converged_Q"]) == n
+    summary = longitudinal.summarize(paired, n_boot=20, seed=7)
+    all_row = summary.loc[summary["subgroup"].eq("all")].iloc[0]
+    assert int(all_row["n"]) == n
+    assert np.isclose(all_row["mean_Q_change"], 0.02)
+    assert np.isclose(all_row["mean_Q_annualized_rate"], 0.02 / (200.0 / 365.25))
+    assert all_row["pearson_Q_i"] > 0.99
 
 
 if __name__ == "__main__":

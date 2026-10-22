@@ -1,13 +1,20 @@
-# Full-run figures
+# Run figures
 
-These figures summarize the full primary-window run
+Figures 1–4 summarize the full primary-window run
 `full_b199_boot1000_20261022` (`B=199`, `n_boot=1000`, sources
-`2 3 6 7 9 13 19`, both protocols). Unless stated, they use `balanced90`.
-They are descriptive: age is cross-sectional, not within-person follow-up.
+`2 3 6 7 9 13 19`, both protocols). Figure 5 summarizes the repeat-window
+run `full_repeat_b199_boot1000_20261022` from the same sources. Unless stated,
+they use `balanced90`. They are descriptive: age is cross-sectional, and the
+repeat-window contrasts are short-interval within-participant associations,
+not causal aging effects.
 
-The full run produced 65,449 endpoint rows, of which 65,443 converged. Six
+The primary run produced 65,449 endpoint rows, of which 65,443 converged. Six
 rows are `rss0_degenerate`; see
-`artifacts/runs/full_b199_boot1000_20261022/RUN_NOTES.md`.
+`artifacts/runs/full_b199_boot1000_20261022/RUN_NOTES.md`. The repeat run
+produced 110,736 endpoint rows (65,449 first-window and 45,287 second-window);
+110,722 converged and 14 are `rss0_degenerate` (six first-window rows, the same
+participants as the primary run, and eight second-window rows). See
+`artifacts/runs/full_repeat_b199_boot1000_20261022/RUN_NOTES.md`.
 
 ## Arm and model inventory
 
@@ -54,6 +61,46 @@ point of either sex-specific curve. `balanced90` and `expanded90` are shown
 separately. Source 9 has no shared female–male support. `n.e.` means the point
 was not estimable but a bootstrap interval was available (source 7, `E_i2`,
 `expanded90`).
+
+## Repeat-window change and repeatability
+
+![Repeat-window Q_i change and repeatability](fig5_longitudinal_repeatability.png)
+
+`balanced90`; participants with first-window age in `[20,75)`, two converged
+windows, and arm `n ≥ 10`. Left: mean annualized `ΔQ_i`; right: Pearson
+`r(Q_i1, Q_i2)`. Bars are pointwise 95% participant-bootstrap
+intervals, stratified by five-year age band and sex. The full repeat-window
+run contributed **45,279 paired participants** in **20 arms** with at least
+three pairs. Machine-readable tables:
+[`longitudinal_headline.csv`](longitudinal_headline.csv),
+[`longitudinal_availability.csv`](longitudinal_availability.csv), and
+[`longitudinal_validation.json`](longitudinal_validation.json). The validation
+file records exact first-window reproduction (all six metrics, 0 maximum
+difference; 0 selected-date hash mismatches; 0 duplicate keys) and paired
+counts.
+
+Mean paired change is close to zero for every dense arm, with intervals that
+mostly include zero; the largest dense-arm point estimate is Apple HRp10 at
+-9.8e-4 (95% CI -2.3e-3 to 2.0e-4). Window-to-window `Q_i` correlations are
+positive but modest: Fitbit RHR `r=0.41` (95% CI 0.37–0.44), Garmin HRp10
+`r=0.28` (0.23–0.32), Garmin RHR `r=0.21` (0.17–0.25), Apple HRp10 `r=0.18`
+(0.12–0.24), Apple RHR `r=0.10` (0.07–0.14), Samsung RHR `r=0.21`
+(0.08–0.32), and Nokia RHR `r=0.02` (-0.10–0.14). Sex-specific intervals
+differ for Fitbit and Garmin HRp10; those are secondary strata, not evidence
+of a causal sex effect.
+
+The figure omits sparse arms with `n < 10` and the Google Fit `balanced90`
+arms (0 and 1 pairs). Nokia HRp10 has only 17 pairs and a wide interval; its
+point estimate should not be read as a stable source-level effect. Follow-up is
+mostly exactly 180 days, but Apple RHR has a long right tail (mean 0.74 years;
+1,719/7,268 `balanced90` pairs exceed 365 days, maximum 818 days). The
+annualized rate is therefore an extrapolation and is shown beside the observed
+change; do not interpret it as a one-year aging rate. Two-window availability
+selects participants: the paired fraction ranges from 0.49 (Apple HRp10) to
+0.84 (Garmin RHR) in dense arms, and the standardized first-window `Q_i`
+difference is small for dense arms but large for sparse Nokia HRp10
+(`SMD=-0.32`). These estimates do not replace the cross-sectional curves or
+identify menopause timing.
 
 ## Interpretation limits
 

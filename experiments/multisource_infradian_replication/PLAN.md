@@ -111,7 +111,7 @@ The architecture above is implemented in `multisource/`:
 - **Draw-level SEs.** Pointwise HC3 SEs are computed only for the observed fit. HC3 covariances are still computed per draw because the chunk-Wald bootstrap distributions require them.
 - **Endpoint algebra.** `endpoints.py` uses a vectorized FWL operator build, vectorized spectra, and batched quadrature. The daily nuisance basis and residual basis retain the original Gram–Schmidt + `eigh` construction: a pivoted-QR / `null_space` replacement was measured, found to perturb the REML optimizer path (~\(10^{-8}\) in \(Q_i\), discrete `phi2` label flips when \(v_2\approx0\)), and reverted. The upstream `profile_ar1_mle` and null-simulation functions are imported unchanged; `fit_two_component_reml` remains the historical fitter, while the multisource pipeline injects `multisource/reml.py` through `task["reml_fitter"]`.
 - **Matched I/O.** `exact_date_cohort` decompresses participant caches in the worker pool; `workers=1` and `workers>1` produce identical outputs.
-- **Verification.** All 25 tests pass. A \(B=8\) stage-5 smoke run over 64 arm–metric jobs reproduced stage-4 point predictions and SEs to float32 precision and stage-4 observed Wald statistics exactly. On 120 historical daily tasks at \(B=30\), the retained endpoint path reproduced \(Q_i\), \(E_{i2}\), \(A_{\text{hat}}\), `sigma_resid`, `p_value_discrete`, `peak_period`, and the fitted `phi2` label to machine precision (max \(|\Delta Q_i| = 9.7\times10^{-17}\)). Profiling attributed 99.4% of the historical daily task to REML; the new default L-BFGS-B path is 2.3× faster on the same 120 tasks, with all 120 tasks within `|ΔQ_i| < 1e-5` (max `2.5e-6`) and 13/120 tasks using the historical-solver continuity fallback. The full \(B=50\), `limit=2000` comparison is less exact: 18,623/18,696 endpoints satisfy `|ΔQ_i| < 1e-5` (99.61%); 73 change above `1e-5`, 43 p-values change, and the new fitter finds a lower NLL on 72 tasks while being worse by more than `1e-6` on 16 (max `3.94e-5`). See [`OPTIMIZATION_PLAN.md`](OPTIMIZATION_PLAN.md) §7.2 for the level-by-level results and the strict-parity caveat. The final second-wave bounded run, which adds Stage-7 fitter injection and the Cholesky/precomputed-basis changes while retaining historical tolerances and low-`phi1` anchors, completed in 6m39s with Stage 3 at 210.33s (2.63×). Relative to the first-wave run, it changes `Q_i` by at most `1.89e-6` (0/18,696 above `1e-5`), changes no p-values, and leaves the 407 continuity fallbacks unchanged; see §7.3. The full \(B=199\) endpoint run is reported under "Full B=199 primary-window run (2026-10-22)" below.
+- **Verification.** All 26 tests pass. A \(B=8\) stage-5 smoke run over 64 arm–metric jobs reproduced stage-4 point predictions and SEs to float32 precision and stage-4 observed Wald statistics exactly. On 120 historical daily tasks at \(B=30\), the retained endpoint path reproduced \(Q_i\), \(E_{i2}\), \(A_{\text{hat}}\), `sigma_resid`, `p_value_discrete`, `peak_period`, and the fitted `phi2` label to machine precision (max \(|\Delta Q_i| = 9.7\times10^{-17}\)). Profiling attributed 99.4% of the historical daily task to REML; the new default L-BFGS-B path is 2.3× faster on the same 120 tasks, with all 120 tasks within `|ΔQ_i| < 1e-5` (max `2.5e-6`) and 13/120 tasks using the historical-solver continuity fallback. The full \(B=50\), `limit=2000` comparison is less exact: 18,623/18,696 endpoints satisfy `|ΔQ_i| < 1e-5` (99.61%); 73 change above `1e-5`, 43 p-values change, and the new fitter finds a lower NLL on 72 tasks while being worse by more than `1e-6` on 16 (max `3.94e-5`). See [`OPTIMIZATION_PLAN.md`](OPTIMIZATION_PLAN.md) §7.2 for the level-by-level results and the strict-parity caveat. The final second-wave bounded run, which adds Stage-7 fitter injection and the Cholesky/precomputed-basis changes while retaining historical tolerances and low-`phi1` anchors, completed in 6m39s with Stage 3 at 210.33s (2.63×). Relative to the first-wave run, it changes `Q_i` by at most `1.89e-6` (0/18,696 above `1e-5`), changes no p-values, and leaves the 407 continuity fallbacks unchanged; see §7.3. The full \(B=199\) endpoint run is reported under "Full B=199 primary-window run (2026-10-22)" below.
 
 ### REML optimizer and Stage 3 queue update (2026-10-22)
 
@@ -176,6 +176,53 @@ sources 3 and 6; source 9 has zero paired rows, and sources 2, 7, 13, and 19
 have no exact-date complete cases. The default L-BFGS-B optimizer remains in
 use; strict historical parity still requires `MULTISOURCE_REML_OPTIMIZER=nelder`.
 
+### Repeat-window longitudinal summaries (2026-10-22)
+
+The repeat window is a second independently selected 180-day window for the
+same participant, source, endpoint, and protocol. It does not add independent
+participants and does not identify a causal aging effect. For participants
+with two eligible, converged windows and finite \(Q_i\) in both, define
+
+\[
+\Delta Q_i = Q_{i,2}-Q_{i,1}, \qquad
+\dot Q_i = \frac{\Delta Q_i}{(s_{i,2}-s_{i,1})/365.25},
+\]
+
+where \(s_{i,w}\) is the selected window start day. Age strata use first-window
+age and the prespecified bands `[20,35)`, `[35,42)`, `[42,47)`, `[47,52)`,
+`[52,60)`, `[60,75)`; the pooled stratum is restricted to ages `[20,75)`. Report
+all participants, sex strata, and age bands separately by source, endpoint, and
+protocol. Do not pool arms.
+
+The stage also reports Pearson window-to-window correlations for `Q_i`,
+`E_i2`, `A_hat`, `sigma_resid`, and `peak_period`. Metric-specific correlations
+use only participants with both values finite. Inference uses 1,000
+participant bootstrap draws stratified by five-year age band × sex; the same
+draw is reused across change summaries in a subgroup, and each correlation uses
+metric-specific draws after excluding participants missing either value.
+Intervals are pointwise 2.5%/97.5% percentile intervals and are not adjusted for
+multiple comparisons.
+No endpoint is imputed. Failed or non-converged windows are excluded from the
+paired set and counted in the availability table. \(Q_i\) retains finite-null
+Monte Carlo error; the paired table carries `Q_i_mc_se_w1/w2` and the summary
+reports their means. The availability table also reports the paired fraction
+and the standardized difference in first-window \(Q_i\) between paired and all
+eligible participants. The paired summaries are
+secondary and conditional on two-window availability; they are not a
+replacement for the primary cross-sectional age models.
+
+The executed repeat run `full_repeat_b199_boot1000_20261022` produced 110,736
+endpoint rows (65,449 first-window and 45,287 second-window), with 110,722
+converged. Six first-window rows reproduce the primary run's
+`rss0_degenerate` failures exactly; eight additional second-window rows fail.
+The longitudinal stage retained **45,279 paired participants across 20 arms**.
+Window-1 selected dates and all six endpoint metrics reproduce the primary run
+exactly (zero mismatches; zero duplicate keys). Across dense arms, mean paired
+`Q_i` change is close to zero, while window-to-window `Q_i` correlations are
+positive but modest (about 0.10–0.41). These are short-interval associations,
+not causal aging effects; see `figures/README.md` for the figure and
+`artifacts/runs/full_repeat_b199_boot1000_20261022/REPORT.md` for tables.
+
 ## Staged work and reporting
 
 1. **Inventory and provenance:** Refresh source × endpoint counts and verify mappings, units, date semantics, duplicate policy, valid ranges, and participant linkage. Resolve unknown source IDs only through documented provenance. Stop any unresolved arm at this stage.
@@ -183,6 +230,21 @@ use; strict historical parity still requires `MULTISOURCE_REML_OPTIMIZER=nelder`
 3. **Endpoint and null computation:** Compute daily endpoints without imputation; retain masks and selected-date hashes. Fit endpoint-specific nuisance models and two-component nulls, recording numerical convergence and failures. Reuse historical Apple/Garmin artifacts only when endpoint, dates, hashes, method, and null match exactly; otherwise leave historical results untouched and compute in a separate run namespace.
 4. **Primary age analyses:** Estimate source × endpoint age curves for each estimable arm. Keep daily65, daily66, and channel-3000 HRp10 results separate. Report `Q_i` as primary, `E_i2` as secondary, sample/support counts, endpoint distributions, null failures, and uncertainty.
 5. **Matched sensitivities:** Run exact-date endpoint contrasts where feasible, followed by the separately labeled common-date fallback only if necessary. Analyze HRp5/p1 only as matched sensitivities within Analysis A. Keep all matched analyses distinct from independent-cohort analyses.
-6. **Reporting:** Save manifests, source/endpoint provenance, date hashes, model/null diagnostics, result tables, and figures in a new run-specific namespace. Do not overwrite historical reports, caches, or artifacts. State which arms were estimable and which stopped at provenance, eligibility, or support gates.
+6. **Repeat-window longitudinal summaries:** For `--include-repeat-windows`, report participant retention, paired `Q_i` change, annualized change, and window correlations by source/endpoint/protocol, sex, and first-window age band. Report selection into the paired set. Keep this estimand secondary and separate from matched and cross-sectional analyses.
+7. **Reporting:** Save manifests, source/endpoint provenance, date hashes, model/null diagnostics, result tables, and figures in a new run-specific namespace. Do not overwrite historical reports, caches, or artifacts. State which arms were estimable and which stopped at provenance, eligibility, or support gates.
 
 Interpret age associations as observational and source-specific. Do not infer menopause onset, individual cycle status, vendor algorithm accuracy, endpoint equivalence, or causal within-person decline from these analyses. Any single-period decline versus noise analysis remains secondary and noncausal. Existing Apple/Garmin results and their interpretation remain historical context; this plan does not revise or replace them.
+
+## Deferred design exploration (2026-10-22)
+
+- **Unwindowed endpoint estimation using all available data.** The user wants
+  to explore, separately from the current protocol, how to estimate the
+  infradian endpoint from each participant's full available observation history
+  instead of restricting estimation to a prespecified 180-day
+  `[start, start+180)` window with 90 selected dates. This is a new estimand,
+  not a rerun of the windowed analysis. It requires a defensible time-varying
+  or continuous-time spectral formulation, explicit handling of irregular
+  sampling, missing dates, secular/seasonal drift, device or source changes,
+  and within-person dependence. It must remain separately labeled and
+  comparable with the windowed results. No implementation or result exists in
+  the current run namespace.

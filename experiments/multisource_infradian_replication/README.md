@@ -5,9 +5,11 @@ new run namespace: it reads historical raw exports, caches, and protocol
 primitives, but does not overwrite historical
 `infradian_age_dependency`, Apple, Garmin, or Samsung artifacts.
 
-Status: implementation and bounded validation are complete. The full
-`B=199` null / `2,000`-replicate bootstrap analysis has **not** been executed
-here; see [Compute cost](#compute-cost).
+Status: implementation and the full primary-window analysis are complete. The
+full run used `B=199` null draws and `n_boot=1,000` (not the prespecified
+2,000); see [Compute cost](#compute-cost). The repeat-window longitudinal run
+is also complete: 45,279 paired participants across 20 estimable arms. It is a
+separate secondary estimand, not a causal aging analysis.
 
 ## Scope and separation
 
@@ -57,7 +59,7 @@ $PY scripts/run_all.py \
 `run_all.py` refuses to write into an existing run directory unless
 `--overwrite` is passed. The default computation uses the primary window
 (`window_index=1`); add `--include-repeat-windows` to compute and model the
-secondary repeat window as well.
+secondary repeat window and run the paired longitudinal summaries.
 
 Partial daily-only run (useful for a bounded test):
 
@@ -84,6 +86,7 @@ It is intended for smoke tests, not for a substantive analysis.
 | `05_bootstrap.py` | participant bootstrap curves, simultaneous confidence bands, transition-metric distributions |
 | `06_matched.py` | exact-date matched cohort, four paired-comparison safeguards, paired-difference intervals |
 | `07_report.py` | `REPORT.md` |
+| `08_longitudinal.py` | paired repeat-window `Q_i` change, annualized rate, window correlations, availability |
 
 Each stage can also be run directly; see `--help` for arguments.
 
@@ -142,6 +145,39 @@ each arm, and enforces:
 Exact-date matched cohorts are often sparse. Empty comparisons are reported as
 empty, not silently substituted with independently selected dates.
 
+### Longitudinal repeat windows
+
+`--include-repeat-windows` computes the second independently selected window.
+`08_longitudinal.py` is a separate estimand from the exact-date matched
+comparisons. For each source/endpoint/protocol arm, it retains participants
+with two eligible, converged windows and finite `Q_i` in both, then reports
+
+\[
+\Delta Q_i = Q_{i,2}-Q_{i,1}, \qquad
+\dot Q_i = \frac{\Delta Q_i}{(s_{i,2}-s_{i,1})/365.25},
+\]
+
+where `s` is the window start day. Age is first-window age. Summaries are
+reported for all participants with first-window age in `[20,75)`, by sex, and
+by the prespecified age bands `[20,35)`, `[35,42)`, `[42,47)`, `[47,52)`,
+`[52,60)`, `[60,75)`. The
+stage also reports Pearson window-to-window correlations for `Q_i`, `E_i2`,
+`A_hat`, `sigma_resid`, and `peak_period`.
+
+Participant bootstrap resampling uses 1,000 draws (the full-run choice),
+stratified by five-year age band × sex; intervals are pointwise 2.5%/97.5%
+percentile intervals and are not adjusted for multiple comparisons. The
+repeat-window estimates are short-interval within-participant associations,
+not causal aging effects, and two-window eligibility is a selected subset. The
+availability table reports the paired fraction and the standardized difference
+in first-window `Q_i` between paired and all eligible participants, so the
+selection can be inspected rather than assumed absent. These summaries do not
+replace the cross-sectional RCS curves and do not establish menopause timing.
+No endpoint is imputed; failed or non-converged windows are excluded from the
+paired set and reported in `longitudinal/availability.csv`. `Q_i` retains
+finite-null Monte Carlo error; the paired table carries `Q_i_mc_se_w1/w2` and
+the summary reports their means.
+
 ## Outputs
 
 Run artifacts are written under `artifacts/runs/<name>/`:
@@ -151,7 +187,8 @@ Run artifacts are written under `artifacts/runs/<name>/`:
 - `models/`: `model_summary.csv`, `chunk_tests.csv`, `age_support.csv`, `curves.parquet`.
 - `bootstrap/`: curves, confidence bands, chunk summaries, transition metrics.
 - `matched/`: requirements, arm status, retention, paired contrasts.
-- `REPORT.md`: synthesis with provenance, inventories, eligibility, models, bootstrap, and matched sections.
+- `longitudinal/`: paired participants, availability, change/rate and window-correlation summaries.
+- `REPORT.md`: synthesis with provenance, inventories, eligibility, models, bootstrap, matched, and longitudinal sections.
 - `stage*_summary.json`: machine-readable stage summaries.
 
 ## Compute cost
@@ -174,14 +211,24 @@ in **28m23s** with **65,449** Stage-3 tasks (**43,855** daily + **21,594**
 channel), of which **65,443** converged. Stage 1b cache construction took about
 **10m48s**, Stage 3 about **11m32s**, Stage 5 about **18s**, and Stage 6 matched
 about **4m40s**; the run directory is **727 MB**. The earlier 46,430-task
-estimate used the bounded channel count (2,575) and is superseded. Repeat
-windows add further tasks and materially increase Stage-3 cost. Plan for a
-dedicated run namespace and do not start it in an interactive foreground shell.
+estimate used the bounded channel count (2,575) and is superseded.
 
-## Full-run figures
+The repeat-window run `full_repeat_b199_boot1000_20261022` used the same
+sources, protocols, `B=199`, and `n_boot=1,000`, with
+`--include-repeat-windows --skip-matched`. It completed in **31m24s** with
+**110,736** endpoint tasks (**65,449** first-window + **45,287** second-window),
+of which **110,722** converged. Stage 1b took **10m56s**, Stage 2 **56s**,
+Stage 3 **18m53s**, and models/bootstrap/report **32s**; the paired longitudinal
+stage took **55s**. Fourteen rows are `rss0_degenerate` (six first-window rows,
+identical to the primary run, and eight second-window rows). The run directory
+is **976 MB**. Use a dedicated run namespace and do not start repeat-window
+computation in an interactive foreground shell.
 
-Full primary-window run (`B=199`, `n_boot=1000`). Figures 1–3 use the
-`balanced90` reference; Figure 4 covers both protocols.
+## Figures
+
+Primary-window run (`B=199`, `n_boot=1000`) and repeat-window longitudinal run.
+Figures 1–3 use the `balanced90` reference; Figure 4 covers both protocols and
+Figure 5 uses the repeat-window `balanced90` pairs.
 
 ![Female and male Q_i age curves](figures/fig1_q_i_age_curves_balanced90.png)
 
@@ -191,8 +238,14 @@ Full primary-window run (`B=199`, `n_boot=1000`). Figures 1–3 use the
 
 ![Full arm and model inventory](figures/fig4_arm_model_inventory.png)
 
-Definitions, source coverage, arm/model coverage, and interpretation limits are
-in [`figures/README.md`](figures/README.md).
+![Repeat-window Q_i change and repeatability](figures/fig5_longitudinal_repeatability.png)
+
+Figure 5 uses the repeat-window run (45,279 paired participants;
+`balanced90`, arms with `n ≥ 10`). Left: mean annualized paired `ΔQ_i`; right:
+Pearson window-to-window `Q_i` correlation. Mean change is near zero for dense
+arms; correlations are modest.
+Definitions, source coverage, arm/model coverage, paired availability, and
+interpretation limits are in [`figures/README.md`](figures/README.md).
 
 ## Tests
 
@@ -206,8 +259,8 @@ $PY tests/test_pipeline.py
 
 The suite covers protocol selection, daily QC and duplicate policy, daily
 endpoint determinism, source/value-type namespaces, support masks, transition
-boundaries, identical-draw paired bootstrap behavior, and exhaustive raw
-scanning.
+boundaries, identical-draw paired bootstrap behavior, repeat-window pairing and
+annualized change, and exhaustive raw scanning.
 
 ## Known limitations
 
@@ -227,6 +280,17 @@ scanning.
   the source data. No remediation, exclusion, or rerun is planned for this run;
   these rows must not be treated as converged. See
   `artifacts/runs/full_b199_boot1000_20261022/RUN_NOTES.md`.
+- The repeat-window run has **14/110,736** `rss0_degenerate` rows: the same six
+  first-window rows and eight second-window rows (source 2 user `1124280`,
+  source 6 users `1222449` and `1217923` in the affected endpoint/protocol
+  arms). They are excluded from paired summaries and are not treated as
+  converged. No remediation, exclusion, or rerun is planned without a user
+  request. See
+  `artifacts/runs/full_repeat_b199_boot1000_20261022/RUN_NOTES.md`.
+- Repeat-window summaries are conditional on two-window availability and are
+  not causal aging effects. Paired fractions range from 0.49 to 0.84 in dense
+  arms; sparse arms are unstable, and annualized rates are extrapolations over
+  intervals that are usually 180 days but occasionally much longer.
 - Exact-date matched comparisons are non-empty only for sources 3 and 6. Source
   9 has zero paired rows, and sources 2, 7, 13, and 19 have no exact-date
   complete cases.
