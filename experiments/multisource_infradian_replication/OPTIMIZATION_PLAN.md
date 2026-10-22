@@ -12,9 +12,9 @@ Empirical profiling of the bounded pipeline ($B=50$, limit 2,000 tasks/arm, $N_{
 
 - Null replicate count $B=199$ adds little to Stage 3: the fixed-fitter benchmark measured `+0.54 ms/task` from $B=30$ to $B=199$, and three real daily tasks took `0.111` s/task at $B=50$ versus `0.111` s/task at $B=199$ (noise-level difference). The harmonic projections and multi-replicate quadrature are vectorized.
 - The implemented L-BFGS-B path reduces the bounded 18,696-task Stage-3 run from `553.65 s` to `210.33 s`; the complete bounded run is **6m39s**.
-- The unbounded primary-window run contains **46,430 Stage-3 tasks** (43,855 daily + 2,575 channel); the first ordered task list in the final bounded run had 18,696 rows. Linear Stage-3 scaling projects **~9 minutes** for Stage 3 and roughly **15–25 minutes total** at $B=199$; allow 30–45 minutes on a shared machine. Including `--include-repeat-windows` raises the task count to **80,674** and roughly doubles endpoint cost.
+- The unbounded primary-window run contains **65,449 Stage-3 tasks** (**43,855** daily + **21,594** channel); the earlier 46,430 estimate used the bounded channel count (2,575) and is superseded. The full `B=199`, `n_boot=1000` run completed in **28m23s**; Stage 3 took about **11m32s**, Stage 1b cache construction about **10m48s**, and Stage 6 matched about **4m40s**. The first ordered task list in the final bounded run had 18,696 rows. Repeat windows add tasks and materially increase Stage-3 cost.
 
-The optimized path is therefore a substantial improvement over the historical 553.65 s Stage 3, but the earlier “under 8 minutes for a full run” projection is not supported; the measured bounded total is 6m39s.
+The optimized path is therefore a substantial improvement over the historical 553.65 s Stage 3, but the earlier “under 8 minutes for a full run” projection is not supported; the measured bounded total is 6m39s and the full primary-window run is 28m23s.
 
 ### Speedup and Risk Matrix
 
@@ -338,7 +338,7 @@ Fresh shadow run: `artifacts/runs/b50_shadow_lowphi_20261022`; baseline: `artifa
 | Bootstrap | point prediction max `1.08e-3`; SE max `1.23e-4` |
 | Matched | daily values and `hrp10` exact; endpoint `Q_i` max `7.47e-3`; paired difference max `1.67e-4` |
 
-The full run does **not** meet the 120-task benchmark's `1e-5` target globally. The material changes are concentrated in non-source-2 arms and are predominantly **lower-NLL low-`phi1` basins** that L-BFGS-B finds while the historical Nelder–Mead fit remains in a higher-NLL basin. The continuity guard covers detectable low-anchor and high-`phi1`/large-`v2` ambiguities, but it cannot detect a case where the canonical L-BFGS-B starts themselves find a better basin than the historical simplex; doing so would require running the historical fitter. The 16 regressions are numerically small (max `3.94e-5` NLL) and do not dominate the material endpoint changes. Strict historical parity therefore requires `MULTISOURCE_REML_OPTIMIZER=nelder` (or a per-task old-fitter fallback); the default remains the faster L-BFGS-B path. The full `B=199` run remains gated on explicit user confirmation.
+The full run does **not** meet the 120-task benchmark's `1e-5` target globally. The material changes are concentrated in non-source-2 arms and are predominantly **lower-NLL low-`phi1` basins** that L-BFGS-B finds while the historical Nelder–Mead fit remains in a higher-NLL basin. The continuity guard covers detectable low-anchor and high-`phi1`/large-`v2` ambiguities, but it cannot detect a case where the canonical L-BFGS-B starts themselves find a better basin than the historical simplex; doing so would require running the historical fitter. The 16 regressions are numerically small (max `3.94e-5` NLL) and do not dominate the material endpoint changes. Strict historical parity therefore requires `MULTISOURCE_REML_OPTIMIZER=nelder` (or a per-task old-fitter fallback); the default remains the faster L-BFGS-B path. The full `B=199` run has now been executed; see §7.4.
 
 ### 7.3 Second-Wave Final Full `B=50` Validation
 
@@ -378,7 +378,55 @@ The final 120-task paired benchmark (same tasks and seeds, historical versus fin
 
 Stage 7 fitter injection is correct and preserves matched endpoint continuity, but it did **not** produce the audit's projected ~75 s Stage-7 saving in this bounded run: Stage 7 was `61.02 s` versus `61.50 s` in the first-wave run, because the matched subset is small and the prior stage was already fast. The injection is retained for consistency, not for a measured wall-time gain. The bootstrap stage fell from `20.77 s` to `19.40 s`; the model stage is essentially unchanged (`1.42 s` to `1.41 s`).
 
-The conditional low-`phi1` variant (8.5) and the relaxed stopping tolerances (8.6) were rejected. The conditional variant skipped the anchors on 3,005/18,696 tasks; relative to the first wave, 481 of 499 NLL regressions above `1e-6` occurred on those tasks (max `+0.0618`). The exact 8.6 recommendation failed the 120-task screen (8/120 `Q_i` changes above `1e-5`, max `2.39e-5`; 3 NLL regressions above `1e-6`, max `6.14e-6`); the conservative variant added 18 NLL regressions (max `4.46e-6`) and endpoint changes without a material speed gain. The final code therefore retains the historical tolerances and unconditional anchors. The full `B=199` run remains gated on explicit user confirmation.
+The conditional low-`phi1` variant (8.5) and the relaxed stopping tolerances (8.6) were rejected. The conditional variant skipped the anchors on 3,005/18,696 tasks; relative to the first wave, 481 of 499 NLL regressions above `1e-6` occurred on those tasks (max `+0.0618`). The exact 8.6 recommendation failed the 120-task screen (8/120 `Q_i` changes above `1e-5`, max `2.39e-5`; 3 NLL regressions above `1e-6`, max `6.14e-6`); the conservative variant added 18 NLL regressions (max `4.46e-6`) and endpoint changes without a material speed gain. The final code therefore retains the historical tolerances and unconditional anchors. The full `B=199` run has now been executed; see §7.4.
+
+### 7.4 Full `B=199` Primary-Window Run (2026-10-22)
+
+Run `full_b199_boot1000_20261022`:
+
+```bash
+python scripts/run_all.py \
+  --run-dir artifacts/runs/full_b199_boot1000_20261022 \
+  --sources 2 3 6 7 9 13 19 \
+  --protocols expanded90 balanced90 \
+  --workers 9 \
+  --null-replicates 199 \
+  --n-boot 1000 \
+  --seed 20261020
+```
+
+No `--limit` was applied. Wall time was **1703.04 s (28m23s)**; user CPU was
+`12364.87 s` and system CPU `1210.79 s`. Stage 3 wrote **65,449** rows
+(**43,855** daily + **21,594** channel), of which **65,443** converged. Stage 1b
+built 22,345 channel caches in about **10m48s**; Stage 3 took about **11m32s**;
+Stage 4 fitted 104 models; Stage 5 completed 96 bootstrap jobs with
+`status=ok`; Stage 6 produced 16 matched comparisons; `REPORT.md` was written.
+The run directory is 727 MB.
+
+The 18,696 endpoint rows shared with the bounded `B=199` run
+(`b199_limit2000_boot5000_20261022`) reproduce exactly for `Q_i`,
+`Q_i_mc_se`, `E_i2`, `A_hat`, `sigma_resid`, and `p_value_discrete` (zero
+difference). The unbounded run therefore did not change endpoint computation
+for the overlapping tasks.
+
+On the shared bounded 18,696-task cohort, `B=199` versus `B=50` gives median
+\(|\Delta Q_i| = 1.88\times10^{-3}\), median `Q_i_mc_se` ratio
+`B=50/B=199 = 1.98` (approximately \(\sqrt{199/50}\)), and endpoint-level
+\(p<0.05\) counts of 1,445 versus 1,268. The 256 group chunk tests are stable:
+150 versus 151 significant at \(p<0.05\), with 3 disagreements. The full
+cohort is larger, so its 104 models and 304 chunk tests are not directly
+comparable to the bounded cohort; those differences are not evidence about the
+B-level comparison.
+
+Six full-run rows are `rss0_degenerate` with `null_status=failed`: source 2
+user `1124280` (RHR, both protocols) and source 6 user `1222449` (RHR and
+HRp10, both protocols). They are excluded from the converged count and must
+not be treated as converged. The user will inspect the source data; no
+remediation, exclusion, or rerun is planned. The full run used
+\(N_{\text{boot}}=1{,}000\), not the prespecified 2,000 resamples; bootstrap
+precision is correspondingly lower. Exact-date matched comparisons are
+non-empty only for sources 3 and 6; source 9 has zero paired rows, and sources
+2, 7, 13, and 19 have no exact-date complete cases.
 
 ---
 

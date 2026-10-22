@@ -1,6 +1,6 @@
 # Multisource infradian age-dependency expansion
 
-Date: 2026-10-22. Status: implementation complete in `multisource/` and the staged CLI; bounded validation runs passed, and the multisource default now uses analytical-gradient L-BFGS-B with adaptive screening. The historical Nelder–Mead path remains selectable with `MULTISOURCE_REML_OPTIMIZER=nelder`. Computational architecture and `.npz` curve storage optimizations are implemented and numerically verified (see the implementation status under "Computational architecture and storage efficiency" and the 2026-10-22 update); full `B=199` null and `2,000`-replicate bootstrap analysis pending execution. This plan extends the historical source-specific analysis while keeping its results and protocols intact, with the one documented optimizer-induced endpoint change described below.
+Date: 2026-10-22. Status: implementation complete in `multisource/` and the staged CLI; bounded validation runs passed, and the multisource default now uses analytical-gradient L-BFGS-B with adaptive screening. The historical Nelder–Mead path remains selectable with `MULTISOURCE_REML_OPTIMIZER=nelder`. Computational architecture and `.npz` curve storage optimizations are implemented and numerically verified (see the implementation status under "Computational architecture and storage efficiency" and the 2026-10-22 update); the full `B=199` endpoint run with `n_boot=1,000` completed on 2026-10-22 (65,449 rows; 65,443 converged; 28m23s), and six degenerate rows remain flagged for user inspection. The prespecified `2,000`-replicate bootstrap was exercised in bounded validation, not the full run. This plan extends the historical source-specific analysis while keeping its results and protocols intact, with the one documented optimizer-induced endpoint change described below.
 
 ## Objective and source scope
 
@@ -111,7 +111,7 @@ The architecture above is implemented in `multisource/`:
 - **Draw-level SEs.** Pointwise HC3 SEs are computed only for the observed fit. HC3 covariances are still computed per draw because the chunk-Wald bootstrap distributions require them.
 - **Endpoint algebra.** `endpoints.py` uses a vectorized FWL operator build, vectorized spectra, and batched quadrature. The daily nuisance basis and residual basis retain the original Gram–Schmidt + `eigh` construction: a pivoted-QR / `null_space` replacement was measured, found to perturb the REML optimizer path (~\(10^{-8}\) in \(Q_i\), discrete `phi2` label flips when \(v_2\approx0\)), and reverted. The upstream `profile_ar1_mle` and null-simulation functions are imported unchanged; `fit_two_component_reml` remains the historical fitter, while the multisource pipeline injects `multisource/reml.py` through `task["reml_fitter"]`.
 - **Matched I/O.** `exact_date_cohort` decompresses participant caches in the worker pool; `workers=1` and `workers>1` produce identical outputs.
-- **Verification.** All 24 tests pass. A \(B=8\) stage-5 smoke run over 64 arm–metric jobs reproduced stage-4 point predictions and SEs to float32 precision and stage-4 observed Wald statistics exactly. On 120 historical daily tasks at \(B=30\), the retained endpoint path reproduced \(Q_i\), \(E_{i2}\), \(A_{\text{hat}}\), `sigma_resid`, `p_value_discrete`, `peak_period`, and the fitted `phi2` label to machine precision (max \(|\Delta Q_i| = 9.7\times10^{-17}\)). Profiling attributed 99.4% of the historical daily task to REML; the new default L-BFGS-B path is 2.3× faster on the same 120 tasks, with all 120 tasks within `|ΔQ_i| < 1e-5` (max `2.5e-6`) and 13/120 tasks using the historical-solver continuity fallback. The full \(B=50\), `limit=2000` comparison is less exact: 18,623/18,696 endpoints satisfy `|ΔQ_i| < 1e-5` (99.61%); 73 change above `1e-5`, 43 p-values change, and the new fitter finds a lower NLL on 72 tasks while being worse by more than `1e-6` on 16 (max `3.94e-5`). See [`OPTIMIZATION_PLAN.md`](OPTIMIZATION_PLAN.md) §7.2 for the level-by-level results and the strict-parity caveat. The final second-wave bounded run, which adds Stage-7 fitter injection and the Cholesky/precomputed-basis changes while retaining historical tolerances and low-`phi1` anchors, completed in 6m39s with Stage 3 at 210.33s (2.63×). Relative to the first-wave run, it changes `Q_i` by at most `1.89e-6` (0/18,696 above `1e-5`), changes no p-values, and leaves the 407 continuity fallbacks unchanged; see §7.3. The full \(B=199\) run remains pending explicit confirmation.
+- **Verification.** All 25 tests pass. A \(B=8\) stage-5 smoke run over 64 arm–metric jobs reproduced stage-4 point predictions and SEs to float32 precision and stage-4 observed Wald statistics exactly. On 120 historical daily tasks at \(B=30\), the retained endpoint path reproduced \(Q_i\), \(E_{i2}\), \(A_{\text{hat}}\), `sigma_resid`, `p_value_discrete`, `peak_period`, and the fitted `phi2` label to machine precision (max \(|\Delta Q_i| = 9.7\times10^{-17}\)). Profiling attributed 99.4% of the historical daily task to REML; the new default L-BFGS-B path is 2.3× faster on the same 120 tasks, with all 120 tasks within `|ΔQ_i| < 1e-5` (max `2.5e-6`) and 13/120 tasks using the historical-solver continuity fallback. The full \(B=50\), `limit=2000` comparison is less exact: 18,623/18,696 endpoints satisfy `|ΔQ_i| < 1e-5` (99.61%); 73 change above `1e-5`, 43 p-values change, and the new fitter finds a lower NLL on 72 tasks while being worse by more than `1e-6` on 16 (max `3.94e-5`). See [`OPTIMIZATION_PLAN.md`](OPTIMIZATION_PLAN.md) §7.2 for the level-by-level results and the strict-parity caveat. The final second-wave bounded run, which adds Stage-7 fitter injection and the Cholesky/precomputed-basis changes while retaining historical tolerances and low-`phi1` anchors, completed in 6m39s with Stage 3 at 210.33s (2.63×). Relative to the first-wave run, it changes `Q_i` by at most `1.89e-6` (0/18,696 above `1e-5`), changes no p-values, and leaves the 407 continuity fallbacks unchanged; see §7.3. The full \(B=199\) endpoint run is reported under "Full B=199 primary-window run (2026-10-22)" below.
 
 ### REML optimizer and Stage 3 queue update (2026-10-22)
 
@@ -124,6 +124,57 @@ The multisource default now uses `multisource/reml.py`:
 - **Cache fix.** `build_caches` now uses `np.nanpercentile` over 288-bin rows; the first implementation used `np.percentile` and produced NaN `hrp10` whenever a day had fewer than 288 observed bins. The fallback path remains for historical caches without `hrp10`. A regression test covers a 120-bin day with NaNs.
 - **Thread cap.** `multisource/runtime.py` is imported before NumPy/Pandas in every entrypoint. This environment's NumPy is Accelerate-linked, so macOS uses `VECLIB_MAXIMUM_THREADS=1` and `OMP_NUM_THREADS=1`; OpenBLAS/MKL variables are not set on Darwin.
 - **Full-run check.** The final clean \(B=50\), `limit=2000` shadow run in `artifacts/runs/b50_shadow_secondwave_final_20261022` completed in 6m39s, with Stage 3 at `210.33 s` versus `553.65 s` for `artifacts/runs/b50_limit2000_20261021` (2.63×); the first-wave reference is `b50_shadow_lowphi_20261022` at 6m47s. All 18,696 endpoints converged; keys, columns, per-arm order, and global row order match. Endpoint parity is not exact: 73/18,696 rows (0.39%) change \(Q_i\) by more than `1e-5` (max `1.55e-2`), 43 p-values change, and 2,919 `phi2` labels flip, almost all at the `v2` floor. The new fitter finds a lower NLL on 72 tasks and is worse by >`1e-6` on 16 (max `3.94e-5`); 407 tasks use the historical continuity fallback. Models, bootstrap curves, and matched daily values remain close (details in [`OPTIMIZATION_PLAN.md`](OPTIMIZATION_PLAN.md) §7.3). Strict historical parity requires `MULTISOURCE_REML_OPTIMIZER=nelder`.
+
+### Full B=199 primary-window run (2026-10-22)
+
+The unbounded primary-window run used:
+
+```bash
+python scripts/run_all.py \
+  --run-dir artifacts/runs/full_b199_boot1000_20261022 \
+  --sources 2 3 6 7 9 13 19 \
+  --protocols expanded90 balanced90 \
+  --workers 9 \
+  --null-replicates 199 \
+  --n-boot 1000 \
+  --seed 20261020
+```
+
+No `--limit` was applied. The run completed in **1703.04 s (28m23s)** with
+**65,449** Stage-3 endpoint rows: **43,855** daily and **21,594** channel
+tasks. **65,443** rows converged. Stage 1b built 22,345 channel caches
+(about 10m48s), Stage 3 took about 11m32s, Stage 4 fitted 104 models, Stage 5
+completed 96 bootstrap jobs with `status=ok`, Stage 6 produced 16 matched
+comparisons, and `REPORT.md` was written. The run directory is 727 MB.
+
+The 18,696 endpoint rows shared with the bounded
+`b199_limit2000_boot5000_20261022` run reproduce exactly for `Q_i`,
+`Q_i_mc_se`, `E_i2`, `A_hat`, `sigma_resid`, and `p_value_discrete` (zero
+difference). This verifies that the unbounded run did not change endpoint
+computation for the overlapping tasks.
+
+On the shared bounded 18,696-task cohort, `B=199` versus `B=50` gives median
+\(|\Delta Q_i| = 1.88\times10^{-3}\), median `Q_i_mc_se` ratio
+`B=50/B=199 = 1.98` (approximately \(\sqrt{199/50}\)), and endpoint-level
+\(p<0.05\) counts of 1,445 versus 1,268. The 256 bounded group chunk tests are
+stable: 150 versus 151 significant at \(p<0.05\), with 3 disagreements. The
+full cohort is larger, so its 104 models and 304 chunk tests are not directly
+comparable to the bounded cohort; those differences are not evidence about the
+B-level comparison.
+
+Six full-run rows are `rss0_degenerate` with `null_status=failed`: source 2
+user `1124280` (RHR, both protocols) and source 6 user `1222449` (RHR and
+HRp10, both protocols). They are excluded from the converged count and must
+not be treated as converged. The user will inspect the source data; no
+remediation, exclusion, or rerun is planned for this run. See
+`artifacts/runs/full_b199_boot1000_20261022/RUN_NOTES.md`.
+
+The full run used \(N_{\text{boot}}=1{,}000\), not the prespecified 2,000
+resamples; bootstrap precision is correspondingly lower than the 2,000-resample
+protocol. Exact-date matched comparisons are non-empty only for
+sources 3 and 6; source 9 has zero paired rows, and sources 2, 7, 13, and 19
+have no exact-date complete cases. The default L-BFGS-B optimizer remains in
+use; strict historical parity still requires `MULTISOURCE_REML_OPTIMIZER=nelder`.
 
 ## Staged work and reporting
 

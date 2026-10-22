@@ -158,21 +158,25 @@ Run artifacts are written under `artifacts/runs/<name>/`:
 
 The full plan is compute-heavy:
 
-- `B=199` null draws per endpoint arm and `2,000` participant bootstrap
-  resamples.
+- `B=199` null draws per endpoint arm. The prespecified bootstrap is `2,000`
+  participant resamples; the full endpoint run used `n_boot=1,000` by user
+  decision.
 - Primary window only by default; adding `--include-repeat-windows` roughly
   doubles endpoint cost.
 - Both `expanded90` and `balanced90` are computed by default. Restricting
   `--protocols expanded90` roughly halves endpoint cost.
 
 On an 8–9 core machine, the final bounded validation (`--limit 2000`,
-`--null-replicates 50`) completed in 6m39s with 18,696 Stage-3 tasks; this is
-about 4.5× CPU relative to wall time and confirms worker parallelism. The
-unbounded primary window contains 46,430 Stage-3 tasks (43,855 daily + 2,575
-channel), so linear scaling projects roughly 15–25 minutes at `B=199`; allow
-30–45 minutes on a shared machine. `--include-repeat-windows` raises the task
-count to 80,674 and roughly doubles endpoint cost. Plan for a dedicated run
-namespace and do not start it in an interactive foreground shell.
+`--null-replicates 50`) completed in 6m39s with 18,696 Stage-3 tasks, confirming
+worker parallelism. The unbounded primary-window run
+(`full_b199_boot1000_20261022`, `B=199`, `n_boot=1000`, no `--limit`) completed
+in **28m23s** with **65,449** Stage-3 tasks (**43,855** daily + **21,594**
+channel), of which **65,443** converged. Stage 1b cache construction took about
+**10m48s**, Stage 3 about **11m32s**, Stage 5 about **18s**, and Stage 6 matched
+about **4m40s**; the run directory is **727 MB**. The earlier 46,430-task
+estimate used the bounded channel count (2,575) and is superseded. Repeat
+windows add further tasks and materially increase Stage-3 cost. Plan for a
+dedicated run namespace and do not start it in an interactive foreground shell.
 
 ## Tests
 
@@ -196,8 +200,19 @@ scanning.
 - Optional matched `HRp5`/`HRp1` sensitivities are not implemented; matched
   contrasts use `HRp10`.
 - Unresolved source IDs 46 and 48 remain inventory-only.
-- Full `B=199` / `2,000` results are not included in this workspace. The
-  pipeline is runnable as specified, but the full computation must be launched
-  separately.
+- The full `B=199`, `n_boot=1,000` primary-window run is
+  `artifacts/runs/full_b199_boot1000_20261022/`. It completed in **28m23s**
+  with **65,449** Stage-3 rows and **65,443** converged. The prespecified
+  bootstrap count was 2,000, so the full run's bootstrap precision is lower
+  than the protocol reference.
+- In that run, **6/65,449 endpoint rows** are flagged `rss0_degenerate`
+  (`null_status=failed`): source 2 user `1124280` (RHR, both protocols) and
+  source 6 user `1222449` (RHR and HRp10, both protocols). The user will inspect
+  the source data. No remediation, exclusion, or rerun is planned for this run;
+  these rows must not be treated as converged. See
+  `artifacts/runs/full_b199_boot1000_20261022/RUN_NOTES.md`.
+- Exact-date matched comparisons are non-empty only for sources 3 and 6. Source
+  9 has zero paired rows, and sources 2, 7, 13, and 19 have no exact-date
+  complete cases.
 - Bootstrap chunk summaries are descriptive distributions, not null tests;
   use the HC3 chunk tests for inference.

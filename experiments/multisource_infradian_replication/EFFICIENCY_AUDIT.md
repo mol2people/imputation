@@ -15,7 +15,7 @@ However, the pre-optimization codebase contained critical algorithmic inefficien
 2. **Spectral & REML Estimation ([`multisource/endpoints.py`](file:///Users/bulat/Documents/datenspende_IMPUTE_sex/experiments/multisource_infradian_replication/multisource/endpoints.py))**: Frisch-Waugh-Lovell harmonic projection operators and partial $R^2$ spectra are calculated through non-vectorized Python loops over 281 discrete frequencies per participant; trapezoidal quadrature runs as a scalar list comprehension; and residual subspace projection uses an eigensystem decomposition (`eigh`) rather than direct QR decomposition (evaluated and rejected for continuity reasons; see §3.2.D and §6).
 3. **Matched Endpoint Selection ([`multisource/matched.py`](file:///Users/bulat/Documents/datenspende_IMPUTE_sex/experiments/multisource_infradian_replication/multisource/matched.py))**: Disk reads of raw 5-minute `.npz` cache files and quantile computations run serially on the main thread prior to worker dispatch.
 
-**Empirical Scaling**: On an 8–9 core machine, a bounded run with $B=30$ null replicates and a 2,000-task cap per arm completed in **~13.5 minutes**. The implementations in §6 remove avoidable bootstrap design rebuilds, long-form draw storage, Python frequency loops, and serial cache decompression. The QR/`eigh` replacement was measured and **rejected** because it perturbs the REML optimizer path. On 2026-10-22 the multisource default REML optimizer was changed to analytical-gradient L-BFGS-B with adaptive screening; the historical Nelder–Mead path remains selectable with `MULTISOURCE_REML_OPTIMIZER=nelder`. On 120 real daily tasks the new path is 2.3× faster, is never worse in NLL by more than `4.4e-7`, and keeps every $Q_i$ within `2.5e-6`; 13/120 tasks fall back to the historical solver when the multi-start basins disagree. On the final bounded $B=50$ run, Stage 3 falls from `553.65 s` to `210.33 s` (**2.63×**) and the complete run takes 6m39s, but the global endpoint target is not met: 73/18,696 rows (0.39%) change $Q_i$ by more than `1e-5` (max `1.55e-2`). See §7.4 and §8.7. The full $B=199$ run remains pending explicit confirmation.
+**Empirical Scaling**: On an 8–9 core machine, a bounded run with $B=30$ null replicates and a 2,000-task cap per arm completed in **~13.5 minutes**. The implementations in §6 remove avoidable bootstrap design rebuilds, long-form draw storage, Python frequency loops, and serial cache decompression. The QR/`eigh` replacement was measured and **rejected** because it perturbs the REML optimizer path. On 2026-10-22 the multisource default REML optimizer was changed to analytical-gradient L-BFGS-B with adaptive screening; the historical Nelder–Mead path remains selectable with `MULTISOURCE_REML_OPTIMIZER=nelder`. On 120 real daily tasks the new path is 2.3× faster, is never worse in NLL by more than `4.4e-7`, and keeps every $Q_i$ within `2.5e-6`; 13/120 tasks fall back to the historical solver when the multi-start basins disagree. On the final bounded $B=50$ run, Stage 3 falls from `553.65 s` to `210.33 s` (**2.63×**) and the complete run takes 6m39s, but the global endpoint target is not met: 73/18,696 rows (0.39%) change $Q_i$ by more than `1e-5` (max `1.55e-2`). See §7.4 and §8.7. The full $B=199$, $N_{\text{boot}}=1{,}000$ primary-window run completed on 2026-10-22 in **28m23s** with **65,449** rows and **65,443** converged; six `rss0_degenerate` rows remain flagged for user inspection. The earlier 46,430-task estimate used the bounded channel count and is superseded by 65,449 (43,855 daily + 21,594 channel).
 
 ---
 
@@ -156,7 +156,7 @@ The pipeline implements the core methodological safeguards specified in [`PLAN.m
 - Stratified participant resampling preserves empirical age-band $\times$ sex proportions across all resample draws.
 - Paired comparisons in Stage 6 enforce common converged sets, joint age support recalculation, and identical bootstrap draw indices across compared arms.
 
-The retained optimizations preserve numerical fidelity and protocol compliance. They reduce bootstrap, storage, and matched-stage I/O overhead. They do not change the REML-bound stage-3 cost, so full-run wall time must be estimated from task count and the preserved engine, not from the optimized kernel timings.
+The retained optimizations preserve numerical fidelity and protocol compliance. They reduce bootstrap, storage, and matched-stage I/O overhead. They do not change the REML-bound stage-3 cost; the measured full-run result is in §7.5.
 
 ---
 
@@ -178,13 +178,13 @@ Four of the five §4 items are implemented in `multisource/`; the QR/`eigh` item
 
 ### 6.2 Verification performed
 
-- **Test suite**: all 24 tests in `tests/test_pipeline.py` pass (run directly; `pytest` is not installed in the environment).
+- **Test suite**: all 25 tests in `tests/test_pipeline.py` pass (run directly; `pytest` is not installed in the environment).
 - **Stage-5 smoke run**: `scripts/05_bootstrap.py --n-boot 8 --workers 2` on `mid_size_20261021/endpoints/endpoints.parquet`, written to the new namespace `artifacts/runs/efficiency_smoke_20261021/`. Result: 64 arm–metric jobs, 128 curve arrays, `status=ok`.
 - **Numerical fidelity**: across all 64 jobs, stage-5 point predictions and pointwise HC3 SEs match `models.fit_female` / `models.fit_sex_interaction` to max $2.4\times10^{-7}$ and $2.9\times10^{-8}$ (float32 storage). Observed chunk-Wald statistics match `models/chunk_tests.csv` exactly (e.g. `182.144715`, `34.914579`, `168.950151`, `19.721253`).
 - **Algebraic equivalence**: vectorized FWL operators agree with the upstream engine to $2.2\times10^{-16}$ (`M`) and $4.3\times10^{-14}$ (`CTC`); vectorized spectra and quadrature agree to machine precision.
 - **Real-task reproducibility**: on 120 historical daily tasks (source 2, RHR, balanced90, $B=30$), the retained endpoint path reproduces `Q_i`, `E_i2`, `A_hat`, `sigma_resid`, `p_value_discrete`, `peak_period`, and the fitted `phi2` label to machine precision: max $|ΔQ_i| = 9.7\times10^{-17}$, max $|ΔE_{i2}| = 4.4\times10^{-16}$, and zero changes in `phi2` or `p_value_discrete`.
 - **P2 determinism**: synthetic 5-participant, 90-date cohort produced byte-identical tasks, retention, and matched values with `workers=1` and `workers=4`.
-- **Full `B=199` run**: **not launched**; it requires explicit user confirmation.
+- **Full `B=199` run**: completed 2026-10-22; 65,449 rows, 65,443 converged, 1703.04 s wall (28m23s). Six rows are `rss0_degenerate`; the user will inspect the source data. See §7.5.
 
 ### 6.3 Measured costs and remaining bottleneck
 
@@ -257,7 +257,39 @@ The 120-task benchmark target does not generalize to the full bounded run:
 | Matched daily values | exact |
 | Matched endpoint `Q_i` / paired difference | max `7.47e-3` / `1.67e-4` |
 
-The changes are concentrated in non-source-2 arms and are mostly lower-NLL low-`phi1` basins found by L-BFGS-B. The continuity guard covers detectable alternative basins but cannot detect a better basin found by the canonical L-BFGS-B starts themselves; strict historical parity requires the historical fitter. The default remains the faster L-BFGS-B path, with the limitation recorded in `OPTIMIZATION_PLAN.md` §7.2. The full \(B=199\) run remains unlaunched pending explicit confirmation.
+The changes are concentrated in non-source-2 arms and are mostly lower-NLL low-`phi1` basins found by L-BFGS-B. The continuity guard covers detectable alternative basins but cannot detect a better basin found by the canonical L-BFGS-B starts themselves; strict historical parity requires the historical fitter. The default remains the faster L-BFGS-B path, with the limitation recorded in `OPTIMIZATION_PLAN.md` §7.2. The full \(B=199\) run has now been executed; see §7.5.
+
+### 7.5 Full `B=199` primary-window run
+
+The unbounded primary-window run `full_b199_boot1000_20261022` used
+`--sources 2 3 6 7 9 13 19`, both protocols, nine workers, `B=199`,
+`n_boot=1000`, and no `--limit`. It completed in **1703.04 s (28m23s)**.
+
+| Stage | Result |
+|---|---:|
+| Stage 1b cache construction | about 10m48s; 22,345 caches |
+| Stage 3 endpoints | 65,449 rows (43,855 daily + 21,594 channel); 65,443 converged; about 11m32s |
+| Stage 4 models | 104 models |
+| Stage 5 bootstrap | 96 jobs; `status=ok`; about 18s |
+| Stage 6 matched | 16 comparisons; about 4m40s |
+| Run directory | 727 MB |
+
+The 18,696 rows shared with the bounded `B=199` run reproduce exactly for
+`Q_i`, `Q_i_mc_se`, `E_i2`, `A_hat`, `sigma_resid`, and `p_value_discrete`.
+On that bounded cohort, `B=199` versus `B=50` has median
+\(|\Delta Q_i| = 1.88\times10^{-3}\), median `Q_i_mc_se` ratio
+`B=50/B=199 = 1.98`, and 150 versus 151 significant group chunk tests (3
+disagreements). Endpoint-level p-values are less stable: 1,445 versus 1,268 at
+\(p<0.05\), with 545 disagreements. The full cohort's larger model set is not
+directly comparable to the bounded cohort because it adds participants.
+
+Six full-run rows are `rss0_degenerate` (`null_status=failed`): source 2 user
+`1124280` and source 6 user `1222449` across the affected endpoint/protocol
+arms. They are not counted as converged. The user will inspect the source
+data; no remediation or rerun is planned. The full run used
+\(N_{\text{boot}}=1{,}000\), below the prespecified 2,000; bootstrap precision
+is correspondingly lower. Exact-date matched comparisons are non-empty only
+for sources 3 and 6.
 
 ---
 
@@ -300,7 +332,7 @@ Code inspection following the clean 6m47s shadow run identifies six concrete lev
 
 ### 8.7. Implementation and Validation Status (2026-10-22)
 
-The second-wave findings were checked against the implementation and the 120-task historical benchmark. The pipeline test suite now has 24 tests, including new tests for Stage 7 fitter injection, Cholesky/pseudo-inverse equivalence, and precomputed transition bases.
+The second-wave findings were checked against the implementation and the 120-task historical benchmark. The pipeline test suite now has 25 tests, including new tests for Stage 7 fitter injection, Cholesky/pseudo-inverse equivalence, and precomputed transition bases.
 
 | Finding | Status | Evidence |
 |---|---|---|
