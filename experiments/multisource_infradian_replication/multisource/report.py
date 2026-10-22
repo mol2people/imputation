@@ -184,9 +184,15 @@ def run_stage6(run_dir: Path) -> Path:
     ]
     if long_meta:
         lines += [
-            f"Paired participants: **{long_meta.get('n_pairs', 0)}**; arms: "
+            f"Paired participant-arm observations: **{long_meta.get('n_pairs', 0)}**; "
+            f"unique source-participants: "
+            f"**{long_meta.get('n_unique_source_participants', 'NA')}** "
+            f"(**{long_meta.get('n_unique_source_participants_age_20_75', 'NA')}** "
+            f"in the `[20,75)` summary stratum); arms: "
             f"**{long_meta.get('n_arms', 0)}**; participant bootstrap resamples: "
-            f"**{long_meta.get('n_boot', 'NA')}**.",
+            f"**{long_meta.get('n_boot', 'NA')}**. Counts across arms are not "
+            "distinct people; a participant can contribute multiple endpoint or "
+            "protocol arms.",
             "",
             "These are paired within-participant summaries for participants with two "
             "eligible, converged, non-overlapping windows under the same source, "

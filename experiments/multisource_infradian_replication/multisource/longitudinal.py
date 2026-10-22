@@ -407,8 +407,20 @@ def run_stage(
     summary.to_csv(out / "summary.csv", index=False)
     headline = summary.loc[summary["subgroup"].isin(["all", "sex"])].copy()
     headline.to_csv(out / "headline.csv", index=False)
+    unique_source_participants = int(
+        paired[["source", "user_id"]].drop_duplicates().shape[0]
+    )
+    in_age_range = paired.loc[
+        paired["age_w1"].ge(AGE_EDGES[0])
+        & paired["age_w1"].lt(AGE_EDGES[-1])
+    ]
+    unique_source_participants_age_range = int(
+        in_age_range[["source", "user_id"]].drop_duplicates().shape[0]
+    )
     meta = {
         "n_pairs": int(len(paired)),
+        "n_unique_source_participants": unique_source_participants,
+        "n_unique_source_participants_age_20_75": unique_source_participants_age_range,
         "n_arms": int(summary[["source", "endpoint", "protocol"]].drop_duplicates().shape[0])
         if not summary.empty else 0,
         "n_boot": int(n_boot),
@@ -416,6 +428,8 @@ def run_stage(
         "min_pair_n": int(MIN_PAIR_N),
         "age_range": [int(AGE_EDGES[0]), int(AGE_EDGES[-1])],
         "note": (
+            "n_pairs counts participant-arm observations, not unique people; "
+            "unique source-participant counts are reported separately. "
             "Repeat-window contrasts are short-interval within-participant "
             "associations, not causal aging effects. Intervals are pointwise "
             "participant-bootstrap percentile intervals."

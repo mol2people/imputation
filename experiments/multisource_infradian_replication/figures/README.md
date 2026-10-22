@@ -70,8 +70,10 @@ was not estimable but a bootstrap interval was available (source 7, `E_i2`,
 windows, and arm `n ≥ 10`. Left: mean annualized `ΔQ_i`; right: Pearson
 `r(Q_i1, Q_i2)`. Bars are pointwise 95% participant-bootstrap
 intervals, stratified by five-year age band and sex. The full repeat-window
-run contributed **45,279 paired participants** in **20 arms** with at least
-three pairs. Machine-readable tables:
+run contributed **45,279 paired participant-arm observations** from **16,571
+unique source-participants** in **20 arms** with at least three pairs (16,350
+unique source-participants contribute at least one arm to the `[20,75)`
+summary stratum). Machine-readable tables:
 [`longitudinal_headline.csv`](longitudinal_headline.csv),
 [`longitudinal_availability.csv`](longitudinal_availability.csv), and
 [`longitudinal_validation.json`](longitudinal_validation.json). The validation

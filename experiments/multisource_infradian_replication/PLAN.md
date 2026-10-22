@@ -215,7 +215,10 @@ The executed repeat run `full_repeat_b199_boot1000_20261022` produced 110,736
 endpoint rows (65,449 first-window and 45,287 second-window), with 110,722
 converged. Six first-window rows reproduce the primary run's
 `rss0_degenerate` failures exactly; eight additional second-window rows fail.
-The longitudinal stage retained **45,279 paired participants across 20 arms**.
+The longitudinal stage retained **45,279 paired participant-arm observations**
+from **16,571 unique source-participants** across 20 arms (16,350 unique
+source-participants contribute at least one arm to the `[20,75)` summary
+stratum).
 Window-1 selected dates and all six endpoint metrics reproduce the primary run
 exactly (zero mismatches; zero duplicate keys). Across dense arms, mean paired
 `Q_i` change is close to zero, while window-to-window `Q_i` correlations are

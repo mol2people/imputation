@@ -98,6 +98,17 @@ def main() -> None:
         out["median_gap_days_min"] = float(avail["median_gap_days"].min())
         out["median_gap_days_max"] = float(avail["median_gap_days"].max())
 
+    paired_path = args.repeat_run / "longitudinal/paired_windows.parquet"
+    if paired_path.exists():
+        paired = pd.read_parquet(paired_path, columns=["source", "user_id", "age_w1"])
+        out["paired_unique_source_participants"] = int(
+            paired[["source", "user_id"]].drop_duplicates().shape[0]
+        )
+        in_range = paired.loc[paired["age_w1"].ge(20) & paired["age_w1"].lt(75)]
+        out["paired_unique_source_participants_age_20_75"] = int(
+            in_range[["source", "user_id"]].drop_duplicates().shape[0]
+        )
+
     path = args.repeat_run / "validation.json"
     path.write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(out, indent=2))

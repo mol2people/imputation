@@ -8,8 +8,10 @@ primitives, but does not overwrite historical
 Status: implementation and the full primary-window analysis are complete. The
 full run used `B=199` null draws and `n_boot=1,000` (not the prespecified
 2,000); see [Compute cost](#compute-cost). The repeat-window longitudinal run
-is also complete: 45,279 paired participants across 20 estimable arms. It is a
-separate secondary estimand, not a causal aging analysis.
+is also complete: 45,279 paired participant-arm observations from 16,571 unique
+source-participants across 20 estimable arms (16,350 unique source-participants
+contribute at least one arm to the `[20,75)` summary stratum). It is a separate
+secondary estimand, not a causal aging analysis.
 
 ## Scope and separation
 
@@ -187,7 +189,7 @@ Run artifacts are written under `artifacts/runs/<name>/`:
 - `models/`: `model_summary.csv`, `chunk_tests.csv`, `age_support.csv`, `curves.parquet`.
 - `bootstrap/`: curves, confidence bands, chunk summaries, transition metrics.
 - `matched/`: requirements, arm status, retention, paired contrasts.
-- `longitudinal/`: paired participants, availability, change/rate and window-correlation summaries.
+- `longitudinal/`: paired participant-arm observations, unique source-participant counts, availability, change/rate and window-correlation summaries.
 - `REPORT.md`: synthesis with provenance, inventories, eligibility, models, bootstrap, matched, and longitudinal sections.
 - `stage*_summary.json`: machine-readable stage summaries.
 
@@ -240,8 +242,9 @@ Figure 5 uses the repeat-window `balanced90` pairs.
 
 ![Repeat-window Q_i change and repeatability](figures/fig5_longitudinal_repeatability.png)
 
-Figure 5 uses the repeat-window run (45,279 paired participants;
-`balanced90`, arms with `n ≥ 10`). Left: mean annualized paired `ΔQ_i`; right:
+Figure 5 uses the repeat-window run (45,279 paired participant-arm observations;
+16,571 unique source-participants; `balanced90`, arms with `n ≥ 10`). Left:
+mean annualized paired `ΔQ_i`; right:
 Pearson window-to-window `Q_i` correlation. Mean change is near zero for dense
 arms; correlations are modest.
 Definitions, source coverage, arm/model coverage, paired availability, and

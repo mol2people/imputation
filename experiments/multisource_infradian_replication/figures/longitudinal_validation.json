@@ -62,5 +62,7 @@
   "paired_fraction_min": 0.0,
   "paired_fraction_max": 0.844407530454042,
   "median_gap_days_min": 180.0,
-  "median_gap_days_max": 616.0
+  "median_gap_days_max": 616.0,
+  "paired_unique_source_participants": 16571,
+  "paired_unique_source_participants_age_20_75": 16350
 }
