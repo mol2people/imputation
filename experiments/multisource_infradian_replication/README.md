@@ -178,6 +178,19 @@ estimate used the bounded channel count (2,575) and is superseded. Repeat
 windows add further tasks and materially increase Stage-3 cost. Plan for a
 dedicated run namespace and do not start it in an interactive foreground shell.
 
+## Full-run figures
+
+Full primary-window run (`B=199`, `n_boot=1000`; `balanced90` reference):
+
+![Female and male Q_i age curves](figures/fig1_q_i_age_curves_balanced90.png)
+
+![Female age-association heatmap](figures/fig2_age_test_heatmap_balanced90.png)
+
+![Female-male divergence forest](figures/fig3_sex_divergence_forest.png)
+
+Definitions, source coverage, and interpretation limits are in
+[`figures/README.md`](figures/README.md).
+
 ## Tests
 
 `pytest` is not installed in the datenspende environment. Run the plain-assert
