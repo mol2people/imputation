@@ -4,7 +4,7 @@ This repository studies how well wearable heart-rate records predict recorded sa
 
 The work started with participant summaries and random forests, then moved to within-day sequences. Later experiments expand the Garmin cohort, vary the time-bin size, and extend Apple modeling from a 1,000-person pilot to 11,139 participants. The latest exploration compares bin sizes within Apple recording-pattern groups using saved predictions.
 
-Start with the [experimental work tree](#experimental-work-tree) below. Use the [results reference](reports/results_reference.md) for definitions and comparisons, or the [experiment index](learnings/experiment_lineage_worktree.md) to locate a study’s report and code.
+Start with the "interactive experiment tree" (https://synosys.github.io/imputation/atlas-cytoscape.html). Use the "results reference" (reports/results_reference.md) for definitions and comparisons, or the "experiment index" (learnings/experiment_lineage_worktree.md) to locate a study’s report and code.
 
 ## Device sources
 
