@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f9fc">
+  <title>Research Atlas / Cytoscape · SynoSys Imputation</title>
+  <meta name="description" content="A fluid, interactive research experiment tree built with Cytoscape.js, with date and experiment scrubbing.">
+  <style>
+    :root{--paper:#f7f9fc;--card:#fff;--ink:#14263e;--soft:#506078;--muted:#79869a;--line:#e2e8f1;--blue:#2469d0;--blue-hover:#1859b7;--shadow:0 16px 50px rgba(37,62,105,.09);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
+    *{box-sizing:border-box}
+    body{height:100dvh;min-height:510px;overflow:hidden;margin:0;background:var(--paper);display:flex;flex-direction:column}
+    button,input,a{font:inherit}
+    button{border:0;cursor:pointer}
+    button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #90b9fe;outline-offset:3px}
+    a{color:var(--blue)}
+    .topbar{z-index:10;display:flex;align-items:center;gap:17px;min-height:72px;padding:0 clamp(16px,2.5vw,35px);background:#ffffffec;border-bottom:1px solid var(--line)}
+    .brand{display:flex;gap:12px;align-items:center;flex:1;min-width:210px}
+    .logo{width:39px;height:39px;border-radius:12px;background:#eaf2ff;display:grid;place-items:center;color:#1a62ca;flex-shrink:0}
+    .logo svg{width:23px;height:23px}
+    .brand-copy{display:flex;flex-direction:column;gap:3px;min-width:0}
+    .overline{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:#6480a4}
+    .brand-name{font-weight:760;font-size:17px;letter-spacing:-.035em;white-space:nowrap}
+    .brand-name span{color:#8391a5;font-size:12px;font-weight:500;margin-left:7px;letter-spacing:0}
+    .top-controls{display:flex;gap:10px;align-items:center;justify-content:flex-end}
+    .textbtn{background:transparent;border:1px solid var(--line);padding:10px 14px;border-radius:11px;font-size:12.5px;color:#42536c;font-weight:650;white-space:nowrap}
+    .textbtn:hover{background:#f3f7ff;border-color:#bfd4f3}
+    .textbtn.primary{border-color:#2769d0;background:#266cd1;color:#fff}
+    .textbtn.primary:hover{background:#185bb8}
+    .search-wrap{position:relative;max-width:255px;flex:0 1 255px}
+    .search-wrap svg{position:absolute;left:13px;top:12px;pointer-events:none;color:#8a99ad}
+    #search{border:1px solid var(--line);background:#f8faff;border-radius:12px;padding:10px 13px 10px 39px;width:100%;color:#233650;outline:none;font-size:13px;height:40px}
+    #search:focus{border-color:#8bb4ea;background:white;box-shadow:0 0 0 3px #e1efff}
+    #suggestions{display:none;position:absolute;right:0;top:calc(100% + 8px);width:min(340px,90vw);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;z-index:40;max-height:320px;overflow-y:auto}
+    #suggestions button{width:100%;text-align:left;background:#fff;padding:12px 14px;border-bottom:1px solid #f0f3f9;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    #suggestions button:hover{background:#f6f9fe}
+    #suggestions span{font-size:13px;font-weight:650;color:#2c415a}
+    #suggestions small{color:#8493a5;font-size:11px;white-space:nowrap}
+    .main{flex:1;min-height:0;display:flex;position:relative}
+    .stage{position:relative;min-width:0;flex:1;overflow:hidden;background-image:radial-gradient(#dbe4ef 0.95px,transparent 1px);background-size:24px 24px;background-color:var(--paper)}
+    #cy{position:absolute;inset:0;touch-action:none;cursor:grab}
+    #cy:active{cursor:grabbing}
+    .view-head{position:absolute;z-index:4;pointer-events:none;top:20px;left:26px;right:16px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+    .view-title h1{font-size:22px;letter-spacing:-.042em;margin:0 0 6px;font-weight:780}
+    .view-title p{font-size:12px;margin:0;color:#71849c;line-height:1.55}
+    .mode-tag{font-size:11px;color:#6f7e94;background:#ffffffd9;padding:7px 10px;border:1px solid #e7edf5;border-radius:18px;white-space:nowrap}
+    .filters{position:absolute;z-index:3;top:95px;left:22px;right:16px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;pointer-events:auto;max-width:calc(100% - 38px);padding:4px}
+    .filters::-webkit-scrollbar{display:none}
+    .filter{border:1px solid #e0e7f0;background:#ffffffeb;color:#6b7890;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:650;white-space:nowrap;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px #30476b0b}
+    .filter:hover{border-color:#a7bddc;color:#29476a}
+    .filter.active{border-color:#a8c8f2;background:#eaf3ff;color:#2263bf}
+    .filter-dot{width:7px;height:7px;border-radius:50%;background:var(--dot,#bdc8d6)}
+    .hud{position:absolute;bottom:20px;left:22px;z-index:4;display:flex;gap:8px;align-items:center;pointer-events:none}
+    .small-pill{pointer-events:auto;background:#ffffffee;color:#77869b;border:1px solid var(--line);box-shadow:0 4px 20px #253a5c0c;border-radius:999px;padding:8px 12px;font-size:11px;font-weight:650;white-space:nowrap}
+    .small-pill strong{color:#3b5679}
+    .zoom{position:absolute;right:19px;bottom:19px;z-index:4;display:grid;gap:5px;background:#ffffffee;border:1px solid var(--line);padding:5px;border-radius:13px;box-shadow:0 7px 22px #26354c10}
+    .zoom button{height:35px;min-width:35px;border-radius:8px;background:transparent;color:#506781;font-size:17px;font-weight:720}
+    .zoom button:hover{background:#eef4fc}
+    .zoom .fit{font-size:11px}
+    .details{width:365px;max-width:40%;background:#fff;border-left:1px solid var(--line);z-index:5;box-shadow:-10px 0 30px #17294108;display:flex;flex-direction:column;min-height:0}
+    .details[hidden]{display:none}
+    .detail-top{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 4px}
+    .detail-top .label{color:#8290a3;font-size:10.5px;text-transform:uppercase;letter-spacing:.13em;font-weight:800}
+    .detail-top button{background:#f4f6f9;border-radius:9px;width:30px;height:30px;color:#667991;font-size:18px}
+    .detail-main{overflow-y:auto;padding:8px 25px 30px;flex:1;overscroll-behavior:contain}
+    .detail-family{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;background:#f3f6fa;border-radius:12px;color:#496181;font-size:11px;font-weight:780;margin:8px 0 16px}
+    .detail-main h2{font-size:25px;line-height:1.15;letter-spacing:-.04em;margin:0 0 14px}
+    .detail-metric{background:#f4f8ff;border-left:3px solid #2a72d9;padding:12px 13px;border-radius:0 10px 10px 0;color:#2856a0;font-size:14px;font-weight:760;line-height:1.5}
+    .detail-meta{display:flex;gap:18px;margin:20px 0;flex-wrap:wrap}
+    .meta-field{display:grid;gap:5px;color:#253951;font-size:13px;font-weight:700}
+    .meta-field span{font-size:10px;text-transform:uppercase;letter-spacing:.10em;color:#8a98a9;font-weight:750}
+    .detail-copy{font-size:13px;color:#60718a;line-height:1.8;margin:18px 0}
+    .callout{border:1px solid #efdcbb;background:#fffaf1;border-radius:11px;padding:12px 14px;font-size:12px;line-height:1.7;color:#8a6a33;margin:18px 0}
+    .detail-divider{height:1px;background:#eef1f6;margin:20px 0}
+    .related-title{color:#8b97a7;font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin-bottom:8px}
+    .related-links{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+    .related-links button{background:#f5f8fc;padding:6px 9px;border:1px solid #e8edf4;border-radius:8px;color:#556b85;font-size:11px;text-align:left}
+    .related-links button:hover{background:#eaf3fe;color:#2267c7}
+    .detail-actions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:14px}
+    .detail-actions button,.detail-actions a{display:flex;justify-content:center;align-items:center;min-height:40px;border-radius:10px;text-decoration:none;font-weight:700;font-size:12px}
+    .detail-actions .branch{background:#edf4ff;color:#205bb2}
+    .detail-actions .branch:hover{background:#deedff}
+    .detail-actions .source{background:#246ad0;color:#fff}
+    .detail-actions .source:hover{background:#185cb9}
+    .empty-detail{padding:45px 24px;margin:auto;text-align:center;max-width:260px;color:#8b9aaa;font-size:13px;line-height:1.7}
+    .empty-detail svg{display:block;margin:0 auto 20px;color:#98b7dd}
+    .timeline{height:123px;flex-shrink:0;border-top:1px solid var(--line);background:#fff;z-index:10;display:flex;align-items:center;gap:22px;padding:15px 30px}
+    .timeline-summary{width:180px;flex-shrink:0;display:flex;flex-direction:column;gap:8px}
+    .timeline-caption{color:#8696a8;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:760}
+    .timeline-summary strong{font-size:19px;font-weight:800;letter-spacing:-.035em;color:#233650}
+    .timeline-summary small{font-size:11px;color:#9ca8b8}
+    .timeline-controls{flex:1;min-width:160px;display:grid;gap:9px}
+    .timeline-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .segments{display:flex;align-items:center;border:1px solid #e6ecf4;background:#f7f9fc;border-radius:11px;padding:3px;flex-shrink:0}
+    .segments button{font-size:11px;font-weight:750;border-radius:8px;padding:6px 10px;background:transparent;color:#8492a4;white-space:nowrap}
+    .segments button[aria-pressed="true"]{background:#fff;color:#2965bb;box-shadow:0 1px 5px #263b5c14}
+    .timeline-endpoints{font-size:10.5px;color:#8795a8;white-space:nowrap}
+    #scrubber{appearance:none;-webkit-appearance:none;width:100%;height:5px;background:linear-gradient(90deg,#276ed0 0%,#276ed0 var(--progress,33%),#e2e9f2 var(--progress,33%));border-radius:999px;margin:5px 0 7px;cursor:pointer;outline:none}
+    #scrubber::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:#fff;border:4px solid #266bd0;box-shadow:0 2px 8px #1e58a745}
+    #scrubber::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:#fff;border:4px solid #266bd0}
+    .time-marker{display:flex;justify-content:space-between;color:#99a5b4;font-size:10px}
+    .transport{display:flex;align-items:center;gap:6px;flex-shrink:0}
+    .transport button{width:36px;height:36px;border-radius:11px;background:#f4f7fb;color:#456182;font-size:18px}
+    .transport button:hover{background:#e6effb}
+    .transport #play{background:#246ad0;color:#fff;font-size:14px}
+    .transport #play:hover{background:#1a59b6}
+    .transport button:disabled{opacity:.35;cursor:default}
+    .error{display:none;position:absolute;inset:32% auto auto 50%;transform:translateX(-50%);z-index:15;background:white;border:1px solid #edc3bd;border-radius:14px;padding:20px 24px;box-shadow:var(--shadow);max-width:min(90%,410px);color:#5c6676;font-size:13px;line-height:1.7;text-align:center}
+    .error strong{display:block;font-size:17px;color:#9b363a;margin-bottom:5px}
+    .error a{display:block;margin-top:12px}
+    @media(max-width:1120px){.topbar{gap:10px}.brand{min-width:150px}.search-wrap{max-width:205px}.textbtn{padding:10px}.details{width:320px}}
+    @media(max-width:760px){
+      .topbar{height:64px;min-height:64px;gap:8px;padding:0 13px}
+      .brand{min-width:0;flex:1}.brand-name{font-size:15px}.brand-name span{display:none}.overline{font-size:9px}.logo{height:34px;width:34px;border-radius:10px}
+      .search-wrap{max-width:155px;flex:0 1 155px}#search{height:35px;font-size:12px;border-radius:9px;padding-right:7px}.search-wrap svg{top:10px}
+      .top-controls>.textbtn{display:none}
+      .view-head{top:15px;left:17px}.view-title h1{font-size:17px}.view-title p{font-size:10px}.mode-tag{display:none}
+      .filters{top:72px;left:12px;right:8px;max-width:calc(100% - 20px)}.filter{padding:7px 9px;font-size:10px}
+      .hud{left:12px;bottom:12px}.small-pill{font-size:10px}
+      .zoom{right:10px;bottom:12px}
+      .details{position:absolute;left:8px;right:8px;bottom:0;max-width:none;width:auto;max-height:min(57dvh,460px);border:1px solid #dce4ef;border-radius:20px 20px 0 0;box-shadow:0 -14px 36px #253d5a23;z-index:8;padding-bottom:0}
+      .detail-top{padding:10px 20px 0}.detail-main{padding:6px 20px 23px}.detail-main h2{font-size:21px}.detail-copy{margin:12px 0}.detail-metric{padding:9px 11px}
+      .timeline{height:129px;padding:11px 13px;gap:8px;align-items:flex-start}
+      .timeline-summary{width:70px;gap:8px;padding-top:4px}.timeline-summary strong{font-size:13px;letter-spacing:-.02em}.timeline-summary small{font-size:9px}.timeline-caption{font-size:9px}
+      .timeline-controls{min-width:0;gap:8px}.timeline-top{justify-content:flex-end}.segments button{font-size:10px;padding:5px 7px}.timeline-endpoints{display:none}
+      .transport{gap:2px;padding-top:40px}.transport button{width:30px;height:30px;font-size:16px;border-radius:8px}
+      .time-marker{font-size:9px}
+    }
+    @media(max-width:370px){.search-wrap{max-width:110px}.timeline-summary{width:58px}.transport button{width:27px;height:27px}.segments button{padding:5px 4px}}
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v5m0 0L5 12m7-4 7 4M5 12v7m14-7v7M5 19h14"/><circle cx="12" cy="3" r="2" fill="#d1e4ff"/><circle cx="5" cy="12" r="2" fill="#d1e4ff"/><circle cx="19" cy="12" r="2" fill="#d1e4ff"/></svg></div>
+    <div class="brand-copy"><span class="overline">SynoSys · Research Atlas</span><div class="brand-name">Experiment lineage <span> / Cytoscape</span></div></div>
+  </div>
+  <div class="top-controls">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+      <input id="search" autocomplete="off" placeholder="Find an experiment…" aria-label="Search experiments" aria-expanded="false" aria-controls="suggestions">
+      <div id="suggestions" role="listbox"></div>
+    </div>
+    <button class="textbtn" id="history">Git history</button>
+    <button class="textbtn" id="restart">Restart</button>
+    <button class="textbtn primary" id="all">View all 25 ↗</button>
+  </div>
+</header>
+<div class="main">
+  <section class="stage" aria-label="Interactive experiment tree">
+    <div id="cy"></div>
+    <div class="view-head"><div class="view-title"><h1>Research grows in branches.</h1><p>Tap a node to reveal its successors. Drag to navigate · pinch to zoom.</p></div><span class="mode-tag">Top-down lineage · 25 studies</span></div>
+    <div class="filters" id="filters" aria-label="Highlight device or research family"></div>
+    <div class="hud"><span class="small-pill"><strong id="shown-count">0</strong> / 25 visible</span><span class="small-pill" id="framework-pill">CYTOSCAPE.JS</span></div>
+    <div class="zoom" aria-label="Viewport controls"><button id="zoom-in" title="Zoom in" aria-label="Zoom in">+</button><button id="zoom-out" title="Zoom out" aria-label="Zoom out">−</button><button class="fit" id="fit" title="Fit visible nodes">Fit</button></div>
+    <div class="error" id="error"><strong>Graph engine unavailable</strong>The graph library could not load. Try refreshing or use the <a href="./index.html">original interactive viewer</a>.</div>
+  </section>
+  <aside class="details" id="details" hidden aria-label="Selected experiment details">
+    <div class="detail-top"><span class="label">Experiment details</span><button id="close-detail" aria-label="Close experiment details">×</button></div>
+    <div class="detail-main" id="detail-main"></div>
+  </aside>
+</div>
+<footer class="timeline">
+  <div class="timeline-summary"><span class="timeline-caption">Timeline</span><strong id="timeline-title">Experiment 1</strong><small id="timeline-sub">of 25 steps</small></div>
+  <div class="timeline-controls">
+    <div class="timeline-top"><div class="segments" role="group" aria-label="Timeline mode"><button id="by-count" aria-pressed="true">Experiments</button><button id="by-date" aria-pressed="false">Calendar</button></div><span class="timeline-endpoints" id="timeline-endpoints">Aug 14 – Oct 22 · 2026</span></div>
+    <input id="scrubber" aria-label="Experiment or date timeline" type="range" min="0" max="24" value="0" step="1">
+    <div class="time-marker"><span id="tick-from">14 Aug 2026</span><span id="tick-mid">22 Sep 2026</span><span id="tick-to">22 Oct 2026</span></div>
+  </div>
+  <div class="transport"><button id="previous" title="Previous" aria-label="Previous experiment">‹</button><button id="play" title="Play / pause timeline" aria-label="Play timeline">▶</button><button id="next" title="Next" aria-label="Next experiment">›</button></div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape@3.33.1/dist/cytoscape.min.js"></script>
+<script>
+"use strict";
+const DATA = {"repository":"synosys/imputation","nodes":[{"id":"pooled","title":"Pooled RF baseline","family":"Baseline","date":"2026-08-14","status":"completed","metric":"AUROC 0.7132 (v1)","details":"Pooled participant summaries and random-forest classifier; subsequent revisions have different cohort and split definitions.","parent_ids":[],"source":"https://github.com/synosys/imputation/blob/main/README.md","note":"The 0.6833 v2 AUROC is not a matched comparison with v1."},{"id":"garmin_rf","title":"Garmin source RF","family":"Garmin","date":"2026-09-20","status":"completed","metric":"N=3,848 | AUROC 0.6918","details":"Strict Garmin source-specific participant summary classification.","parent_ids":["pooled"],"source":"https://github.com/synosys/imputation/blob/main/reports/results_reference.md"},{"id":"garmin_features","title":"Summary and circadian features","family":"Garmin","date":"2026-09-21","status":"completed","metric":"BASE+P40 AUROC 0.7513","details":"RF tuning, age, circadian curves, balanced fold allocation, and date-aware features.","parent_ids":["garmin_rf"],"source":"https://github.com/synosys/imputation/blob/main/experiments/r1b_dateaware_garmin_2026-09-21/results/REPORT.md","note":"Feature blocks named BASE, B40 and P40 refer to different studies and are not interchangeable."},{"id":"garmin_temporal","title":"Temporal MultiRocket / HYDRA","family":"Garmin","date":"2026-09-21","status":"completed","metric":"MR 0.8361 | Combined 0.8565","details":"First 40 adequate days; MultiRocket and HYDRA add daily sequence information to summary features.","parent_ids":["garmin_features"],"source":"https://github.com/synosys/imputation/blob/main/experiments/temporal_garmin/results/REPORT.md","note":"Regularization was selected on allocation-0 validation and reused across later repeated holdouts."},{"id":"garmin_recording","title":"Recording-only controls","family":"Garmin","date":"2026-09-22","status":"completed","metric":"Mask 0.6166 | Counts 0.6332","details":"Control experiments with observation-mask/count sequences to isolate recording topology.","parent_ids":["garmin_temporal"],"source":"https://github.com/synosys/imputation/blob/main/experiments/recording_structure_garmin/results/REPORT.md"},{"id":"garmin_filling","title":"Filling sensitivity","family":"Garmin","date":"2026-09-22","status":"completed","metric":"AUROC 0.8464 to 0.8485","details":"Four missing-data fill pipelines evaluated on common allocations.","parent_ids":["garmin_temporal"],"source":"https://github.com/synosys/imputation/blob/main/experiments/filling_sensitivity_garmin/results/REPORT.md","note":"Differences are small relative to cross-allocation dispersion in the reported pilot."},{"id":"garmin_days","title":"History budget and sampling","family":"Garmin","date":"2026-09-24","status":"qualified","metric":"40d 0.8583 | 80d 0.8854 | All 0.9264","details":"Random sampling from complete adequate-day history compared with an all-history endpoint.","parent_ids":["garmin_temporal"],"source":"https://github.com/synosys/imputation/blob/main/experiments/temporal_garmin/results/DAYS_SCALING_REPORT.md","note":"The historical all-days endpoint had preprocessing fitted partly using later test participants; causal attribution of score changes is invalid."},{"id":"garmin_expanded","title":"Expanded Garmin cohort","family":"Garmin","date":"2026-10-14","status":"completed","metric":"N=4,410 | MR 0.9094","details":"Tier 1c expands strict cohort with 562 additional participants and retrains models on full histories.","parent_ids":["garmin_days"],"source":"https://github.com/synosys/imputation/blob/main/HEARTBEAT_LAB/README.md","note":"Different histories and models: do not compare directly against the contaminated historical all-days endpoint."},{"id":"garmin_bins","title":"Garmin temporal binning","family":"Garmin","date":"2026-10-14","status":"completed","metric":"N=1,000 | 5m AUROC 0.8410","details":"Within-source pilot compares 1-, 5-, and 15-minute bins over available history.","parent_ids":["garmin_expanded"],"source":"https://github.com/synosys/imputation/blob/main/experiments/garmin_temporal_binning/README.md"},{"id":"apple_rf","title":"Apple source RF","family":"Apple","date":"2026-09-20","status":"completed","metric":"N=4,446 | AUROC 0.6814","details":"Strict Apple source-specific random forest classifier on summary features.","parent_ids":["pooled"],"source":"https://github.com/synosys/imputation/blob/main/reports/results_reference.md"},{"id":"apple_pilot","title":"Apple MultiRocket pilot","family":"Apple","date":"2026-10-14","status":"completed","metric":"N=1,000 | 5m AUROC 0.7554","details":"Temporal pilot comparing MultiRocket at five and fifteen minute bins.","parent_ids":["apple_rf","garmin_temporal"],"source":"https://github.com/synosys/imputation/blob/main/experiments/apple_pilot_multirocket/README.md"},{"id":"apple_full","title":"Full Apple benchmark","family":"Apple","date":"2026-10-15","status":"completed","metric":"N=11,139 | 5m AUROC 0.8561","details":"Ten repeated holdouts; all-days and up-to-40-days, 5- and 15-minute bins.","parent_ids":["apple_pilot"],"source":"https://github.com/synosys/imputation/blob/main/experiments/apple_cohort_scaling/REPORT.md"},{"id":"apple_patterns","title":"Binning by recording pattern","family":"Apple","date":"2026-10-15","status":"completed","metric":"Sparse groups approach a tie","details":"Saved-prediction exploration of occupancy, adequate-day continuity, and history length; no refitting.","parent_ids":["apple_full"],"source":"https://github.com/synosys/imputation/blob/main/experiments/apple_cohort_scaling/BINNING_BY_RECORDING.md"},{"id":"apple_masks","title":"Apple mask and fill arms","family":"Apple","date":"2026-10-20","status":"completed","metric":"H+M stack AUROC 0.8749","details":"Eight missingness/feature architectures; temporal mask-only model scores 0.7459.","parent_ids":["apple_patterns"],"source":"https://github.com/synosys/imputation/blob/main/experiments/apple_fill_and_mask_by_recording/results/REPORT.md"},{"id":"apple_smooth","title":"Circular diurnal smoothing","family":"Apple","date":"2026-10-20","status":"completed","metric":"Delta AUROC +0.0004","details":"Wrapped Gaussian smoothing to regularize diurnal fill templates; marginal full-cohort classification improvement.","parent_ids":["apple_masks"],"source":"https://github.com/synosys/imputation/blob/main/experiments/apple_circular_diurnal_regularization/results/REPORT.md","note":"Small overall downstream increment; not evidence for a meaningful global classification gain."},{"id":"samsung_rf","title":"Samsung source RF","family":"Samsung","date":"2026-09-20","status":"completed","metric":"N=541 | AUROC 0.6609","details":"Historical strict Samsung source-specific RF baseline.","parent_ids":["pooled"],"source":"https://github.com/synosys/imputation/blob/main/reports/results_reference.md"},{"id":"apple_infradian","title":"Apple infradian discovery","family":"Infradian","date":"2026-10-20","status":"completed","metric":"25-35d candidate periodicity","details":"Lomb-Scargle and cosinor evaluation of monthly HR rhythm with age- and salutation-stratified exploration.","parent_ids":["apple_full"],"source":"https://github.com/synosys/imputation/blob/main/experiments/female_infradian_cycles/results/REPORT.md"},{"id":"apple_calibrated","title":"Standardized Apple infradian","family":"Infradian","date":"2026-10-20","status":"completed","metric":"N=4,630 | Young delta E +0.0642","details":"180-day standardized exposure, nuisance projection, null simulations and age-specific contrasts.","parent_ids":["apple_infradian"],"source":"https://github.com/synosys/imputation/blob/main/experiments/female_infradian_cycles_v2/results/REPORT.md"},{"id":"infradian_extension","title":"Longitudinal / BMI extensions","family":"Infradian","date":"2026-10-20","status":"completed","metric":"Longitudinal N=1,323","details":"Sliding-window stability, calendar-acrophase uniformity, and BMI stratification.","parent_ids":["apple_calibrated"],"source":"https://github.com/synosys/imputation/blob/main/experiments/female_infradian_extensions/results/REPORT.md"},{"id":"monthly_predict","title":"Monthly descriptors downstream","family":"Infradian","date":"2026-10-20","status":"completed","metric":"Delta AUROC +0.0109","details":"Test incremental classification value of infradian descriptors beyond high-dimensional baseline.","parent_ids":["apple_calibrated"],"source":"https://github.com/synosys/imputation/blob/main/experiments/monthly_periodicity_downstream/results/REPORT.md"},{"id":"garmin_infradian","title":"Garmin infradian replication","family":"Infradian","date":"2026-10-20","status":"completed","metric":"N=3,760 | Young delta E +0.0474","details":"Independent source replication with a two-component continuous REML red-noise null.","parent_ids":["garmin_expanded","apple_calibrated"],"source":"https://github.com/synosys/imputation/blob/main/experiments/garmin_infradian_replication/REPORT.md"},{"id":"age_spline","title":"Continuous age RCS study","family":"Infradian","date":"2026-10-20","status":"completed","metric":"Inflection Apple 46.65y | Garmin 47.25y","details":"Spline age interaction and bootstrap bands across 17,638 Apple, Garmin and Samsung participants.","parent_ids":["apple_calibrated","garmin_infradian"],"source":"https://github.com/synosys/imputation/blob/main/experiments/infradian_age_dependency/REPORT.md","note":"Existing older experiment index incorrectly labels this study as unexecuted."},{"id":"multisource","title":"Seven-source replication","family":"Infradian","date":"2026-10-22","status":"completed","metric":"65,449 endpoint tasks | B=199","details":"Three separate endpoint estimands across Fitbit, Garmin, Apple, Samsung, Nokia, Google Fit and Oura; primary window complete.","parent_ids":["age_spline"],"source":"https://github.com/synosys/imputation/blob/main/experiments/multisource_infradian_replication/README.md","note":"Full run used n_boot=1,000 rather than prespecified 2,000. Different endpoint arms are not pooled into one estimate."},{"id":"repeat_window","title":"Repeat-window analysis","family":"Infradian","date":"2026-10-22","status":"completed","metric":"45,279 paired participant-arm observations","details":"16,571 unique source-participants; two-window within-person change summaries across 20 estimable arms.","parent_ids":["multisource"],"source":"https://github.com/synosys/imputation/blob/main/experiments/multisource_infradian_replication/README.md","note":"Participant-arm records are not independent people; repeated windows do not identify causal aging."},{"id":"deepdive","title":"40-50y longitudinal deep dive","family":"Planned","date":"2026-10-22","status":"planned","metric":"Planned - not executed","details":"Extend to successive nonoverlapping 180-day windows and analyze within-person spectral Q, drift and broadening across middle age.","parent_ids":["repeat_window"],"source":"https://github.com/synosys/imputation/blob/main/experiments/multisource_infradian_replication/LONGITUDINAL_DEEPDIVE_PLAN.md","note":"Age and calendar period are collinear within individuals over two windows; additional controls are needed before interpreting age-specific changes."}],"timeline":[{"date":"2026-08-13","sha":"7e5744b9ee183f3c84882d2f909ec817004c2d9a","message":"First commit","node_id":"pooled"},{"date":"2026-09-20","sha":"04e4e4840d99fe4222031b7615fc82d10b1f50d4","message":"Salutation experiment record","node_id":"garmin_rf"},{"date":"2026-09-21","sha":"48684828898fee0dd915f469742dbdbd1e252900","message":"R1a circadian features","node_id":"garmin_features"},{"date":"2026-09-21","sha":"168b9d7d493160c9abeae66774dc8c5f742af53","message":"Temporal MultiRocket/HYDRA v1","node_id":"garmin_temporal"},{"date":"2026-09-22","sha":"c1c3cf1111c2f1fb53c4f749d4ad87352f240519","message":"Corrected temporal v2 results","node_id":"garmin_temporal"},{"date":"2026-09-22","sha":"f6123c906c0b8e1ddbc8d324f6a41b949f8d06f9","message":"Recording topology pilot","node_id":"garmin_recording"},{"date":"2026-09-22","sha":"c0001912c5c81cdff4152ff8c916d06ab3c9001f","message":"Filling sensitivity pilot","node_id":"garmin_filling"},{"date":"2026-09-24","sha":"70409a0fcdb17017855ac781626d0a9937d2b2ae","message":"Historical days-scaling results","node_id":"garmin_days"},{"date":"2026-10-14","sha":"07dd5f8443f3c6c2ece98c1a3b36052fb19eb760","message":"Garmin expansion, Apple pilot, lineage tree","node_id":"garmin_expanded"},{"date":"2026-10-15","sha":"2d61a45e2cbe1f61a09dedb1b3797bee42ce6e5e","message":"Full Apple benchmark","node_id":"apple_full"},{"date":"2026-10-20","sha":"9faa259c13bb48e9ccd0f165a6549fc779d35518","message":"Infradian and regularization benchmarks","node_id":"apple_infradian"},{"date":"2026-10-20","sha":"f606fd4ba7c79b270fd4a3f11a207cef27cbe114","message":"Age RCS study completed","node_id":"age_spline"},{"date":"2026-10-22","sha":"11b320ef0416c6ae59bd277d7edc58856da543d2","message":"Multisource pipeline and sensitivity studies","node_id":"multisource"},{"date":"2026-10-22","sha":"ffefcd5d4f8ff6338fbae19fbbc9dfced9fdecfb","message":"Full B=199 multisource run documented","node_id":"multisource"},{"date":"2026-10-22","sha":"4cfaff34f84f1af0e26f955b1aa210e0b5636f99","message":"Repeat-window longitudinal summaries","node_id":"repeat_window"},{"date":"2026-10-22","sha":"4dadf1011c4a545583b63cf60ac9b3d2a4e79b63","message":"Longitudinal deep-dive plan","node_id":"deepdive"}],"notes":["Curated first-pass reconstruction from public README, reports, index, and selected Git commits.","Edges encode methodological development, not controlled metric comparisons.","Timeline events show commit dates, not guaranteed experiment-execution dates.","No analysis was rerun."]};
+const $ = id => document.getElementById(id);
+const allNodes = DATA.nodes;
+const byId = new Map(allNodes.map(n => [n.id,n]));
+const originalIndex = new Map(allNodes.map((n,i)=>[n.id,i]));
+const ordered = [...allNodes].sort((a,b)=>a.date.localeCompare(b.date)||originalIndex.get(a.id)-originalIndex.get(b.id));
+const dates = [...new Set(ordered.map(n=>n.date))];
+const children = new Map(allNodes.map(n=>[n.id,[]]));
+for(const node of allNodes){for(const p of node.parent_ids){if(children.has(p))children.get(p).push(node.id)}}
+const palettes = {
+  Baseline:{fill:'#eaf1fd',stroke:'#87ade3',color:'#2b69bd'},
+  Garmin:{fill:'#e9f3ff',stroke:'#8eb8e7',color:'#3776b6'},
+  Apple:{fill:'#fff2e8',stroke:'#eac5a6',color:'#b46d35'},
+  Samsung:{fill:'#f1ecfc',stroke:'#c3b2e8',color:'#8466bd'},
+  Infradian:{fill:'#e9f6ef',stroke:'#9bceb3',color:'#367f5e'},
+  Planned:{fill:'#f5f3ee',stroke:'#cfc6b8',color:'#7e7769'}
+};
+const readableDate = date => new Date(date+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short',timeZone:'UTC',year:'numeric'});
+const shortMetric={
+ pooled:'AUROC 0.7132',garmin_rf:'AUROC 0.6918',garmin_features:'AUROC 0.7513',
+ garmin_temporal:'Combined AUROC 0.8565',garmin_recording:'Mask .6166 · count .6332',
+ garmin_filling:'AUROC .8464–.8485',garmin_days:'40d .8583 · 80d .8854',
+ garmin_expanded:'N=4,410 · MR 0.9094',garmin_bins:'5-min AUROC 0.8410',
+ apple_rf:'AUROC 0.6814',apple_pilot:'5-min AUROC 0.7554',
+ apple_full:'N=11,139 · AUROC 0.8561',apple_patterns:'Sparse groups nearly tied',
+ apple_masks:'Stack AUROC 0.8749',apple_smooth:'ΔAUROC +0.0004',
+ samsung_rf:'AUROC 0.6609',apple_infradian:'25–35-day periodicity',
+ apple_calibrated:'Young ΔE +0.0642',infradian_extension:'N=1,323 longitudinal',
+ monthly_predict:'ΔAUROC +0.0109',garmin_infradian:'Young ΔE +0.0474',
+ age_spline:'Apple 46.65y · Garmin 47.25y',multisource:'65,449 endpoint tasks',
+ repeat_window:'45,279 paired observations',deepdive:'Planned · not run'
+};
+const compactMetric = n => shortMetric[n.id] || n.metric.slice(0,29);
+const state = {mode:'count', step:Math.min(3,ordered.length-1), chosen:null, shown:new Set(), family:'All', playing:null, cross:true};
+const baseNodes = allNodes.map(n=>({data:{id:n.id,name:n.title,metric:n.metric,family:n.family,status:n.status,fill:palettes[n.family]?.fill||'#edf2f8',stroke:palettes[n.family]?.stroke||'#b5c4d8',display:n.title+'\n'+compactMetric(n)}}));
+const treeEdges = allNodes.filter(n=>n.parent_ids.length).map(n=>({data:{id:'tree_'+n.id,source:n.parent_ids[0],target:n.id},classes:'primary'}));
+const extraEdges = allNodes.flatMap(n=>n.parent_ids.slice(1).map(p=>({data:{id:'cross_'+p+'_'+n.id,source:p,target:n.id},classes:'cross'})));
+const style = [
+  {selector:'node',style:{'shape':'round-rectangle','width':242,'height':93,'background-color':'data(fill)','border-width':1.7,'border-color':'data(stroke)','color':'#293b51','label':'data(display)','font-family':'Inter,system-ui,sans-serif','font-size':13,'font-weight':700,'text-wrap':'wrap','text-max-width':219,'text-valign':'center','text-halign':'center','text-margin-y':0,'overlay-opacity':0,'text-outline-opacity':0,'z-index':2}},
+  {selector:'node[status = "planned"]',style:{'border-style':'dashed','border-width':2,'color':'#7d796f'}},
+  {selector:'node[status = "qualified"]',style:{'border-style':'dashed'}},
+  {selector:'node.selected-node',style:{'border-width':3.8,'border-color':'#246ad0','z-index':9}},
+  {selector:'node.muted',style:{'opacity':.21}},
+  {selector:'node.future',style:{'display':'none'}},
+  {selector:'edge',style:{'width':1.9,'line-color':'#b2c3d9','target-arrow-color':'#afc1d8','target-arrow-shape':'triangle','arrow-scale':.8,'curve-style':'bezier','opacity':.90,'events':'no','z-index':1}},
+  {selector:'edge.cross',style:{'line-color':'#c0a4d7','target-arrow-color':'#c0a4d7','line-style':'dashed','opacity':.45,'width':1.4}},
+  {selector:'edge.muted',style:{'opacity':.10}},
+  {selector:'edge.future',style:{'display':'none'}}
+];
+if(!window.cytoscape){$('error').style.display='block';throw Error('Cytoscape.js unavailable')}
+const cy = window.cytoscape({container:$('cy'),elements:[...baseNodes,...treeEdges],style,layout:{name:'breadthfirst',directed:true,roots:'#pooled',spacingFactor:1.28,padding:100,nodeDimensionsIncludeLabels:true,animate:false},minZoom:.18,maxZoom:3,userPanningEnabled:true,userZoomingEnabled:true,autoungrabify:true,boxSelectionEnabled:false,selectionType:'single',touchTapThreshold:14,desktopTapThreshold:6});
+cy.add(extraEdges);
+window.researchAtlas = {cy,DATA,ordered,state};
+function currentVisible(){
+  const raw=state.mode==='count'?ordered.slice(0,state.step+1):ordered.filter(n=>n.date<=dates[state.step]);
+  const visible=new Set(raw.map(n=>n.id));
+  for(const id of state.shown)visible.add(id);
+  const walk=id=>{const n=byId.get(id);if(!n)return;for(const p of n.parent_ids){if(!visible.has(p)){visible.add(p);walk(p)}}};
+  for(const id of [...visible])walk(id);
+  return visible;
+}
+function activeInTimeline(){return state.mode==='count'?ordered[state.step]:ordered.filter(n=>n.date<=dates[state.step]).at(-1)}
+function renderGraph(opts={}){
+  const visible=currentVisible();
+  cy.batch(()=>{
+    cy.nodes().forEach(n=>{n.toggleClass('future',!visible.has(n.id()));n.toggleClass('muted',state.family!=='All'&&n.data('family')!==state.family);n.toggleClass('selected-node',n.id()===state.chosen)});
+    cy.edges().forEach(e=>{const future=!visible.has(e.source().id())||!visible.has(e.target().id())||(e.hasClass('cross')&&!state.cross);e.toggleClass('future',future);e.toggleClass('muted',state.family!=='All'&&(e.source().data('family')!==state.family||e.target().data('family')!==state.family))});
+  });
+  $('shown-count').textContent=visible.size;
+  const max=state.mode==='count'?ordered.length-1:dates.length-1;
+  $('scrubber').max=String(max);$('scrubber').value=String(state.step);
+  $('scrubber').style.setProperty('--progress', (max===0?0:state.step/max*100)+'%');
+  const active=activeInTimeline();
+  $('timeline-title').textContent=state.mode==='count'?`Experiment ${state.step+1}`:readableDate(dates[state.step]);
+  $('timeline-sub').textContent=state.mode==='count'?`of ${ordered.length} studies`:`${state.step+1} of ${dates.length} milestones`;
+  $('tick-from').textContent=state.mode==='count'?'01 · '+readableDate(ordered[0].date):readableDate(dates[0]);
+  $('tick-mid').textContent=state.mode==='count'?`${Math.ceil(ordered.length/2)} · halfway`:'Documented dates';
+  $('tick-to').textContent=state.mode==='count'?`${ordered.length} · latest`:readableDate(dates.at(-1));
+  $('by-count').setAttribute('aria-pressed',String(state.mode==='count'));
+  $('by-date').setAttribute('aria-pressed',String(state.mode==='date'));
+  $('previous').disabled=state.step===0;
+  $('next').disabled=state.step===max;
+  if(opts.center && active){focus(active.id,opts.center===true?360:opts.center)}
+}
+function fitVisible(animated=true){const nodes=cy.nodes().filter(n=>!n.hasClass('future')&&(!n.hasClass('muted')||state.family==='All'));if(!nodes.length)return;const padding=Math.min(105,Math.max(40,cy.width()*.10));if(animated)cy.animate({fit:{eles:nodes,padding}},{duration:400,easing:'ease-in-out-cubic'});else cy.fit(nodes,padding)}
+function focus(id,duration=420){const n=cy.getElementById(id);if(!n||n.empty()||n.hasClass('future'))return;const z=Math.min(1.15,Math.max(cy.zoom(),.77));const p=n.position();const pan={x:cy.width()*.50-p.x*z,y:cy.height()*.50-p.y*z};cy.animate({zoom:z,pan},{duration,easing:'ease-in-out-cubic'})}
+function revealChildren(id){for(const ch of(children.get(id)||[]))state.shown.add(ch);renderGraph();}
+function stop(){if(state.playing!==null){clearInterval(state.playing);state.playing=null;$('play').textContent='▶';$('play').setAttribute('aria-label','Play timeline')}}
+function setStep(step,center=true){const max=state.mode==='count'?ordered.length-1:dates.length-1;state.step=Math.min(max,Math.max(0,step));state.shown.clear();state.chosen=activeInTimeline()?.id||null;renderGraph({center});if(state.chosen)showDetails(state.chosen,false)}
+function openExperiment(id,center=true){const n=byId.get(id);if(!n)return;stop();const idx=state.mode==='count'?ordered.findIndex(x=>x.id===id):dates.indexOf(n.date);state.step=Math.max(state.step,idx);state.chosen=id;revealChildren(id);renderGraph();showDetails(id,true);if(center)focus(id,420)}
+function el(name,props={},txt){const e=document.createElement(name);for(const[k,v]of Object.entries(props)){if(k==='className')e.className=v;else e.setAttribute(k,v)}if(txt!==undefined)e.textContent=txt;return e}
+function showDetails(id,open=true){const n=byId.get(id);if(!n)return;const pane=$('details'),host=$('detail-main');host.replaceChildren();
+ const family=el('div',{className:'detail-family'},'●  '+n.family);family.style.color=palettes[n.family]?.color||'#62768f';host.appendChild(family);
+ host.appendChild(el('h2',{},n.title));
+ host.appendChild(el('div',{className:'detail-metric'},n.metric));
+ const meta=el('div',{className:'detail-meta'});for(const [key,val] of [['Document date',readableDate(n.date)],['Status',n.status==='qualified'?'Qualified result':n.status[0].toUpperCase()+n.status.slice(1)]]){const entry=el('div',{className:'meta-field'});entry.append(el('span',{},key),document.createTextNode(val));meta.append(entry)}host.appendChild(meta);
+ host.appendChild(el('p',{className:'detail-copy'},n.details));
+ if(n.note)host.appendChild(el('div',{className:'callout'},n.note));
+ if(n.parent_ids.length){host.appendChild(el('div',{className:'detail-divider'}));host.appendChild(el('div',{className:'related-title'},'Built upon'));const related=el('div',{className:'related-links'});for(const p of n.parent_ids){const parent=byId.get(p);if(!parent)continue;const btn=el('button',{},parent.title+' ↗');btn.addEventListener('click',()=>openExperiment(p));related.appendChild(btn)}host.appendChild(related)}
+ const actions=el('div',{className:'detail-actions'});const count=(children.get(id)||[]).length;if(count){const b=el('button',{className:'branch'},`Reveal ${count} child ${count===1?'experiment':'experiments'} ↓`);b.addEventListener('click',()=>{revealChildren(id);fitVisible(true)});actions.appendChild(b)}
+ if(/^https:\/\/github\.com\/synosys\/imputation\//.test(n.source)){const a=el('a',{className:'source',href:n.source,target:'_blank',rel:'noopener noreferrer'},'Open source report ↗');actions.appendChild(a)}host.appendChild(actions);
+ if(open){pane.hidden=false;setTimeout(()=>cy.resize(),40)};
+}
+cy.on('tap','node',evt=>{const id=evt.target.id();openExperiment(id,false)});
+cy.on('tap',evt=>{if(evt.target===cy && window.innerWidth<761){$('details').hidden=true}});
+$('close-detail').onclick=()=>{$('details').hidden=true;setTimeout(()=>cy.resize(),40)};
+function makeFilters(){const counts=new Map();for(const n of allNodes)counts.set(n.family,(counts.get(n.family)||0)+1);for(const family of ['All','Garmin','Apple','Samsung','Infradian','Planned']){const btn=el('button',{className:'filter'+(family==='All'?' active':''),type:'button'},family+(family==='All'?` · ${allNodes.length}`:` · ${counts.get(family)||0}`));if(family!=='All'){const dot=el('span',{className:'filter-dot'});dot.style.setProperty('--dot',palettes[family]?.color||'#999');btn.prepend(dot)}btn.onclick=()=>{state.family=family;for(const b of $('filters').children)b.classList.toggle('active',b===btn);renderGraph();fitVisible(true)};$('filters').appendChild(btn)}}
+$('all').onclick=()=>{stop();state.shown=new Set(allNodes.map(n=>n.id));state.step=state.mode==='count'?ordered.length-1:dates.length-1;state.chosen=null;renderGraph();fitVisible(true)};
+$('restart').onclick=()=>{stop();state.mode='count';state.step=0;state.chosen=null;state.shown.clear();state.family='All';$('details').hidden=true;for(const b of $('filters').children)b.classList.toggle('active',b.textContent.startsWith('All'));renderGraph();fitVisible(true)};
+$('fit').onclick=()=>fitVisible(true);
+function zoom(factor){cy.animate({zoom:{level:Math.max(cy.minZoom(),Math.min(cy.maxZoom(),cy.zoom()*factor)),renderedPosition:{x:cy.width()/2,y:cy.height()/2}}},{duration:160})}
+$('zoom-in').onclick=()=>zoom(1.27);$('zoom-out').onclick=()=>zoom(1/1.27);
+$('by-count').onclick=()=>{stop();const date=dates[state.step]||ordered[state.step]?.date;const cur=activeInTimeline();state.mode='count';state.step=cur?ordered.findIndex(n=>n.id===cur.id):0;state.shown.clear();renderGraph()};
+$('by-date').onclick=()=>{stop();const cur=activeInTimeline();state.mode='date';state.step=cur?dates.indexOf(cur.date):0;state.shown.clear();renderGraph()};
+$('scrubber').addEventListener('input',e=>{stop();setStep(Number(e.target.value),true)});
+$('previous').onclick=()=>{stop();setStep(state.step-1)};
+$('next').onclick=()=>{stop();setStep(state.step+1)};
+$('play').onclick=()=>{if(state.playing!==null){stop();return}const max=state.mode==='count'?ordered.length-1:dates.length-1;if(state.step>=max)setStep(0,false);$('play').textContent='❚❚';$('play').setAttribute('aria-label','Pause timeline');state.playing=setInterval(()=>{const limit=state.mode==='count'?ordered.length-1:dates.length-1;if(state.step>=limit){stop();return}setStep(state.step+1,true)},1200)};
+function searchResults(q){const box=$('suggestions');box.replaceChildren();if(q.trim().length<2){box.style.display='none';$('search').setAttribute('aria-expanded','false');return}const term=q.toLocaleLowerCase();const found=allNodes.filter(n=>[n.title,n.family,n.details,n.metric].some(v=>v.toLocaleLowerCase().includes(term))).slice(0,7);for(const n of found){const row=el('button',{type:'button'});row.append(el('span',{},n.title),el('small',{},readableDate(n.date)));row.onclick=()=>{box.style.display='none';$('search').value=n.title;openExperiment(n.id,true)};box.appendChild(row)}if(!found.length)box.append(el('div',{style:'padding:14px;color:#8090a3;font-size:12px'},'No matching experiment'));box.style.display='block';$('search').setAttribute('aria-expanded','true')}
+$('search').addEventListener('input',e=>searchResults(e.target.value));
+$('search').addEventListener('keydown',e=>{if(e.key==='Enter'){$('suggestions').querySelector('button')?.click();e.preventDefault()}if(e.key==='Escape'){$('suggestions').style.display='none';$('search').blur()}});
+document.addEventListener('pointerdown',e=>{if(!e.target.closest('.search-wrap')){$('suggestions').style.display='none';$('search').setAttribute('aria-expanded','false')}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('details').hidden=true;stop()}if(e.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();$('search').focus()}});
+$('history').onclick=()=>{const t=DATA.timeline.map(x=>`${x.date} · ${x.message}`).join('\n');const panel=$('details');panel.hidden=false;const host=$('detail-main');host.replaceChildren(el('div',{className:'detail-family'},'Git milestones'),el('h2',{},'Commit history'),el('p',{className:'detail-copy'},'Commit timestamps indicate documentation changes, not necessarily when experiments ran.'));for(const row of DATA.timeline){const line=el('div',{className:'related-links',style:'display:block;margin-bottom:9px'});const a=el('a',{href:`https://github.com/synosys/imputation/commit/${row.sha}`,target:'_blank',rel:'noopener noreferrer'},`${row.date} · ${row.message}`);a.style.cssText='color:#526c8b;font-size:12px;line-height:1.5;text-decoration:none';line.appendChild(a);host.appendChild(line)}};
+window.addEventListener('resize',()=>{cy.resize()});
+makeFilters();renderGraph();cy.zoom(window.innerWidth<761?.75:.90);cy.center(cy.getElementById('pooled'));cy.pan({x:cy.pan().x,y:cy.pan().y-75});
+// Expose one small inspection surface for browser QA.
+window.researchAtlas.debug={visible:()=>currentVisible().size,open:openExperiment,step:setStep,fit:fitVisible};
+</script>
+</body>
+</html>
